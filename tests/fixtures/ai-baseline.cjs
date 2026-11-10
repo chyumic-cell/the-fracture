@@ -1,0 +1,42 @@
+'use strict';
+// Frozen AI from the pre-upgrade simulation; combat and economy rules come from the live Game.
+const D=require('../../src/data.js'),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+class BaselineAI {
+ aiBuild(p,bdef,workers,near=null){if(!bdef||this.missing(p.id,bdef).length||!this.affordable(p.id,bdef.cost))return false;const base=near||p.home;for(let i=0;i<32;i++){const a=this.rng.next()*Math.PI*2,r=near?this.rng.between(2.8,4.2):this.rng.between(4,10);const x=base.x+Math.cos(a)*r,y=base.y+Math.sin(a)*r;const w=workers.find(w=>w.order?.kind!=='build');if(w&&this.build(bdef.id,p.id,x,y,[w.id]).ok)return true;}return false;}
+ armyPower(units){return units.reduce((n,u)=>n+(u.hp/u.maxHp)*Math.sqrt(u.maxHp)*Math.max(4,this.def(u).damage)/(this.def(u).cooldown||1),0);}
+ operationStep(p,enemies){const op=p.operation;if(!op)return false;const us=op.ids.map(id=>this.entity(id)).filter(Boolean);if(!us.length){p.operation=null;p.attackAt=this.time+35;return false;}const c={x:us.reduce((a,u)=>a+u.x,0)/us.length,y:us.reduce((a,u)=>a+u.y,0)/us.length},near=enemies.filter(e=>e.kind==='unit'&&dist(e,c)<10),health=us.reduce((n,u)=>n+u.hp/u.maxHp,0)/us.length;
+ if(op.phase!=='retreat'&&(health<.4||us.length<op.initial*.5||near.length&&this.armyPower(near)>this.armyPower(us)*1.8&&dist(c,p.home)>12)){op.phase='retreat';op.changed=this.time;p.plan='Withdrawing to regroup';this.order(us.map(u=>u.id),{kind:'move',x:p.home.x+3,y:p.home.y+3,formation:'column'});}
+ if(op.phase==='retreat'){if(dist(c,p.home)<7||this.time-op.changed>30){this.order(us.map(u=>u.id),{kind:'hold'});p.operation=null;p.attackAt=this.time+35;}return true;}
+ if(op.phase==='assemble'){p.plan='Assembling a combined-arms group';if(us.filter(u=>dist(u,op.rally)<5).length>=us.length*.75||this.time-op.changed>22){op.phase='advance';op.changed=this.time;p.plan='Main assault with a flanking detachment';const main=us.filter(u=>!op.flank.includes(u.id));this.order(main.map(u=>u.id),{kind:'attackMove',...op.target,formation:'line',face:Math.atan2(op.target.y-c.y,op.target.x-c.x)});if(op.flank.length){const a=Math.atan2(op.target.y-c.y,op.target.x-c.x);op.side={x:clamp(op.target.x-Math.sin(a)*6,2,this.n-2),y:clamp(op.target.y+Math.cos(a)*6,2,this.n-2)};this.order(op.flank,{kind:'attackMove',...op.side,formation:'column'});}}return true;}
+ if(op.flank.length&&!op.flankCommitted){const wing=us.filter(u=>op.flank.includes(u.id));if(wing.some(u=>dist(u,op.side)<3)||this.time-op.changed>25){const soft=near.find(e=>['siege','support','worker'].includes(this.def(e).role));this.order(op.flank,{kind:'attackMove',x:(soft||op.target).x,y:(soft||op.target).y,formation:'wedge'});op.flankCommitted=true;}}
+ if(this.time-op.changed>55){p.operation=null;p.attackAt=this.time+8;}return true;
+ }
+ ai(p){const f=D.factions[p.faction],own=this.entities.filter(e=>e.owner===p.id),workers=own.filter(e=>e.kind==='unit'&&this.def(e).worker),military=own.filter(e=>e.kind==='unit'&&!this.def(e).worker),buildings=own.filter(e=>e.kind==='building'),ready=buildings.filter(e=>e.progress>=1),hq=ready.find(e=>this.def(e).kind==='hq'),enemy=this.entities.filter(e=>this.hostile(p.id,e.owner)&&this.visible(p.id,e)&&this.detectable(p.id,e)),threat=enemy.find(e=>dist(e,p.home)<12),easy=this.options.difficulty==='easy',hard=this.options.difficulty==='hard';
+ if(hq&&workers.length+(hq.queue.filter(q=>q.kind==='unit').length)<(easy?8:hard?15:12)&&hq.queue.length<2)this.queue(hq.id,f.units[0].id);
+ const nodes=this.entities.filter(e=>e.kind==='resource'&&e.amount>0&&this.known(p.id,e));
+ workers.forEach((u,i)=>{if(u.order&&u.order.kind!=='gather')return;let r=i<4?0:i%4;let candidates=nodes.filter(n=>n.resource===r);if(r===1&&!ready.some(b=>this.def(b).resource==='oil')){r=0;candidates=nodes.filter(n=>n.resource===0);}const n=candidates.sort((a,b)=>dist(u,a)-dist(u,b))[0];if(n&&u.order?.target!==n.id)this.order([u.id],{kind:'gather',target:n.id});});
+ const cap=this.capacity(p.id),pop=this.population(p.id),pending=kind=>buildings.some(b=>this.def(b).kind===kind&&b.progress<1);
+ if(cap-pop<5&&!pending('house'))this.aiBuild(p,f.buildings.find(b=>b.kind==='house'),workers);
+ if(!buildings.some(b=>this.def(b).kind==='inf'))this.aiBuild(p,f.buildings.find(b=>b.kind==='inf'),workers);
+ const oil=nodes.find(n=>n.resource===1);if(oil&&!buildings.some(b=>this.def(b).resource==='oil'))this.aiBuild(p,f.buildings.find(b=>b.resource==='oil'),workers,oil);
+ if(this.time>55&&!buildings.some(b=>this.def(b).kind==='lab'))this.aiBuild(p,f.buildings.find(b=>b.kind==='lab'),workers);
+ if(this.time>110&&!buildings.some(b=>this.def(b).kind==='armor'))this.aiBuild(p,f.buildings.find(b=>b.kind==='armor'),workers);
+ if(this.time>200&&!buildings.some(b=>this.def(b).kind==='air'))this.aiBuild(p,f.buildings.find(b=>b.kind==='air'),workers);
+ if(this.time>280&&!buildings.some(b=>this.def(b).kind==='elite'))this.aiBuild(p,f.buildings.find(b=>b.kind==='elite'),workers);
+ const expansionNeeded=this.time>125&&military.length>=6&&!buildings.some(b=>this.def(b).kind==='armor');const reserve=expansionNeeded?220:0;
+ if(this.time>120&&!buildings.some(b=>this.def(b).kind==='defense'))this.aiBuild(p,f.buildings.find(b=>b.kind==='defense'),workers);
+ for(const b of ready){if(b.queue.length>=2)continue;const available=f.units.filter(u=>u.building===b.type&&!u.worker&&!this.missing(p.id,u,b).length&&(u.special||0)<=p.special);if(available.length){let targetRole=!military.some(u=>this.def(u).detector)?'scout':enemy.some(e=>this.def(e)?.air)?'aa':enemy.some(e=>this.def(e)?.armored)?'aa':military.length%5===4?'siege':military.length%3===0?'melee':'rifle';let d=available.find(u=>u.role===targetRole)||available[Math.floor(this.rng.next()*available.length)];if(military.length<(easy?28:hard?65:45)&&p.stock[0]-d.cost[0]>=reserve)this.queue(b.id,d.id);}
+ if(this.time>130&&!b.extension&&f.extensions.some(e=>e.building===b.type)){const ex=f.extensions.filter(e=>e.building===b.type);this.queue(b.id,ex[0].id,'extension');}
+ if(this.time>85&&b.queue.length===0&&p.stock[0]>reserve){const tech=f.research.find(r=>r.building===b.type&&!p.tech.includes(r.id)&&!this.missing(p.id,r).length&&this.affordable(p.id,r.cost));if(tech)this.queue(b.id,tech.id,'research');}}
+ if(threat){p.operation=null;p.attackAt=this.time+20;p.plan='Defending the base';const defenders=military.filter(u=>dist(u,p.home)<20||!u.order);if(defenders.length)this.order(defenders.map(u=>u.id),{kind:'attackMove',x:threat.x,y:threat.y});return;}
+ const scouts=military.filter(u=>this.def(u).role==='scout');for(const u of scouts)if(!u.order){let dest;for(let j=0;j<20;j++){let q={x:this.rng.between(3,this.n-3),y:this.rng.between(3,this.n-3)};if(!this.known(p.id,q)){dest=q;break;}}if(dest)this.order([u.id],{kind:'move',...dest});}
+ for(const u of military)if(u.hp<u.maxHp*.24&&this.time-(u.retreatAt||0)>8){u.retreatAt=this.time;this.order([u.id],{kind:'move',x:p.home.x+3,y:p.home.y+3});}
+ if(this.operationStep(p,enemy))return;
+ const force=military.filter(u=>u.hp>u.maxHp*.4&&this.def(u).role!=='scout');if(force.length>=(easy?9:hard?7:8)&&this.time>p.attackAt){let target=enemy.find(e=>e.kind==='building')||Object.values(p.knowledge).find(e=>e.kind==='building'&&this.hostile(p.id,e.owner));if(!target){for(let j=0;j<40;j++){const q={x:this.rng.between(4,this.n-4),y:this.rng.between(4,this.n-4)};if(!this.known(p.id,q)){target=q;break;}}}
+ if(target){const a=Math.atan2(target.y-p.home.y,target.x-p.home.x),rally={x:p.home.x+Math.cos(a)*6,y:p.home.y+Math.sin(a)*6},flank=hard&&force.length>10?force.slice(-Math.floor(force.length/3)).map(u=>u.id):[];p.operation={ids:force.map(u=>u.id),initial:force.length,phase:'assemble',changed:this.time,rally,target:{x:target.x,y:target.y},flank};this.order(force.map(u=>u.id),{kind:'move',...rally,formation:'line',face:a});p.plan='Assembling a combined-arms group';p.attackAt=this.time+(easy?65:hard?24:40);}}
+
+ if(this.time>160&&workers.some(u=>!u.order)&&nodes.length){const distant=nodes.find(n=>n.resource===0&&dist(n,p.home)>15);if(distant&&this.visible(p.id,distant)&&!buildings.some(b=>['hq','depot'].includes(this.def(b).kind)&&dist(b,distant)<8))this.aiBuild(p,f.buildings.find(b=>b.kind==='depot')||f.buildings[0],workers,distant);}
+ }
+
+}
+module.exports={sourceSha256:"f30c83562575d7ff21f9ff7a1a56fc429380c7de769897f1bf030892be3cb59d",ai:BaselineAI.prototype.ai,operationStep:BaselineAI.prototype.operationStep,aiBuild:BaselineAI.prototype.aiBuild,armyPower:BaselineAI.prototype.armyPower};

@@ -1,0 +1,157 @@
+{
+  "scope": "Four side-swapped mirror matches, two factions and seeds, Apocalypse versus Expert. Apocalypse has the disclosed gathering/production speed advantage; costs, damage and fog remain normal. Bounded comparison, not a guarantee against humans.",
+  "results": [
+    {
+      "faction": "humans",
+      "topSide": 0,
+      "seconds": 191,
+      "winner": "apocalypse",
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "kills": 21,
+          "lost": 1,
+          "damage": 3852,
+          "gathered": [
+            3025,
+            900,
+            707,
+            332
+          ],
+          "tech": 1,
+          "workers": 21
+        },
+        {
+          "difficulty": "expert",
+          "kills": 1,
+          "lost": 21,
+          "damage": 1006,
+          "gathered": [
+            1454,
+            24,
+            0,
+            0
+          ],
+          "tech": 1,
+          "workers": 1
+        }
+      ]
+    },
+    {
+      "faction": "humans",
+      "topSide": 1,
+      "seconds": 196,
+      "winner": "apocalypse",
+      "players": [
+        {
+          "difficulty": "expert",
+          "kills": 2,
+          "lost": 10,
+          "damage": 505,
+          "gathered": [
+            1112,
+            24,
+            108,
+            120
+          ],
+          "tech": 0,
+          "workers": 8
+        },
+        {
+          "difficulty": "apocalypse",
+          "kills": 10,
+          "lost": 2,
+          "damage": 3092,
+          "gathered": [
+            4280,
+            573,
+            405,
+            394
+          ],
+          "tech": 2,
+          "workers": 24
+        }
+      ]
+    },
+    {
+      "faction": "symbiotes",
+      "topSide": 0,
+      "seconds": 296,
+      "winner": "apocalypse",
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "kills": 35,
+          "lost": 10,
+          "damage": 6994,
+          "gathered": [
+            4200,
+            1307,
+            624,
+            74
+          ],
+          "tech": 2,
+          "workers": 23
+        },
+        {
+          "difficulty": "expert",
+          "kills": 10,
+          "lost": 35,
+          "damage": 2609,
+          "gathered": [
+            2262,
+            48,
+            0,
+            0
+          ],
+          "tech": 2,
+          "workers": 1
+        }
+      ]
+    },
+    {
+      "faction": "symbiotes",
+      "topSide": 1,
+      "seconds": 232,
+      "winner": "apocalypse",
+      "players": [
+        {
+          "difficulty": "expert",
+          "kills": 4,
+          "lost": 19,
+          "damage": 772,
+          "gathered": [
+            1435,
+            12,
+            85,
+            48
+          ],
+          "tech": 1,
+          "workers": 2
+        },
+        {
+          "difficulty": "apocalypse",
+          "kills": 19,
+          "lost": 4,
+          "damage": 5596,
+          "gathered": [
+            4871,
+            220,
+            209,
+            61
+          ],
+          "tech": 3,
+          "workers": 22
+        }
+      ]
+    }
+  ],
+  "wallMs": 22918,
+  "reviewedSourceHashes": {
+    "src/ai.js": "4a49fe051f0266ebc85b422bff0c593d8233d5e995caa041366807486e223706",
+    "src/ai-combat.js": "b27e88a0c3831250a934f32d0b8f33735044977a1e37dd99a876716f0c9f2c86",
+    "src/ai-economy.js": "008cf1512b74c4122eed0b86a8a525d2e69184dbbe7d259b0a6dd7d986dcd4ee",
+    "src/simulation.js": "18ad2ab420c6c86770382353496c03621f5b25d56ea9328689bd4954f595e17c",
+    "src/data.js": "c719ec3c009a2b2641fdb1fc0e02f785caff14af059f7d201d7e7941f7084e28"
+  }
+}

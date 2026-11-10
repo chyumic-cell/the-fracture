@@ -1,0 +1,1722 @@
+{
+  "mode": "ladder",
+  "scope": "Actual paid economies, private fog, normal combat and victory. Time limits remain time limits, not inferred wins.",
+  "cases": [
+    {
+      "high": 1,
+      "low": 0,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Relaxed",
+      "lowName": "Gentle",
+      "time": 806,
+      "winner": "higher",
+      "damage": [
+        13484,
+        3391
+      ],
+      "produced": [
+        {
+          "worker": 4,
+          "ground": 42
+        },
+        {
+          "worker": 2,
+          "ground": 27
+        }
+      ],
+      "paid": [
+        7145,
+        4040
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "relaxed",
+          "gathered": [
+            7580,
+            930,
+            748,
+            75
+          ],
+          "stock": [
+            1940,
+            210,
+            458,
+            30
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_advanced"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 810.3499999999236
+          },
+          "goal": "expansion:21",
+          "units": 33,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b4",
+            "humans_oilwell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_market",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_b6",
+            "humans_b1",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_orewell",
+            "humans_orewell"
+          ]
+        },
+        {
+          "difficulty": "gentle",
+          "gathered": [
+            3461,
+            651,
+            195,
+            0
+          ],
+          "stock": [
+            127,
+            341,
+            140,
+            10
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 803.1499999999247
+          },
+          "goal": "build:humans_b0",
+          "units": 1,
+          "buildings": [
+            "humans_market"
+          ]
+        }
+      ],
+      "wallSeconds": 25
+    },
+    {
+      "high": 1,
+      "low": 0,
+      "side": 1,
+      "seed": 73,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Relaxed",
+      "lowName": "Gentle",
+      "time": 694,
+      "winner": "higher",
+      "damage": [
+        4777,
+        9166
+      ],
+      "produced": [
+        {
+          "worker": 2,
+          "ground": 32
+        },
+        {
+          "worker": 6,
+          "ground": 39
+        }
+      ],
+      "paid": [
+        3725,
+        5860
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "gentle",
+          "gathered": [
+            3282,
+            651,
+            37,
+            0
+          ],
+          "stock": [
+            219,
+            396,
+            17,
+            10
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 693.9499999999413
+          },
+          "goal": "build:humans_b2",
+          "units": 8,
+          "buildings": [
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b7"
+          ]
+        },
+        {
+          "difficulty": "relaxed",
+          "gathered": [
+            6834,
+            834,
+            157,
+            0
+          ],
+          "stock": [
+            1878,
+            334,
+            137,
+            10
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1"
+          ],
+          "plan": "Reinforcing the assault in a protected group",
+          "logistics": {
+            "next": 698.1499999999406
+          },
+          "goal": "expansion:10",
+          "units": 32,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b4",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_market",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_market",
+            "humans_b1"
+          ]
+        }
+      ],
+      "wallSeconds": 18
+    },
+    {
+      "high": 2,
+      "low": 1,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Easy",
+      "lowName": "Relaxed",
+      "time": 1200,
+      "winner": "time-limit",
+      "damage": [
+        24739,
+        14694
+      ],
+      "produced": [
+        {
+          "worker": 17,
+          "ground": 54
+        },
+        {
+          "worker": 11,
+          "ground": 83
+        }
+      ],
+      "paid": [
+        10165,
+        12465
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "easy",
+          "gathered": [
+            8819,
+            1462,
+            1226,
+            368
+          ],
+          "stock": [
+            123,
+            337,
+            1096,
+            378
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1200.3499999999945
+          },
+          "goal": "build:humans_b5",
+          "units": 32,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b4",
+            "humans_b2",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_riftwell"
+          ]
+        },
+        {
+          "difficulty": "relaxed",
+          "gathered": [
+            11110,
+            1281,
+            283,
+            0
+          ],
+          "stock": [
+            323,
+            26,
+            168,
+            10
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1199.749999999994
+          },
+          "goal": "expansion:18",
+          "units": 26,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_b1",
+            "humans_b4",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_market",
+            "humans_market",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_b7",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b1"
+          ]
+        }
+      ],
+      "wallSeconds": 54
+    },
+    {
+      "high": 2,
+      "low": 1,
+      "side": 1,
+      "seed": 73,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Easy",
+      "lowName": "Relaxed",
+      "time": 1200,
+      "winner": "time-limit",
+      "damage": [
+        25931,
+        13970
+      ],
+      "produced": [
+        {
+          "worker": 12,
+          "ground": 57
+        },
+        {
+          "worker": 23,
+          "ground": 46
+        }
+      ],
+      "paid": [
+        8765,
+        9750
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "relaxed",
+          "gathered": [
+            7617,
+            1451,
+            811,
+            356
+          ],
+          "stock": [
+            117,
+            721,
+            611,
+            331
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1199.749999999994
+          },
+          "goal": "branch:humans_b4:Armor Bay",
+          "units": 20,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_b4",
+            "humans_orewell",
+            "humans_b7",
+            "humans_market",
+            "humans_b1",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_orewell",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_b2"
+          ]
+        },
+        {
+          "difficulty": "easy",
+          "gathered": [
+            8515,
+            1197,
+            311,
+            233
+          ],
+          "stock": [
+            7,
+            697,
+            361,
+            258
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_weapons1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1200.3499999999945
+          },
+          "goal": "extension:humans_x1",
+          "units": 22,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b3",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_market",
+            "humans_market",
+            "humans_aetherwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_orewell",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_oilwell",
+            "humans_aetherwell"
+          ]
+        }
+      ],
+      "wallSeconds": 44
+    },
+    {
+      "high": 3,
+      "low": 2,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Standard",
+      "lowName": "Easy",
+      "time": 603,
+      "winner": "higher",
+      "damage": [
+        17828,
+        3212
+      ],
+      "produced": [
+        {
+          "worker": 11,
+          "ground": 38
+        },
+        {
+          "worker": 8,
+          "ground": 38
+        }
+      ],
+      "paid": [
+        7700,
+        5780
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "standard",
+          "gathered": [
+            6784,
+            1269,
+            369,
+            220
+          ],
+          "stock": [
+            668,
+            374,
+            154,
+            195
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced"
+          ],
+          "plan": "Staging armor, ranged troops and support",
+          "logistics": {
+            "next": 604.5499999999548
+          },
+          "goal": "expansion:14",
+          "units": 41,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b3",
+            "humans_b1",
+            "humans_b4",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_b7",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_market",
+            "humans_b1",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_orewell"
+          ]
+        },
+        {
+          "difficulty": "easy",
+          "gathered": [
+            6312,
+            298,
+            98,
+            0
+          ],
+          "stock": [
+            1256,
+            63,
+            78,
+            60
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 602.7499999999551
+          },
+          "goal": "build:humans_b0",
+          "units": 9,
+          "buildings": [
+            "humans_b3",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_market",
+            "humans_aetherwell",
+            "humans_market",
+            "humans_aetherwell"
+          ]
+        }
+      ],
+      "wallSeconds": 15
+    },
+    {
+      "high": 3,
+      "low": 2,
+      "side": 1,
+      "seed": 73,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Standard",
+      "lowName": "Easy",
+      "time": 969,
+      "winner": "higher",
+      "damage": [
+        5440,
+        13470
+      ],
+      "produced": [
+        {
+          "worker": 18,
+          "ground": 25
+        },
+        {
+          "worker": 15,
+          "ground": 58
+        }
+      ],
+      "paid": [
+        4305,
+        14100
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "easy",
+          "gathered": [
+            3675,
+            480,
+            197,
+            221
+          ],
+          "stock": [
+            46,
+            250,
+            157,
+            231
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 969.9499999998994
+          },
+          "goal": "build:humans_b0",
+          "units": 0,
+          "buildings": [
+            "humans_b7"
+          ]
+        },
+        {
+          "difficulty": "standard",
+          "gathered": [
+            11500,
+            1434,
+            306,
+            197
+          ],
+          "stock": [
+            40,
+            164,
+            36,
+            282
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_weapons2"
+          ],
+          "plan": "Combined-arms assault",
+          "logistics": {
+            "next": 971.7499999998992
+          },
+          "goal": "research:humans_armor2",
+          "units": 54,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b3",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_market",
+            "humans_orewell",
+            "humans_market",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_deep_ore",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_b4",
+            "humans_b2",
+            "humans_b4",
+            "humans_b7",
+            "humans_b1",
+            "humans_b1",
+            "humans_b5",
+            "humans_b6",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_b1"
+          ]
+        }
+      ],
+      "wallSeconds": 26
+    },
+    {
+      "high": 4,
+      "low": 3,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Challenging",
+      "lowName": "Standard",
+      "time": 1172,
+      "winner": "lower",
+      "damage": [
+        20931,
+        28601
+      ],
+      "produced": [
+        {
+          "worker": 22,
+          "ground": 44
+        },
+        {
+          "worker": 21,
+          "ground": 75
+        }
+      ],
+      "paid": [
+        8645,
+        15155
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "challenging",
+          "gathered": [
+            7305,
+            2485,
+            1529,
+            682
+          ],
+          "stock": [
+            16,
+            1795,
+            1344,
+            657
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1175.1499999999792
+          },
+          "goal": "build:humans_b0",
+          "units": 4,
+          "buildings": [
+            "humans_orewell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_oilwell"
+          ]
+        },
+        {
+          "difficulty": "standard",
+          "gathered": [
+            13032,
+            2290,
+            1392,
+            463
+          ],
+          "stock": [
+            57,
+            810,
+            1002,
+            408
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_advanced",
+            "humans_deep_extraction"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1176.9499999999803
+          },
+          "goal": "expansion:64",
+          "units": 48,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_market",
+            "humans_market",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_orewell",
+            "humans_b7",
+            "humans_b4",
+            "humans_b2",
+            "humans_aetherwell",
+            "humans_b3",
+            "humans_b1",
+            "humans_b5",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_deep_ore",
+            "humans_aetherwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_riftwell"
+          ]
+        }
+      ],
+      "wallSeconds": 70
+    },
+    {
+      "high": 4,
+      "low": 3,
+      "side": 1,
+      "seed": 73,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Challenging",
+      "lowName": "Standard",
+      "time": 724,
+      "winner": "lower",
+      "damage": [
+        26968,
+        3841
+      ],
+      "produced": [
+        {
+          "worker": 16,
+          "ground": 42
+        },
+        {
+          "worker": 16,
+          "ground": 21
+        }
+      ],
+      "paid": [
+        10795,
+        6245
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "standard",
+          "gathered": [
+            8499,
+            1244,
+            587,
+            135
+          ],
+          "stock": [
+            59,
+            184,
+            67,
+            120
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced",
+            "humans_weapons2"
+          ],
+          "plan": "Staging armor, ranged troops and support",
+          "logistics": {
+            "next": 728.749999999936
+          },
+          "goal": "expansion:28",
+          "units": 44,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b3",
+            "humans_b1",
+            "humans_b4",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_market",
+            "humans_market",
+            "humans_b1",
+            "humans_b2",
+            "humans_b5",
+            "humans_b1",
+            "humans_b1",
+            "humans_b6",
+            "humans_b4",
+            "humans_orewell",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_riftwell"
+          ]
+        },
+        {
+          "difficulty": "challenging",
+          "gathered": [
+            7431,
+            564,
+            735,
+            323
+          ],
+          "stock": [
+            1922,
+            284,
+            680,
+            333
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 725.1499999999365
+          },
+          "goal": "build:humans_b0",
+          "units": 4,
+          "buildings": [
+            "humans_orewell",
+            "humans_orewell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_market",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_aetherwell"
+          ]
+        }
+      ],
+      "wallSeconds": 55
+    },
+    {
+      "high": 5,
+      "low": 4,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Veteran",
+      "lowName": "Challenging",
+      "time": 823,
+      "winner": "lower",
+      "damage": [
+        9080,
+        24522
+      ],
+      "produced": [
+        {
+          "worker": 20,
+          "ground": 32
+        },
+        {
+          "worker": 17,
+          "ground": 59,
+          "airCombat": 2
+        }
+      ],
+      "paid": [
+        6820,
+        13040
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "veteran",
+          "gathered": [
+            6027,
+            1469,
+            1771,
+            1397
+          ],
+          "stock": [
+            43,
+            1024,
+            1716,
+            1407
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 827.1499999999211
+          },
+          "goal": "build:humans_b0",
+          "units": 6,
+          "buildings": [
+            "humans_orewell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_oilwell",
+            "humans_riftwell"
+          ]
+        },
+        {
+          "difficulty": "challenging",
+          "gathered": [
+            10711,
+            1588,
+            541,
+            74
+          ],
+          "stock": [
+            154,
+            278,
+            76,
+            49
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced"
+          ],
+          "plan": "Staging armor, ranged troops and support",
+          "logistics": {
+            "next": 827.1499999999211
+          },
+          "goal": "expansion:55",
+          "units": 55,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b3",
+            "humans_b1",
+            "humans_b4",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_market",
+            "humans_market",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_b5",
+            "humans_b2",
+            "humans_b7",
+            "humans_orewell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_aetherwell",
+            "humans_oilwell"
+          ]
+        }
+      ],
+      "wallSeconds": 50
+    },
+    {
+      "high": 5,
+      "low": 4,
+      "side": 1,
+      "seed": 73,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Veteran",
+      "lowName": "Challenging",
+      "time": 859,
+      "winner": "lower",
+      "damage": [
+        34698,
+        7516
+      ],
+      "produced": [
+        {
+          "worker": 16,
+          "ground": 55
+        },
+        {
+          "worker": 25,
+          "ground": 37
+        }
+      ],
+      "paid": [
+        11595,
+        8880
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "challenging",
+          "gathered": [
+            9397,
+            1404,
+            1274,
+            427
+          ],
+          "stock": [
+            23,
+            124,
+            749,
+            402
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 863.1499999999156
+          },
+          "goal": "extension:humans_x2",
+          "units": 43,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b3",
+            "humans_b1",
+            "humans_b4",
+            "humans_orewell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_b7",
+            "humans_market",
+            "humans_market",
+            "humans_aetherwell",
+            "humans_b2",
+            "humans_b1",
+            "humans_orewell",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_b5",
+            "humans_b6",
+            "humans_b4",
+            "humans_b1"
+          ]
+        },
+        {
+          "difficulty": "veteran",
+          "gathered": [
+            7792,
+            2234,
+            741,
+            310
+          ],
+          "stock": [
+            4,
+            1609,
+            671,
+            320
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 863.1499999999156
+          },
+          "goal": "build:humans_b0",
+          "units": 4,
+          "buildings": [
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_market"
+          ]
+        }
+      ],
+      "wallSeconds": 37
+    },
+    {
+      "high": 6,
+      "low": 5,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Expert",
+      "lowName": "Veteran",
+      "time": 1023,
+      "winner": "lower",
+      "damage": [
+        25352,
+        30990
+      ],
+      "produced": [
+        {
+          "worker": 24,
+          "ground": 49
+        },
+        {
+          "worker": 20,
+          "ground": 58,
+          "airCombat": 2
+        }
+      ],
+      "paid": [
+        10345,
+        13265
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "expert",
+          "gathered": [
+            8884,
+            3444,
+            1888,
+            1541
+          ],
+          "stock": [
+            39,
+            2499,
+            1688,
+            1516
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1025.7499999998909
+          },
+          "goal": "build:humans_b0",
+          "units": 16,
+          "buildings": [
+            "humans_oilwell",
+            "humans_b3",
+            "humans_orewell",
+            "humans_b7",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_orewell",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_aetherwell"
+          ]
+        },
+        {
+          "difficulty": "veteran",
+          "gathered": [
+            11471,
+            4349,
+            1376,
+            995
+          ],
+          "stock": [
+            19,
+            3119,
+            1066,
+            1005
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_b2_specialization"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1025.149999999891
+          },
+          "goal": "expansion:41",
+          "units": 40,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_market",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_market",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_b5",
+            "humans_b2",
+            "humans_b7",
+            "humans_b4",
+            "humans_oilwell",
+            "humans_b3",
+            "humans_aetherwell",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_riftwell"
+          ]
+        }
+      ],
+      "wallSeconds": 57
+    },
+    {
+      "high": 6,
+      "low": 5,
+      "side": 1,
+      "seed": 73,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Expert",
+      "lowName": "Veteran",
+      "time": 468,
+      "winner": "higher",
+      "damage": [
+        1694,
+        11351
+      ],
+      "produced": [
+        {
+          "worker": 15,
+          "ground": 17
+        },
+        {
+          "worker": 15,
+          "ground": 23
+        }
+      ],
+      "paid": [
+        3530,
+        5035
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "veteran",
+          "gathered": [
+            4063,
+            408,
+            135,
+            111
+          ],
+          "stock": [
+            1158,
+            243,
+            115,
+            121
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 467.1499999999756
+          },
+          "goal": "build:humans_b0",
+          "units": 3,
+          "buildings": [
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            7171,
+            560,
+            209,
+            0
+          ],
+          "stock": [
+            2758,
+            325,
+            209,
+            10
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 469.5499999999752
+          },
+          "goal": "expansion:62",
+          "units": 35,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b3",
+            "humans_b1",
+            "humans_b4",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_market",
+            "humans_market",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_riftwell"
+          ]
+        }
+      ],
+      "wallSeconds": 14
+    },
+    {
+      "high": 7,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 72,
+      "highName": "Master",
+      "lowName": "Expert",
+      "time": 657,
+      "winner": "higher",
+      "damage": [
+        23964,
+        5555
+      ],
+      "produced": [
+        {
+          "worker": 20,
+          "ground": 51,
+          "airCombat": 3
+        },
+        {
+          "worker": 25,
+          "ground": 47
+        }
+      ],
+      "paid": [
+        14480,
+        7980
+      ],
+      "landed": [
+        0,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "master",
+          "gathered": [
+            11615,
+            2195,
+            1066,
+            428
+          ],
+          "stock": [
+            79,
+            445,
+            391,
+            393
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_advanced",
+            "humans_armor1"
+          ],
+          "plan": "Staging armor, ranged troops and support",
+          "logistics": {
+            "next": 658.5499999999466
+          },
+          "goal": "research:humans_armor2",
+          "units": 63,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b4",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_market",
+            "humans_riftwell",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_b5",
+            "humans_b2",
+            "humans_b1",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_b6",
+            "humans_b4",
+            "humans_b1",
+            "humans_aetherwell",
+            "humans_b1"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            7226,
+            276,
+            258,
+            0
+          ],
+          "stock": [
+            11,
+            36,
+            238,
+            40
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 658.5499999999466
+          },
+          "goal": "build:humans_b0",
+          "units": 9,
+          "buildings": [
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_market",
+            "humans_market",
+            "humans_b3",
+            "humans_b7"
+          ]
+        }
+      ],
+      "wallSeconds": 23
+    }
+  ],
+  "hashes": {
+    "data": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "expansion-data": "572f2cc66ca53e8aec5f1b33047772fe5bccb97b0352b3e3984df9cdc3e644c5",
+    "simulation": "f55646c77a3cfe8d51d333d0643a3843ce93b9c1e2929d19a638e025f185f1cf",
+    "ai": "2ccbccd039ee9f429e1dd9db3171eaabc6a1f7270f66cc173f366b7fef0f1aa1",
+    "ai-economy": "ebf295b7c3f604462ee53c76f007775644c76f37f76a413322f4651710b24cc4",
+    "ai-combat": "bc0c48b4cd097ce75c8d9ecffdc4b62dee1dbc5f016215b1eff80db3970cfab9",
+    "ai-logistics": "620ec7e3323c1b7a893403e0cee8c85b6435c533a74b97709aa364b1ebba8a1e",
+    "march": "59186e9cdcb0ada3816881cb4c083e2f82ec41cb2e33e0926af7d95d7d37b6c7"
+  }
+}

@@ -1,0 +1,21 @@
+# Local development tools and generated browser profiles
+.art-work/
+.test-tmp/
+node_modules/
+__pycache__/
+*.pyc
+
+# Local secrets and deployment metadata
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+.vercel/
+
+# Operating system clutter and transient logs
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log

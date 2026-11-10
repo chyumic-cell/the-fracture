@@ -1,0 +1,73 @@
+[
+  {
+    "crossing": [
+      {
+        "type": "humans_transport_ship",
+        "passengers": 5
+      }
+    ],
+    "faction": "humans",
+    "size": 200,
+    "seed": 42,
+    "layout": "large-islands",
+    "time": 1013,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "humans_transport_ship",
+        "at": 180
+      },
+      {
+        "type": "humans_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "humans_warship",
+        "at": 289
+      },
+      {
+        "type": "humans_escort_ship",
+        "at": 399
+      },
+      {
+        "type": "humans_siege_ship",
+        "at": 636
+      }
+    ],
+    "landings": [],
+    "paid": 13675
+  },
+  {
+    "crossing": [],
+    "faction": "primates",
+    "size": 200,
+    "seed": 42,
+    "layout": "large-islands",
+    "time": 1500,
+    "winner": null,
+    "ships": [
+      {
+        "type": "primates_transport_ship",
+        "at": 198
+      },
+      {
+        "type": "primates_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "primates_warship",
+        "at": 283
+      },
+      {
+        "type": "primates_escort_ship",
+        "at": 448
+      },
+      {
+        "type": "primates_siege_ship",
+        "at": 971
+      }
+    ],
+    "landings": [],
+    "paid": 11580
+  }
+]

@@ -1,0 +1,223 @@
+{
+  "mode": "maritime",
+  "scope": "Actual paid economies, private fog, normal combat and victory. Time limits remain time limits, not inferred wins.",
+  "cases": [
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "small-islands",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 1500,
+      "winner": "time-limit",
+      "damage": [
+        7385,
+        13596
+      ],
+      "produced": [
+        {
+          "worker": 42,
+          "ground": 103,
+          "seaTransport": 3,
+          "warship": 11,
+          "airTransport": 9
+        },
+        {
+          "worker": 24,
+          "ground": 62,
+          "seaTransport": 2,
+          "warship": 8
+        }
+      ],
+      "paid": [
+        23145,
+        15690
+      ],
+      "landed": [
+        17,
+        12
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            18468,
+            14100,
+            12617,
+            220
+          ],
+          "stock": [
+            34,
+            11190,
+            11282,
+            165
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_b2_specialization",
+            "humans_weapons2",
+            "humans_armor2"
+          ],
+          "plan": "Withdrawing survivors behind support",
+          "logistics": {
+            "next": 1500.3500000001764,
+            "visited": {
+              "202": 324.55000000000564,
+              "242": 334.750000000006,
+              "258": 360.2500000000062,
+              "1414": 314.35000000000525,
+              "1430": 304.15000000000487,
+              "1858": 370.45000000000465,
+              "3014": 283.7500000000041,
+              "3030": 293.9500000000045,
+              "4614": 273.5500000000037
+            },
+            "sortie": null,
+            "nextSortie": 724.0499999999382
+          },
+          "goal": "build:humans_b6",
+          "units": 55,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b4",
+            "humans_b2",
+            "humans_b1",
+            "humans_dock",
+            "humans_b1",
+            "humans_deep_ore",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_b5",
+            "humans_b7",
+            "humans_b4",
+            "humans_deep_aether"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            12754,
+            4500,
+            2592,
+            1759
+          ],
+          "stock": [
+            618,
+            2330,
+            1687,
+            1704
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced",
+            "humans_b2_specialization",
+            "humans_deep_extraction",
+            "humans_weapons2",
+            "humans_b4_specialization",
+            "humans_armor2"
+          ],
+          "plan": "Combined-arms assault",
+          "logistics": {
+            "next": 1500.9500000001767,
+            "visited": {
+              "206": 370.1500000000047,
+              "222": 359.35000000000633,
+              "238": 326.95000000000573,
+              "254": 299.9500000000047,
+              "278": 278.3500000000039,
+              "294": 289.1500000000043,
+              "1806": 380.95000000000306,
+              "1822": 348.55000000000655,
+              "1838": 337.75000000000614,
+              "3406": 391.7500000000014,
+              "3422": 402.5499999999998,
+              "5006": 424.1499999999965,
+              "5022": 413.34999999999815,
+              "6606": 434.9499999999949,
+              "8206": 445.74999999999324,
+              "8622": 456.5499999999916
+            },
+            "sortie": null,
+            "nextSortie": 646.9499999999499
+          },
+          "goal": "build:humans_b5",
+          "units": 75,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b4",
+            "humans_dock",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b7",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b2",
+            "humans_deep_ore",
+            "humans_b1",
+            "humans_b1",
+            "humans_market",
+            "humans_deep_rift",
+            "humans_deep_oil",
+            "humans_b1"
+          ]
+        }
+      ],
+      "wallSeconds": 170
+    }
+  ],
+  "hashes": {
+    "data": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "expansion-data": "572f2cc66ca53e8aec5f1b33047772fe5bccb97b0352b3e3984df9cdc3e644c5",
+    "simulation": "c557be9ff25da4be25f1b1996fc244a18efdf0320cdc5e656bc080bd68856507",
+    "ai": "ec2125f3c9f460a5574df8bdd183649c4af9aa02ce3118898f6af626100411ab",
+    "ai-economy": "6c891af28ea1e98040a3da73d5868ec95f9b2357e21fbbcac33ffa2a4655b904",
+    "ai-combat": "6e9785c680d14f771852f2b41d1dc5fcddd326c72394f79583ad8237d7b7b320",
+    "ai-logistics": "57c6b19713a591161822bf0aebeaa4241d2aabfbc1fe26747de3e03872f98c24",
+    "march": "59186e9cdcb0ada3816881cb4c083e2f82ec41cb2e33e0926af7d95d7d37b6c7"
+  },
+  "finishedHashes": {
+    "data": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "expansion-data": "572f2cc66ca53e8aec5f1b33047772fe5bccb97b0352b3e3984df9cdc3e644c5",
+    "simulation": "c557be9ff25da4be25f1b1996fc244a18efdf0320cdc5e656bc080bd68856507",
+    "ai": "ec2125f3c9f460a5574df8bdd183649c4af9aa02ce3118898f6af626100411ab",
+    "ai-economy": "6c891af28ea1e98040a3da73d5868ec95f9b2357e21fbbcac33ffa2a4655b904",
+    "ai-combat": "6e9785c680d14f771852f2b41d1dc5fcddd326c72394f79583ad8237d7b7b320",
+    "ai-logistics": "57c6b19713a591161822bf0aebeaa4241d2aabfbc1fe26747de3e03872f98c24",
+    "march": "59186e9cdcb0ada3816881cb4c083e2f82ec41cb2e33e0926af7d95d7d37b6c7"
+  },
+  "sourceUnchanged": true
+}

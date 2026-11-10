@@ -1,0 +1,8 @@
+'use strict';
+const assert=require('node:assert/strict'),{performance}=require('node:perf_hooks'),{Game}=require('../src/simulation.js');
+const g=new Game({size:700,seed:48122,factions:['humans','humans']});g.entities=[];g.map.forEach(t=>{t.height=0;t.water=false;});g.players.forEach(p=>{p.ai=false;p.explored.fill(1);p.knownNav.fill(0);p.knownTiles.fill(0);});
+const u=g.spawnUnit('humans_u0',0,20.5,20.5),b=g.spawnBuilding('humans_wall',0,25.5,25.5,true);g.rebuildNav();g.updateVision();g.players[0].knownNav.set(g.nav);const began=performance.now(),route=g.path(u,b),elapsed=performance.now()-began;assert(route.length>0);assert(!g.blocked(route.at(-1).x,route.at(-1).y));assert(Math.hypot(route.at(-1).x-b.x,route.at(-1).y-b.y)<=1.01);assert(g.pathWorkspace.closed.reduce((n,x)=>n+(x===g.pathWorkspace.stamp),0)<100);const stamp=g.pathWorkspace.stamp;route.pop();const again=g.path(u,b);assert.equal(g.pathWorkspace.stamp,stamp);assert(again.length>route.length);
+g.demolish([b.id]);g.updateVision();const open=g.path(u,b);assert(Math.hypot(open.at(-1).x-b.x,open.at(-1).y-b.y)<.1);assert.equal(g.entity(b.id),undefined);
+const newUnit=g.spawnUnit('humans_u2',0,22,22);assert.equal(g.entity(newUnit.id),newUnit);assert(g.entitiesByKind('unit').includes(newUnit));const restored=Game.restore(g.serialize());assert.equal(restored.entity(newUnit.id).type,newUnit.type);
+const saved=g.players[0].knownNav[40*700+40];g.tile(40,40).water=true;g.rebuildNav();g.updateVision();assert.equal(g.players[0].knownNav[40*700+40],saved);assert.equal(g.players[0].knownTiles[40*700+40]&128,0);
+console.log('PASS 700-map blocked goal uses fewer than 100 cells; safe cached copies, nav invalidation, lookup indexes, save/restore and private fog ('+elapsed.toFixed(2)+'ms sampled route)');

@@ -1,0 +1,1256 @@
+{
+  "scope": "Four side-swapped mirror matches on two fixed maps/factions. Both controllers use current combat/economy rules, standard starting resources, fog and hard difficulty. This is a bounded head-to-head evaluation, not all-matchup balance.",
+  "baselineSourceSha256": "f30c83562575d7ff21f9ff7a1a56fc429380c7de769897f1bf030892be3cb59d",
+  "sourceHashesStart": {
+    "src/data.js": "c719ec3c009a2b2641fdb1fc0e02f785caff14af059f7d201d7e7941f7084e28",
+    "src/simulation.js": "53620c2d0ac74b540e3a2c1c0c4b443cd83cd399e3379d7a1b6b61776f313809",
+    "src/ai.js": "dcb0d9d7f5d793956d01466cee94ce366a7599ec000aa1092e795b026943f3f2",
+    "src/ai-combat.js": "a234c54cb8a1e083e5ed863d944dba058af13ad354391bac00251630b5913a2b",
+    "src/ai-economy.js": "457eb9ba3bd015bd5538ab4887d7cdde0f1d5c4b2b37467778cc97ea52db486f"
+  },
+  "stepSeconds": 0.1,
+  "timeLimitSeconds": 600,
+  "cases": [
+    {
+      "faction": "humans",
+      "seed": 42
+    },
+    {
+      "faction": "symbiotes",
+      "seed": 213301
+    }
+  ],
+  "matches": [
+    {
+      "faction": "humans",
+      "seed": 42,
+      "difficulty": "hard",
+      "mapSize": 48,
+      "improvedSide": 0,
+      "baselineSide": 1,
+      "initialStateHash": "b4ad059380d630a8535d639ef143911922a3dd072c2cda99fa1acd170ad4ca0c",
+      "seconds": 302.1,
+      "winner": "improved",
+      "winnerSide": 0,
+      "wallMs": 20223.4,
+      "players": [
+        {
+          "side": 0,
+          "controller": "improved",
+          "initialStock": [
+            320,
+            60,
+            60,
+            10
+          ],
+          "firstEnemyVisibleSec": 44,
+          "firstDamageDealtSec": 64.3,
+          "firstDamageTakenSec": 49.4,
+          "damageDealt": 3049.6,
+          "unitDamage": 1015.6,
+          "buildingDamage": 2034,
+          "unitKills": 14,
+          "workerKills": 3,
+          "buildingsDestroyed": 3,
+          "unitsProduced": 27,
+          "peakMilitary": 10,
+          "peakWorkers": 18,
+          "remainingWorkers": 18,
+          "remainingMilitary": 10,
+          "remainingMilitaryHP": 971.8,
+          "remainingBuildingHP": 6540,
+          "gathered": [
+            3462.3,
+            392.2,
+            24.2,
+            0
+          ],
+          "finalStock": [
+            667.3,
+            222.2,
+            34.2,
+            10
+          ],
+          "spentGross": [
+            3115,
+            230,
+            50,
+            0
+          ],
+          "completedTech": [
+            {
+              "id": "humans_economy",
+              "name": "Modular Extraction"
+            },
+            {
+              "id": "humans_weapons1",
+              "name": "Precision Rifling I"
+            },
+            {
+              "id": "humans_armor1",
+              "name": "Composite Ballistics I"
+            }
+          ],
+          "completedBuildingTypes": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b3",
+            "humans_b1",
+            "humans_orewell",
+            "humans_b7",
+            "humans_b4"
+          ],
+          "completedBuildingCount": 13,
+          "timeline": [
+            {
+              "seconds": 0,
+              "workers": 5,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Establishing economy"
+            },
+            {
+              "seconds": 120,
+              "workers": 12,
+              "military": 5,
+              "militaryHP": 410,
+              "gathered": [
+                1140,
+                12,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 70,
+              "unitKills": 1,
+              "buildingsDestroyed": 0,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 240,
+              "workers": 17,
+              "military": 7,
+              "militaryHP": 647.8,
+              "gathered": [
+                2385.3,
+                235,
+                24.2,
+                0
+              ],
+              "tech": 2,
+              "damageDealt": 870,
+              "unitKills": 12,
+              "buildingsDestroyed": 0,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 302.1,
+              "workers": 18,
+              "military": 10,
+              "militaryHP": 971.8,
+              "gathered": [
+                3462.3,
+                392.2,
+                24.2,
+                0
+              ],
+              "tech": 3,
+              "damageDealt": 3049.6,
+              "unitKills": 14,
+              "buildingsDestroyed": 3,
+              "plan": "Intercepting threats with a local defense group"
+            }
+          ]
+        },
+        {
+          "side": 1,
+          "controller": "baseline",
+          "initialStock": [
+            320,
+            60,
+            60,
+            10
+          ],
+          "firstEnemyVisibleSec": 44,
+          "firstDamageDealtSec": 49.4,
+          "firstDamageTakenSec": 64.3,
+          "damageDealt": 521.2,
+          "unitDamage": 521.2,
+          "buildingDamage": 0,
+          "unitKills": 4,
+          "workerKills": 0,
+          "buildingsDestroyed": 0,
+          "unitsProduced": 25,
+          "peakMilitary": 5,
+          "peakWorkers": 15,
+          "remainingWorkers": 15,
+          "remainingMilitary": 1,
+          "remainingMilitaryHP": 85,
+          "remainingBuildingHP": 336,
+          "gathered": [
+            1284,
+            0,
+            0,
+            0
+          ],
+          "finalStock": [
+            9,
+            60,
+            60,
+            10
+          ],
+          "spentGross": [
+            1595,
+            0,
+            0,
+            0
+          ],
+          "completedTech": [],
+          "completedBuildingTypes": [
+            "humans_b0",
+            "humans_oilwell",
+            "humans_b2",
+            "humans_b1"
+          ],
+          "completedBuildingCount": 4,
+          "timeline": [
+            {
+              "seconds": 0,
+              "workers": 5,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Establishing economy"
+            },
+            {
+              "seconds": 120,
+              "workers": 15,
+              "military": 1,
+              "militaryHP": 70,
+              "gathered": [
+                552,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 80,
+              "unitKills": 1,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 240,
+              "workers": 15,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                1104,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 475.2,
+              "unitKills": 4,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 302.1,
+              "workers": 15,
+              "military": 1,
+              "militaryHP": 85,
+              "gathered": [
+                1284,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 521.2,
+              "unitKills": 4,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "faction": "humans",
+      "seed": 42,
+      "difficulty": "hard",
+      "mapSize": 48,
+      "improvedSide": 1,
+      "baselineSide": 0,
+      "initialStateHash": "b4ad059380d630a8535d639ef143911922a3dd072c2cda99fa1acd170ad4ca0c",
+      "seconds": 319.1,
+      "winner": "improved",
+      "winnerSide": 1,
+      "wallMs": 7535.5,
+      "players": [
+        {
+          "side": 0,
+          "controller": "baseline",
+          "initialStock": [
+            320,
+            60,
+            60,
+            10
+          ],
+          "firstEnemyVisibleSec": 64,
+          "firstDamageDealtSec": 72.8,
+          "firstDamageTakenSec": 82.1,
+          "damageDealt": 629,
+          "unitDamage": 629,
+          "buildingDamage": 0,
+          "unitKills": 7,
+          "workerKills": 0,
+          "buildingsDestroyed": 0,
+          "unitsProduced": 33,
+          "peakMilitary": 7,
+          "peakWorkers": 15,
+          "remainingWorkers": 3,
+          "remainingMilitary": 0,
+          "remainingMilitaryHP": 0,
+          "remainingBuildingHP": 1098.8,
+          "gathered": [
+            2225.3,
+            652.4,
+            569.7,
+            244
+          ],
+          "finalStock": [
+            20.3,
+            642.4,
+            614.7,
+            254
+          ],
+          "spentGross": [
+            2525,
+            70,
+            15,
+            0
+          ],
+          "completedTech": [
+            {
+              "id": "humans_b2_specialization",
+              "name": "Combined-Arms Drill"
+            }
+          ],
+          "completedBuildingTypes": [
+            "humans_b0",
+            "humans_oilwell",
+            "humans_b2",
+            "humans_b1",
+            "humans_b7",
+            "humans_b3"
+          ],
+          "completedBuildingCount": 6,
+          "timeline": [
+            {
+              "seconds": 0,
+              "workers": 5,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Establishing economy"
+            },
+            {
+              "seconds": 120,
+              "workers": 15,
+              "military": 4,
+              "militaryHP": 305,
+              "gathered": [
+                827.6,
+                216,
+                180,
+                120
+              ],
+              "tech": 0,
+              "damageDealt": 43,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 240,
+              "workers": 13,
+              "military": 1,
+              "militaryHP": 70,
+              "gathered": [
+                1785.6,
+                652.4,
+                541.1,
+                220
+              ],
+              "tech": 1,
+              "damageDealt": 542,
+              "unitKills": 6,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 319.1,
+              "workers": 3,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                2225.3,
+                652.4,
+                569.7,
+                244
+              ],
+              "tech": 1,
+              "damageDealt": 629,
+              "unitKills": 7,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            }
+          ]
+        },
+        {
+          "side": 1,
+          "controller": "improved",
+          "initialStock": [
+            320,
+            60,
+            60,
+            10
+          ],
+          "firstEnemyVisibleSec": 64,
+          "firstDamageDealtSec": 82.1,
+          "firstDamageTakenSec": 72.8,
+          "damageDealt": 4749.4,
+          "unitDamage": 2518.2,
+          "buildingDamage": 2231.2,
+          "unitKills": 35,
+          "workerKills": 19,
+          "buildingsDestroyed": 3,
+          "unitsProduced": 28,
+          "peakMilitary": 9,
+          "peakWorkers": 17,
+          "remainingWorkers": 17,
+          "remainingMilitary": 9,
+          "remainingMilitaryHP": 931,
+          "remainingBuildingHP": 4860,
+          "gathered": [
+            3395.7,
+            806.2,
+            24,
+            0
+          ],
+          "finalStock": [
+            685.7,
+            601.2,
+            34,
+            10
+          ],
+          "spentGross": [
+            3030,
+            265,
+            50,
+            0
+          ],
+          "completedTech": [
+            {
+              "id": "humans_economy",
+              "name": "Modular Extraction"
+            },
+            {
+              "id": "humans_weapons1",
+              "name": "Precision Rifling I"
+            },
+            {
+              "id": "humans_armor1",
+              "name": "Composite Ballistics I"
+            }
+          ],
+          "completedBuildingTypes": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_b4"
+          ],
+          "completedBuildingCount": 9,
+          "timeline": [
+            {
+              "seconds": 0,
+              "workers": 5,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Establishing economy"
+            },
+            {
+              "seconds": 120,
+              "workers": 12,
+              "military": 5,
+              "militaryHP": 382,
+              "gathered": [
+                1104,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 75,
+              "unitKills": 1,
+              "buildingsDestroyed": 0,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 240,
+              "workers": 17,
+              "military": 7,
+              "militaryHP": 648,
+              "gathered": [
+                2343.9,
+                346.8,
+                24,
+                0
+              ],
+              "tech": 2,
+              "damageDealt": 1515.5,
+              "unitKills": 14,
+              "buildingsDestroyed": 0,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 319.1,
+              "workers": 17,
+              "military": 9,
+              "militaryHP": 931,
+              "gathered": [
+                3395.7,
+                806.2,
+                24,
+                0
+              ],
+              "tech": 3,
+              "damageDealt": 4749.4,
+              "unitKills": 35,
+              "buildingsDestroyed": 3,
+              "plan": "Combined-arms assault"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "faction": "symbiotes",
+      "seed": 213301,
+      "difficulty": "hard",
+      "mapSize": 48,
+      "improvedSide": 0,
+      "baselineSide": 1,
+      "initialStateHash": "11a4c7ca5b40f47a83dca6f29f70160a74a526e620f43fae7a99acd4db8d483d",
+      "seconds": 418.6,
+      "winner": "improved",
+      "winnerSide": 0,
+      "wallMs": 8453.3,
+      "players": [
+        {
+          "side": 0,
+          "controller": "improved",
+          "initialStock": [
+            320,
+            60,
+            60,
+            10
+          ],
+          "firstEnemyVisibleSec": 56,
+          "firstDamageDealtSec": 66.5,
+          "firstDamageTakenSec": 67.2,
+          "damageDealt": 6261.5,
+          "unitDamage": 3469.9,
+          "buildingDamage": 2791.6,
+          "unitKills": 46,
+          "workerKills": 26,
+          "buildingsDestroyed": 5,
+          "unitsProduced": 46,
+          "peakMilitary": 21,
+          "peakWorkers": 18,
+          "remainingWorkers": 18,
+          "remainingMilitary": 21,
+          "remainingMilitaryHP": 2860.2,
+          "remainingBuildingHP": 9885.7,
+          "gathered": [
+            4726.5,
+            194.8,
+            278.1,
+            0
+          ],
+          "finalStock": [
+            171.5,
+            17.8,
+            210.1,
+            10
+          ],
+          "spentGross": [
+            4875,
+            237,
+            128,
+            0
+          ],
+          "completedTech": [
+            {
+              "id": "symbiotes_economy",
+              "name": "Mycelial Transport"
+            },
+            {
+              "id": "symbiotes_weapons1",
+              "name": "Barbed Spore Evolution I"
+            },
+            {
+              "id": "symbiotes_armor1",
+              "name": "Reinforced Tissue I"
+            }
+          ],
+          "completedBuildingTypes": [
+            "symbiotes_b0",
+            "symbiotes_b3",
+            "symbiotes_b4",
+            "symbiotes_oilwell",
+            "symbiotes_b5",
+            "symbiotes_b1",
+            "symbiotes_orewell",
+            "symbiotes_aetherwell",
+            "symbiotes_riftwell",
+            "symbiotes_b6",
+            "symbiotes_b7"
+          ],
+          "completedBuildingCount": 20,
+          "timeline": [
+            {
+              "seconds": 0,
+              "workers": 5,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Establishing economy"
+            },
+            {
+              "seconds": 120,
+              "workers": 11,
+              "military": 3,
+              "militaryHP": 310,
+              "gathered": [
+                924,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 70,
+              "unitKills": 1,
+              "buildingsDestroyed": 0,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 240,
+              "workers": 15,
+              "military": 7,
+              "militaryHP": 809,
+              "gathered": [
+                2057.5,
+                120.9,
+                0,
+                0
+              ],
+              "tech": 3,
+              "damageDealt": 1313.9,
+              "unitKills": 12,
+              "buildingsDestroyed": 0,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 360,
+              "workers": 18,
+              "military": 15,
+              "militaryHP": 1884.1,
+              "gathered": [
+                3890.1,
+                193.4,
+                72.5,
+                0
+              ],
+              "tech": 3,
+              "damageDealt": 4352.4,
+              "unitKills": 31,
+              "buildingsDestroyed": 2,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 418.6,
+              "workers": 18,
+              "military": 21,
+              "militaryHP": 2860.2,
+              "gathered": [
+                4726.5,
+                194.8,
+                278.1,
+                0
+              ],
+              "tech": 3,
+              "damageDealt": 6261.5,
+              "unitKills": 46,
+              "buildingsDestroyed": 5,
+              "plan": "Staging armor, ranged troops and support"
+            }
+          ]
+        },
+        {
+          "side": 1,
+          "controller": "baseline",
+          "initialStock": [
+            320,
+            60,
+            60,
+            10
+          ],
+          "firstEnemyVisibleSec": 55,
+          "firstDamageDealtSec": 67.2,
+          "firstDamageTakenSec": 66.5,
+          "damageDealt": 1964,
+          "unitDamage": 1931,
+          "buildingDamage": 33,
+          "unitKills": 12,
+          "workerKills": 0,
+          "buildingsDestroyed": 0,
+          "unitsProduced": 41,
+          "peakMilitary": 7,
+          "peakWorkers": 15,
+          "remainingWorkers": 0,
+          "remainingMilitary": 0,
+          "remainingMilitaryHP": 0,
+          "remainingBuildingHP": 0,
+          "gathered": [
+            2320.1,
+            900,
+            702.3,
+            405.4
+          ],
+          "finalStock": [
+            0.1,
+            960,
+            762.3,
+            415.4
+          ],
+          "spentGross": [
+            2640,
+            0,
+            0,
+            0
+          ],
+          "completedTech": [],
+          "completedBuildingTypes": [
+            "symbiotes_b0",
+            "symbiotes_oilwell",
+            "symbiotes_b3",
+            "symbiotes_b1",
+            "symbiotes_b9"
+          ],
+          "completedBuildingCount": 5,
+          "timeline": [
+            {
+              "seconds": 0,
+              "workers": 5,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Establishing economy"
+            },
+            {
+              "seconds": 120,
+              "workers": 15,
+              "military": 3,
+              "militaryHP": 240,
+              "gathered": [
+                732,
+                192,
+                156,
+                108
+              ],
+              "tech": 0,
+              "damageDealt": 90,
+              "unitKills": 1,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 240,
+              "workers": 15,
+              "military": 3,
+              "militaryHP": 169.6,
+              "gathered": [
+                1485.3,
+                635.4,
+                432,
+                273.4
+              ],
+              "tech": 0,
+              "damageDealt": 806,
+              "unitKills": 8,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 360,
+              "workers": 11,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                2109.9,
+                900,
+                618.3,
+                369.4
+              ],
+              "tech": 0,
+              "damageDealt": 1859,
+              "unitKills": 12,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 418.6,
+              "workers": 0,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                2320.1,
+                900,
+                702.3,
+                405.4
+              ],
+              "tech": 0,
+              "damageDealt": 1964,
+              "unitKills": 12,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "faction": "symbiotes",
+      "seed": 213301,
+      "difficulty": "hard",
+      "mapSize": 48,
+      "improvedSide": 1,
+      "baselineSide": 0,
+      "initialStateHash": "11a4c7ca5b40f47a83dca6f29f70160a74a526e620f43fae7a99acd4db8d483d",
+      "seconds": 463,
+      "winner": "improved",
+      "winnerSide": 1,
+      "wallMs": 33723.9,
+      "players": [
+        {
+          "side": 0,
+          "controller": "baseline",
+          "initialStock": [
+            320,
+            60,
+            60,
+            10
+          ],
+          "firstEnemyVisibleSec": 90,
+          "firstDamageDealtSec": 214.2,
+          "firstDamageTakenSec": 99.8,
+          "damageDealt": 3655.8,
+          "unitDamage": 1491,
+          "buildingDamage": 2164.8,
+          "unitKills": 7,
+          "workerKills": 4,
+          "buildingsDestroyed": 4,
+          "unitsProduced": 29,
+          "peakMilitary": 8,
+          "peakWorkers": 15,
+          "remainingWorkers": 3,
+          "remainingMilitary": 0,
+          "remainingMilitaryHP": 0,
+          "remainingBuildingHP": 750,
+          "gathered": [
+            2148,
+            0,
+            0,
+            0
+          ],
+          "finalStock": [
+            23,
+            4,
+            51,
+            10
+          ],
+          "spentGross": [
+            2445,
+            56,
+            9,
+            0
+          ],
+          "completedTech": [],
+          "completedBuildingTypes": [
+            "symbiotes_b0",
+            "symbiotes_oilwell",
+            "symbiotes_b3",
+            "symbiotes_b1",
+            "symbiotes_b9",
+            "symbiotes_b4",
+            "symbiotes_b7"
+          ],
+          "completedBuildingCount": 7,
+          "timeline": [
+            {
+              "seconds": 0,
+              "workers": 5,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Establishing economy"
+            },
+            {
+              "seconds": 120,
+              "workers": 15,
+              "military": 2,
+              "militaryHP": 155,
+              "gathered": [
+                696,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 240,
+              "workers": 15,
+              "military": 7,
+              "militaryHP": 713.1,
+              "gathered": [
+                1392,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 205,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Defending the base"
+            },
+            {
+              "seconds": 360,
+              "workers": 15,
+              "military": 8,
+              "militaryHP": 723.6,
+              "gathered": [
+                1908,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 1288.8,
+              "unitKills": 4,
+              "buildingsDestroyed": 1,
+              "plan": "Assembling a combined-arms group"
+            },
+            {
+              "seconds": 463,
+              "workers": 3,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                2148,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 3655.8,
+              "unitKills": 7,
+              "buildingsDestroyed": 4,
+              "plan": "Defending the base"
+            }
+          ]
+        },
+        {
+          "side": 1,
+          "controller": "improved",
+          "initialStock": [
+            320,
+            60,
+            60,
+            10
+          ],
+          "firstEnemyVisibleSec": 91,
+          "firstDamageDealtSec": 99.8,
+          "firstDamageTakenSec": 214.2,
+          "damageDealt": 5954.3,
+          "unitDamage": 2754.3,
+          "buildingDamage": 3200,
+          "unitKills": 31,
+          "workerKills": 14,
+          "buildingsDestroyed": 5,
+          "unitsProduced": 32,
+          "peakMilitary": 17,
+          "peakWorkers": 16,
+          "remainingWorkers": 14,
+          "remainingMilitary": 16,
+          "remainingMilitaryHP": 1182.7,
+          "remainingBuildingHP": 4160.7,
+          "gathered": [
+            3040,
+            172.6,
+            353,
+            326.5
+          ],
+          "finalStock": [
+            55,
+            85.6,
+            345,
+            336.5
+          ],
+          "spentGross": [
+            3305,
+            147,
+            68,
+            0
+          ],
+          "completedTech": [
+            {
+              "id": "symbiotes_economy",
+              "name": "Mycelial Transport"
+            },
+            {
+              "id": "symbiotes_weapons1",
+              "name": "Barbed Spore Evolution I"
+            },
+            {
+              "id": "symbiotes_armor1",
+              "name": "Reinforced Tissue I"
+            }
+          ],
+          "completedBuildingTypes": [
+            "symbiotes_b0",
+            "symbiotes_b3",
+            "symbiotes_b4",
+            "symbiotes_oilwell",
+            "symbiotes_b1",
+            "symbiotes_b5",
+            "symbiotes_riftwell",
+            "symbiotes_orewell",
+            "symbiotes_b9",
+            "symbiotes_aetherwell",
+            "symbiotes_b6"
+          ],
+          "completedBuildingCount": 12,
+          "timeline": [
+            {
+              "seconds": 0,
+              "workers": 5,
+              "military": 0,
+              "militaryHP": 0,
+              "gathered": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 0,
+              "unitKills": 0,
+              "buildingsDestroyed": 0,
+              "plan": "Establishing economy"
+            },
+            {
+              "seconds": 120,
+              "workers": 11,
+              "military": 6,
+              "militaryHP": 565,
+              "gathered": [
+                1080,
+                0,
+                0,
+                0
+              ],
+              "tech": 0,
+              "damageDealt": 70,
+              "unitKills": 1,
+              "buildingsDestroyed": 0,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 240,
+              "workers": 16,
+              "military": 12,
+              "militaryHP": 1300,
+              "gathered": [
+                1986.7,
+                60.5,
+                120.9,
+                0
+              ],
+              "tech": 2,
+              "damageDealt": 171.9,
+              "unitKills": 2,
+              "buildingsDestroyed": 0,
+              "plan": "Intercepting threats with a local defense group"
+            },
+            {
+              "seconds": 360,
+              "workers": 15,
+              "military": 17,
+              "militaryHP": 1810,
+              "gathered": [
+                2914.1,
+                172.6,
+                157.2,
+                0
+              ],
+              "tech": 3,
+              "damageDealt": 684,
+              "unitKills": 5,
+              "buildingsDestroyed": 0,
+              "plan": "Staging armor, ranged troops and support"
+            },
+            {
+              "seconds": 463,
+              "workers": 14,
+              "military": 16,
+              "militaryHP": 1182.7,
+              "gathered": [
+                3040,
+                172.6,
+                353,
+                326.5
+              ],
+              "tech": 3,
+              "damageDealt": 5954.3,
+              "unitKills": 31,
+              "buildingsDestroyed": 5,
+              "plan": "Intercepting threats with a local defense group"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "matches": 4,
+    "timeLimits": 0,
+    "draws": 0,
+    "controllers": {
+      "improved": {
+        "wins": 4,
+        "matchesWithContact": 4,
+        "meanFirstEnemyVisibleSec": 63.8,
+        "matchesWithDamage": 4,
+        "meanFirstDamageDealtSec": 78.2,
+        "damageDealt": 20014.8,
+        "buildingDamage": 10256.8,
+        "unitKills": 126,
+        "workerKills": 62,
+        "buildingsDestroyed": 16,
+        "gathered": 17196.1,
+        "completedTech": 12
+      },
+      "baseline": {
+        "wins": 0,
+        "matchesWithContact": 4,
+        "meanFirstEnemyVisibleSec": 63.3,
+        "matchesWithDamage": 4,
+        "meanFirstDamageDealtSec": 100.9,
+        "damageDealt": 6770,
+        "buildingDamage": 2197.8,
+        "unitKills": 30,
+        "workerKills": 4,
+        "buildingsDestroyed": 4,
+        "gathered": 11451.2,
+        "completedTech": 1
+      }
+    }
+  },
+  "sourceHashesEnd": {
+    "src/data.js": "c719ec3c009a2b2641fdb1fc0e02f785caff14af059f7d201d7e7941f7084e28",
+    "src/simulation.js": "53620c2d0ac74b540e3a2c1c0c4b443cd83cd399e3379d7a1b6b61776f313809",
+    "src/ai.js": "dcb0d9d7f5d793956d01466cee94ce366a7599ec000aa1092e795b026943f3f2",
+    "src/ai-combat.js": "a234c54cb8a1e083e5ed863d944dba058af13ad354391bac00251630b5913a2b",
+    "src/ai-economy.js": "457eb9ba3bd015bd5538ab4887d7cdde0f1d5c4b2b37467778cc97ea52db486f"
+  },
+  "sourceStable": true
+}

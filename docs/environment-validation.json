@@ -1,0 +1,72 @@
+[
+  {
+    "theme": "Kareth",
+    "environment": "varied",
+    "colors": 17440,
+    "maxChroma": 69,
+    "workerParity": true
+  },
+  {
+    "theme": "Kareth",
+    "environment": "temperate",
+    "colors": 12086,
+    "maxChroma": 60,
+    "workerParity": true
+  },
+  {
+    "theme": "Kareth",
+    "environment": "desert",
+    "colors": 6202,
+    "maxChroma": 82,
+    "workerParity": true
+  },
+  {
+    "theme": "Kareth",
+    "environment": "arctic",
+    "colors": 4108,
+    "maxChroma": 65,
+    "workerParity": true
+  },
+  {
+    "theme": "Elyndra",
+    "environment": "varied",
+    "colors": 21205,
+    "maxChroma": 69,
+    "workerParity": true
+  },
+  {
+    "theme": "Elyndra",
+    "environment": "temperate",
+    "colors": 15136,
+    "maxChroma": 56,
+    "workerParity": true
+  },
+  {
+    "theme": "Elyndra",
+    "environment": "desert",
+    "colors": 6202,
+    "maxChroma": 82,
+    "workerParity": true
+  },
+  {
+    "theme": "Elyndra",
+    "environment": "arctic",
+    "colors": 4108,
+    "maxChroma": 65,
+    "workerParity": true
+  },
+  {
+    "theme": "Morvane",
+    "environment": "hell",
+    "colors": 8147,
+    "maxChroma": 110,
+    "workerParity": true
+  },
+  {
+    "theme": "Morvane",
+    "environment": "moon",
+    "colors": 187,
+    "maxChroma": 0,
+    "workerParity": true
+  }
+]

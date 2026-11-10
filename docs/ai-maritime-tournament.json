@@ -1,0 +1,729 @@
+{
+  "mode": "maritime",
+  "scope": "Actual paid economies, private fog, normal combat and victory. Time limits remain time limits, not inferred wins.",
+  "cases": [
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "small-islands",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 1400,
+      "winner": "time-limit",
+      "damage": [
+        5958,
+        7091
+      ],
+      "produced": [
+        {
+          "worker": 27,
+          "ground": 36,
+          "seaTransport": 1,
+          "warship": 1
+        },
+        {
+          "worker": 15,
+          "ground": 43,
+          "seaTransport": 1,
+          "warship": 6,
+          "airCombat": 6
+        }
+      ],
+      "paid": [
+        9830,
+        13540
+      ],
+      "landed": [
+        3,
+        14
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            7800,
+            11700,
+            11575,
+            220
+          ],
+          "stock": [
+            35,
+            10640,
+            11075,
+            165
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_advanced",
+            "humans_armor1",
+            "humans_b2_specialization",
+            "humans_b4_specialization",
+            "humans_deep_extraction"
+          ],
+          "plan": "Reinforcing the assault in a protected group",
+          "logistics": {
+            "next": 1402.550000000117,
+            "visited": {
+              "202": 299.0500000000047,
+              "242": 309.25000000000506,
+              "258": 334.750000000006,
+              "1414": 288.8500000000043,
+              "1430": 278.6500000000039,
+              "1858": 344.9500000000064,
+              "3014": 258.2500000000031,
+              "3030": 268.4500000000035,
+              "4614": 248.05000000000274
+            },
+            "sortie": null,
+            "nextSortie": 341.54999999999615
+          },
+          "goal": "expansion:54",
+          "units": 47,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b4",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_dock",
+            "humans_b1",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_oilwell",
+            "humans_b7",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            10200,
+            3300,
+            11700,
+            220
+          ],
+          "stock": [
+            5,
+            1215,
+            10945,
+            165
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_advanced",
+            "humans_armor1",
+            "humans_weapons2",
+            "humans_b2_specialization",
+            "humans_armor2",
+            "humans_b4_specialization",
+            "humans_deep_extraction"
+          ],
+          "plan": "Combined-arms assault",
+          "logistics": {
+            "next": 1403.7500000001178,
+            "visited": {
+              "206": 364.7500000000055,
+              "222": 353.95000000000675,
+              "238": 321.5500000000055,
+              "254": 294.5500000000045,
+              "278": 272.9500000000037,
+              "294": 283.7500000000041,
+              "1806": 375.5500000000039,
+              "1822": 343.15000000000634,
+              "1838": 332.35000000000593,
+              "3406": 386.35000000000224,
+              "3422": 397.1500000000006,
+              "5006": 418.7499999999973,
+              "5022": 407.94999999999897,
+              "6606": 429.5499999999957,
+              "8206": 440.34999999999405,
+              "8622": 451.1499999999924
+            },
+            "sortie": null,
+            "nextSortie": 746.8499999999348
+          },
+          "goal": "expansion:39",
+          "units": 49,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b4",
+            "humans_dock",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_b5",
+            "humans_b7",
+            "humans_b1",
+            "humans_market",
+            "humans_b1",
+            "humans_b1"
+          ]
+        }
+      ],
+      "wallSeconds": 166
+    },
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "primates",
+      "layout": "small-islands",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 1400,
+      "winner": "time-limit",
+      "damage": [
+        5782,
+        16219
+      ],
+      "produced": [
+        {
+          "worker": 27,
+          "ground": 35,
+          "seaTransport": 1,
+          "warship": 2,
+          "airCombat": 2
+        },
+        {
+          "worker": 15,
+          "ground": 51,
+          "seaTransport": 3,
+          "warship": 3,
+          "airCombat": 6
+        }
+      ],
+      "paid": [
+        9465,
+        10770
+      ],
+      "landed": [
+        11,
+        8
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            7800,
+            9300,
+            11657,
+            220
+          ],
+          "stock": [
+            5,
+            8555,
+            11207,
+            195
+          ],
+          "tech": [
+            "primates_economy",
+            "primates_weapons1",
+            "primates_armor1",
+            "primates_b3_specialization",
+            "primates_b4_specialization",
+            "primates_advanced",
+            "primates_weapons2",
+            "primates_b7_specialization",
+            "primates_armor2"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1402.550000000117,
+            "visited": {
+              "202": 288.8500000000043,
+              "242": 299.0500000000047,
+              "258": 324.55000000000564,
+              "1414": 278.6500000000039,
+              "1430": 268.4500000000035,
+              "1858": 334.750000000006,
+              "3014": 248.05000000000274,
+              "3030": 258.2500000000031,
+              "4614": 237.85000000000235
+            },
+            "sortie": null,
+            "nextSortie": 413.2499999999853
+          },
+          "goal": "build:primates_b3",
+          "units": 2,
+          "buildings": [
+            "primates_b0",
+            "primates_b4",
+            "primates_b5",
+            "primates_oilwell",
+            "primates_b1",
+            "primates_orewell",
+            "primates_dock",
+            "primates_b1",
+            "primates_b10",
+            "primates_orewell",
+            "primates_oilwell",
+            "primates_b1",
+            "primates_b1",
+            "primates_b1"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            10200,
+            900,
+            11700,
+            220
+          ],
+          "stock": [
+            1360,
+            0,
+            11110,
+            230
+          ],
+          "tech": [
+            "primates_economy",
+            "primates_weapons1",
+            "primates_armor1",
+            "primates_weapons2",
+            "primates_armor2",
+            "primates_b3_specialization",
+            "primates_b4_specialization",
+            "primates_b7_specialization"
+          ],
+          "plan": "Staging armor, ranged troops and support",
+          "logistics": {
+            "next": 1403.7500000001178,
+            "visited": {
+              "3842": 289.1500000000043,
+              "5426": 310.7500000000051,
+              "5442": 299.9500000000047
+            },
+            "sortie": null,
+            "nextSortie": 413.8499999999852
+          },
+          "goal": "build:primates_b8",
+          "units": 55,
+          "buildings": [
+            "primates_b0",
+            "primates_b3",
+            "primates_b4",
+            "primates_oilwell",
+            "primates_b5",
+            "primates_b1",
+            "primates_b7",
+            "primates_dock",
+            "primates_b1",
+            "primates_b1",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_b1",
+            "primates_aviary",
+            "primates_b1",
+            "primates_b10",
+            "primates_b1",
+            "primates_market",
+            "primates_aetherwell"
+          ]
+        }
+      ],
+      "wallSeconds": 94
+    },
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "continental",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 964,
+      "winner": "higher",
+      "damage": [
+        41825,
+        9736
+      ],
+      "produced": [
+        {
+          "worker": 31,
+          "ground": 99,
+          "seaTransport": 1,
+          "warship": 7,
+          "airCombat": 8
+        },
+        {
+          "worker": 17,
+          "ground": 53,
+          "seaTransport": 3,
+          "warship": 4,
+          "airCombat": 3,
+          "airTransport": 1
+        }
+      ],
+      "paid": [
+        27020,
+        14165
+      ],
+      "landed": [
+        19,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            31242,
+            9455,
+            10752,
+            3015
+          ],
+          "stock": [
+            10202,
+            5685,
+            9067,
+            2940
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_advanced",
+            "humans_armor1",
+            "humans_deep_extraction",
+            "humans_weapons2",
+            "humans_b2_specialization",
+            "humans_b4_specialization",
+            "humans_armor2",
+            "humans_b5_specialization"
+          ],
+          "plan": "Coordinated assault with a separate flank",
+          "logistics": {
+            "next": 969.0499999998996,
+            "visited": {
+              "5894": 319.45000000000545,
+              "8294": 309.25000000000506,
+              "9050": 278.6500000000039,
+              "9066": 288.8500000000043,
+              "9482": 299.0500000000047
+            },
+            "sortie": null,
+            "nextSortie": 787.0499999999287
+          },
+          "goal": "expansion:12",
+          "units": 124,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b4",
+            "humans_b2",
+            "humans_dock",
+            "humans_b1",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_market",
+            "humans_deep_ore",
+            "humans_orewell",
+            "humans_b5",
+            "humans_b6",
+            "humans_b4",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_b7",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_riftwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_riftwell",
+            "humans_b5",
+            "humans_b5",
+            "humans_b5",
+            "humans_b4",
+            "humans_b4",
+            "humans_deep_rift"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            11261,
+            2020,
+            770,
+            61
+          ],
+          "stock": [
+            41,
+            115,
+            130,
+            36
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 966.3499999999,
+            "visited": {
+              "202": 343.15000000000634,
+              "218": 332.35000000000593,
+              "234": 321.5500000000055,
+              "1446": 310.7500000000051,
+              "1806": 353.95000000000675,
+              "5406": 364.7500000000055,
+              "7006": 386.35000000000224
+            },
+            "sortie": null,
+            "nextSortie": 413.8499999999852
+          },
+          "goal": null,
+          "units": 0,
+          "buildings": [
+            "humans_orewell",
+            "humans_riftwell",
+            "humans_aetherwell",
+            "humans_market"
+          ]
+        }
+      ],
+      "wallSeconds": 123
+    },
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "primates",
+      "layout": "continental",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 744,
+      "winner": "higher",
+      "damage": [
+        38116,
+        7971
+      ],
+      "produced": [
+        {
+          "worker": 38,
+          "ground": 102,
+          "seaTransport": 1,
+          "warship": 3,
+          "airCombat": 12
+        },
+        {
+          "worker": 15,
+          "ground": 58,
+          "seaTransport": 1,
+          "warship": 4,
+          "airCombat": 1
+        }
+      ],
+      "paid": [
+        22675,
+        10745
+      ],
+      "landed": [
+        39,
+        29
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            28996,
+            3664,
+            2202,
+            328
+          ],
+          "stock": [
+            10609,
+            1454,
+            647,
+            233
+          ],
+          "tech": [
+            "primates_economy",
+            "primates_weapons1",
+            "primates_armor1",
+            "primates_b3_specialization",
+            "primates_b4_specialization",
+            "primates_weapons2",
+            "primates_advanced",
+            "primates_b7_specialization",
+            "primates_armor2",
+            "primates_b8_specialization",
+            "primates_deep_extraction"
+          ],
+          "plan": "Coordinated assault with a separate flank",
+          "logistics": {
+            "next": 744.6499999999336,
+            "visited": {
+              "5894": 329.65000000000583,
+              "7894": 319.45000000000545,
+              "8250": 278.6500000000039,
+              "9462": 288.8500000000043,
+              "9478": 299.0500000000047,
+              "9494": 309.25000000000506
+            },
+            "sortie": null,
+            "nextSortie": 709.9499999999404
+          },
+          "goal": "expansion:31",
+          "units": 124,
+          "buildings": [
+            "primates_b0",
+            "primates_b3",
+            "primates_b4",
+            "primates_b5",
+            "primates_oilwell",
+            "primates_b1",
+            "primates_b7",
+            "primates_b1",
+            "primates_b8",
+            "primates_dock",
+            "primates_b1",
+            "primates_b1",
+            "primates_b1",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_b1",
+            "primates_orewell",
+            "primates_b1",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_aviary",
+            "primates_b6",
+            "primates_aetherwell",
+            "primates_aetherwell",
+            "primates_b1",
+            "primates_oilwell",
+            "primates_oilwell",
+            "primates_b1",
+            "primates_riftwell",
+            "primates_oilwell",
+            "primates_b1",
+            "primates_aetherwell",
+            "primates_b1",
+            "primates_b1",
+            "primates_b1",
+            "primates_oilwell",
+            "primates_b9",
+            "primates_b1",
+            "primates_b10",
+            "primates_b1",
+            "primates_deep_ore"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            9157,
+            1637,
+            1053,
+            306
+          ],
+          "stock": [
+            0,
+            642,
+            793,
+            316
+          ],
+          "tech": [
+            "primates_economy",
+            "primates_weapons1",
+            "primates_armor1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 744.9499999999335,
+            "visited": {
+              "202": 380.95000000000306,
+              "218": 370.1500000000047,
+              "234": 359.35000000000633,
+              "1446": 348.55000000000655,
+              "1806": 391.7500000000014
+            },
+            "sortie": null,
+            "nextSortie": 575.8499999999607
+          },
+          "goal": "build:primates_b0",
+          "units": 0,
+          "buildings": [
+            "primates_dock",
+            "primates_b1"
+          ]
+        }
+      ],
+      "wallSeconds": 91
+    }
+  ],
+  "hashes": {
+    "data": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "expansion-data": "572f2cc66ca53e8aec5f1b33047772fe5bccb97b0352b3e3984df9cdc3e644c5",
+    "simulation": "c557be9ff25da4be25f1b1996fc244a18efdf0320cdc5e656bc080bd68856507",
+    "ai": "01987159e28add6f32d678528e224b2f9d7f909f639a58290e92f17e0cff0dc4",
+    "ai-economy": "ebf295b7c3f604462ee53c76f007775644c76f37f76a413322f4651710b24cc4",
+    "ai-combat": "8541a93769ca82d0d80c129540e99c7edcb0ee723e0e332e48495cec2b29983a",
+    "ai-logistics": "9295f5b3ab200be486d728ee47e919577a53d7c65f5890c270183ad1bf59a502",
+    "march": "59186e9cdcb0ada3816881cb4c083e2f82ec41cb2e33e0926af7d95d7d37b6c7"
+  }
+}

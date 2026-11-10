@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Fracture - Art & weapons</title>
+<link rel="stylesheet" href="src/art-review.css"></head><body>
+<header><div><p class="eyebrow">THE FRACTURE / FIELD ARCHIVE</p><h1>Art & weapons</h1></div><a href="index.html">Back to game</a></header>
+<main><p class="intro">Explore the current artwork for all twelve civilizations, from infantry and aircraft to fleets, fortifications and ruined buildings. This preview leaves your saved match untouched.</p>
+<div class="controls">
+<label>Civilization<select id="faction"></select></label>
+<label>Show<select id="category"><option value="all">Everything</option><option value="units">All units</option><option value="naval">Ships</option><option value="air">Aircraft & flying creatures</option><option value="buildings">Buildings</option><option value="trade">Markets & merchants</option><option value="fortifications">Walls & gates</option><option value="extensions">Extensions</option><option value="projectiles">Projectiles</option></select></label>
+<label>Find a design<input id="search" type="search" placeholder="Name or role"></label>
+<label>Player color<select id="playerColor"><option value="#6eb8c6">Blue</option><option value="#cb756a">Red</option><option value="#b6a16e">Gold</option><option value="#ad8ec4">Violet</option></select></label>
+<label>Action<select id="action"><option value="walk">Moving</option><option value="attack">Attacking</option><option value="idle">At rest</option><option value="gather">Gathering</option><option value="build">Building</option><option value="heal">Healing</option><option value="dead">Fallen</option></select></label>
+<label>Direction<select id="direction"><option value="rotate">All eight directions</option><option value="0">Southeast</option><option value="1">South</option><option value="2">Southwest</option><option value="3">West</option><option value="4">Northwest</option><option value="5">North</option><option value="6">Northeast</option><option value="7">East</option></select></label>
+<label>Scale<select id="viewScale"><option value="detail">Detailed inspection</option><option value="game">Battlefield size</option></select></label>
+<label>Building state<select id="construction"><option value="1">Complete</option><option value="0.15">Early frame</option><option value="0.5">Half built</option><option value="0.85">Finishing</option><option value="ruin">Ruins</option></select></label>
+<label>Transport load<select id="occupancy"><option value="0">Empty</option><option value="10">Full</option></select></label>
+<label>Speed<select id="speed"><option value="1">Normal</option><option value="0.5">Half speed</option></select></label>
+<button id="pause" aria-pressed="false" title="Freeze the current animation pose">Pause</button></div>
+<p id="summary" role="status"></p><p id="empty" hidden>No designs match this search.</p>
+<section data-section="units"><h2 id="name">Units</h2><div id="units" class="grid"></div></section>
+<section data-section="buildings"><h2>Structures</h2><p>Includes docks, markets, extraction facilities and all four deep resource mines. Choose Ruins above to inspect their remains.</p><div id="buildings" class="grid"></div></section>
+<section data-section="fortifications"><h2>Connected walls & gates</h2><p>Each civilization uses its own materials. A gate spans three wall sections and opens for friendly troops.</p><div id="fortifications" class="grid"></div></section>
+<section data-section="extensions"><h2>Extension bays & add-ons</h2><div id="extensions" class="grid"></div></section>
+<section data-section="projectiles"><h2>Projectile families</h2><p>Distinct ammunition, flight paths and impacts. Unit attack previews show the release pose; these swatches compare ammunition separately.</p><div id="projectiles" class="grid"></div></section>
+</main><footer>Original code-drawn artwork. Sharp pixels. The same sprite renderers used in the game.</footer>
+<script src="src/combat.js"></script>
+<script src="src/expansion-data.js"></script>
+<script src="src/data.js"></script>
+<script src="src/tactics.js"></script>
+<script src="src/projectiles.js"></script>
+<script src="src/ai-economy.js"></script>
+<script src="src/ai-combat.js"></script>
+<script src="src/ai-logistics.js"></script>
+<script src="src/ai.js"></script>
+<script src="src/map-layouts.js"></script>
+<script src="src/save-codec.js"></script>
+<script src="src/expansion-runtime.js"></script>
+<script src="src/march.js"></script>
+<script src="src/walls.js"></script>
+<script src="src/simulation.js"></script>
+<script src="src/environments.js"></script><script src="src/art.js"></script>
+<script src="src/terrain.js"></script>
+<script src="src/help.js"></script>
+<script src="src/sprite-mesh.js"></script><script src="src/environment-art.js"></script>
+<script src="src/detail-art.js"></script>
+<script src="src/extension-art.js"></script>
+<script src="src/construction-art.js"></script>
+<script src="src/specialist-art.js"></script>
+<script src="src/machine-art.js"></script>
+<script src="src/symbiote-art.js"></script>
+<script src="src/primate-art.js"></script>
+<script src="src/identity-art.js"></script>
+<script src="src/trade-art.js"></script><script src="src/expansion-art.js"></script>
+<script src="src/fortification-art.js"></script>
+<script src="src/ruins-art.js"></script>
+<script src="src/building-art.js"></script>
+<script src="src/art-review.js"></script></body></html>

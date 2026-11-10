@@ -1,0 +1,340 @@
+{
+  "calls": {
+    "path": {
+      "count": 3030,
+      "total": 48.70000000111759,
+      "max": 0.6000000005587935,
+      "slow": []
+    },
+    "tickUnit": {
+      "count": 24960,
+      "total": 445.30000000074506,
+      "max": 1.7999999998137355,
+      "slow": []
+    },
+    "tickBuilding": {
+      "count": 3312,
+      "total": 42.100000001490116,
+      "max": 0.5,
+      "slow": []
+    },
+    "tick": {
+      "count": 1104,
+      "total": 3745.8999999910593,
+      "max": 27.800000000745058,
+      "slow": [
+        {
+          "ms": 21.800000000745058,
+          "time": 2.4831000000000016,
+          "args": null
+        },
+        {
+          "ms": 26.799999999813735,
+          "time": 2.8997000000000024,
+          "args": null
+        },
+        {
+          "ms": 24.799999999813735,
+          "time": 3.316200000000003,
+          "args": null
+        },
+        {
+          "ms": 27.800000000745058,
+          "time": 3.7329000000000008,
+          "args": null
+        },
+        {
+          "ms": 23.799999999813735,
+          "time": 4.149400000000002,
+          "args": null
+        },
+        {
+          "ms": 20.100000000558794,
+          "time": 4.966000000000008,
+          "args": null
+        }
+      ]
+    },
+    "tree": {
+      "count": 9765,
+      "total": 116.79999999701977,
+      "max": 63.799999999813735,
+      "slow": [
+        {
+          "ms": 63.799999999813735,
+          "time": 2.8997000000000024,
+          "args": 5190
+        }
+      ]
+    },
+    "resource": {
+      "count": 8754,
+      "total": 40.00000000279397,
+      "max": 18.899999999441206,
+      "slow": []
+    },
+    "building": {
+      "count": 1104,
+      "total": 8.09999999590218,
+      "max": 0.10000000055879354,
+      "slow": []
+    },
+    "unit": {
+      "count": 18811,
+      "total": 450.1999999769032,
+      "max": 8.899999999441206,
+      "slow": []
+    },
+    "updateVision": {
+      "count": 48,
+      "total": 724.8999999994412,
+      "max": 25.700000000186265,
+      "slow": [
+        {
+          "ms": 24.299999999813735,
+          "time": 2.8997000000000024,
+          "args": null
+        },
+        {
+          "ms": 22.5,
+          "time": 3.316200000000003,
+          "args": null
+        },
+        {
+          "ms": 25.700000000186265,
+          "time": 3.7329000000000008,
+          "args": null
+        }
+      ]
+    }
+  },
+  "long": [
+    {
+      "start": 12496.299999999814,
+      "duration": 56
+    },
+    {
+      "start": 12702.200000000186,
+      "duration": 57
+    },
+    {
+      "start": 13010.200000000186,
+      "duration": 56
+    },
+    {
+      "start": 13124.099999999627,
+      "duration": 107
+    },
+    {
+      "start": 13233.5,
+      "duration": 58
+    },
+    {
+      "start": 13592.200000000186,
+      "duration": 51
+    },
+    {
+      "start": 13951.399999999441,
+      "duration": 98
+    },
+    {
+      "start": 14685.299999999814,
+      "duration": 55
+    },
+    {
+      "start": 20138.700000000186,
+      "duration": 59
+    }
+  ],
+  "frames": {
+    "count": 1104,
+    "p50": 16.700000000000728,
+    "p95": 33.29999999999927,
+    "p99": 49.899999999999636,
+    "max": 349.89999999999964
+  },
+  "entities": 14335,
+  "time": 22.32979999999987,
+  "hottest": [
+    {
+      "fn": "visible",
+      "file": "simulation.js",
+      "line": 152,
+      "ms": 3893.505000000003
+    },
+    {
+      "fn": "render",
+      "file": "app.js",
+      "line": 63,
+      "ms": 2775.2929999999983
+    },
+    {
+      "fn": "(program)",
+      "file": "",
+      "line": 0,
+      "ms": 2103.690000000003
+    },
+    {
+      "fn": "",
+      "file": "app.js",
+      "line": 65,
+      "ms": 1884.8479999999986
+    },
+    {
+      "fn": "(idle)",
+      "file": "",
+      "line": 0,
+      "ms": 1460.7809999999988
+    },
+    {
+      "fn": "tick",
+      "file": "simulation.js",
+      "line": 253,
+      "ms": 1033.68
+    },
+    {
+      "fn": "isVisible",
+      "file": "app.js",
+      "line": 29,
+      "ms": 586.5609999999998
+    },
+    {
+      "fn": "(garbage collector)",
+      "file": "",
+      "line": 0,
+      "ms": 430.41400000000004
+    },
+    {
+      "fn": "drawMini",
+      "file": "app.js",
+      "line": 153,
+      "ms": 375.8509999999996
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 337.6180000000001
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 258,
+      "ms": 316.63600000000025
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 261,
+      "ms": 308.469
+    },
+    {
+      "fn": "hasBuilding",
+      "file": "simulation.js",
+      "line": 67,
+      "ms": 266.80999999999995
+    },
+    {
+      "fn": "visible",
+      "file": "simulation.js",
+      "line": 152,
+      "ms": 258.19900000000007
+    },
+    {
+      "fn": "art.deferUnit",
+      "file": "async-art.js",
+      "line": 8,
+      "ms": 217.54799999999994
+    },
+    {
+      "fn": "updateVision",
+      "file": "simulation.js",
+      "line": 155,
+      "ms": 213.358
+    },
+    {
+      "fn": "obj.<computed>",
+      "file": "",
+      "line": 2,
+      "ms": 210.301
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 255,
+      "ms": 204.64199999999997
+    },
+    {
+      "fn": "updateUI",
+      "file": "app.js",
+      "line": 167,
+      "ms": 164.18200000000002
+    },
+    {
+      "fn": "obj.<computed>",
+      "file": "",
+      "line": 2,
+      "ms": 162.49899999999994
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 67,
+      "ms": 155.55999999999995
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 140.234
+    },
+    {
+      "fn": "obj.<computed>",
+      "file": "",
+      "line": 2,
+      "ms": 124.63100000000004
+    },
+    {
+      "fn": "slot.worker.onmessage",
+      "file": "async-art.js",
+      "line": 6,
+      "ms": 121.918
+    },
+    {
+      "fn": "frame",
+      "file": "app.js",
+      "line": 276,
+      "ms": 100.276
+    },
+    {
+      "fn": "visible",
+      "file": "simulation.js",
+      "line": 152,
+      "ms": 96.99499999999999
+    },
+    {
+      "fn": "",
+      "file": "terrain.js",
+      "line": 112,
+      "ms": 79.797
+    },
+    {
+      "fn": "closePath",
+      "file": "",
+      "line": 0,
+      "ms": 64.721
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 63.18099999999999
+    },
+    {
+      "fn": "population",
+      "file": "simulation.js",
+      "line": 64,
+      "ms": 62.95399999999999
+    }
+  ]
+}

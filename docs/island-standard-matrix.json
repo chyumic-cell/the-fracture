@@ -1,0 +1,652 @@
+[
+  {
+    "faction": "humans",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 601,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "humans_transport_ship",
+        "at": 196
+      },
+      {
+        "type": "humans_scout_boat",
+        "at": 248
+      },
+      {
+        "type": "humans_warship",
+        "at": 310
+      },
+      {
+        "type": "humans_escort_ship",
+        "at": 485
+      }
+    ],
+    "landings": [
+      {
+        "at": 513,
+        "n": 7,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 525,
+        "n": 1,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      }
+    ],
+    "paid": 7190
+  },
+  {
+    "faction": "reptilians",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 875,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "reptilians_transport_ship",
+        "at": 180
+      },
+      {
+        "type": "reptilians_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "reptilians_warship",
+        "at": 332
+      },
+      {
+        "type": "reptilians_escort_ship",
+        "at": 480
+      },
+      {
+        "type": "reptilians_siege_ship",
+        "at": 658
+      }
+    ],
+    "landings": [
+      {
+        "at": 605,
+        "n": 6,
+        "naval": true,
+        "x": 72.74025148547635,
+        "y": 41.8581929876693
+      },
+      {
+        "at": 797,
+        "n": 4,
+        "naval": true,
+        "x": 64.79048224398402,
+        "y": 35.162674857624154
+      },
+      {
+        "at": 866,
+        "n": 8,
+        "naval": true,
+        "x": 78.19238815542512,
+        "y": 34.19238815542512
+      }
+    ],
+    "paid": 10405
+  },
+  {
+    "faction": "machines",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 862,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "machines_transport_ship",
+        "at": 203
+      },
+      {
+        "type": "machines_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "machines_warship",
+        "at": 299
+      },
+      {
+        "type": "machines_escort_ship",
+        "at": 377
+      },
+      {
+        "type": "machines_siege_ship",
+        "at": 767
+      }
+    ],
+    "landings": [
+      {
+        "at": 356,
+        "n": 6,
+        "naval": true,
+        "x": 60.63603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 405,
+        "n": 1,
+        "naval": true,
+        "x": 60.63603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 481,
+        "n": 7,
+        "naval": true,
+        "x": 61.43603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 718,
+        "n": 7,
+        "naval": false,
+        "x": 67.8,
+        "y": 39
+      },
+      {
+        "at": 809,
+        "n": 3,
+        "naval": false,
+        "x": 73.97488462074617,
+        "y": 37.010433922646726
+      }
+    ],
+    "paid": 10465
+  },
+  {
+    "faction": "insects",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 704,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "insects_transport_ship",
+        "at": 189
+      },
+      {
+        "type": "insects_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "insects_warship",
+        "at": 316
+      },
+      {
+        "type": "insects_escort_ship",
+        "at": 394
+      },
+      {
+        "type": "insects_siege_ship",
+        "at": 636
+      }
+    ],
+    "landings": [
+      {
+        "at": 370,
+        "n": 7,
+        "naval": true,
+        "x": 56.837325142375846,
+        "y": 23.790482243984012
+      },
+      {
+        "at": 415,
+        "n": 5,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 499,
+        "n": 7,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 514,
+        "n": 1,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 565,
+        "n": 6,
+        "naval": true,
+        "x": 61.22182540694798,
+        "y": 32.77817459305202
+      },
+      {
+        "at": 618,
+        "n": 7,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      }
+    ],
+    "paid": 8240
+  },
+  {
+    "faction": "primates",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 652,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "primates_transport_ship",
+        "at": 185
+      },
+      {
+        "type": "primates_scout_boat",
+        "at": 259
+      },
+      {
+        "type": "primates_warship",
+        "at": 326
+      },
+      {
+        "type": "primates_escort_ship",
+        "at": 426
+      }
+    ],
+    "landings": [
+      {
+        "at": 380,
+        "n": 3,
+        "naval": true,
+        "x": 60.63603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 434,
+        "n": 7,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 465,
+        "n": 1,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 522,
+        "n": 5,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 535,
+        "n": 1,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 535,
+        "n": 1,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 629,
+        "n": 5,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      }
+    ],
+    "paid": 7715
+  },
+  {
+    "faction": "wizards",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 691,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "wizards_transport_ship",
+        "at": 200
+      },
+      {
+        "type": "wizards_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "wizards_warship",
+        "at": 294
+      },
+      {
+        "type": "wizards_escort_ship",
+        "at": 383
+      },
+      {
+        "type": "wizards_siege_ship",
+        "at": 598
+      }
+    ],
+    "landings": [
+      {
+        "at": 668,
+        "n": 9,
+        "naval": true,
+        "x": 56.837325142375846,
+        "y": 23.790482243984012
+      }
+    ],
+    "paid": 8480
+  },
+  {
+    "faction": "elders",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 605,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "elders_transport_ship",
+        "at": 194
+      },
+      {
+        "type": "elders_scout_boat",
+        "at": 248
+      },
+      {
+        "type": "elders_warship",
+        "at": 332
+      },
+      {
+        "type": "elders_escort_ship",
+        "at": 372
+      }
+    ],
+    "landings": [
+      {
+        "at": 346,
+        "n": 3,
+        "naval": true,
+        "x": 60.63603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 402,
+        "n": 6,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 451,
+        "n": 6,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 498,
+        "n": 5,
+        "naval": true,
+        "x": 61.22182540694798,
+        "y": 32.77817459305202
+      },
+      {
+        "at": 561,
+        "n": 6,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      }
+    ],
+    "paid": 7850
+  },
+  {
+    "faction": "myth",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 569,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "myth_transport_ship",
+        "at": 182
+      },
+      {
+        "type": "myth_scout_boat",
+        "at": 248
+      },
+      {
+        "type": "myth_warship",
+        "at": 289
+      },
+      {
+        "type": "myth_escort_ship",
+        "at": 372
+      }
+    ],
+    "landings": [],
+    "paid": 7850
+  },
+  {
+    "faction": "dragons",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 574,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "dragons_transport_ship",
+        "at": 185
+      },
+      {
+        "type": "dragons_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "dragons_warship",
+        "at": 283
+      },
+      {
+        "type": "dragons_escort_ship",
+        "at": 383
+      }
+    ],
+    "landings": [
+      {
+        "at": 343,
+        "n": 6,
+        "naval": true,
+        "x": 60.63603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 518,
+        "n": 7,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 541,
+        "n": 1,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      }
+    ],
+    "paid": 6935
+  },
+  {
+    "faction": "night",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 591,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "night_transport_ship",
+        "at": 194
+      },
+      {
+        "type": "night_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "night_warship",
+        "at": 289
+      },
+      {
+        "type": "night_escort_ship",
+        "at": 377
+      }
+    ],
+    "landings": [
+      {
+        "at": 555,
+        "n": 4,
+        "naval": true,
+        "x": 79.60660171779821,
+        "y": 35.60660171779821
+      }
+    ],
+    "paid": 8180
+  },
+  {
+    "faction": "infernal",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 628,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "infernal_transport_ship",
+        "at": 187
+      },
+      {
+        "type": "infernal_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "infernal_escort_ship",
+        "at": 404
+      },
+      {
+        "type": "infernal_warship",
+        "at": 478
+      }
+    ],
+    "landings": [
+      {
+        "at": 383,
+        "n": 6,
+        "naval": true,
+        "x": 60.63603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 593,
+        "n": 2,
+        "naval": true,
+        "x": 61.43603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 593,
+        "n": 1,
+        "naval": true,
+        "x": 61.43603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 600,
+        "n": 1,
+        "naval": true,
+        "x": 61.43603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 608,
+        "n": 2,
+        "naval": true,
+        "x": 61.43603896932107,
+        "y": 34.36396103067893
+      },
+      {
+        "at": 614,
+        "n": 1,
+        "naval": true,
+        "x": 61.43603896932107,
+        "y": 34.36396103067893
+      }
+    ],
+    "paid": 7240
+  },
+  {
+    "faction": "symbiotes",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 523,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "symbiotes_transport_ship",
+        "at": 176
+      },
+      {
+        "type": "symbiotes_scout_boat",
+        "at": 313
+      },
+      {
+        "type": "symbiotes_escort_ship",
+        "at": 404
+      },
+      {
+        "type": "symbiotes_warship",
+        "at": 451
+      }
+    ],
+    "landings": [
+      {
+        "at": 431,
+        "n": 3,
+        "naval": true,
+        "x": 72.74025148547635,
+        "y": 41.8581929876693
+      },
+      {
+        "at": 478,
+        "n": 10,
+        "naval": true,
+        "x": 61.22182540694798,
+        "y": 32.77817459305202
+      }
+    ],
+    "paid": 5755
+  }
+]

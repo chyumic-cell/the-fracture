@@ -1,0 +1,86 @@
+[
+  {
+    "factions": [
+      "humans",
+      "reptilians"
+    ],
+    "peak": [
+      9,
+      8
+    ],
+    "gathered": [
+      2518,
+      1895
+    ]
+  },
+  {
+    "factions": [
+      "machines",
+      "insects"
+    ],
+    "peak": [
+      10,
+      11
+    ],
+    "gathered": [
+      3000,
+      2669
+    ]
+  },
+  {
+    "factions": [
+      "primates",
+      "wizards"
+    ],
+    "peak": [
+      12,
+      10
+    ],
+    "gathered": [
+      2545,
+      2327
+    ]
+  },
+  {
+    "factions": [
+      "elders",
+      "myth"
+    ],
+    "peak": [
+      9,
+      13
+    ],
+    "gathered": [
+      1800,
+      3647
+    ]
+  },
+  {
+    "factions": [
+      "dragons",
+      "night"
+    ],
+    "peak": [
+      10,
+      8
+    ],
+    "gathered": [
+      2133,
+      1800
+    ]
+  },
+  {
+    "factions": [
+      "infernal",
+      "symbiotes"
+    ],
+    "peak": [
+      9,
+      13
+    ],
+    "gathered": [
+      2003,
+      3229
+    ]
+  }
+]

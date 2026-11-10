@@ -1,0 +1,342 @@
+{
+  "method": "Local small.en word timestamps; canonical text retained. Sentence starts follow matching spoken words; missing ASR words interpolate within their verified shot. Not a manual listening certification.",
+  "missing": "Scene4 recording ends near the end of passage3; passages4-5 are unrecorded.",
+  "passages": [
+    {
+      "scene": "scene_01",
+      "shot": "shot_1",
+      "wordMatchFraction": 1.0,
+      "start": 0,
+      "end": 27.3
+    },
+    {
+      "scene": "scene_01",
+      "shot": "shot_2",
+      "wordMatchFraction": 1.0,
+      "start": 27.3,
+      "end": 48.9
+    },
+    {
+      "scene": "scene_01",
+      "shot": "shot_3",
+      "wordMatchFraction": 1.0,
+      "start": 48.9,
+      "end": 67.5
+    },
+    {
+      "scene": "scene_01",
+      "shot": "shot_4",
+      "wordMatchFraction": 1.0,
+      "start": 67.5,
+      "end": 87.1
+    },
+    {
+      "scene": "scene_01",
+      "shot": "shot_5",
+      "wordMatchFraction": 1.0,
+      "start": 87.1,
+      "end": 111
+    },
+    {
+      "scene": "scene_02",
+      "shot": "shot_1",
+      "wordMatchFraction": 1.0,
+      "start": 111,
+      "end": 136.7
+    },
+    {
+      "scene": "scene_02",
+      "shot": "shot_2",
+      "wordMatchFraction": 0.972,
+      "start": 136.7,
+      "end": 162
+    },
+    {
+      "scene": "scene_02",
+      "shot": "shot_3",
+      "wordMatchFraction": 0.956,
+      "start": 162,
+      "end": 188.2
+    },
+    {
+      "scene": "scene_02",
+      "shot": "shot_4",
+      "wordMatchFraction": 0.949,
+      "start": 188.2,
+      "end": 214
+    },
+    {
+      "scene": "scene_02",
+      "shot": "shot_5",
+      "wordMatchFraction": 0.938,
+      "start": 214,
+      "end": 235
+    },
+    {
+      "scene": "scene_03",
+      "shot": "shot_1",
+      "wordMatchFraction": 0.971,
+      "start": 235,
+      "end": 257.6
+    },
+    {
+      "scene": "scene_03",
+      "shot": "shot_2",
+      "wordMatchFraction": 1.0,
+      "start": 257.6,
+      "end": 282.4
+    },
+    {
+      "scene": "scene_03",
+      "shot": "shot_3",
+      "wordMatchFraction": 1.0,
+      "start": 282.4,
+      "end": 307.8
+    },
+    {
+      "scene": "scene_03",
+      "shot": "shot_4",
+      "wordMatchFraction": 1.0,
+      "start": 307.8,
+      "end": 336.2
+    },
+    {
+      "scene": "scene_03",
+      "shot": "shot_5",
+      "wordMatchFraction": 0.932,
+      "start": 336.2,
+      "end": 363
+    },
+    {
+      "scene": "scene_04",
+      "shot": "shot_1",
+      "wordMatchFraction": 1.0,
+      "start": 363,
+      "end": 387.3
+    },
+    {
+      "scene": "scene_04",
+      "shot": "shot_2",
+      "wordMatchFraction": 0.897,
+      "start": 387.3,
+      "end": 410.25
+    },
+    {
+      "scene": "scene_04",
+      "shot": "shot_3",
+      "wordMatchFraction": 0.975,
+      "start": 410.25,
+      "end": 442.6
+    },
+    {
+      "scene": "scene_05",
+      "shot": "shot_1",
+      "wordMatchFraction": 1.0,
+      "start": 0,
+      "end": 26.96
+    },
+    {
+      "scene": "scene_05",
+      "shot": "shot_2",
+      "wordMatchFraction": 0.976,
+      "start": 26.96,
+      "end": 52.42
+    },
+    {
+      "scene": "scene_05",
+      "shot": "shot_3",
+      "wordMatchFraction": 1.0,
+      "start": 52.42,
+      "end": 77.54
+    },
+    {
+      "scene": "scene_05",
+      "shot": "shot_4",
+      "wordMatchFraction": 0.938,
+      "start": 77.54,
+      "end": 98.5
+    },
+    {
+      "scene": "scene_05",
+      "shot": "shot_5",
+      "wordMatchFraction": 1.0,
+      "start": 98.5,
+      "end": 123.5
+    },
+    {
+      "scene": "scene_06",
+      "shot": "shot_1",
+      "wordMatchFraction": 1.0,
+      "start": 123.5,
+      "end": 150.54
+    },
+    {
+      "scene": "scene_06",
+      "shot": "shot_2",
+      "wordMatchFraction": 0.977,
+      "start": 150.54,
+      "end": 177.12
+    },
+    {
+      "scene": "scene_06",
+      "shot": "shot_3",
+      "wordMatchFraction": 1.0,
+      "start": 177.12,
+      "end": 201.34
+    },
+    {
+      "scene": "scene_06",
+      "shot": "shot_4",
+      "wordMatchFraction": 0.977,
+      "start": 201.34,
+      "end": 232.4
+    },
+    {
+      "scene": "scene_06",
+      "shot": "shot_5",
+      "wordMatchFraction": 0.936,
+      "start": 232.4,
+      "end": 261.5
+    },
+    {
+      "scene": "scene_07",
+      "shot": "shot_1",
+      "wordMatchFraction": 0.941,
+      "start": 261.5,
+      "end": 287.82
+    },
+    {
+      "scene": "scene_07",
+      "shot": "shot_2",
+      "wordMatchFraction": 0.676,
+      "start": 287.82,
+      "end": 317.66
+    },
+    {
+      "scene": "scene_07",
+      "shot": "shot_3",
+      "wordMatchFraction": 0.971,
+      "start": 317.66,
+      "end": 342.76
+    },
+    {
+      "scene": "scene_07",
+      "shot": "shot_4",
+      "wordMatchFraction": 0.596,
+      "start": 342.76,
+      "end": 377
+    },
+    {
+      "scene": "scene_07",
+      "shot": "shot_5",
+      "wordMatchFraction": 0.86,
+      "start": 377,
+      "end": 409.4
+    },
+    {
+      "scene": "scene_08",
+      "shot": "shot_1",
+      "wordMatchFraction": 1.0,
+      "start": 0,
+      "end": 22.7
+    },
+    {
+      "scene": "scene_08",
+      "shot": "shot_2",
+      "wordMatchFraction": 0.929,
+      "start": 22.7,
+      "end": 46.3
+    },
+    {
+      "scene": "scene_08",
+      "shot": "shot_3",
+      "wordMatchFraction": 1.0,
+      "start": 46.3,
+      "end": 66.7
+    },
+    {
+      "scene": "scene_08",
+      "shot": "shot_4",
+      "wordMatchFraction": 0.913,
+      "start": 66.7,
+      "end": 94.3
+    },
+    {
+      "scene": "scene_08",
+      "shot": "shot_5",
+      "wordMatchFraction": 1.0,
+      "start": 94.3,
+      "end": 118
+    },
+    {
+      "scene": "scene_09",
+      "shot": "shot_1",
+      "wordMatchFraction": 0.98,
+      "start": 118,
+      "end": 152.4
+    },
+    {
+      "scene": "scene_09",
+      "shot": "shot_2",
+      "wordMatchFraction": 0.81,
+      "start": 152.4,
+      "end": 182.2
+    },
+    {
+      "scene": "scene_09",
+      "shot": "shot_3",
+      "wordMatchFraction": 0.971,
+      "start": 182.2,
+      "end": 211.7
+    },
+    {
+      "scene": "scene_09",
+      "shot": "shot_4",
+      "wordMatchFraction": 0.886,
+      "start": 211.7,
+      "end": 242
+    },
+    {
+      "scene": "scene_09",
+      "shot": "shot_5",
+      "wordMatchFraction": 0.958,
+      "start": 242,
+      "end": 271
+    },
+    {
+      "scene": "scene_10",
+      "shot": "shot_1",
+      "wordMatchFraction": 0.833,
+      "start": 271,
+      "end": 303.5
+    },
+    {
+      "scene": "scene_10",
+      "shot": "shot_2",
+      "wordMatchFraction": 0.927,
+      "start": 303.5,
+      "end": 334.3
+    },
+    {
+      "scene": "scene_10",
+      "shot": "shot_3",
+      "wordMatchFraction": 0.925,
+      "start": 334.3,
+      "end": 358.7
+    },
+    {
+      "scene": "scene_10",
+      "shot": "shot_4",
+      "wordMatchFraction": 0.814,
+      "start": 358.7,
+      "end": 383.7
+    },
+    {
+      "scene": "scene_10",
+      "shot": "shot_5",
+      "wordMatchFraction": 0.707,
+      "start": 383.7,
+      "end": 423.4
+    }
+  ]
+}

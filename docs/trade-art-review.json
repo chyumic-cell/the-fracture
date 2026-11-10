@@ -1,0 +1,270 @@
+{
+  "results": [
+    {
+      "faction": "humans",
+      "market": {
+        "minX": 121,
+        "minY": 216,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 29178,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 88,
+        "minY": 162,
+        "maxX": 248,
+        "maxY": 290,
+        "n": 12520,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "reptilians",
+      "market": {
+        "minX": 121,
+        "minY": 204,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 29188,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 85,
+        "minY": 169,
+        "maxX": 254,
+        "maxY": 285,
+        "n": 7872,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "machines",
+      "market": {
+        "minX": 121,
+        "minY": 194,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 31572,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 67,
+        "minY": 144,
+        "maxX": 257,
+        "maxY": 276,
+        "n": 9658,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "insects",
+      "market": {
+        "minX": 141,
+        "minY": 220,
+        "maxX": 334,
+        "maxY": 406,
+        "n": 24631,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 89,
+        "minY": 123,
+        "maxX": 255,
+        "maxY": 297,
+        "n": 10740,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "primates",
+      "market": {
+        "minX": 129,
+        "minY": 203,
+        "maxX": 350,
+        "maxY": 416,
+        "n": 26308,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 115,
+        "minY": 124,
+        "maxX": 218,
+        "maxY": 287,
+        "n": 8805,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "wizards",
+      "market": {
+        "minX": 121,
+        "minY": 141,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 29414,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 86,
+        "minY": 145,
+        "maxX": 237,
+        "maxY": 277,
+        "n": 7375,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "elders",
+      "market": {
+        "minX": 121,
+        "minY": 203,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 31123,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 92,
+        "minY": 166,
+        "maxX": 232,
+        "maxY": 285,
+        "n": 7346,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "myth",
+      "market": {
+        "minX": 121,
+        "minY": 221,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 28504,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 95,
+        "minY": 168,
+        "maxX": 244,
+        "maxY": 289,
+        "n": 8279,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "dragons",
+      "market": {
+        "minX": 121,
+        "minY": 187,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 27833,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 82,
+        "minY": 169,
+        "maxX": 235,
+        "maxY": 288,
+        "n": 7175,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "night",
+      "market": {
+        "minX": 121,
+        "minY": 161,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 33251,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 90,
+        "minY": 125,
+        "maxX": 251,
+        "maxY": 289,
+        "n": 12626,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "infernal",
+      "market": {
+        "minX": 121,
+        "minY": 173,
+        "maxX": 358,
+        "maxY": 421,
+        "n": 27557,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 95,
+        "minY": 131,
+        "maxX": 245,
+        "maxY": 289,
+        "n": 10453,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    },
+    {
+      "faction": "symbiotes",
+      "market": {
+        "minX": 150,
+        "minY": 198,
+        "maxX": 335,
+        "maxY": 402,
+        "n": 22968,
+        "w": 480,
+        "h": 440
+      },
+      "merchant": {
+        "minX": 68,
+        "minY": 150,
+        "maxX": 261,
+        "maxY": 267,
+        "n": 9451,
+        "w": 336,
+        "h": 336
+      },
+      "ownership": true
+    }
+  ],
+  "uniqueMarkets": 12,
+  "uniqueMerchants": 12
+}

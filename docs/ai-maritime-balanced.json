@@ -1,0 +1,866 @@
+{
+  "mode": "maritime",
+  "scope": "Actual paid economies, private fog, normal combat and victory. Time limits remain time limits, not inferred wins.",
+  "cases": [
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "small-islands",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 1600,
+      "winner": "time-limit",
+      "damage": [
+        38131,
+        43036
+      ],
+      "produced": [
+        {
+          "worker": 27,
+          "ground": 157,
+          "seaTransport": 2,
+          "warship": 37,
+          "airCombat": 79,
+          "airTransport": 14
+        },
+        {
+          "worker": 19,
+          "ground": 86,
+          "seaTransport": 1,
+          "warship": 27
+        }
+      ],
+      "paid": [
+        56035,
+        23840
+      ],
+      "landed": [
+        21,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            54042,
+            12392,
+            11700,
+            220
+          ],
+          "stock": [
+            14177,
+            1667,
+            7200,
+            1115
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_b2_specialization",
+            "humans_weapons2",
+            "humans_armor2",
+            "humans_b4_specialization",
+            "humans_b5_specialization"
+          ],
+          "plan": "Building counters before challenging the defended position",
+          "logistics": {
+            "next": 1601.4500000002377,
+            "needsTransport": true,
+            "visited": {
+              "202": 293.9500000000045,
+              "242": 304.15000000000487,
+              "258": 329.65000000000583,
+              "1414": 283.7500000000041,
+              "1430": 273.5500000000037,
+              "1858": 339.8500000000062,
+              "3014": 253.15000000000293,
+              "3030": 263.3500000000033,
+              "4614": 242.95000000000255
+            },
+            "sortie": {
+              "carrier": 603,
+              "pickup": {
+                "x": 32,
+                "y": 76
+              },
+              "ids": [
+                601,
+                595,
+                589,
+                594,
+                599,
+                596,
+                561,
+                562,
+                581,
+                463
+              ],
+              "target": {
+                "x": 63.865471876960406,
+                "y": 33.581178296348085
+              },
+              "landing": {
+                "x": 72.18038766956198,
+                "y": 37.02532918763389
+              },
+              "phase": "cross",
+              "started": 1565.850000000219
+            },
+            "nextSortie": 1267.0500000000288
+          },
+          "goal": null,
+          "units": 67,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b4",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b2",
+            "humans_orewell",
+            "humans_dock",
+            "humans_b1",
+            "humans_b1",
+            "humans_deep_ore",
+            "humans_b7",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b5",
+            "humans_b1",
+            "humans_market",
+            "humans_b1",
+            "humans_deep_aether",
+            "humans_market",
+            "humans_oilwell",
+            "humans_oilwell"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            18408,
+            2100,
+            3664,
+            220
+          ],
+          "stock": [
+            104,
+            35,
+            2359,
+            195
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_armor1",
+            "humans_weapons2",
+            "humans_b2_specialization",
+            "humans_b4_specialization",
+            "humans_armor2"
+          ],
+          "plan": "Building counters before challenging the defended position",
+          "logistics": {
+            "next": 1603.550000000239,
+            "needsTransport": true,
+            "visited": {
+              "206": 326.95000000000573,
+              "222": 316.1500000000053,
+              "238": 283.7500000000041,
+              "254": 272.9500000000037,
+              "1806": 337.75000000000614,
+              "1822": 305.3500000000049,
+              "1838": 294.5500000000045,
+              "3406": 348.55000000000655,
+              "3422": 359.35000000000633,
+              "5006": 380.95000000000306,
+              "5022": 370.1500000000047,
+              "6606": 391.7500000000014,
+              "8206": 402.5499999999998,
+              "8622": 413.34999999999815
+            },
+            "sortie": null
+          },
+          "goal": "build:humans_b5",
+          "units": 42,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b4",
+            "humans_dock",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_deep_ore",
+            "humans_market",
+            "humans_b7",
+            "humans_market"
+          ]
+        }
+      ],
+      "wallSeconds": 97
+    },
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "primates",
+      "layout": "small-islands",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 1021,
+      "winner": "higher",
+      "damage": [
+        28709,
+        15801
+      ],
+      "produced": [
+        {
+          "worker": 30,
+          "ground": 63,
+          "seaTransport": 4,
+          "warship": 11,
+          "airCombat": 21
+        },
+        {
+          "worker": 17,
+          "ground": 71,
+          "airCombat": 7,
+          "seaTransport": 3,
+          "warship": 3,
+          "airTransport": 1
+        }
+      ],
+      "paid": [
+        21580,
+        14520
+      ],
+      "landed": [
+        46,
+        18
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            32706,
+            3824,
+            11700,
+            220
+          ],
+          "stock": [
+            15833,
+            1509,
+            9715,
+            165
+          ],
+          "tech": [
+            "primates_economy",
+            "primates_weapons1",
+            "primates_advanced",
+            "primates_deep_extraction",
+            "primates_armor1",
+            "primates_weapons2",
+            "primates_b3_specialization",
+            "primates_b4_specialization",
+            "primates_armor2",
+            "primates_b7_specialization",
+            "primates_b8_specialization"
+          ],
+          "plan": "Combined-arms assault",
+          "logistics": {
+            "next": 1025.149999999891,
+            "needsTransport": true,
+            "visited": {
+              "202": 334.750000000006,
+              "242": 344.9500000000064,
+              "258": 370.45000000000465,
+              "1414": 324.55000000000564,
+              "1430": 314.35000000000525,
+              "1858": 380.6500000000031,
+              "3014": 293.9500000000045,
+              "3030": 304.15000000000487,
+              "3454": 390.85000000000156,
+              "4614": 283.7500000000041,
+              "4670": 406.14999999999924,
+              "8602": 538.7499999999791
+            },
+            "sortie": {
+              "carrier": 317,
+              "pickup": {
+                "x": 22.5,
+                "y": 62.5
+              },
+              "ids": [
+                336,
+                386,
+                364,
+                372,
+                383,
+                384,
+                385,
+                359,
+                368,
+                354
+              ],
+              "target": {
+                "x": 74.40380122193402,
+                "y": 19.79914119074317
+              },
+              "landing": {
+                "x": 80.76776225261294,
+                "y": 26.1631022214221
+              },
+              "phase": "load",
+              "started": 1004.8499999998934
+            },
+            "nextSortie": 1000.9499999998962
+          },
+          "goal": null,
+          "units": 71,
+          "buildings": [
+            "primates_b0",
+            "primates_b3",
+            "primates_b4",
+            "primates_b5",
+            "primates_b1",
+            "primates_oilwell",
+            "primates_b7",
+            "primates_b1",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_aetherwell",
+            "primates_aetherwell",
+            "primates_b1",
+            "primates_dock",
+            "primates_b10",
+            "primates_b1",
+            "primates_b8",
+            "primates_b1",
+            "primates_deep_ore",
+            "primates_b1",
+            "primates_aviary",
+            "primates_oilwell",
+            "primates_oilwell",
+            "primates_deep_aether",
+            "primates_b1",
+            "primates_b1",
+            "primates_b1",
+            "primates_b1",
+            "primates_deep_rift"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            11602,
+            2587,
+            2078,
+            220
+          ],
+          "stock": [
+            39,
+            1012,
+            1158,
+            165
+          ],
+          "tech": [
+            "primates_economy",
+            "primates_weapons1",
+            "primates_armor1",
+            "primates_weapons2",
+            "primates_b3_specialization",
+            "primates_b4_specialization",
+            "primates_armor2",
+            "primates_advanced",
+            "primates_deep_extraction"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1025.7499999998909,
+            "needsTransport": false,
+            "visited": {
+              "3842": 321.5500000000055,
+              "5426": 343.15000000000634,
+              "5442": 332.35000000000593
+            },
+            "sortie": null,
+            "nextSortie": 615.4499999999547
+          },
+          "goal": "build:primates_b3",
+          "units": 0,
+          "buildings": [
+            "primates_b1",
+            "primates_b1",
+            "primates_b10"
+          ]
+        }
+      ],
+      "wallSeconds": 48
+    },
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "continental",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 1600,
+      "winner": "time-limit",
+      "damage": [
+        36660,
+        15542
+      ],
+      "produced": [
+        {
+          "worker": 27,
+          "ground": 51,
+          "seaTransport": 1,
+          "warship": 4,
+          "airCombat": 27
+        },
+        {
+          "worker": 48,
+          "ground": 52,
+          "seaTransport": 1,
+          "warship": 3,
+          "airCombat": 1
+        }
+      ],
+      "paid": [
+        24510,
+        13935
+      ],
+      "landed": [
+        21,
+        14
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            65345,
+            13969,
+            2578,
+            10251
+          ],
+          "stock": [
+            47251,
+            9934,
+            693,
+            10176
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_weapons2",
+            "humans_b2_specialization",
+            "humans_armor2",
+            "humans_b5_specialization",
+            "humans_b4_specialization"
+          ],
+          "plan": "Coordinated assault with a separate flank",
+          "logistics": {
+            "next": 1601.4500000002377,
+            "needsTransport": true,
+            "visited": {
+              "2694": 299.0500000000047,
+              "5894": 283.7500000000041,
+              "8294": 273.5500000000037,
+              "9050": 242.95000000000255,
+              "9066": 253.15000000000293,
+              "9482": 263.3500000000033
+            },
+            "sortie": {
+              "carrier": 349,
+              "pickup": {
+                "x": 35.5,
+                "y": 79.5
+              },
+              "ids": [
+                510,
+                518,
+                472,
+                371,
+                509,
+                488,
+                517,
+                464,
+                450,
+                460
+              ],
+              "target": {
+                "x": 73,
+                "y": 29
+              },
+              "landing": {
+                "x": 60.989566077353274,
+                "y": 33.97488462074617
+              },
+              "phase": "load",
+              "started": 1484.2500000001696
+            },
+            "nextSortie": 749.2499999999344
+          },
+          "goal": null,
+          "units": 74,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b4",
+            "humans_b1",
+            "humans_b2",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_dock",
+            "humans_orewell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_orewell",
+            "humans_b1",
+            "humans_orewell",
+            "humans_b5",
+            "humans_deep_ore",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_b7",
+            "humans_b1",
+            "humans_aetherwell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_b5",
+            "humans_b5",
+            "humans_b5",
+            "humans_b1",
+            "humans_deep_rift",
+            "humans_market",
+            "humans_b4",
+            "humans_b4",
+            "humans_b1",
+            "humans_b1",
+            "humans_deep_oil"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            11809,
+            1250,
+            961,
+            661
+          ],
+          "stock": [
+            43,
+            55,
+            486,
+            606
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_armor1"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1603.550000000239,
+            "needsTransport": false,
+            "visited": {
+              "202": 391.7500000000014,
+              "218": 380.95000000000306,
+              "234": 370.1500000000047,
+              "1446": 359.35000000000633,
+              "1802": 402.5499999999998
+            },
+            "sortie": null,
+            "nextSortie": 652.3499999999491
+          },
+          "goal": null,
+          "units": 0,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_oilwell",
+            "humans_b4",
+            "humans_b1",
+            "humans_riftwell",
+            "humans_dock",
+            "humans_b1",
+            "humans_b7",
+            "humans_market"
+          ]
+        }
+      ],
+      "wallSeconds": 90
+    },
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "primates",
+      "layout": "continental",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 1145,
+      "winner": "higher",
+      "damage": [
+        47523,
+        17610
+      ],
+      "produced": [
+        {
+          "worker": 43,
+          "ground": 60,
+          "seaTransport": 1,
+          "warship": 3,
+          "airCombat": 27
+        },
+        {
+          "worker": 34,
+          "ground": 61,
+          "seaTransport": 1,
+          "warship": 6,
+          "airCombat": 7,
+          "airTransport": 1
+        }
+      ],
+      "paid": [
+        22910,
+        16380
+      ],
+      "landed": [
+        27,
+        35
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            51933,
+            6439,
+            3146,
+            1675
+          ],
+          "stock": [
+            33615,
+            4754,
+            631,
+            1580
+          ],
+          "tech": [
+            "primates_economy",
+            "primates_weapons1",
+            "primates_advanced",
+            "primates_deep_extraction",
+            "primates_armor1",
+            "primates_weapons2",
+            "primates_b3_specialization",
+            "primates_armor2",
+            "primates_b4_specialization",
+            "primates_b7_specialization",
+            "primates_b8_specialization"
+          ],
+          "plan": "Building counters before challenging the defended position",
+          "logistics": {
+            "next": 1147.5499999999624,
+            "needsTransport": true,
+            "visited": {
+              "2694": 299.0500000000047,
+              "5894": 283.7500000000041,
+              "8294": 273.5500000000037,
+              "9050": 242.95000000000255,
+              "9066": 253.15000000000293,
+              "9482": 263.3500000000033
+            },
+            "sortie": {
+              "carrier": 360,
+              "pickup": {
+                "x": 35.5,
+                "y": 79.5
+              },
+              "ids": [
+                574,
+                499,
+                397,
+                485,
+                572,
+                526,
+                478,
+                487,
+                447,
+                477
+              ],
+              "target": {
+                "x": 73,
+                "y": 29
+              },
+              "landing": {
+                "x": 60.989566077353274,
+                "y": 33.97488462074617
+              },
+              "phase": "cross",
+              "started": 1096.6499999999346
+            },
+            "nextSortie": 1094.249999999924
+          },
+          "goal": null,
+          "units": 70,
+          "buildings": [
+            "primates_b0",
+            "primates_b3",
+            "primates_b4",
+            "primates_b5",
+            "primates_oilwell",
+            "primates_b1",
+            "primates_b7",
+            "primates_b1",
+            "primates_b8",
+            "primates_orewell",
+            "primates_b1",
+            "primates_dock",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_b1",
+            "primates_b1",
+            "primates_orewell",
+            "primates_orewell",
+            "primates_b1",
+            "primates_aviary",
+            "primates_oilwell",
+            "primates_b1",
+            "primates_oilwell",
+            "primates_oilwell",
+            "primates_oilwell",
+            "primates_b1",
+            "primates_aetherwell",
+            "primates_aetherwell",
+            "primates_aetherwell",
+            "primates_market",
+            "primates_b10",
+            "primates_aviary",
+            "primates_aviary",
+            "primates_aviary",
+            "primates_deep_ore",
+            "primates_b6",
+            "primates_b1",
+            "primates_aetherwell",
+            "primates_b9",
+            "primates_b1",
+            "primates_b1"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            13079,
+            1501,
+            1801,
+            445
+          ],
+          "stock": [
+            37,
+            206,
+            786,
+            390
+          ],
+          "tech": [
+            "primates_economy",
+            "primates_weapons1",
+            "primates_armor1",
+            "primates_weapons2",
+            "primates_advanced",
+            "primates_deep_extraction",
+            "primates_b3_specialization",
+            "primates_armor2"
+          ],
+          "plan": "Intercepting threats with a local defense group",
+          "logistics": {
+            "next": 1146.3499999999617,
+            "needsTransport": false,
+            "visited": {
+              "218": 386.35000000000224,
+              "234": 375.5500000000039,
+              "1446": 364.7500000000055
+            },
+            "sortie": null,
+            "nextSortie": 802.6499999999263
+          },
+          "goal": "build:primates_b3",
+          "units": 0,
+          "buildings": [
+            "primates_b1",
+            "primates_riftwell"
+          ]
+        }
+      ],
+      "wallSeconds": 95
+    }
+  ],
+  "hashes": {
+    "data": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "expansion-data": "572f2cc66ca53e8aec5f1b33047772fe5bccb97b0352b3e3984df9cdc3e644c5",
+    "simulation": "073026dd191f0fc6d1dd4090006bceea3485db653aabda93029cba962cb3e02e",
+    "ai": "a5f1e0252deffefc7b39a4437a789641774e05b6cf23849c8572debe0ccf372f",
+    "ai-economy": "f06b54824d2a223f5084526ac9d21293a5c53f01b0ea9d253a6b969e2a2facfe",
+    "ai-combat": "c89d911a305623f88c28eae3bb033c9d660926b76a99a6699080d474387d8b32",
+    "ai-logistics": "d5c6887bc3b87da60b536bce46fd8dff8a2a3b8557245c584eecfeee49cfb70c",
+    "march": "59186e9cdcb0ada3816881cb4c083e2f82ec41cb2e33e0926af7d95d7d37b6c7"
+  },
+  "finishedHashes": {
+    "data": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "expansion-data": "572f2cc66ca53e8aec5f1b33047772fe5bccb97b0352b3e3984df9cdc3e644c5",
+    "simulation": "073026dd191f0fc6d1dd4090006bceea3485db653aabda93029cba962cb3e02e",
+    "ai": "a5f1e0252deffefc7b39a4437a789641774e05b6cf23849c8572debe0ccf372f",
+    "ai-economy": "f06b54824d2a223f5084526ac9d21293a5c53f01b0ea9d253a6b969e2a2facfe",
+    "ai-combat": "c89d911a305623f88c28eae3bb033c9d660926b76a99a6699080d474387d8b32",
+    "ai-logistics": "2383c6d1207a614e07058f4eb84e2eab63c820de510e86a473f072cf5870c57c",
+    "march": "59186e9cdcb0ada3816881cb4c083e2f82ec41cb2e33e0926af7d95d7d37b6c7"
+  },
+  "sourceUnchanged": false
+}

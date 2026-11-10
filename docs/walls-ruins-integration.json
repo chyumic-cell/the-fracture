@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-10",
+  "scope": "Final shoreline, boundary, gate, ruins and voice integration; broad AI balance remains open",
+  "suites": 24,
+  "gateGroups": 8,
+  "ruinFactions": 12,
+  "aiCalibration": {
+    "report": "ai-fair-edge-calibration.json",
+    "higherWins": 1,
+    "completedMatches": 2,
+    "ladderComplete": false
+  },
+  "performance700": {
+    "count": 1506,
+    "p50": 16.700000000004366,
+    "p95": 48.90000000000873,
+    "p99": 66.29999999999563,
+    "max": 100.5
+  },
+  "hashes": {
+    "src\\simulation.js": "e64b0abfb9573c17ae120ec2d699d034781d9683eb9c625edd5e8e9ce11e9086",
+    "src\\walls.js": "5a3a6d0c6841d161a9bafb89994180c5ef719af038486ce273557369dd33ddce",
+    "src\\app.js": "fd38738f51d47f56ac2e82a36c9ab73ad8ac04f59fc0ec6c454577e2977836bc",
+    "src\\art.js": "0787d2e72251fb5fe5fb14ab7bcc33cc5cae88c078e6a6d79d92e2ad9f63b0c8",
+    "src\\fortification-art.js": "a7b2a1a5a715e6a90ee12f0cda00c0fad2b6d7c4e493704db511ff647ad8aac5",
+    "src\\ruins-art.js": "8300d853d0c75ea50b188c3c17de25ad4d64090caaeb45c0390d73035fba628f",
+    "src\\async-art.js": "aee423d4c6fdb725d71c6db385c64dca394eab9097db0fdd37eb631036e19d67",
+    "src\\sprite-worker.js": "bf0f8116310d919b9195539baf2c862c1b048a5995b4dc4cc301702941b94caa",
+    "src\\audio.js": "86ebcab58d5b488476d33d99e330b5367797b8ce30e23c655f09f7d2086d43c4",
+    "src\\voice-bank.js": "c186485909d7fc07f999b4814a675500a7160af79a8c23ba0c79b4281b529fd6"
+  }
+}

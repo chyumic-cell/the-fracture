@@ -1,0 +1,17 @@
+require('./browser-runtime.cjs');
+const assert=require('node:assert/strict'),fs=require('node:fs'),{chromium}=require('C:/Users/pc1/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{const b=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});try{
+ const p=await b.newPage({viewport:{width:1800,height:1840}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:4088/');await p.waitForFunction(()=>!!window.FractureTradeArt);
+ const out=await p.evaluate(()=>{
+  const art=new FractureArt.Art(),c=document.createElement('canvas');c.width=1800;c.height=1840;c.style='position:fixed;inset:0;z-index:99999';document.body.append(c);const x=c.getContext('2d');x.fillStyle='#15262b';x.fillRect(0,0,c.width,c.height);x.imageSmoothingEnabled=false;
+  const bounds=(a)=>{const d=a.getContext('2d').getImageData(0,0,a.width,a.height).data;let minX=a.width,minY=a.height,maxX=-1,maxY=-1,n=0;for(let yy=0;yy<a.height;yy++)for(let xx=0;xx<a.width;xx++)if(d[(yy*a.width+xx)*4+3]){minX=Math.min(minX,xx);minY=Math.min(minY,yy);maxX=Math.max(maxX,xx);maxY=Math.max(maxY,yy);n++;}return{minX,minY,maxX,maxY,n,w:a.width,h:a.height};};
+  const results=[],silhouettes={markets:[],merchants:[]};let i=0;
+  for(const f of Object.values(FD.factions)){const xx=i%3*600,yy=Math.floor(i/3)*460;x.fillStyle='#203337';x.fillRect(xx+5,yy+5,590,450);x.fillStyle='#e1cda3';x.font='bold 20px Segoe UI';x.fillText(f.name,xx+18,yy+31);x.font='12px Segoe UI';x.fillStyle='#b8c6c2';x.fillText(FractureTradeArt.designs[f.id][0],xx+18,yy+52);x.fillText(FractureTradeArt.designs[f.id][1],xx+18,yy+70);
+   const market=art.building(FD.buildings[f.id+'_market'],f),merchant=art.unit(FD.units[f.id+'_merchant'],f,0,'walk',1);x.drawImage(market,xx-15,yy+58,420,385);x.drawImage(merchant,xx+355,yy+117,232,232);x.drawImage(merchant,xx+455,yy+353,89.6,89.6);x.fillStyle='#b8c6c2';x.font='12px Segoe UI';x.fillText('Merchant / detail',xx+395,yy+355);x.fillText('Normal game size',xx+425,yy+445);
+   for(const [key,a]of [['markets',market],['merchants',merchant]]){const q=document.createElement('canvas');q.width=64;q.height=64;const qx=q.getContext('2d');qx.drawImage(a,0,0,64,64);const pix=qx.getImageData(0,0,64,64).data;silhouettes[key].push(Array.from({length:4096},(_,j)=>pix[j*4+3]>100?1:0).join(''));}
+   results.push({faction:f.id,market:bounds(market),merchant:bounds(merchant),ownership:!!merchant.ownerPaint});i++;
+  }return{results,uniqueMarkets:new Set(silhouettes.markets).size,uniqueMerchants:new Set(silhouettes.merchants).size};
+ });
+ await p.screenshot({path:'docs/trade-civilizations-review.png'});fs.writeFileSync('docs/trade-art-review.json',JSON.stringify(out,null,2));assert.equal(out.uniqueMarkets,12,'Market silhouettes must differ without their colors');assert.equal(out.uniqueMerchants,12,'Merchant silhouettes must differ without their colors');
+ for(const r of out.results)for(const key of ['market','merchant']){const q=r[key];assert(q.n>500,r.faction+' '+key+' empty');assert(q.minX>0&&q.minY>0&&q.maxX<q.w-1&&q.maxY<q.h-1,JSON.stringify({f:r.faction,key,q}));}assert(out.results.every(r=>r.ownership));assert.deepEqual(errors,[]);console.log('PASS twelve distinct market and merchant silhouettes, ownership and unclipped review rendering');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

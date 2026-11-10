@@ -1,0 +1,1560 @@
+{
+  "method": "Read-only BFS over actual static canTraverse movement, including water, cliffs and built foundations, from the initial ground army to every mission interaction ring, convoy destination and resource cluster. Requires starting workers in same component and immediately visible reachable Ore. Dynamic combat, future construction and unit traffic are covered separately by the command-only playthrough.",
+  "results": [
+    {
+      "mission": 1,
+      "title": "The Bridge at Dawn",
+      "size": 100,
+      "layout": "plains",
+      "reachableCells": 8388,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "bridge",
+          "reachable": true,
+          "distance": 0.71
+        },
+        {
+          "id": "village",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.71
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 2,
+      "title": "Imperial Orders",
+      "size": 100,
+      "layout": "plains",
+      "reachableCells": 8453,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "aether",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "gateway",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "watch",
+          "reachable": true,
+          "distance": 0.71
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 6,
+          "reachable": 6,
+          "visible": 3
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 3,
+      "title": "Keys to a Third World",
+      "size": 100,
+      "layout": "plains",
+      "reachableCells": 8806,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "survey",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "spire",
+          "reachable": true,
+          "distance": 0.71
+        },
+        {
+          "id": "controls",
+          "reachable": true,
+          "distance": 1.58
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 4,
+      "title": "Through the Breach",
+      "size": 100,
+      "layout": "plains",
+      "reachableCells": 8082,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "compound",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "refugees",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "corridor",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.71
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 5,
+      "title": "No Neutral Ground",
+      "size": 100,
+      "layout": "plains",
+      "reachableCells": 8665,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "north",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "south",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "outpost",
+          "reachable": true,
+          "distance": 1.58
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 6,
+      "title": "Hold Ashbridge",
+      "size": 100,
+      "layout": "plains",
+      "reachableCells": 8372,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "infirmary",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "outer",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "refugees",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "road",
+          "reachable": true,
+          "distance": 0.71
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.71
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 7,
+      "title": "Lines in the Earth",
+      "size": 120,
+      "layout": "plains",
+      "reachableCells": 11900,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "collection",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "battery",
+          "reachable": true,
+          "distance": 1.5
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 6,
+          "reachable": 6,
+          "visible": 6
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 8,
+      "title": "The Forest War",
+      "size": 120,
+      "layout": "labyrinth",
+      "reachableCells": 7734,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "scout",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "convoy-a",
+          "reachable": true,
+          "distance": 0.14
+        },
+        {
+          "id": "convoy-b",
+          "reachable": true,
+          "distance": 0.32
+        },
+        {
+          "id": "crossing",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "convoy-a-destination",
+          "reachable": true,
+          "distance": 0.51
+        },
+        {
+          "id": "convoy-b-destination",
+          "reachable": true,
+          "distance": 0.51
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 9,
+      "title": "Logic of War",
+      "size": 120,
+      "layout": "plains",
+      "reachableCells": 11480,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "foundry",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "network",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "siege",
+          "reachable": true,
+          "distance": 1.58
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 10,
+      "title": "Stone and Oath",
+      "size": 120,
+      "layout": "mountain-passes",
+      "reachableCells": 11124,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "temple",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "upper",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "lower",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "garrison",
+          "reachable": true,
+          "distance": 1.9
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 6,
+          "reachable": 6,
+          "visible": 6
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "aether",
+          "total": 6,
+          "reachable": 6,
+          "visible": 3
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 11,
+      "title": "Fire Against Steel",
+      "size": 120,
+      "layout": "steppes",
+      "reachableCells": 13810,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "hatchery",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "aether",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "oil",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "army",
+          "reachable": true,
+          "distance": 1.73
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 6,
+          "reachable": 6,
+          "visible": 4
+        },
+        {
+          "name": "aether",
+          "total": 6,
+          "reachable": 6,
+          "visible": 3
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 12,
+      "title": "The Terms of Fire",
+      "size": 120,
+      "layout": "plains",
+      "reachableCells": 12079,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "crystals",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "crossing",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "rival",
+          "reachable": true,
+          "distance": 1.5
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 1
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 6,
+          "reachable": 6,
+          "visible": 3
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 13,
+      "title": "The Emperor's Wound",
+      "size": 140,
+      "layout": "plains",
+      "reachableCells": 15489,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "lab",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "archive",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "containment",
+          "reachable": true,
+          "distance": 1.53
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 14,
+      "title": "Unaccounted Movements",
+      "size": 140,
+      "layout": "plains",
+      "reachableCells": 15852,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "settlement",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "patrol",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "convoy",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.58
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 15,
+      "title": "Shelter of the Unclaimed",
+      "size": 140,
+      "layout": "plains",
+      "reachableCells": 16135,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "settlement",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "road",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "refugees",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.42
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 16,
+      "title": "A Necessary Pattern",
+      "size": 140,
+      "layout": "plains",
+      "reachableCells": 16817,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "shelter",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "network",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "district",
+          "reachable": true,
+          "distance": 1.58
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 17,
+      "title": "Deviation",
+      "size": 140,
+      "layout": "plains",
+      "reachableCells": 16635,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "interference",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "production",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "relay",
+          "reachable": true,
+          "distance": 1.5
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 18,
+      "title": "The Price of Peace",
+      "size": 140,
+      "layout": "plains",
+      "reachableCells": 16435,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "settlement",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "node",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "residents",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.14
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 19,
+      "title": "Without Consent",
+      "size": 140,
+      "layout": "plains",
+      "reachableCells": 16266,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "north-node",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "south-node",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "north-residents",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "south-residents",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.58
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 20,
+      "title": "Firebreak",
+      "size": 160,
+      "layout": "mountain-passes",
+      "reachableCells": 18345,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "hatchery",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "pass",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "siege",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "outer",
+          "reachable": true,
+          "distance": 1.9
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 21,
+      "title": "The Fall of the Crossings",
+      "size": 160,
+      "layout": "plains",
+      "reachableCells": 21002,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "gateway",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "traffic",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "rear",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.32
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 22,
+      "title": "A Common Oath",
+      "size": 160,
+      "layout": "steppes",
+      "reachableCells": 24520,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "west",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "east",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "supply",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "stronghold",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.42
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 23,
+      "title": "The Ground Between Worlds",
+      "size": 160,
+      "layout": "labyrinth",
+      "reachableCells": 13125,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "overlook",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "crossing",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "relay",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "column",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.86
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 24,
+      "title": "Breaking the Pattern",
+      "size": 160,
+      "layout": "steppes",
+      "reachableCells": 24422,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "station",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "survey",
+          "reachable": true,
+          "distance": 1.73
+        },
+        {
+          "id": "relay-a",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "relay-b",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "relay-c",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "exit",
+          "reachable": true,
+          "distance": 0.32
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    },
+    {
+      "mission": 25,
+      "title": "One More Choice",
+      "size": 180,
+      "layout": "mountain-passes",
+      "reachableCells": 25976,
+      "goals": [
+        {
+          "id": "home",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "approach",
+          "reachable": true,
+          "distance": 1.5
+        },
+        {
+          "id": "support",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "outer-west",
+          "reachable": true,
+          "distance": 1.39
+        },
+        {
+          "id": "outer-east",
+          "reachable": true,
+          "distance": 1.7
+        },
+        {
+          "id": "defense",
+          "reachable": true,
+          "distance": 0.51
+        },
+        {
+          "id": "support-west",
+          "reachable": true,
+          "distance": 1.53
+        },
+        {
+          "id": "support-east",
+          "reachable": true,
+          "distance": 1.9
+        },
+        {
+          "id": "heart",
+          "reachable": true,
+          "distance": 1.58
+        }
+      ],
+      "resources": [
+        {
+          "name": "ore",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "oil",
+          "total": 3,
+          "reachable": 3,
+          "visible": 3
+        },
+        {
+          "name": "aether",
+          "total": 3,
+          "reachable": 3,
+          "visible": 0
+        },
+        {
+          "name": "rift",
+          "total": 3,
+          "reachable": 3,
+          "visible": 2
+        }
+      ],
+      "workersConnected": true,
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "factions": [
+    {
+      "faction": "humans",
+      "units": 19,
+      "buildings": 20,
+      "actualUnits": 19,
+      "actualBuildings": 20
+    },
+    {
+      "faction": "reptilians",
+      "units": 20,
+      "buildings": 22,
+      "actualUnits": 20,
+      "actualBuildings": 22
+    },
+    {
+      "faction": "machines",
+      "units": 19,
+      "buildings": 22,
+      "actualUnits": 19,
+      "actualBuildings": 22
+    },
+    {
+      "faction": "insects",
+      "units": 19,
+      "buildings": 23,
+      "actualUnits": 19,
+      "actualBuildings": 23
+    },
+    {
+      "faction": "primates",
+      "units": 21,
+      "buildings": 24,
+      "actualUnits": 21,
+      "actualBuildings": 24
+    },
+    {
+      "faction": "wizards",
+      "units": 20,
+      "buildings": 22,
+      "actualUnits": 20,
+      "actualBuildings": 22
+    },
+    {
+      "faction": "elders",
+      "units": 20,
+      "buildings": 24,
+      "actualUnits": 20,
+      "actualBuildings": 24
+    },
+    {
+      "faction": "myth",
+      "units": 19,
+      "buildings": 24,
+      "actualUnits": 19,
+      "actualBuildings": 24
+    },
+    {
+      "faction": "dragons",
+      "units": 19,
+      "buildings": 22,
+      "actualUnits": 19,
+      "actualBuildings": 22
+    },
+    {
+      "faction": "night",
+      "units": 22,
+      "buildings": 23,
+      "actualUnits": 22,
+      "actualBuildings": 23
+    },
+    {
+      "faction": "infernal",
+      "units": 19,
+      "buildings": 24,
+      "actualUnits": 19,
+      "actualBuildings": 24
+    },
+    {
+      "faction": "symbiotes",
+      "units": 20,
+      "buildings": 22,
+      "actualUnits": 20,
+      "actualBuildings": 22
+    }
+  ],
+  "offline": true,
+  "errors": []
+}

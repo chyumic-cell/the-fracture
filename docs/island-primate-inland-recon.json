@@ -1,0 +1,78 @@
+[
+  {
+    "crossing": [],
+    "faction": "primates",
+    "size": 200,
+    "seed": 42,
+    "layout": "large-islands",
+    "time": 918,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "primates_transport_ship",
+        "at": 198
+      },
+      {
+        "type": "primates_scout_boat",
+        "at": 243
+      },
+      {
+        "type": "primates_warship",
+        "at": 283
+      },
+      {
+        "type": "primates_escort_ship",
+        "at": 448
+      },
+      {
+        "type": "primates_siege_ship",
+        "at": 803
+      }
+    ],
+    "landings": [
+      {
+        "at": 491,
+        "n": 3,
+        "naval": true,
+        "x": 149.5,
+        "y": 113.5
+      },
+      {
+        "at": 589,
+        "n": 7,
+        "naval": true,
+        "x": 144.5,
+        "y": 105.5
+      },
+      {
+        "at": 745,
+        "n": 3,
+        "naval": true,
+        "x": 147.5,
+        "y": 72.5
+      },
+      {
+        "at": 796,
+        "n": 7,
+        "naval": true,
+        "x": 125.5649711574556,
+        "y": 64.4350288425444
+      },
+      {
+        "at": 892,
+        "n": 8,
+        "naval": true,
+        "x": 125.5649711574556,
+        "y": 64.4350288425444
+      },
+      {
+        "at": 893,
+        "n": 1,
+        "naval": true,
+        "x": 125.5649711574556,
+        "y": 64.4350288425444
+      }
+    ],
+    "paid": 10570
+  }
+]

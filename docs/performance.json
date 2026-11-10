@@ -1,0 +1,8 @@
+{
+  "initialCombatants": 200,
+  "simulationSeconds": 10,
+  "meanStepMs": 9.13057899999999,
+  "p95StepMs": 19.97410000000002,
+  "peakStepMs": 201.692,
+  "note": "Node simulation only, excludes browser rendering; this is not a 60 FPS guarantee."
+}

@@ -1,0 +1,11 @@
+{
+  "units": 237,
+  "files": 9612,
+  "uniqueRecordings": 2662,
+  "bytes": 126354236,
+  "durationSeconds": [
+    0.5758333333333333,
+    4.519791666666666
+  ],
+  "checked": "All referenced files exist, decode, have finite non-silent audio; five separate recordings per collective line."
+}

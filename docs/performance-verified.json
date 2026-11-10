@@ -1,0 +1,312 @@
+{
+  "calls": {
+    "path": {
+      "count": 3182,
+      "total": 47.70000000670552,
+      "max": 1.1000000005587935,
+      "slow": []
+    },
+    "tickUnit": {
+      "count": 26529,
+      "total": 487.30000000074506,
+      "max": 3,
+      "slow": []
+    },
+    "tickBuilding": {
+      "count": 3519,
+      "total": 44.10000001359731,
+      "max": 0.900000000372529,
+      "slow": []
+    },
+    "tick": {
+      "count": 1173,
+      "total": 4187.500000016764,
+      "max": 30.5,
+      "slow": [
+        {
+          "ms": 20.600000000558794,
+          "time": 2.4831000000000003,
+          "args": null
+        },
+        {
+          "ms": 30.5,
+          "time": 2.8996999999999984,
+          "args": null
+        },
+        {
+          "ms": 27.90000000037253,
+          "time": 3.3163,
+          "args": null
+        },
+        {
+          "ms": 25.899999999441206,
+          "time": 3.732899999999998,
+          "args": null
+        },
+        {
+          "ms": 22.5,
+          "time": 7.898900000000035,
+          "args": null
+        },
+        {
+          "ms": 21.299999999813735,
+          "time": 16.597599999999908,
+          "args": null
+        },
+        {
+          "ms": 30.5,
+          "time": 17.131699999999896,
+          "args": null
+        }
+      ]
+    },
+    "tree": {
+      "count": 10339,
+      "total": 52.79999999795109,
+      "max": 1.5,
+      "slow": []
+    },
+    "resource": {
+      "count": 9294,
+      "total": 32.600000008009374,
+      "max": 0.6999999992549419,
+      "slow": []
+    },
+    "building": {
+      "count": 1173,
+      "total": 9.399999998509884,
+      "max": 0.20000000018626451,
+      "slow": []
+    },
+    "unit": {
+      "count": 19996,
+      "total": 501.600000009872,
+      "max": 19.700000000186265,
+      "slow": []
+    },
+    "updateVision": {
+      "count": 48,
+      "total": 680.7999999970198,
+      "max": 27.899999999441206,
+      "slow": [
+        {
+          "ms": 27.899999999441206,
+          "time": 2.8996999999999984,
+          "args": null
+        },
+        {
+          "ms": 25.700000000186265,
+          "time": 3.3163,
+          "args": null
+        },
+        {
+          "ms": 23.09999999962747,
+          "time": 3.732899999999998,
+          "args": null
+        },
+        {
+          "ms": 20.09999999962747,
+          "time": 16.597599999999908,
+          "args": null
+        }
+      ]
+    }
+  },
+  "long": [
+    {
+      "start": 20492,
+      "duration": 56
+    }
+  ],
+  "frames": {
+    "count": 1173,
+    "p50": 16.69999999999709,
+    "p95": 16.89999999999418,
+    "p99": 33.39999999999782,
+    "max": 333.2000000000007
+  },
+  "entities": 14335,
+  "time": 22.27989999999973,
+  "hottest": [
+    {
+      "fn": "(idle)",
+      "file": "",
+      "line": 0,
+      "ms": 8650.106999999982
+    },
+    {
+      "fn": "(program)",
+      "file": "",
+      "line": 0,
+      "ms": 2841.513999999998
+    },
+    {
+      "fn": "tick",
+      "file": "simulation.js",
+      "line": 253,
+      "ms": 1205.363
+    },
+    {
+      "fn": "drawMini",
+      "file": "app.js",
+      "line": 162,
+      "ms": 481.5230000000002
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 261,
+      "ms": 476.2510000000001
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 405.29999999999984
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 258,
+      "ms": 401.73499999999984
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 255,
+      "ms": 380.91800000000006
+    },
+    {
+      "fn": "(garbage collector)",
+      "file": "",
+      "line": 0,
+      "ms": 324.442
+    },
+    {
+      "fn": "visible",
+      "file": "simulation.js",
+      "line": 152,
+      "ms": 304.11899999999997
+    },
+    {
+      "fn": "obj.<computed>",
+      "file": "",
+      "line": 2,
+      "ms": 271.7999999999999
+    },
+    {
+      "fn": "render",
+      "file": "app.js",
+      "line": 72,
+      "ms": 249.39400000000003
+    },
+    {
+      "fn": "art.deferUnit",
+      "file": "async-art.js",
+      "line": 8,
+      "ms": 237.77199999999993
+    },
+    {
+      "fn": "updateVision",
+      "file": "simulation.js",
+      "line": 155,
+      "ms": 233.29199999999992
+    },
+    {
+      "fn": "obj.<computed>",
+      "file": "",
+      "line": 2,
+      "ms": 185.558
+    },
+    {
+      "fn": "slot.worker.onmessage",
+      "file": "async-art.js",
+      "line": 6,
+      "ms": 168.20500000000004
+    },
+    {
+      "fn": "obj.<computed>",
+      "file": "",
+      "line": 2,
+      "ms": 144.208
+    },
+    {
+      "fn": "visible",
+      "file": "simulation.js",
+      "line": 152,
+      "ms": 127.04300000000003
+    },
+    {
+      "fn": "updateUI",
+      "file": "app.js",
+      "line": 176,
+      "ms": 114.03399999999996
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 113.06100000000002
+    },
+    {
+      "fn": "requestAnimationFrame",
+      "file": "",
+      "line": 0,
+      "ms": 108.47
+    },
+    {
+      "fn": "frame",
+      "file": "app.js",
+      "line": 285,
+      "ms": 97.15100000000001
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 93.033
+    },
+    {
+      "fn": "pump",
+      "file": "async-art.js",
+      "line": 7,
+      "ms": 88.25200000000002
+    },
+    {
+      "fn": "",
+      "file": "app.js",
+      "line": 80,
+      "ms": 84.22500000000001
+    },
+    {
+      "fn": "save",
+      "file": "",
+      "line": 0,
+      "ms": 78.55800000000002
+    },
+    {
+      "fn": "unit",
+      "file": "art.js",
+      "line": 271,
+      "ms": 78.274
+    },
+    {
+      "fn": "putImageData",
+      "file": "",
+      "line": 0,
+      "ms": 74.47899999999998
+    },
+    {
+      "fn": "closePath",
+      "file": "",
+      "line": 0,
+      "ms": 72.08800000000001
+    },
+    {
+      "fn": "visibleDrawList",
+      "file": "app.js",
+      "line": 32,
+      "ms": 70.87899999999999
+    }
+  ]
+}

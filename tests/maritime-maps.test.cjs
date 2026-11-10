@@ -1,0 +1,7 @@
+'use strict';
+const assert=require('node:assert/strict'),{Game}=require('../src/simulation.js');
+const kinds=['mediterranean','continental','coastal','small-islands','large-islands'];
+let count=0;
+for(const kind of kinds)for(const seed of [18,67]){const g=new Game({size:100,layout:kind,seed,factions:['humans','reptilians','primates','wizards']});const water=g.map.filter(t=>t.water).length/g.map.length;assert(water>.12&&water<.85,kind+' water '+water);for(const [owner,h]of g.starts.entries()){for(let y=-5;y<=5;y++)for(let x=-5;x<=5;x++)assert(!g.tile(h.x+x,h.y+y).water,kind+' dry base');for(let r=0;r<4;r++)assert(g.entities.some(e=>e.kind==='resource'&&e.resource===r&&Math.hypot(e.x-h.x,e.y-h.y)<10),kind+' opening resource '+r);const p=g.players[owner];p.explored.fill(1);p.visible.fill(1);let dock=false;for(let y=3;y<97&&!dock;y+=2)for(let x=3;x<97&&!dock;x+=2)if(!g.placement(p.faction+'_dock',owner,x,y,true))dock=true;assert(dock,kind+' legal dock');}const restored=Game.restore(g.serialize());assert.equal(restored.options.layout,kind);assert.deepEqual(restored.starts,g.starts);console.log('PASS '+kind+' seed '+seed+' water '+Math.round(water*100)+'% · four dry bases, all resources and dock sites');count++;}
+const a=new Game({size:100,layout:'small-islands',seed:18}),b=new Game({size:100,layout:'large-islands',seed:18});assert(a.map.filter(t=>!t.water).length<b.map.filter(t=>!t.water).length);console.log('TOTAL '+count+' maritime map scenarios passed; large islands have more land than small islands.');
+

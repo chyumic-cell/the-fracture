@@ -1,0 +1,41 @@
+'use strict';
+(function(root){
+function apply(D){
+const names={humans:['Concrete Wall','Land Mine','Harbor','Cargo Ship','Coastal Gunboat','Cargo Helicopter','Trading Post','Merchant','Deep Drilling Complex'],reptilians:['Imperial Rampart','Pressure Mine','Imperial Dock','Legion Transport','Imperial Patrol Boat','Sky Barge','Imperial Exchange','Caravan Trader','Imperial Deepworks'],machines:['Alloy Barrier','Mechanical Mine','Naval Assembly Pier','Cargo Platform','Pulse Cutter','Lift Drone','Exchange Terminal','Freight Automaton','Subsurface Array'],primates:['Timber Palisade','Covered Pit','River Landing','Reed Transport','War Canoe','Condor Basket Carrier','Barter Lodge','Pack Trader','Shaft Mine'],insects:['Resin Wall','Adhesive Spore Trap','Tidal Nursery','Brood Ferry','Acid Skimmer','Brood Carrier','Colony Exchange','Cargo Caste','Deep Root Extractor'],wizards:['Enchanted Rampart','Runic Ground Mine','Enchanted Quay','Wayfarer Ferry','Spellship','Levitating Carriage','Arcane Exchange','Caravan Mage','Deep Delving Hall'],elders:['Council Stone Wall','Rune Trap','Guild Harbor','Guild Transport','Runic Warship','Runic Skyship','Guild Market','Guild Merchant','Runeforge Deep Mine'],myth:['Marble Bulwark','Thorn Pit','Sacred Harbor','Pilgrim Barge','War Galley','Roc Carrier','Trade Agora','Satyr Merchant','Delving Sanctuary'],dragons:['Obsidian Rampart','Ember Trap','Ember Anchorage','Hoard Ferry','Flame Galley','Hoardwing Carrier','Hoard Exchange','Kobold Trader','Deep Hoard Mine'],night:['Gothic Wall','Silver-Nitrate Mine','Night Harbor','Night Ferry','Armored Cutter','Night Airship','Night Exchange','Night Merchant','Nocturnal Deepworks'],infernal:['Basalt Wall','Cinder Mine','Cinder Docks','Legion Ferry','Hellfire Galley','Legion Sky Carrier','Legion Exchange','Imp Trader','Deep Furnace'],symbiotes:['Living Bulwark','Spore Snare','Tidal Colony','Living Ferry','Spine Skimmer','Buoyant Carrier','Exchange Colony','Trade Organism','Deep Mycelial Well']};
+for(const id of ['humans','primates','wizards']){const source=D.factions[id].buildings.find(b=>b.kind==='house');D.buildings['neutral_'+id]={...source,id:'neutral_'+id,name:({humans:'Refugee Trading Camp',primates:'Forest Refuge',wizards:'Wayfarers Lodge'})[id],kind:'neutral',size:1.4,hp:900,requires:[],cost:[0,0,0,0]};}
+for(const f of Object.values(D.factions)){
+ const n=names[f.id],lab=f.buildings.find(b=>b.kind==='lab'),inf=f.buildings.find(b=>b.kind==='inf');
+ // Research chains create sustained investment; basic replacement troops stay cheap.
+ const foundation={humans:'economy',reptilians:'weapons1',machines:'economy',primates:'weapons1',insects:'armor1',wizards:'weapons1',elders:'armor1',myth:'armor1',dragons:'armor1',night:'weapons1',infernal:'weapons1',symbiotes:'economy'}[f.id];
+ const advanced=D.research[f.id+'_advanced'];advanced.requires=[f.id+'_'+foundation];advanced.cost=[260,90,100,35];advanced.time=85;
+ const second=foundation==='armor1'?'weapons1':'armor1';
+ for(const b of f.buildings){if(['armor','air'].includes(b.kind)){b.requires=[...new Set([...b.requires,lab.id])];b.cost=b.cost.map((v,i)=>v+(i===0?60:i===2?25:0));b.time+=12;}if(b.kind==='elite'){b.requires=[...new Set([...b.requires,advanced.id])];b.cost=b.cost.map((v,i)=>v+(i===0?120:i===2?40:0));b.time+=25;}}
+ for(const u of f.units){if(['tank','siege','fighter','gunship'].includes(u.role))u.requires=[...new Set([...u.requires,f.id+'_'+foundation])];if(u.role==='giant')u.requires=[...new Set([...u.requires,f.id+'_'+second])];}
+ for(const e of f.extensions){e.requires=[lab.id,f.id+'_'+foundation];e.cost=[145,55,20,0];e.time=42;}
+
+ const building=(suffix,name,kind,extra={})=>{const b={id:f.id+'_'+suffix,name,kind,hp:600,size:1.6,time:30,cost:[180,0,0,0],requires:[],...extra};f.buildings.push(b);D.buildings[b.id]=b;return b;};
+ const unit=(suffix,name,building,extra={})=>{const u={id:f.id+'_'+suffix,name,faction:f.id,variant:f.units.length,role:'transport',building,hp:240,damage:0,range:0,speed:1.7,pop:3,time:32,cost:[130,35,0,0],armor:2,vision:8,cooldown:2,requires:[],biological:!['humans','machines','night','reptilians'].includes(f.id),...extra};f.units.push(u);D.units[u.id]=u;return u;};
+ building('wall',n[0],'wall',{hp:900,size:.62,time:12,cost:[30,0,0,0],armor:6});
+ building('trap',n[1],'trap',{hp:80,size:.3,time:9,cost:[35,0,10,0],trapDamage:105,vision:0,concealedTrap:true});
+ const dock=building('dock',n[2],'dock',{hp:900,size:1.5,cost:[170,0,0,0]});
+ unit('transport_ship',n[3],dock.id,{naval:true,transport:10,hp:360,speed:1.8});
+ unit('warship',n[4],dock.id,{naval:true,role:'tank',hp:460,damage:38,range:7,armor:5,pop:4,speed:1.55,cost:[190,60,20,0],time:40,bonus:'building',requires:[lab.id]});
+
+ const fleetNames={humans:['Patrol Launch','Flak Frigate','Siege Monitor'],reptilians:['Dart Cutter','Skyguard Frigate','Imperial Dreadnought'],machines:['Hydrofoil Probe','Interdiction Platform','Railgun Barge'],primates:['Outrigger Scout','Netcaster Canoe','Stone Thrower Raft'],insects:['Pond Skater','Skyspine Skimmer','Bombardment Floater'],wizards:['Windrunner Skiff','Stormward Vessel','Arcane Bombard'],elders:['Tide Scout','Runeward Cutter','Runeforge Monitor'],myth:['Scout Penteconter','Skybow Trireme','Cyclopean Siege Galley'],dragons:['Ember Skiff','Skyfire Escort','Furnace Barge'],night:['Shadow Launch','Silver Flak Cutter','Nightfall Monitor'],infernal:['Cinder Skiff','Soulfire Escort','Hellfire Siege Barge'],symbiotes:['Tendril Skimmer','Spineward Colony','Spore Mortar Vessel']}[f.id];
+ unit('scout_boat',fleetNames[0],dock.id,{naval:true,navalRole:'scout',role:'scout',hp:190,damage:12,range:4.5,armor:1,pop:2,speed:2.65,vision:12,cost:[95,0,0,0],time:21,cooldown:1.15,description:'Fast, inexpensive coastal reconnaissance. Light weapons; vulnerable to warships.'});
+ unit('escort_ship',fleetNames[1],dock.id,{naval:true,navalRole:'escort',role:'aa',hp:400,damage:24,range:8,aa:true,armor:3,pop:4,speed:1.85,cost:[170,45,35,0],time:37,cooldown:1.2,bonus:'air',requires:[lab.id],description:'Protects transports and warships from aircraft. Modest damage against buildings.'});
+ unit('siege_ship',fleetNames[2],dock.id,{naval:true,navalRole:'siege',role:'siege',hp:650,damage:68,range:11,armor:5,pop:6,speed:1.05,cost:[310,100,65,10],time:58,cooldown:3.6,splash:1.2,bonus:'building',requires:[lab.id,f.id+'_advanced'],description:'Slow, long-range coastal bombardment. Needs an escort against aircraft and fast attackers.'});
+ D.units[f.id+'_warship'].navalRole='warship';D.units[f.id+'_transport_ship'].navalRole='transport';
+ D.units[f.id+'_warship'].description='Armored surface combatant. Attacks ships and coastal ground targets; cannot attack aircraft.';
+ let air=f.buildings.find(b=>b.kind==='air');if(!air)air=building('aviary','High Aviary','air',{requires:[inf.id,lab.id],cost:[190,0,55,0],size:2.2});
+ unit('air_transport',n[5],air.id,{air:true,transport:10,hp:260,speed:2.35,cost:[160,40,45,0],requires:[lab.id],time:40});
+ if(f.id==='primates')unit('condor_rider','Condor Spear Rider',air.id,{role:'gunship',air:true,hp:210,damage:21,range:4.5,aa:true,pop:3,cost:[140,0,55,0],cooldown:1.7,requires:[lab.id]});
+ const disarmer=f.units.find(u=>u.role==='scout'&&!u.air&&!u.naval&&!u.armored)||f.units.find(u=>u.role==='support'&&!u.air&&!u.naval)||f.units.find(u=>u.role==='melee'&&!u.air&&!u.naval);if(disarmer)disarmer.disarmsMines=true;
+ const market=building('market',n[6],'market',{requires:[inf.id],size:1.7});
+ unit('merchant',n[7],market.id,{role:'merchant',hp:110,damage:0,armor:0,pop:1,speed:1.8,cost:[70,0,0,0],time:16,biological:f.id!=='machines'});
+ const tech={id:f.id+'_deep_extraction',name:'Subsurface Extraction',kind:'deep',building:lab.id,cost:[280,100,80,30],time:75,requires:[f.id+'_economy',f.id+'_advanced']};f.research.push(tech);D.research[tech.id]=tech;
+ for(const resource of D.resources)building('deep_'+resource,n[8]+' · '+({ore:'Ore',oil:'Lastrian Oil',aether:'Aetherite',rift:'Rift Crystal'})[resource],'deepMine',{resource,requires:[lab.id],research:tech.id,cost:[180,resource==='oil'?60:20,30,0],time:40,hp:650,size:1.2});
+}
+}
+root.FractureExpansionData={apply};if(typeof module!=='undefined')module.exports=root.FractureExpansionData;
+})(globalThis);

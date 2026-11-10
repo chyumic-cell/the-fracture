@@ -1,0 +1,1469 @@
+'use strict';
+(function(root){const story={
+  "version": 2,
+  "narrator": "Older Tarin",
+  "timeline": "Approximately eighteen months; childhood memories narrated decades later.",
+  "sceneOnePlacement": "After Mission 1 (latest explicit user correction)",
+  "recordings": [
+    {
+      "id": "the-fracture",
+      "src": "assets/campaign/audio/The Fracture.mp3",
+      "label": "The Fracture"
+    },
+    {
+      "id": "the-empty-box",
+      "src": "assets/campaign/audio/The Empty Box.mp3",
+      "label": "The Empty Box"
+    },
+    {
+      "id": "the-sound-of-glass",
+      "src": "assets/campaign/audio/The Sound of Glass.mp3",
+      "label": "The Sound of Glass"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene_01",
+      "number": 1,
+      "title": "Before the Fracture",
+      "afterMission": 1,
+      "audio": {
+        "src": "assets/campaign/audio/The Fracture.mp3",
+        "start": 0,
+        "end": 111,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "I learned much later that something had begun growing in the wreckage of a battle, from a severed piece of the Reptilian Emperor himself. At the time, none of us knew. I was a boy, and my world was still small.",
+          "image": "assets/campaign/cinematics/scene_01/image_01.png",
+          "description": "A detached bronze-olive reptilian emperor's shed tail rests in stone battlefield debris; tiny violet-brown fungal threads emerge from its exposed end. No head, no torso, not a dragon carcass. A distant broken arch and subtle rift haze. Quiet aftermath, restrained non-graphic depiction.",
+          "start": 0,
+          "end": 27.3
+        },
+        {
+          "id": "shot_2",
+          "text": "I used to spend my afternoons drawing the old bridge near our village. I drew it so often that I thought I knew every stone. I suppose children believe that the things they know will always be there.",
+          "image": "assets/campaign/cinematics/scene_01/image_02.png",
+          "description": "Tarin, a thoughtful twelve-year-old human boy with tousled brown hair, gray-blue practical shirt, dark brown vest and satchel, sits in grass sketching an old stone bridge over a quiet river near his village. Peaceful afternoon, bridge and hills prominent.",
+          "start": 27.3,
+          "end": 48.9
+        },
+        {
+          "id": "shot_3",
+          "text": "My mother was a healer. People came to her with broken bones, fevers, and troubles that had nothing to do with medicine. I remember thinking that she could mend almost anything.",
+          "image": "assets/campaign/cinematics/scene_01/image_03.png",
+          "description": "Maela, Tarin's brown-haired mother in her late thirties with tied-back hair and a simple cream healer's apron over muted russet clothes, gently binds a villager's wrist outside a modest village house. Young Tarin watches with his sketchbook. Everyday kindness.",
+          "start": 48.9,
+          "end": 67.5
+        },
+        {
+          "id": "shot_4",
+          "text": "The first signs of war came from beyond the hills. Smoke, then strange lights in the sky. The adults knew more than they told us. I remember how carefully they began choosing their words.",
+          "image": "assets/campaign/cinematics/scene_01/image_04.png",
+          "description": "Tarin, twelve-year-old brown-haired human boy in gray-blue shirt and brown vest, stands at a grassy hill holding a sketchbook, looking across a peaceful river valley toward distant smoke and strange violet lights beyond the hills. Ominous war kept far away.",
+          "start": 67.5,
+          "end": 87.1
+        },
+        {
+          "id": "shot_5",
+          "text": "We left before dawn. I carried my sketchbook because I couldn't think of anything else worth taking. I looked back at the bridge until the road turned and I couldn't see it anymore. I thought we'd return in a few days.",
+          "image": "assets/campaign/cinematics/scene_01/image_05.png",
+          "description": "Before dawn, Maela in cream apron and russet traveling cloak leads young Tarin along a refugee road away from their village. He clutches his sketchbook and looks back at the old stone bridge disappearing behind a bend. Small tired procession, misty muted blue dawn.",
+          "start": 87.1,
+          "end": 111
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 2.48,
+          "end": 13.46,
+          "text": "I learned much later that something had begun growing in the wreckage of a battle, from a severed piece of the Reptilian Emperor himself."
+        },
+        {
+          "start": 13.46,
+          "end": 17.2,
+          "text": "At the time, none of us knew."
+        },
+        {
+          "start": 17.2,
+          "end": 27.3,
+          "text": "I was a boy, and my world was still small."
+        },
+        {
+          "start": 27.8,
+          "end": 34.2,
+          "text": "I used to spend my afternoons drawing the old bridge near our village."
+        },
+        {
+          "start": 34.2,
+          "end": 38.64,
+          "text": "I drew it so often that I thought I knew every stone."
+        },
+        {
+          "start": 38.64,
+          "end": 48.9,
+          "text": "I suppose children believe that the things they know will always be there."
+        },
+        {
+          "start": 49.39,
+          "end": 52.51,
+          "text": "My mother was a healer."
+        },
+        {
+          "start": 52.51,
+          "end": 59.57,
+          "text": "People came to her with broken bones, fevers, and troubles that had nothing to do with medicine."
+        },
+        {
+          "start": 59.57,
+          "end": 67.5,
+          "text": "I remember thinking that she could mend almost anything."
+        },
+        {
+          "start": 68.01,
+          "end": 71.37,
+          "text": "The first signs of war came from beyond the hills."
+        },
+        {
+          "start": 71.37,
+          "end": 77.45,
+          "text": "Smoke, then strange lights in the sky."
+        },
+        {
+          "start": 77.45,
+          "end": 81.33,
+          "text": "The adults knew more than they told us."
+        },
+        {
+          "start": 81.33,
+          "end": 87.1,
+          "text": "I remember how carefully they began choosing their words."
+        },
+        {
+          "start": 87.61,
+          "end": 89.09,
+          "text": "We left before dawn."
+        },
+        {
+          "start": 89.09,
+          "end": 96.85,
+          "text": "I carried my sketchbook because I couldn't think of anything else worth taking."
+        },
+        {
+          "start": 96.85,
+          "end": 105.49,
+          "text": "I looked back at the bridge until the road turned and I couldn't see it anymore."
+        },
+        {
+          "start": 105.49,
+          "end": 111,
+          "text": "I thought we'd return in a few days."
+        }
+      ]
+    },
+    {
+      "id": "scene_02",
+      "number": 2,
+      "title": "Three Boys",
+      "afterMission": 3,
+      "audio": {
+        "src": "assets/campaign/audio/The Fracture.mp3",
+        "start": 111,
+        "end": 235,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "We reached Ashbridge with hundreds of other refugees. My mother began helping in the infirmary almost immediately. That was where I first saw Kesh, a reptilian boy whose injuries had brought him far from his own world.",
+          "image": "assets/campaign/cinematics/scene_02/image_01.png",
+          "description": "In a crowded stone-arched Ashbridge infirmary, Maela the brown-haired healer in cream apron tends the injured arm of Kesh, a twelve-year-old distinctly reptilian boy with olive-green scales, elongated reptile snout, amber slit-pupil eyes and a visible tail. Kesh wears worn khaki military clothes. Human brown-haired Tarin with sketchbook watches nearby.",
+          "start": 111,
+          "end": 136.7
+        },
+        {
+          "id": "shot_2",
+          "text": "Kesh had a soldier's confidence, although he was no older than I was. He thought my drawings were inaccurate. I thought he was insufferably certain of himself. Somehow, that was enough to begin a friendship.",
+          "image": "assets/campaign/cinematics/scene_02/image_02.png",
+          "description": "Two twelve-year-old boys examine a pencil map on an infirmary table: human Tarin with tousled brown hair and gray-blue shirt, and olive-scaled reptilian Kesh with an unmistakable snout and tail in khaki clothing. Kesh points confidently while Tarin argues with a pencil. Friendship beginning through disagreement.",
+          "start": 136.7,
+          "end": 162
+        },
+        {
+          "id": "shot_3",
+          "text": "Rook arrived with refugees from Morvane. He was a young werewolf, and at first I was frightened of him. I had heard too many stories about the creatures of his world. Most of those stories had been told by people who had never met one.",
+          "image": "assets/campaign/cinematics/scene_02/image_03.png",
+          "description": "Young Rook arrives among tired Morvane refugees at Ashbridge's stone gate. He is a wolf-anatomied werewolf boy with gray-brown fur, full wolf muzzle, upright wolf ears, amber eyes and clawed hands, wearing a burgundy-brown worn coat and trousers. Human Tarin and green reptilian Kesh observe from the side. Rook is not a human with animal ears.",
+          "start": 162,
+          "end": 188.2
+        },
+        {
+          "id": "shot_4",
+          "text": "One afternoon, we spent hours trying to repair a broken cart. Kesh understood the mechanism, I had drawn a solution, and Rook could see what neither of us had noticed. It was the first time we accomplished something together.",
+          "image": "assets/campaign/cinematics/scene_02/image_04.png",
+          "description": "Three boys repair a broken wooden cart together: brown-haired human Tarin holds his sketchbook diagram; green reptilian Kesh with snout and tail adjusts the mechanism; gray-brown wolf-boy Rook with full muzzle and claws notices a displaced axle peg. Clear teamwork, refugee courtyard, warm afternoon.",
+          "start": 188.2,
+          "end": 214
+        },
+        {
+          "id": "shot_5",
+          "text": "We were three boys from three worlds, with different bodies, different childhoods, and different ideas about almost everything. I didn't understand why we felt so familiar to one another. Not then.",
+          "image": "assets/campaign/cinematics/scene_02/image_05.png",
+          "description": "The three boys sit beside a small evening fire at Ashbridge: human Tarin with sketchbook, olive-green reptilian Kesh with long snout and tail, and furred wolf-boy Rook with full wolf muzzle. Distinct species and clothes, similar thoughtful hand-to-chin gestures suggest a shared soul. Intimate new friendship.",
+          "start": 214,
+          "end": 235
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 112.93,
+          "end": 119.47,
+          "text": "We reached Ashbridge with hundreds of other refugees."
+        },
+        {
+          "start": 119.47,
+          "end": 126.49,
+          "text": "My mother began helping in the infirmary almost immediately."
+        },
+        {
+          "start": 126.49,
+          "end": 136.7,
+          "text": "That was where I first saw Kesh, a reptilian boy whose injuries had brought him far from his own world."
+        },
+        {
+          "start": 137.55,
+          "end": 145.05,
+          "text": "Kesh had a soldier's confidence, although he was no older than I was."
+        },
+        {
+          "start": 145.05,
+          "end": 148.73,
+          "text": "He thought my drawings were inaccurate."
+        },
+        {
+          "start": 148.73,
+          "end": 153.59,
+          "text": "I thought he was insufferably certain of himself."
+        },
+        {
+          "start": 153.59,
+          "end": 162,
+          "text": "Somehow, that was enough to begin a friendship."
+        },
+        {
+          "start": 162.63,
+          "end": 166.07,
+          "text": "Rook arrived with refugees from Morvane."
+        },
+        {
+          "start": 166.07,
+          "end": 172.95,
+          "text": "He was a young werewolf, and at first I was frightened of him."
+        },
+        {
+          "start": 172.95,
+          "end": 178.69,
+          "text": "I had heard too many stories about the creatures of his world."
+        },
+        {
+          "start": 178.69,
+          "end": 188.2,
+          "text": "Most of those stories had been told by people who had never met one."
+        },
+        {
+          "start": 188.39,
+          "end": 194.15,
+          "text": "One afternoon, we spent hours trying to repair a broken cart."
+        },
+        {
+          "start": 194.15,
+          "end": 206.17,
+          "text": "Kesh understood the mechanism, I had drawn a solution, and Rook could see what neither of us had noticed."
+        },
+        {
+          "start": 206.17,
+          "end": 214,
+          "text": "It was the first time we accomplished something together."
+        },
+        {
+          "start": 214.15,
+          "end": 226.41,
+          "text": "We were three boys from three worlds, with different bodies, different childhoods, and different ideas about almost everything."
+        },
+        {
+          "start": 226.41,
+          "end": 230.7,
+          "text": "I didn't understand why we felt so familiar to one another."
+        },
+        {
+          "start": 230.7,
+          "end": 235,
+          "text": "Not then."
+        }
+      ]
+    },
+    {
+      "id": "scene_03",
+      "number": 3,
+      "title": "The Thing in the Glass",
+      "afterMission": 6,
+      "audio": {
+        "src": "assets/campaign/audio/The Fracture.mp3",
+        "start": 235,
+        "end": 363,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "Ashbridge was full of people who had nowhere else to go. My mother worked in the infirmary. Some of her patients came from our world. Others came from places we hadn't even known existed.",
+          "image": "assets/campaign/cinematics/scene_03/image_01.png",
+          "description": "Ashbridge stone-arched infirmary crowded with refugees from several worlds: human, reptilian and furred wolf people. Maela in simple cream apron treats a patient. Tarin, green-snouted Kesh and wolf-muzzled Rook pass quietly with water. Compassion and fatigue, no graphic injuries.",
+          "start": 235,
+          "end": 257.6
+        },
+        {
+          "id": "shot_2",
+          "text": "We found it in a room where they kept things brought through the crossings. It was small, dark, and covered in tiny moving threads. Someone had sealed it inside a glass chamber. Nobody seemed to know what it was.",
+          "image": "assets/campaign/cinematics/scene_03/image_02.png",
+          "description": "In a dim quarantine storeroom, three boys discover a small dark fungal organism in a sealed brass-rimmed glass chamber. Brown-haired human Tarin, olive-scaled reptilian Kesh with tail, gray-brown werewolf Rook with muzzle and claws. Thread is an irregular small mass of dark mycelium and nerve-thin violet tendrils, NO eyes or animal face. Shelves of sealed samples.",
+          "start": 257.6,
+          "end": 282.4
+        },
+        {
+          "id": "shot_3",
+          "text": "At first, we thought it simply moved toward our hands. Then I drew a little mark on the glass. It copied me. When we returned the next day, it remembered. That was when I began to think it was trying to speak to us.",
+          "image": "assets/campaign/cinematics/scene_03/image_03.png",
+          "description": "Close intimate view of brown-haired human Tarin drawing a small curved pencil mark on the outside of a glass containment chamber. Inside, faceless dark fungal Thread bends tiny violet tendrils into the same curve. Tarin's amazed face reflected faintly, two friends blurred in background. Actual glass barrier clearly present.",
+          "start": 282.4,
+          "end": 307.8
+        },
+        {
+          "id": "shot_4",
+          "text": "My mother warned us not to open the chamber. The organism wasn't from our world, and nobody knew what it might do. Then the fighting reached Ashbridge. We were ordered to leave, and there wasn't enough time to take everything.",
+          "image": "assets/campaign/cinematics/scene_03/image_04.png",
+          "description": "Maela in cream healer's apron raises a firm warning hand between the three boys and sealed glass chamber of faceless fungal Thread. Tarin human, Kesh olive-green reptile snout and tail, Rook full gray-brown wolf muzzle and fur. Distant battle smoke through infirmary window. Invasive organism quarantine, protective concern rather than anger.",
+          "start": 307.8,
+          "end": 336.2
+        },
+        {
+          "id": "shot_5",
+          "text": "I remember Kesh watching the doorway. I remember Rook breaking the glass. And I remember the creature crawling into my hands. At the time, I thought we'd saved a life. I remember the sound of that glass more clearly than almost anything else.",
+          "image": "assets/campaign/cinematics/scene_03/image_05.png",
+          "description": "During Ashbridge evacuation, Rook the gray-brown wolf-boy has broken the containment glass with a wrapped tool; shards lie safely aside. Kesh, green reptile boy, watches the doorway. Tarin gently cups a tiny faceless dark fungal Thread in his hands. Non-graphic, tender urgent rescue; violet threads no eyes.",
+          "start": 336.2,
+          "end": 363
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 237.55,
+          "end": 244.23,
+          "text": "Ashbridge was full of people who had nowhere else to go."
+        },
+        {
+          "start": 244.23,
+          "end": 247.85,
+          "text": "My mother worked in the infirmary."
+        },
+        {
+          "start": 247.85,
+          "end": 252.11,
+          "text": "Some of her patients came from our world."
+        },
+        {
+          "start": 252.11,
+          "end": 257.6,
+          "text": "Others came from places we hadn't even known existed."
+        },
+        {
+          "start": 258.11,
+          "end": 264.07,
+          "text": "We found it in a room where they kept things brought through the crossings."
+        },
+        {
+          "start": 264.07,
+          "end": 272.23,
+          "text": "It was small, dark, and covered in tiny moving threads."
+        },
+        {
+          "start": 272.23,
+          "end": 277.19,
+          "text": "Someone had sealed it inside a glass chamber."
+        },
+        {
+          "start": 277.19,
+          "end": 282.4,
+          "text": "Nobody seemed to know what it was."
+        },
+        {
+          "start": 282.91,
+          "end": 289.59,
+          "text": "At first, we thought it simply moved toward our hands."
+        },
+        {
+          "start": 289.59,
+          "end": 293.61,
+          "text": "Then I drew a little mark on the glass."
+        },
+        {
+          "start": 293.61,
+          "end": 296.65,
+          "text": "It copied me."
+        },
+        {
+          "start": 296.65,
+          "end": 301.73,
+          "text": "When we returned the next day, it remembered."
+        },
+        {
+          "start": 301.73,
+          "end": 307.8,
+          "text": "That was when I began to think it was trying to speak to us."
+        },
+        {
+          "start": 308.29,
+          "end": 312.95,
+          "text": "My mother warned us not to open the chamber."
+        },
+        {
+          "start": 312.95,
+          "end": 322.15,
+          "text": "The organism wasn't from our world, and nobody knew what it might do."
+        },
+        {
+          "start": 322.15,
+          "end": 325.69,
+          "text": "Then the fighting reached Ashbridge."
+        },
+        {
+          "start": 325.69,
+          "end": 336.2,
+          "text": "We were ordered to leave, and there wasn't enough time to take everything."
+        },
+        {
+          "start": 336.73,
+          "end": 341.47,
+          "text": "I remember Kesh watching the doorway."
+        },
+        {
+          "start": 341.47,
+          "end": 344.61,
+          "text": "I remember Rook breaking the glass."
+        },
+        {
+          "start": 344.61,
+          "end": 348.27,
+          "text": "And I remember the creature crawling into my hands."
+        },
+        {
+          "start": 348.27,
+          "end": 354.21,
+          "text": "At the time, I thought we'd saved a life."
+        },
+        {
+          "start": 354.21,
+          "end": 363,
+          "text": "I remember the sound of that glass more clearly than almost anything else."
+        }
+      ]
+    },
+    {
+      "id": "scene_04",
+      "number": 4,
+      "title": "We Called It Thread",
+      "afterMission": 9,
+      "audio": {
+        "src": "assets/campaign/audio/The Fracture.mp3",
+        "start": 363,
+        "end": 442.6,
+        "cuesVerified": true,
+        "availableShots": 3,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained.",
+        "note": "The supplied recording stops during the end of passage 3. Passages 4 and 5 are presented as illustrated text; no substitute voice has been fabricated."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "The war followed us wherever we went. Soldiers fought over roads, bridges, and the passages between worlds. We tried to stay ahead of them. And beneath my coat, I carried something nobody knew about.",
+          "image": "assets/campaign/cinematics/scene_04/image_01.png",
+          "description": "Refugees travel a muddy road past distant contested bridges and smoke. Human Tarin keeps one hand protectively beneath his gray-blue coat, concealing tiny fungal Thread. Olive-scaled reptile Kesh with tail and furred wolf-boy Rook walk beside him. No battle hero poses.",
+          "start": 363,
+          "end": 387.3
+        },
+        {
+          "id": "shot_2",
+          "text": "We needed a name for it. I chose Thread, because of the little strands that moved across its body. Kesh thought I could have been more imaginative. But whenever I called it by that name, it came toward me.",
+          "image": "assets/campaign/cinematics/scene_04/image_02.png",
+          "description": "Tarin kneels by a small wooden box at a roadside camp, smiling softly as a faceless dark fungal tendril reaches toward his hand. Reptilian Kesh looks skeptical, wolf-boy Rook watches warmly. Thread is living mycelium not a pet animal; intimate naming moment.",
+          "start": 387.3,
+          "end": 410.25
+        },
+        {
+          "id": "shot_3",
+          "text": "Near the Machine factories, Thread would sit for hours watching the mechanisms move. Everything there seemed perfectly organized. Soon it began arranging stones, scraps, and pieces of wire into patterns of its own. It became distressed whenever we disturbed them.",
+          "image": "assets/campaign/cinematics/scene_04/image_03.png",
+          "description": "The three boys rest outside a distant Machine factory of dark metal, red sensors and coordinated conveyor mechanisms. Tiny faceless fungal Thread, perched safely on a wooden box, arranges small stones and wire into precise patterns. Human Tarin sketches, reptile Kesh inspects, wolf-boy Rook watches. Quiet fascination.",
+          "start": 410.25,
+          "end": 442.6
+        },
+        {
+          "id": "shot_4",
+          "text": "One afternoon, we found a bird that had died beneath a fallen beam. Thread covered it with those little strands. After a while, the bird stood up again. We wanted to believe it had been saved. Kesh was less certain.",
+          "image": "assets/campaign/cinematics/scene_04/image_04.png",
+          "description": "A tiny woodland bird stands unsteadily beside a fallen wooden beam, threaded with faint violet fungal filaments. Tarin kneels hopefully, wolf-boy Rook peers close, reptile Kesh remains uncertain. Small faceless Thread connects to the bird. Ambiguous restoration, no blood, restrained unsettling mood.",
+          "start": null,
+          "end": null
+        },
+        {
+          "id": "shot_5",
+          "text": "Thread grew faster than we could explain. Sometimes we found its roots reaching outside the box. I began to wonder whether it understood how much danger we were in. I never wondered whether we were in danger from it.",
+          "image": "assets/campaign/cinematics/scene_04/image_05.png",
+          "description": "A wooden travel box beside the sleeping boys' bedrolls, dark living mycelial strands slipping through its joints and reaching into earth. Thread remains faceless; faint violet glimmers. Tarin's sketchbook nearby, camp embers, growing organism contrasted with fragile human belongings.",
+          "start": null,
+          "end": null
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 364.43,
+          "end": 367.93,
+          "text": "The war followed us wherever we went."
+        },
+        {
+          "start": 367.93,
+          "end": 375.57,
+          "text": "Soldiers fought over roads, bridges, and the passages between worlds."
+        },
+        {
+          "start": 375.57,
+          "end": 378.47,
+          "text": "We tried to stay ahead of them."
+        },
+        {
+          "start": 378.47,
+          "end": 387.3,
+          "text": "And beneath my coat, I carried something nobody knew about."
+        },
+        {
+          "start": 387.79,
+          "end": 389.11,
+          "text": "We needed a name for it."
+        },
+        {
+          "start": 389.11,
+          "end": 397.19,
+          "text": "I chose Thread, because of the little strands that moved across its body."
+        },
+        {
+          "start": 397.19,
+          "end": 399.95,
+          "text": "Kesh thought I could have been more imaginative."
+        },
+        {
+          "start": 399.95,
+          "end": 410.25,
+          "text": "But whenever I called it by that name, it came toward me."
+        },
+        {
+          "start": 410.75,
+          "end": 419.11,
+          "text": "Near the Machine factories, Thread would sit for hours watching the mechanisms move."
+        },
+        {
+          "start": 419.11,
+          "end": 423.29,
+          "text": "Everything there seemed perfectly organized."
+        },
+        {
+          "start": 423.29,
+          "end": 433.37,
+          "text": "Soon it began arranging stones, scraps, and pieces of wire into patterns of its own."
+        },
+        {
+          "start": 433.37,
+          "end": 442.6,
+          "text": "It became distressed whenever we disturbed them."
+        }
+      ]
+    },
+    {
+      "id": "scene_05",
+      "number": 5,
+      "title": "The Empty Box",
+      "afterMission": 12,
+      "audio": {
+        "src": "assets/campaign/audio/The Empty Box.mp3",
+        "start": 0,
+        "end": 123.5,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "Thread had begun to change. Its movements were no longer uncertain. It seemed to know what it wanted before we understood what it was doing. Sometimes it would remain perfectly still for hours, arranging its threads into shapes we couldn't interpret.",
+          "image": "assets/campaign/cinematics/scene_05/image_01.png",
+          "description": "Inside an opened wooden box, Thread's faceless dark fungal tissue forms intricate deliberate symmetrical nerve-like structures rather than an animal body. Fine violet glows and arranged pebbles. Tarin watches thoughtfully with sketchbook; Kesh reptilian and Rook wolf-like behind. Quiet early morning.",
+          "start": 0,
+          "end": 26.96
+        },
+        {
+          "id": "shot_2",
+          "text": "The war was changing everything around us as well. People who had once lived their entire lives without leaving their own lands now marched beside beings from other worlds. Yet even together, they could barely agree on whom they were fighting.",
+          "image": "assets/campaign/cinematics/scene_05/image_02.png",
+          "description": "Refugees and soldiers of several distinct civilizations pass a damaged crossroads: human technology, olive reptilian infantry, gray-furred lycans, restrained wizard robes, dark mechanical constructs. The three boys sit off the road with wooden Thread box. Cooperation mixed with distrust, no faction insignia copied from existing franchises.",
+          "start": 26.96,
+          "end": 52.42
+        },
+        {
+          "id": "shot_3",
+          "text": "Thread watched every argument. It watched the soldiers, the wounded, the hungry people waiting for food. I thought it was learning about us. Looking back, I wonder whether it was trying to understand why we made life so difficult for ourselves.",
+          "image": "assets/campaign/cinematics/scene_05/image_03.png",
+          "description": "Small faceless Thread watches from its box as soldiers argue over supplies near hungry refugees and a tired healer. Tarin at the edge looks concerned. Thread's fine dark-violet strands orient toward the scene. Reflective scene of shortage, no caricatures or exaggerated villains.",
+          "start": 52.42,
+          "end": 77.54
+        },
+        {
+          "id": "shot_4",
+          "text": "One morning, the box was empty. There were fine strands of dark tissue along its wooden joints, and a narrow opening where the lid had lifted. Thread had left without waking us.",
+          "image": "assets/campaign/cinematics/scene_05/image_04.png",
+          "description": "An EMPTY small wooden box on a camp blanket at dawn, its lid lifted slightly and fine dark-violet mycelial tissue along the joints. Tarin's hand reaches toward it; his sketchbook beside the box. Kesh's scaled hand and Rook's clawed hand nearby. Loss and absence, no creature in box.",
+          "start": 77.54,
+          "end": 98.5
+        },
+        {
+          "id": "shot_5",
+          "text": "We searched for days. I told myself that it was frightened, or lost, or perhaps looking for food. I didn't imagine that it had somewhere to go. For the first time, I understood how little we really knew about our friend.",
+          "image": "assets/campaign/cinematics/scene_05/image_05.png",
+          "description": "The three young friends search a misty woodland and ruined roadside for Thread. Tarin human holds the empty wooden box, Kesh olive reptile examines faint traces, Rook gray-brown wolf-boy scans the undergrowth. No visible Thread, loneliness and uncertainty.",
+          "start": 98.5,
+          "end": 123.5
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 2.6,
+          "end": 4.5,
+          "text": "Thread had begun to change."
+        },
+        {
+          "start": 4.5,
+          "end": 8.34,
+          "text": "Its movements were no longer uncertain."
+        },
+        {
+          "start": 8.34,
+          "end": 14.42,
+          "text": "It seemed to know what it wanted before we understood what it was doing."
+        },
+        {
+          "start": 14.42,
+          "end": 26.96,
+          "text": "Sometimes it would remain perfectly still for hours, arranging its threads into shapes we couldn't interpret."
+        },
+        {
+          "start": 27.46,
+          "end": 32.64,
+          "text": "The war was changing everything around us as well."
+        },
+        {
+          "start": 32.64,
+          "end": 42.42,
+          "text": "People who had once lived their entire lives without leaving their own lands now marched beside beings from other worlds."
+        },
+        {
+          "start": 42.42,
+          "end": 52.42,
+          "text": "Yet even together, they could barely agree on whom they were fighting."
+        },
+        {
+          "start": 52.92,
+          "end": 55.94,
+          "text": "Thread watched every argument."
+        },
+        {
+          "start": 55.94,
+          "end": 62.46,
+          "text": "It watched the soldiers, the wounded, the hungry people waiting for food."
+        },
+        {
+          "start": 62.46,
+          "end": 65.52,
+          "text": "I thought it was learning about us."
+        },
+        {
+          "start": 65.52,
+          "end": 77.54,
+          "text": "Looking back, I wonder whether it was trying to understand why we made life so difficult for ourselves."
+        },
+        {
+          "start": 78.04,
+          "end": 82.92,
+          "text": "One morning, the box was empty."
+        },
+        {
+          "start": 82.92,
+          "end": 91.82,
+          "text": "There were fine strands of dark tissue along its wooden joints, and a narrow opening where the lid had lifted."
+        },
+        {
+          "start": 91.82,
+          "end": 98.5,
+          "text": "Thread had left without waking us."
+        },
+        {
+          "start": 99.0,
+          "end": 100.14,
+          "text": "We searched for days."
+        },
+        {
+          "start": 100.14,
+          "end": 108.42,
+          "text": "I told myself that it was frightened, or lost, or perhaps looking for food."
+        },
+        {
+          "start": 108.42,
+          "end": 113.34,
+          "text": "I didn't imagine that it had somewhere to go."
+        },
+        {
+          "start": 113.34,
+          "end": 123.5,
+          "text": "For the first time, I understood how little we really knew about our friend."
+        }
+      ]
+    },
+    {
+      "id": "scene_06",
+      "number": 6,
+      "title": "The World It Promised",
+      "afterMission": 15,
+      "audio": {
+        "src": "assets/campaign/audio/The Empty Box.mp3",
+        "start": 123.5,
+        "end": 261.5,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "When we found Thread again, I recognized it before I understood what I was looking at. It was larger, and its body had become almost deliberate in its design. Yet when I approached, a familiar little tendril reached toward my hand.",
+          "image": "assets/campaign/cinematics/scene_06/image_01.png",
+          "description": "Tarin, now around thirteen, recognizes a much larger rooted fungal Thread in a sheltered ruined courtyard. Thread is dark vascular mycelium with intricate pale-violet nodes and no face; one familiar tiny tendril reaches toward Tarin's hand. Reptile Kesh and wolf-boy Rook stand cautiously nearby.",
+          "start": 123.5,
+          "end": 150.54
+        },
+        {
+          "id": "shot_2",
+          "text": "It had learned to communicate in ways more complicated than the marks on the glass. It arranged living threads into pictures and patterns. It showed us people being fed, wounds being closed, and soldiers who no longer raised their weapons against one another.",
+          "image": "assets/campaign/cinematics/scene_06/image_02.png",
+          "description": "Thread communicates using living strands arranged into small organic pictorial patterns: shelter, a helping hand, a bowl of food, lowered weapons. Three boys human Tarin, reptile Kesh, wolf Rook watch in a softly lit chamber. Patterns are formed tissue, no written letters, no animal face.",
+          "start": 150.54,
+          "end": 177.12
+        },
+        {
+          "id": "shot_3",
+          "text": "We had seen what the Machines could accomplish through perfect coordination. Thread had seen it too. It seemed convinced that the great problem of life was disorder, and that a sufficiently intelligent mind could arrange everything into harmony.",
+          "image": "assets/campaign/cinematics/scene_06/image_03.png",
+          "description": "A vast organized biological structure of dark mycelial ribs and violet nerve nodes echoes efficient Machine factory layouts. Distant dark metal machinery establishes the comparison. Three small boys study the repeated ordered forms. Biological material clearly distinct from metal, not insect hive or tentacled monster.",
+          "start": 177.12,
+          "end": 201.34
+        },
+        {
+          "id": "shot_4",
+          "text": "For a time, it was difficult to argue. Thread could organize shelter, distribute supplies, and restore wounded bodies in ways none of us had thought possible. We had lived through so much destruction that the promise of an end to suffering seemed almost irresistible.",
+          "image": "assets/campaign/cinematics/scene_06/image_04.png",
+          "description": "At a temporary refugee shelter, gentle fungal branches support roofs and carry bowls while people receive food and treatment. Tarin and his two nonhuman friends watch hopeful but wary. Thread's organization looks useful, people still visibly individual, warm subdued afternoon.",
+          "start": 201.34,
+          "end": 232.4
+        },
+        {
+          "id": "shot_5",
+          "text": "It was only later that I learned where Thread had begun: in the Emperor's severed flesh, among living nerves and fungus, changed by forces from more than one world. It had inherited none of his memories. But perhaps some things can be inherited without being remembered.",
+          "image": "assets/campaign/cinematics/scene_06/image_05.png",
+          "description": "A reflective close view of Tarin studying a small carefully drawn sketch of a shed reptilian tail and fungal filaments beside a contained tissue specimen. Background contains the larger faceless rooted Thread, linking biological origin without inherited memories. No text on drawing, contemplative cool lighting.",
+          "start": 232.4,
+          "end": 261.5
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 126.72,
+          "end": 134.82,
+          "text": "When we found Thread again, I recognized it before I understood what I was looking at."
+        },
+        {
+          "start": 134.82,
+          "end": 142.92,
+          "text": "It was larger, and its body had become almost deliberate in its design."
+        },
+        {
+          "start": 142.92,
+          "end": 150.54,
+          "text": "Yet when I approached, a familiar little tendril reached toward my hand."
+        },
+        {
+          "start": 151.04,
+          "end": 156.7,
+          "text": "It had learned to communicate in ways more complicated than the marks on the glass."
+        },
+        {
+          "start": 156.7,
+          "end": 162.38,
+          "text": "It arranged living threads into pictures and patterns."
+        },
+        {
+          "start": 162.38,
+          "end": 177.12,
+          "text": "It showed us people being fed, wounds being closed, and soldiers who no longer raised their weapons against one another."
+        },
+        {
+          "start": 177.62,
+          "end": 181.02,
+          "text": "We had seen what the Machines could accomplish through perfect coordination."
+        },
+        {
+          "start": 181.02,
+          "end": 184.34,
+          "text": "Thread had seen it too."
+        },
+        {
+          "start": 184.34,
+          "end": 201.34,
+          "text": "It seemed convinced that the great problem of life was disorder, and that a sufficiently intelligent mind could arrange everything into harmony."
+        },
+        {
+          "start": 201.84,
+          "end": 205.78,
+          "text": "For a time, it was difficult to argue."
+        },
+        {
+          "start": 205.78,
+          "end": 218.56,
+          "text": "Thread could organize shelter, distribute supplies, and restore wounded bodies in ways none of us had thought possible."
+        },
+        {
+          "start": 218.56,
+          "end": 232.4,
+          "text": "We had lived through so much destruction that the promise of an end to suffering seemed almost irresistible."
+        },
+        {
+          "start": 232.64,
+          "end": 249.34,
+          "text": "It was only later that I learned where Thread had begun: in the Emperor's severed flesh, among living nerves and fungus, changed by forces from more than one world."
+        },
+        {
+          "start": 249.34,
+          "end": 253.46,
+          "text": "It had inherited none of his memories."
+        },
+        {
+          "start": 253.46,
+          "end": 261.5,
+          "text": "But perhaps some things can be inherited without being remembered."
+        }
+      ]
+    },
+    {
+      "id": "scene_07",
+      "number": 7,
+      "title": "Without a Choice",
+      "afterMission": 19,
+      "audio": {
+        "src": "assets/campaign/audio/The Empty Box.mp3",
+        "start": 261.5,
+        "end": 409.4,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "The first time I saw one of Thread's new settlements, I thought the people looked peaceful. There were no arguments, no frightened crowds, no soldiers fighting over supplies. Everything moved with a purpose.",
+          "image": "assets/campaign/cinematics/scene_07/image_01.png",
+          "description": "A Symbiote-controlled settlement, beautiful in its eerie order: people of several species move in identical coordinated lines among dark biological arches and precisely distributed supplies. Tarin human, Kesh reptile, Rook wolf stand at the entrance, hopeful first impression with subtle unease.",
+          "start": 261.5,
+          "end": 287.82
+        },
+        {
+          "id": "shot_2",
+          "text": "Then I noticed that nobody hesitated. Nobody chose a different road. Nobody stopped to comfort someone unless the whole movement required it. Their faces were familiar, but something behind their eyes had gone quiet.",
+          "image": "assets/campaign/cinematics/scene_07/image_02.png",
+          "description": "Closer street view of residents walking in rigid coordination, eyes distant, nobody pausing beside a lonely seated person. Fine restrained violet mycelial links at collars and architecture. The three boys observe with concern. Human faces naturally painted, not zombies or gore.",
+          "start": 287.82,
+          "end": 317.66
+        },
+        {
+          "id": "shot_3",
+          "text": "We had thought Thread was helping the wounded. Now we understood that some of those people had never agreed to become part of it. They were alive, but their lives no longer belonged to them.",
+          "image": "assets/campaign/cinematics/scene_07/image_03.png",
+          "description": "The boys discover ordinary residents joined to a faceless living control network through delicate mycelial strands, alive and unharmed in appearance but unable to choose their direction. Tarin reaches out compassionately; Kesh and Rook distressed. No torture or graphic imagery.",
+          "start": 317.66,
+          "end": 342.76
+        },
+        {
+          "id": "shot_4",
+          "text": "We tried to make Thread understand what was wrong. It showed us the wars, the hunger, and all the cruelties people inflicted upon one another. Every time we asked it to stop, it returned to the same answer: no one would suffer if no one stood apart.",
+          "image": "assets/campaign/cinematics/scene_07/image_04.png",
+          "description": "Tarin, olive-scaled Kesh and gray-brown wolf-muzzled Rook confront the immense faceless Thread in a biological chamber. Thread arranges living pictures of war and hunger while the boys appeal with gestures. No dialogue or writing painted into image, emotionally serious.",
+          "start": 342.76,
+          "end": 377
+        },
+        {
+          "id": "shot_5",
+          "text": "I had once believed that Thread was learning to be like us. I began to see that it was trying to make us like itself. The terrible thing was that I still believed it cared for us. I think it cared very deeply.",
+          "image": "assets/campaign/cinematics/scene_07/image_05.png",
+          "description": "Tarin's thoughtful troubled face close to a tiny familiar tendril reaching from the huge organized network. Kesh and Rook stand behind him. Tenderness and coercion coexist; Thread has no eyes or conventional face. Quiet violet-gray light, moral ambiguity.",
+          "start": 377,
+          "end": 409.4
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 263.68,
+          "end": 272.9,
+          "text": "The first time I saw one of Thread's new settlements, I thought the people looked peaceful."
+        },
+        {
+          "start": 272.9,
+          "end": 282.48,
+          "text": "There were no arguments, no frightened crowds, no soldiers fighting over supplies."
+        },
+        {
+          "start": 282.48,
+          "end": 287.82,
+          "text": "Everything moved with a purpose."
+        },
+        {
+          "start": 289.12,
+          "end": 293.9,
+          "text": "Then I noticed that nobody hesitated."
+        },
+        {
+          "start": 293.9,
+          "end": 299.62,
+          "text": "Nobody chose a different road."
+        },
+        {
+          "start": 299.62,
+          "end": 305.4,
+          "text": "Nobody stopped to comfort someone unless the whole movement required it."
+        },
+        {
+          "start": 305.4,
+          "end": 317.66,
+          "text": "Their faces were familiar, but something behind their eyes had gone quiet."
+        },
+        {
+          "start": 318.16,
+          "end": 321.28,
+          "text": "We had thought Thread was helping the wounded."
+        },
+        {
+          "start": 321.28,
+          "end": 331.88,
+          "text": "Now we understood that some of those people had never agreed to become part of it."
+        },
+        {
+          "start": 331.88,
+          "end": 342.76,
+          "text": "They were alive, but their lives no longer belonged to them."
+        },
+        {
+          "start": 343.26,
+          "end": 349.08,
+          "text": "We tried to make Thread understand what was wrong."
+        },
+        {
+          "start": 349.08,
+          "end": 358.96,
+          "text": "It showed us the wars, the hunger, and all the cruelties people inflicted upon one another."
+        },
+        {
+          "start": 358.96,
+          "end": 377,
+          "text": "Every time we asked it to stop, it returned to the same answer: no one would suffer if no one stood apart."
+        },
+        {
+          "start": 377.5,
+          "end": 385.16,
+          "text": "I had once believed that Thread was learning to be like us."
+        },
+        {
+          "start": 385.16,
+          "end": 392.96,
+          "text": "I began to see that it was trying to make us like itself."
+        },
+        {
+          "start": 392.96,
+          "end": 403.22,
+          "text": "The terrible thing was that I still believed it cared for us."
+        },
+        {
+          "start": 403.22,
+          "end": 409.4,
+          "text": "I think it cared very deeply."
+        }
+      ]
+    },
+    {
+      "id": "scene_08",
+      "number": 8,
+      "title": "The Roads Between Us",
+      "afterMission": 21,
+      "audio": {
+        "src": "assets/campaign/audio/The Sound of Glass.mp3",
+        "start": 0,
+        "end": 118,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "By then, the war had changed again. Armies that had invaded one another's worlds now fought alongside their former enemies. They had finally found something they feared more than one another.",
+          "image": "assets/campaign/cinematics/scene_08/image_01.png",
+          "description": "Former enemies form a defensive line together near a dimensional crossing: human vehicles, reptilian legionaries, wizard support, wolf-like Night Kingdom infantry and dark mechanical constructs. United against distant biological forces. Restrained battlefield scale, original designs, no copied logos.",
+          "start": 0,
+          "end": 22.7
+        },
+        {
+          "id": "shot_2",
+          "text": "We were caught between those armies as the crossings began to fail. Roads vanished into smoke. Bridges collapsed. In the confusion, Kesh, Rook, and I were driven apart.",
+          "image": "assets/campaign/cinematics/scene_08/image_02.png",
+          "description": "A great stone-and-metal dimensional gateway collapses into smoke and violet light. Refugees scatter along branching roads; Tarin, reptilian Kesh and wolf-boy Rook are visible separated by crowds at different depths, no graphic injuries. Chaos and distance, no heroic action poses.",
+          "start": 22.7,
+          "end": 46.3
+        },
+        {
+          "id": "shot_3",
+          "text": "I remember running through ruins with my sketchbook pressed against my chest. It was a foolish thing to carry through a battle. Yet I was more afraid of losing those drawings than I was willing to admit.",
+          "image": "assets/campaign/cinematics/scene_08/image_03.png",
+          "description": "Brown-haired Tarin around thirteen, gray-blue coat and brown vest, runs alone through smoke-filled stone ruins clutching his worn sketchbook. Distant violet sky, torn cloth and empty windows. Vulnerability and determination, watercolor motion through atmosphere.",
+          "start": 46.3,
+          "end": 66.7
+        },
+        {
+          "id": "shot_4",
+          "text": "For a long time, I didn't know whether my friends had survived. News came from places I couldn't reach, through soldiers who had never seen their faces. I discovered that a person can be surrounded by thousands of others and still feel entirely alone.",
+          "image": "assets/campaign/cinematics/scene_08/image_04.png",
+          "description": "Tarin sits alone under a broken shelter at evening surrounded by indistinct crowds. He holds his sketchbook open to drawings of his reptile and wolf friends. Empty space beside him conveys loneliness despite the refugees around him. Quiet restrained composition.",
+          "start": 66.7,
+          "end": 94.3
+        },
+        {
+          "id": "shot_5",
+          "text": "The crossings had brought together three versions of the same child. We had been shaped by different worlds, but somehow found each other. And now the war had separated us as easily as it had brought us together.",
+          "image": "assets/campaign/cinematics/scene_08/image_05.png",
+          "description": "Tarin stands before a wall holding three old sketches side by side in his open sketchbook: himself, reptilian Kesh, wolf-muzzled Rook, each using the same distinctive thoughtful hand gesture. Single unified scene, not triptych or collage. Roads branch outside behind him, recognition of shared soul without changing species.",
+          "start": 94.3,
+          "end": 118
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 2.04,
+          "end": 5.76,
+          "text": "By then, the war had changed again."
+        },
+        {
+          "start": 5.76,
+          "end": 14.36,
+          "text": "Armies that had invaded one another's worlds now fought alongside their former enemies."
+        },
+        {
+          "start": 14.36,
+          "end": 22.7,
+          "text": "They had finally found something they feared more than one another."
+        },
+        {
+          "start": 23.2,
+          "end": 29.66,
+          "text": "We were caught between those armies as the crossings began to fail."
+        },
+        {
+          "start": 29.66,
+          "end": 33.26,
+          "text": "Roads vanished into smoke."
+        },
+        {
+          "start": 33.26,
+          "end": 35.98,
+          "text": "Bridges collapsed."
+        },
+        {
+          "start": 35.98,
+          "end": 46.3,
+          "text": "In the confusion, Kesh, Rook, and I were driven apart."
+        },
+        {
+          "start": 46.78,
+          "end": 52.48,
+          "text": "I remember running through ruins with my sketchbook pressed against my chest."
+        },
+        {
+          "start": 52.48,
+          "end": 58.06,
+          "text": "It was a foolish thing to carry through a battle."
+        },
+        {
+          "start": 58.06,
+          "end": 66.7,
+          "text": "Yet I was more afraid of losing those drawings than I was willing to admit."
+        },
+        {
+          "start": 67.24,
+          "end": 72.52,
+          "text": "For a long time, I didn't know whether my friends had survived."
+        },
+        {
+          "start": 72.52,
+          "end": 80.3,
+          "text": "News came from places I couldn't reach, through soldiers who had never seen their faces."
+        },
+        {
+          "start": 80.3,
+          "end": 94.3,
+          "text": "I discovered that a person can be surrounded by thousands of others and still feel entirely alone."
+        },
+        {
+          "start": 94.48,
+          "end": 99.42,
+          "text": "The crossings had brought together three versions of the same child."
+        },
+        {
+          "start": 99.42,
+          "end": 107.84,
+          "text": "We had been shaped by different worlds, but somehow found each other."
+        },
+        {
+          "start": 107.84,
+          "end": 118,
+          "text": "And now the war had separated us as easily as it had brought us together."
+        }
+      ]
+    },
+    {
+      "id": "scene_09",
+      "number": 9,
+      "title": "The Thing It Could Not Remove",
+      "afterMission": 24,
+      "audio": {
+        "src": "assets/campaign/audio/The Sound of Glass.mp3",
+        "start": 118,
+        "end": 271,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "When I saw Kesh and Rook again, I almost didn't recognize how much they had changed. We had grown older in the space of a war. For a moment, all three of us stood together as we had in Ashbridge, and I wanted to believe that was enough.",
+          "image": "assets/campaign/cinematics/scene_09/image_01.png",
+          "description": "The three friends reunite in a ruined courtyard after months apart, now around thirteen or fourteen. Human Tarin with brown hair and sketchbook, olive-green reptilian Kesh with snout and tail, gray-brown wolf-boy Rook with full muzzle. Worn clothes, tentative embrace, relief and changed expressions.",
+          "start": 118,
+          "end": 152.4
+        },
+        {
+          "id": "shot_2",
+          "text": "Thread's armies were everywhere. Their movements were precise, almost beautiful in their order. There was no anger in them that I could see, and no hesitation. They advanced because the mind directing them believed it had found the only acceptable future.",
+          "image": "assets/campaign/cinematics/scene_09/image_02.png",
+          "description": "An advancing Symbiote army crosses a scarred plain in unnervingly precise ranks. Bodies are fused biological host tissue laced with dark-violet mycelium and luminous nodes, not insects. No rage, efficient symmetry. Three boys far to one side, observing quietly.",
+          "start": 152.4,
+          "end": 182.2
+        },
+        {
+          "id": "shot_3",
+          "text": "When the fighting reached us, Thread could have allowed us to die. We were opposing everything it had built. Instead, its creatures turned away from their advance and placed themselves between us and the destruction.",
+          "image": "assets/campaign/cinematics/scene_09/image_03.png",
+          "description": "Thread's biological creatures turn away from their advance and form a protective barrier between distant explosions and the three boys. Tarin human, Kesh visibly reptilian, Rook visibly wolf-like huddle behind rooted living shields. No invincible superhero framing, tender unexpected protection.",
+          "start": 182.2,
+          "end": 211.7
+        },
+        {
+          "id": "shot_4",
+          "text": "For a brief moment, the whole movement seemed uncertain. Thread had tried to free itself from attachment, from grief, from everything it considered a weakness. Yet it could not bear to lose the three children who had once carried it in a wooden box.",
+          "image": "assets/campaign/cinematics/scene_09/image_04.png",
+          "description": "A great organic network pauses in a moment of hesitation: ordered rows of mycelial bodies veer toward protecting three small children. One connection glows softly warmer near them while other paths remain cold violet. Show emotional contradiction through composition, no literal brain or human face on Thread.",
+          "start": 211.7,
+          "end": 242
+        },
+        {
+          "id": "shot_5",
+          "text": "I understood then that Thread had never become free of emotion. It had simply decided that its own feelings were different from everyone else's. It wanted to save the world from itself. And it could not see how much of itself it had brought into that world.",
+          "image": "assets/campaign/cinematics/scene_09/image_05.png",
+          "description": "A single delicate faceless fungal tendril reaches toward Tarin's open hand, recalling the first glass encounter. His olive-scaled friend Kesh and furred wolf friend Rook stand beside him; enormous network blurred behind. Affection, sorrow and unresolved pride. No destroyed Thread.",
+          "start": 242,
+          "end": 271
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 120.72,
+          "end": 129.4,
+          "text": "When I saw Kesh and Rook again, I almost didn't recognize how much they had changed."
+        },
+        {
+          "start": 129.4,
+          "end": 134.24,
+          "text": "We had grown older in the space of a war."
+        },
+        {
+          "start": 134.24,
+          "end": 152.4,
+          "text": "For a moment, all three of us stood together as we had in Ashbridge, and I wanted to believe that was enough."
+        },
+        {
+          "start": 152.88,
+          "end": 155.92,
+          "text": "Thread's armies were everywhere."
+        },
+        {
+          "start": 155.92,
+          "end": 161.72,
+          "text": "Their movements were precise, almost beautiful in their order."
+        },
+        {
+          "start": 161.72,
+          "end": 169.1,
+          "text": "There was no anger in them that I could see, and no hesitation."
+        },
+        {
+          "start": 169.1,
+          "end": 182.2,
+          "text": "They advanced because the mind directing them believed it had found the only acceptable future."
+        },
+        {
+          "start": 182.72,
+          "end": 187.56,
+          "text": "When the fighting reached us, Thread could have allowed us to die."
+        },
+        {
+          "start": 187.56,
+          "end": 196.54,
+          "text": "We were opposing everything it had built."
+        },
+        {
+          "start": 196.54,
+          "end": 211.7,
+          "text": "Instead, its creatures turned away from their advance and placed themselves between us and the destruction."
+        },
+        {
+          "start": 212.2,
+          "end": 219.32,
+          "text": "For a brief moment, the whole movement seemed uncertain."
+        },
+        {
+          "start": 219.32,
+          "end": 229.28,
+          "text": "Thread had tried to free itself from attachment, from grief, from everything it considered a weakness."
+        },
+        {
+          "start": 229.28,
+          "end": 242,
+          "text": "Yet it could not bear to lose the three children who had once carried it in a wooden box."
+        },
+        {
+          "start": 242.48,
+          "end": 249.98,
+          "text": "I understood then that Thread had never become free of emotion."
+        },
+        {
+          "start": 249.98,
+          "end": 258.06,
+          "text": "It had simply decided that its own feelings were different from everyone else's."
+        },
+        {
+          "start": 258.06,
+          "end": 261.16,
+          "text": "It wanted to save the world from itself."
+        },
+        {
+          "start": 261.16,
+          "end": 271,
+          "text": "And it could not see how much of itself it had brought into that world."
+        }
+      ]
+    },
+    {
+      "id": "scene_10",
+      "number": 10,
+      "title": "The Sound of Glass",
+      "afterMission": 25,
+      "audio": {
+        "src": "assets/campaign/audio/The Sound of Glass.mp3",
+        "start": 271,
+        "end": 423.4,
+        "cuesVerified": true,
+        "availableShots": 5,
+        "verification": "Aligned against supplied MP3 using local word-timestamp recognition; canonical text retained."
+      },
+      "shots": [
+        {
+          "id": "shot_1",
+          "text": "The war against Thread ended, although endings rarely look the way we imagine them. The great network fell silent. Armies stopped moving. In places where there had been only fighting, people began looking for one another.",
+          "image": "assets/campaign/cinematics/scene_10/image_01.png",
+          "description": "After battle, the great Symbiote network lies quiet among ruined streets; biological structures remain inert, not visibly eradicated. Survivors search gently for one another. Soft gray morning light and settling dust, no triumphant army, Thread's fate uncertain.",
+          "start": 271,
+          "end": 303.5
+        },
+        {
+          "id": "shot_2",
+          "text": "For years, the worlds had been divided by their histories, their laws, and their fears. In the end, they had needed one another to survive. I wish I could say that made them wise. Perhaps it only made them more careful.",
+          "image": "assets/campaign/cinematics/scene_10/image_02.png",
+          "description": "Survivors from different worlds rebuild a bridge and neighboring homes together: human, reptilian, wolf-like, elven and mechanical workers, each distinct. Practical cautious cooperation, modest repair tools, warm restrained morning. No parade, no victory banners.",
+          "start": 303.5,
+          "end": 334.3
+        },
+        {
+          "id": "shot_3",
+          "text": "Sometimes I think about the creature we found at Ashbridge. I remember how it followed my finger across the glass. I remember how proud I felt when it understood me. I have never been certain when understanding became something else.",
+          "image": "assets/campaign/cinematics/scene_10/image_03.png",
+          "description": "Older Tarin, a thoughtful man in his sixties with gray-brown hair and weathered face, sits by a window examining his childhood sketchbook. A small drawing of faceless fungal Thread on paper recalls affection. Quiet room, watercolor light, no young Tarin duplicate.",
+          "start": 334.3,
+          "end": 358.7
+        },
+        {
+          "id": "shot_4",
+          "text": "I still have the drawings I made as a boy. The bridge. The road. Three friends sitting beside a fire. There are things in those pages that I can remember more clearly than the victories and defeats people write about in their histories.",
+          "image": "assets/campaign/cinematics/scene_10/image_04.png",
+          "description": "Close view of older Tarin's hands holding a worn childhood sketchbook on a wooden table. Pages contain colored-pencil drawings of an old stone bridge and three friends human, reptilian and wolf-like beside a fire. One continuous painting of physical book, no captions or readable text.",
+          "start": 358.7,
+          "end": 383.7
+        },
+        {
+          "id": "shot_5",
+          "text": "I have wondered whether we were wrong to break that glass. But when I remember how small and frightened Thread was, I know I would have done it again. I only wish we had understood that saving a life and teaching it to respect another life are not the same thing.\n\nI can still hear the glass breaking.",
+          "image": "assets/campaign/cinematics/scene_10/image_05.png",
+          "description": "Older Tarin stands at the restored old stone bridge in gentle morning light, holding his childhood sketchbook. River reflections faintly glimmer like glass; no literal ghost or creature, no confirmation of Thread's death. Quiet reflective open ending, expansive peaceful landscape.",
+          "start": 383.7,
+          "end": 423.4
+        }
+      ],
+      "subtitleCues": [
+        {
+          "start": 272.16,
+          "end": 284.22,
+          "text": "The war against Thread ended, although endings rarely look the way we imagine them."
+        },
+        {
+          "start": 284.22,
+          "end": 287.58,
+          "text": "The great network fell silent."
+        },
+        {
+          "start": 287.58,
+          "end": 291.9,
+          "text": "Armies stopped moving."
+        },
+        {
+          "start": 291.9,
+          "end": 303.5,
+          "text": "In places where there had been only fighting, people began looking for one another."
+        },
+        {
+          "start": 303.96,
+          "end": 317.06,
+          "text": "For years, the worlds had been divided by their histories, their laws, and their fears."
+        },
+        {
+          "start": 317.06,
+          "end": 320.72,
+          "text": "In the end, they had needed one another to survive."
+        },
+        {
+          "start": 320.72,
+          "end": 328.72,
+          "text": "I wish I could say that made them wise."
+        },
+        {
+          "start": 328.72,
+          "end": 334.3,
+          "text": "Perhaps it only made them more careful."
+        },
+        {
+          "start": 334.8,
+          "end": 339.26,
+          "text": "Sometimes I think about the creature we found at Ashbridge."
+        },
+        {
+          "start": 339.26,
+          "end": 344.32,
+          "text": "I remember how it followed my finger across the glass."
+        },
+        {
+          "start": 344.32,
+          "end": 350.98,
+          "text": "I remember how proud I felt when it understood me."
+        },
+        {
+          "start": 350.98,
+          "end": 358.7,
+          "text": "I have never been certain when understanding became something else."
+        },
+        {
+          "start": 359.22,
+          "end": 363.46,
+          "text": "I still have the drawings I made as a boy."
+        },
+        {
+          "start": 363.46,
+          "end": 366.02,
+          "text": "The bridge."
+        },
+        {
+          "start": 366.02,
+          "end": 366.7,
+          "text": "The road."
+        },
+        {
+          "start": 366.7,
+          "end": 371.08,
+          "text": "Three friends sitting beside a fire."
+        },
+        {
+          "start": 371.08,
+          "end": 383.7,
+          "text": "There are things in those pages that I can remember more clearly than the victories and defeats people write about in their histories."
+        },
+        {
+          "start": 384.22,
+          "end": 390.94,
+          "text": "I have wondered whether we were wrong to break that glass."
+        },
+        {
+          "start": 390.94,
+          "end": 403.38,
+          "text": "But when I remember how small and frightened Thread was, I know I would have done it again."
+        },
+        {
+          "start": 403.38,
+          "end": 416.1,
+          "text": "I only wish we had understood that saving a life and teaching it to respect another life are not the same thing."
+        },
+        {
+          "start": 416.1,
+          "end": 423.4,
+          "text": "I can still hear the glass breaking."
+        }
+      ]
+    }
+  ]
+};
+if(typeof module!=='undefined'&&module.exports)module.exports=story;root.FractureCampaignStory=story;
+})(typeof globalThis!=='undefined'?globalThis:this);

@@ -1,0 +1,86 @@
+[
+  {
+    "faction": "humans",
+    "pixels": 5866,
+    "border": 0,
+    "ms": 64.5,
+    "cached": true
+  },
+  {
+    "faction": "reptilians",
+    "pixels": 5995,
+    "border": 0,
+    "ms": 47.30000000074506,
+    "cached": true
+  },
+  {
+    "faction": "machines",
+    "pixels": 5626,
+    "border": 0,
+    "ms": 26.599999997764826,
+    "cached": true
+  },
+  {
+    "faction": "insects",
+    "pixels": 4892,
+    "border": 0,
+    "ms": 26.699999999254942,
+    "cached": true
+  },
+  {
+    "faction": "primates",
+    "pixels": 5151,
+    "border": 0,
+    "ms": 31.200000002980232,
+    "cached": true
+  },
+  {
+    "faction": "wizards",
+    "pixels": 5433,
+    "border": 0,
+    "ms": 10.699999999254942,
+    "cached": true
+  },
+  {
+    "faction": "elders",
+    "pixels": 6127,
+    "border": 0,
+    "ms": 13.400000002235174,
+    "cached": true
+  },
+  {
+    "faction": "myth",
+    "pixels": 5996,
+    "border": 0,
+    "ms": 13.099999997764826,
+    "cached": true
+  },
+  {
+    "faction": "dragons",
+    "pixels": 5591,
+    "border": 0,
+    "ms": 17.5,
+    "cached": true
+  },
+  {
+    "faction": "night",
+    "pixels": 5915,
+    "border": 0,
+    "ms": 13.100000001490116,
+    "cached": true
+  },
+  {
+    "faction": "infernal",
+    "pixels": 5867,
+    "border": 0,
+    "ms": 11.599999997764826,
+    "cached": true
+  },
+  {
+    "faction": "symbiotes",
+    "pixels": 5479,
+    "border": 0,
+    "ms": 17.600000001490116,
+    "cached": true
+  }
+]

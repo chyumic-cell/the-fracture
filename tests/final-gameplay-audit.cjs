@@ -1,0 +1,8 @@
+const fs=require('fs'),{spawnSync}=require('child_process'),path=require('path');const report=fs.existsSync('docs/gameplay-final-verification.json')?JSON.parse(fs.readFileSync('docs/gameplay-final-verification.json')):[];function run(name,args,env={}){if(report.some(r=>r.name===name&&r.exit===0))return;const old=report.findIndex(r=>r.name===name);if(old>=0)report.splice(old,1);const started=Date.now();console.log('START '+name);const r=spawnSync(process.execPath,args,{cwd:process.cwd(),encoding:'utf8',env:{...process.env,...env},maxBuffer:16*1024*1024});fs.writeFileSync('.art-work/final-'+name+'.log',(r.stdout||'')+(r.stderr||''));const row={name,exit:r.status,seconds:Math.round((Date.now()-started)/1000),tail:((r.stdout||'')+(r.stderr||'')).slice(-1000)};report.push(row);fs.writeFileSync('docs/gameplay-final-verification.json',JSON.stringify(report,null,2));console.log(JSON.stringify(row));if(r.status!==0)throw Error(name+' failed');}
+for(const f of fs.readdirSync('tests').filter(f=>f.endsWith('.test.cjs')&&!f.includes('navigation-performance')))run(f.replace('.test.cjs',''),['tests/'+f]);
+if(process.env.AUDIT_REGRESSIONS_ONLY){console.log('COMPLETE gameplay regressions');process.exit(0);}
+run('ladder',['tests/ai-ladder-tournament.cjs','ladder'],{AI_PLACEMENT:'balanced',AI_REPORT:'ai-ladder-final',AI_ONLY:'',AI_CASE:''});
+run('wide',['tests/ai-ladder-tournament.cjs','wide'],{AI_PLACEMENT:'balanced',AI_REPORT:'ai-wide-final',AI_ONLY:'',AI_CASE:''});
+run('maritime-factions',['tests/ai-maritime-factions.cjs'],{AI_FACTIONS:''});
+run('maritime',['tests/ai-ladder-tournament.cjs','maritime'],{AI_REPORT:'ai-maritime-final',AI_ONLY:'',AI_CASE:''});
+console.log('COMPLETE gameplay and AI audit');

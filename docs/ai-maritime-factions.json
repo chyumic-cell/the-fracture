@@ -1,0 +1,16 @@
+[
+  {
+    "winner": 0,
+    "faction": "night",
+    "time": 286,
+    "ships": [
+      "night_transport_ship",
+      "night_warship"
+    ],
+    "air": [
+      "night_u11"
+    ],
+    "landedArmy": 0,
+    "spent": 2560
+  }
+]

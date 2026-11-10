@@ -1,0 +1,270 @@
+{
+  "level": "standard",
+  "size": 100,
+  "seed": 42,
+  "faction": "humans",
+  "layout": "small-islands",
+  "winner": null,
+  "time": 600,
+  "stock": [
+    2300,
+    302,
+    328,
+    35
+  ],
+  "tech": [
+    "humans_economy",
+    "humans_weapons1",
+    "humans_armor1"
+  ],
+  "goal": "research:humans_advanced",
+  "reserve": [
+    260,
+    90,
+    100,
+    35
+  ],
+  "desired": [
+    14,
+    0,
+    0,
+    0
+  ],
+  "logistics": {
+    "next": 604.5499999999548,
+    "needsTransport": true,
+    "needAirTransport": true,
+    "visited": {
+      "1430": 451.1499999999924,
+      "3014": 429.5499999999957,
+      "3030": 440.34999999999405,
+      "4614": 418.7499999999973
+    },
+    "noLandingSince": null,
+    "sortie": {
+      "carrier": 137,
+      "pickup": {
+        "x": 29.667964799198188,
+        "y": 70.23498062542096
+      },
+      "ids": [
+        133,
+        116,
+        125,
+        121,
+        122,
+        141,
+        142,
+        118,
+        130,
+        128
+      ],
+      "target": {
+        "x": 69,
+        "y": 25
+      },
+      "landing": {
+        "x": 78.19238815542512,
+        "y": 34.19238815542512
+      },
+      "phase": "cross",
+      "started": 556.3499999999614
+    }
+  },
+  "buildings": [
+    {
+      "type": "humans_b0",
+      "progress": 1,
+      "x": 29,
+      "y": 73,
+      "queue": []
+    },
+    {
+      "type": "humans_b2",
+      "progress": 1,
+      "x": 26.870926171960825,
+      "y": 68.47594820600398,
+      "queue": []
+    },
+    {
+      "type": "humans_b3",
+      "progress": 1,
+      "x": 27.306494839479548,
+      "y": 77.70447024342705,
+      "queue": []
+    },
+    {
+      "type": "humans_oilwell",
+      "progress": 1,
+      "x": 21.360098200305952,
+      "y": 73.86369029180186,
+      "queue": []
+    },
+    {
+      "type": "humans_b1",
+      "progress": 1,
+      "x": 33.982480695656704,
+      "y": 73.41819387538351,
+      "queue": []
+    },
+    {
+      "type": "humans_b4",
+      "progress": 1,
+      "x": 37.211715837225036,
+      "y": 78.70681373523506,
+      "queue": []
+    },
+    {
+      "type": "humans_b5",
+      "progress": 1,
+      "x": 33.25814765607834,
+      "y": 82.04810358799205,
+      "queue": []
+    },
+    {
+      "type": "humans_dock",
+      "progress": 1,
+      "x": 22.888727436784375,
+      "y": 63.853834264672,
+      "queue": []
+    },
+    {
+      "type": "humans_b1",
+      "progress": 1,
+      "x": 24.475948206003977,
+      "y": 75.12907382803917,
+      "queue": []
+    },
+    {
+      "type": "humans_b1",
+      "progress": 1,
+      "x": 32.84154309473133,
+      "y": 76.20039788953218,
+      "queue": []
+    }
+  ],
+  "units": {
+    "humans_u0": 14,
+    "humans_u1": 1,
+    "humans_u2": 7,
+    "humans_u3": 1,
+    "humans_u6": 1,
+    "humans_transport_ship": 1,
+    "humans_scout_boat": 1,
+    "humans_air_transport": 1,
+    "humans_escort_ship": 1,
+    "humans_u5": 1,
+    "humans_warship": 1
+  },
+  "orders": {
+    "gather": 14,
+    "embarked": 9,
+    "idle": 2,
+    "board": 1,
+    "move": 3,
+    "unload": 1
+  },
+  "made": [
+    {
+      "type": "humans_u0",
+      "at": 10
+    },
+    {
+      "type": "humans_u0",
+      "at": 21
+    },
+    {
+      "type": "humans_u0",
+      "at": 32
+    },
+    {
+      "type": "humans_u0",
+      "at": 44
+    },
+    {
+      "type": "humans_u1",
+      "at": 52
+    },
+    {
+      "type": "humans_u0",
+      "at": 55
+    },
+    {
+      "type": "humans_u2",
+      "at": 66
+    },
+    {
+      "type": "humans_u0",
+      "at": 70
+    },
+    {
+      "type": "humans_u2",
+      "at": 79
+    },
+    {
+      "type": "humans_u2",
+      "at": 91
+    },
+    {
+      "type": "humans_u3",
+      "at": 109
+    },
+    {
+      "type": "humans_u2",
+      "at": 122
+    },
+    {
+      "type": "humans_u0",
+      "at": 143
+    },
+    {
+      "type": "humans_u2",
+      "at": 153
+    },
+    {
+      "type": "humans_u2",
+      "at": 178
+    },
+    {
+      "type": "humans_u0",
+      "at": 232
+    },
+    {
+      "type": "humans_u6",
+      "at": 252
+    },
+    {
+      "type": "humans_transport_ship",
+      "at": 318
+    },
+    {
+      "type": "humans_scout_boat",
+      "at": 351
+    },
+    {
+      "type": "humans_air_transport",
+      "at": 359
+    },
+    {
+      "type": "humans_escort_ship",
+      "at": 388
+    },
+    {
+      "type": "humans_u0",
+      "at": 399
+    },
+    {
+      "type": "humans_u5",
+      "at": 409
+    },
+    {
+      "type": "humans_u2",
+      "at": 426
+    },
+    {
+      "type": "humans_warship",
+      "at": 429
+    }
+  ],
+  "landings": []
+}

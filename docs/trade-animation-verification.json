@@ -1,0 +1,86 @@
+[
+  {
+    "faction": "humans",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 5,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "reptilians",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "machines",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "insects",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "primates",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "wizards",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "elders",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "myth",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "dragons",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "night",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "infernal",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  },
+  {
+    "faction": "symbiotes",
+    "uniqueDirections": 8,
+    "uniqueWalkFrames": 6,
+    "bad": [],
+    "ownership": []
+  }
+]

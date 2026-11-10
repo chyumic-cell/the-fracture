@@ -1,0 +1,612 @@
+{
+  "elapsedMs": 123565.13459999999,
+  "matches": [
+    {
+      "difficulty": "easy",
+      "factions": [
+        "humans",
+        "reptilians"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        9,
+        11
+      ],
+      "gathered": [
+        2291,
+        1956
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "lab",
+          "extractor",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "counter",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "factions": [
+        "machines",
+        "insects"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        6,
+        9
+      ],
+      "gathered": [
+        1644,
+        2250
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "factions": [
+        "primates",
+        "wizards"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        4,
+        7
+      ],
+      "gathered": [
+        1320,
+        1857
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "armor"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "armor",
+          "lab",
+          "house",
+          "support"
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "factions": [
+        "elders",
+        "myth"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        9,
+        8
+      ],
+      "gathered": [
+        2082,
+        1936
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "lab",
+          "extractor",
+          "house",
+          "armor",
+          "defense"
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "factions": [
+        "dragons",
+        "night"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        12,
+        12
+      ],
+      "gathered": [
+        2296,
+        1792
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "armor",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "easy",
+      "factions": [
+        "infernal",
+        "symbiotes"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        13,
+        14
+      ],
+      "gathered": [
+        2359,
+        1984
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "lab",
+          "extractor",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "factions": [
+        "humans",
+        "reptilians"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        7,
+        9
+      ],
+      "gathered": [
+        1705,
+        2092
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house",
+          "defense"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "counter",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "factions": [
+        "machines",
+        "insects"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        4,
+        9
+      ],
+      "gathered": [
+        1218,
+        2297
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "factions": [
+        "primates",
+        "wizards"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        4,
+        6
+      ],
+      "gathered": [
+        1856,
+        1982
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "armor",
+          "lab"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "armor",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "factions": [
+        "elders",
+        "myth"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        8,
+        9
+      ],
+      "gathered": [
+        2356,
+        2262
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "lab",
+          "extractor",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "factions": [
+        "dragons",
+        "night"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        11,
+        10
+      ],
+      "gathered": [
+        2586,
+        1796
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "armor",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "factions": [
+        "infernal",
+        "symbiotes"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        11,
+        11
+      ],
+      "gathered": [
+        2565,
+        2140
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "lab",
+          "extractor",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "factions": [
+        "humans",
+        "reptilians"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        7,
+        7
+      ],
+      "gathered": [
+        2612,
+        1902
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "house",
+          "lab"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "factions": [
+        "machines",
+        "insects"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        6,
+        7
+      ],
+      "gathered": [
+        1877,
+        2313
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "house",
+          "lab"
+        ],
+        [
+          "hq",
+          "inf",
+          "lab",
+          "extractor",
+          "house",
+          "defense"
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "factions": [
+        "primates",
+        "wizards"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        4,
+        7
+      ],
+      "gathered": [
+        1361,
+        2174
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "armor",
+          "lab"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "armor",
+          "lab",
+          "house",
+          "support"
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "factions": [
+        "elders",
+        "myth"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        6,
+        8
+      ],
+      "gathered": [
+        1550,
+        2185
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ],
+        [
+          "hq",
+          "inf",
+          "lab",
+          "extractor",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "factions": [
+        "dragons",
+        "night"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        12,
+        11
+      ],
+      "gathered": [
+        2360,
+        1848
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house",
+          "armor"
+        ],
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house"
+        ]
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "factions": [
+        "infernal",
+        "symbiotes"
+      ],
+      "seconds": 240,
+      "winner": null,
+      "armyPeaks": [
+        11,
+        11
+      ],
+      "gathered": [
+        2492,
+        2233
+      ],
+      "buildings": [
+        [
+          "hq",
+          "inf",
+          "extractor",
+          "lab",
+          "house",
+          "armor"
+        ],
+        [
+          "hq",
+          "inf",
+          "lab",
+          "extractor",
+          "house",
+          "defense"
+        ]
+      ]
+    }
+  ]
+}

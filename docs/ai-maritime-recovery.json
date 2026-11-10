@@ -1,0 +1,212 @@
+{
+  "mode": "maritime",
+  "scope": "Actual paid economies, private fog, normal combat and victory. Time limits remain time limits, not inferred wins.",
+  "cases": [
+    {
+      "high": 9,
+      "low": 6,
+      "side": 0,
+      "seed": 42,
+      "faction": "humans",
+      "layout": "small-islands",
+      "size": 100,
+      "highName": "Apocalypse",
+      "lowName": "Expert",
+      "time": 1600,
+      "winner": "time-limit",
+      "damage": [
+        6512,
+        8793
+      ],
+      "produced": [
+        {
+          "worker": 27,
+          "ground": 94,
+          "seaTransport": 3,
+          "warship": 9
+        },
+        {
+          "worker": 15,
+          "ground": 74,
+          "seaTransport": 1,
+          "warship": 5
+        }
+      ],
+      "paid": [
+        22025,
+        15845
+      ],
+      "landed": [
+        5,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "gathered": [
+            53706,
+            8098,
+            1328,
+            186
+          ],
+          "stock": [
+            36763,
+            4533,
+            248,
+            131
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_b2_specialization",
+            "humans_weapons2",
+            "humans_armor2",
+            "humans_b4_specialization"
+          ],
+          "plan": "Building counters before challenging the defended position",
+          "logistics": {
+            "next": 1601.4500000002377,
+            "visited": {
+              "202": 324.55000000000564,
+              "242": 334.750000000006,
+              "258": 360.2500000000062,
+              "1414": 314.35000000000525,
+              "1430": 304.15000000000487,
+              "1858": 370.45000000000465,
+              "3014": 283.7500000000041,
+              "3030": 293.9500000000045,
+              "4614": 273.5500000000037
+            },
+            "sortie": null,
+            "nextSortie": 379.9499999999903
+          },
+          "goal": "build:humans_b6",
+          "units": 100,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b4",
+            "humans_b2",
+            "humans_b1",
+            "humans_dock",
+            "humans_b1",
+            "humans_deep_ore",
+            "humans_b1",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_oilwell",
+            "humans_aetherwell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_b7",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1",
+            "humans_market"
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "gathered": [
+            18476,
+            4500,
+            5659,
+            220
+          ],
+          "stock": [
+            6169,
+            2230,
+            4829,
+            1695
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_advanced",
+            "humans_b2_specialization",
+            "humans_deep_extraction",
+            "humans_weapons2",
+            "humans_b4_specialization",
+            "humans_armor2"
+          ],
+          "plan": "Building counters before challenging the defended position",
+          "logistics": {
+            "next": 1603.550000000239,
+            "visited": {
+              "206": 370.1500000000047,
+              "222": 359.35000000000633,
+              "238": 326.95000000000573,
+              "254": 299.9500000000047,
+              "278": 278.3500000000039,
+              "294": 289.1500000000043,
+              "1806": 380.95000000000306,
+              "1822": 348.55000000000655,
+              "1838": 337.75000000000614,
+              "3406": 391.7500000000014,
+              "3422": 402.5499999999998,
+              "5006": 424.1499999999965,
+              "5022": 413.34999999999815,
+              "6606": 434.9499999999949,
+              "8206": 445.74999999999324,
+              "8622": 456.5499999999916
+            },
+            "sortie": null
+          },
+          "goal": "build:humans_b6",
+          "units": 79,
+          "buildings": [
+            "humans_b0",
+            "humans_b2",
+            "humans_b3",
+            "humans_b1",
+            "humans_b4",
+            "humans_dock",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_orewell",
+            "humans_b1",
+            "humans_b1",
+            "humans_b7",
+            "humans_b1",
+            "humans_oilwell",
+            "humans_b1",
+            "humans_b2",
+            "humans_deep_ore",
+            "humans_b1",
+            "humans_market",
+            "humans_market",
+            "humans_b1",
+            "humans_b1",
+            "humans_b1"
+          ]
+        }
+      ],
+      "wallSeconds": 169
+    }
+  ],
+  "hashes": {
+    "data": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "expansion-data": "572f2cc66ca53e8aec5f1b33047772fe5bccb97b0352b3e3984df9cdc3e644c5",
+    "simulation": "d04f6fa2e5d8c038556746792453a543a346d64321ee8f4ad12cfefd7966422d",
+    "ai": "b5300ba05dd3cac4b80345a607312ba43071cca31b72e6cb9d8591d25538f0ed",
+    "ai-economy": "0c32fae0f76b106ad38d00c45336ca1d44ffdb2337f00b1a6c851e064d2aa7a9",
+    "ai-combat": "c89d911a305623f88c28eae3bb033c9d660926b76a99a6699080d474387d8b32",
+    "ai-logistics": "e124188bddf5960bc24667b4dd2f5dd5f89b1a4430cb225700754b5d7b4f033d",
+    "march": "59186e9cdcb0ada3816881cb4c083e2f82ec41cb2e33e0926af7d95d7d37b6c7"
+  }
+}

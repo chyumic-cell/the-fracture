@@ -1,0 +1,35 @@
+{
+  "seed": 42,
+  "difficulty": "normal",
+  "seconds": 508,
+  "winner": 0,
+  "elapsedMs": 4376.4505,
+  "players": [
+    {
+      "faction": "humans",
+      "gathered": [
+        3598,
+        898,
+        1008,
+        551
+      ],
+      "kills": 42,
+      "losses": 10,
+      "research": 6,
+      "plan": "Main assault with a flanking detachment"
+    },
+    {
+      "faction": "reptilians",
+      "gathered": [
+        2674,
+        43,
+        942,
+        578
+      ],
+      "kills": 10,
+      "losses": 42,
+      "research": 0,
+      "plan": "Defending the base"
+    }
+  ]
+}

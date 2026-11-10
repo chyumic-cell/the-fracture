@@ -1,3 +1,13 @@
+# Fair AI decisions and GitHub checkpoint — 10 November 2026
+
+This checkpoint supersedes earlier AI balance reports below. Campaign illustrations remain paused.
+
+- Standard's decision profile is preserved, and a complete five-minute simulation is byte-for-byte identical to the pre-change capture. All ten levels use normal player rates, prices, starting resources, combat statistics and private fog.
+- Improved reinforcement and technology budgeting, counter selection, paid factory/worker planning, committed-shot accounting, artillery spacing, retreat decisions, air/naval target priorities, windup preservation, observed-fleet composition and feasible splash evasion. Easier opponents make fewer coordinated combat decisions. No campaign illustration was generated.
+- All 29 regression files pass, including 14 focused advanced-AI decision groups. Browser gameplay, named difficulty choices, save/load, twelve faction renderers and offline launch pass.
+- Release evidence: 31 normal-rule AI matches, with 25 higher-level wins, 5 lower-level wins and 1 time limit. The main adjacent ladder is 15/18 higher-level wins; the default-resource holdout is 2/4; wider gaps are 4/4; competitive maritime play is 3/4; one 200-tile Primate large-island game also passes. All reports have unchanged source hashes matching the release.
+- Every adjacent level won at least once in the main ladder. Close tiers still trade wins, and broad competitive balance remains unfinished. No claim of human-unbeatable AI, guaranteed ordering on every map, or all-faction naval balance is made. See AI-STRATEGY.md and ai-difficulty-validation.json.
+
 # World environments â€” 10 November 2026
 
 - Added a world-specific Environment selector. Morvane offers Hell and Moon; Kareth/Elyndra offer Varied climates, Temperate, Desert and Arctic. The environment is independent of all nine layouts and seven sizes and is stored with saves.

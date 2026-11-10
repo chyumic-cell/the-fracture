@@ -82,7 +82,7 @@ node tests/campaign-route-audit.cjs
 
 ## AI opponents
 
-Choose Gentle, Relaxed, Easy, Standard, Challenging, Veteran, Expert, Master, Nightmare or Apocalypse, from easiest to hardest. They differ in reaction speed, economic development, force size and tactics. Master, Nightmare and Apocalypse also receive disclosed gathering and production speed advantages. All scout through private fog, pay full resource costs and use unchanged combat statistics. Apocalypse is intended as an extreme challenge; it is not guaranteed unbeatable. Older Normal and Hard saves map to Standard and Expert. Save, refresh, and load to apply AI updates to an existing match.
+Choose Gentle, Relaxed, Easy, Standard, Challenging, Veteran, Expert, Master, Nightmare or Apocalypse, from easiest to hardest. They differ in reaction speed, economic development, force size and tactics. No difficulty receives gathering, carrying, building, research, training, extraction, starting-resource or combat-stat bonuses. Standard retains its existing decision profile. Harder controllers make different spending, counter, formation, air and naval decisions; competitive calibration is recorded in docs/AI-STRATEGY.md and is not yet a consistently ordered ladder. All scout through private fog, pay full resource costs and use unchanged combat statistics. Apocalypse is intended as an extreme challenge; it is not guaranteed unbeatable. Older Normal and Hard saves map to Standard and Expert. Save, refresh, and load to apply AI updates to an existing match.
 
 See [AI strategy and evaluation](docs/AI-STRATEGY.md) for behavior and measured comparison results.
 

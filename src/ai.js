@@ -15,10 +15,13 @@ const levels=[
  ['nightmare','Nightmare',.45,28,120,6,1.03,160,3,.85,3],
  ['apocalypse','Apocalypse',.3,32,136,6,1.0,180,3,.8,4]
 ].map(([id,name,think,workerTarget,maxMilitary,minAttack,attackRatio,memory,scouts,techPace,productionLimit],index)=>{
- const level=index+1;return Object.freeze({id,name,level,think,workerTarget,maxMilitary,minAttack,attackRatio,memory,scouts,techPace,productionLimit,
+ const level=index+1;return Object.freeze({id,name,level,think,workerTarget,maxMilitary,minAttack,attackRatio,memory,scouts,techPace,productionLimit:level>=9?level-3:productionLimit,
   economyRates:Object.freeze({gather:1,production:1}),
+  adaptiveEconomy:level>=5,forecastFire:level>=7,screenArtillery:level>=8,domainMicro:level>=6,
+  investmentBuffer:level>=5?1+(level-5)*.16:0,
+  tacticalInterval:Math.max(.3,2.4-(level-4)*.35),
   counterWeight:Math.max(0,(level-3)/7),constructionCrew:level>=9?3:level>=6?2:1,
-  focusFire:level>=3,kite:level>=4,abilities:level>=3,flank:level>=6,splashFocus:level>=8,
+  focusFire:level>=4,kite:level>=4,abilities:level>=4,flank:level>=6,splashFocus:level>=8,
   retreatRatio:level<=3?1.55:level<=5?1.4:level<=7?1.28:1.2,
   withdrawHealth:level>=8?.3:.24,regroupDelay:Math.max(10,34-level*2),attackDelay:Math.max(10,48-level*4),
   assembleTime:level>=8?12:20,reinforceDelay:level>=8?10:18,reinforceMinimum:level>=8?4:5,reinforceReserve:level>=8?1:2,

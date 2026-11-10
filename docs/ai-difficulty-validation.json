@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-10",
+  "status": "Decision fixes implemented; broader difficulty calibration remains open.",
+  "fairRules": "Identical starting resources, costs, gathering, carrying, construction, training, research, extraction, population, combat statistics and private fog. Paid workers, factories and upgrades can increase output under the same rules as the player.",
+  "standardReplay": {
+    "seconds": 300,
+    "identical": true,
+    "sha256": "ca97b3628bdbfbbe736a97c15b26effe327a94b712912e502e74ec425ce9f1e8"
+  },
+  "regressionFilesPassed": 29,
+  "advancedDecisionRegressionGroups": 14,
+  "browserChecks": [
+    "ten named levels and save/load",
+    "gather, build, train, groups, facing, hold, save/load, twelve faction renderers and offline launch"
+  ],
+  "totalMatches": 31,
+  "results": {
+    "higher": 25,
+    "time-limit": 1,
+    "lower": 5
+  },
+  "tournaments": {
+    "adjacent": {
+      "file": "ai-release-adjacent.json",
+      "matches": 18,
+      "results": {
+        "higher": 15,
+        "time-limit": 1,
+        "lower": 2
+      },
+      "resourceAmount": 2,
+      "resourcePlacement": "balanced",
+      "sourceUnchanged": true
+    },
+    "holdout": {
+      "file": "ai-release-holdout.json",
+      "matches": 4,
+      "results": {
+        "lower": 2,
+        "higher": 2
+      },
+      "resourceAmount": 1,
+      "resourcePlacement": "balanced",
+      "sourceUnchanged": true
+    },
+    "wide": {
+      "file": "ai-release-wide.json",
+      "matches": 4,
+      "results": {
+        "higher": 4
+      },
+      "resourceAmount": 2,
+      "resourcePlacement": "balanced",
+      "sourceUnchanged": true
+    },
+    "maritime": {
+      "file": "ai-release-maritime.json",
+      "matches": 4,
+      "results": {
+        "higher": 3,
+        "lower": 1
+      },
+      "resourceAmount": 2,
+      "resourcePlacement": "balanced",
+      "sourceUnchanged": true
+    },
+    "largeIslands": {
+      "file": "ai-release-large-islands.json",
+      "matches": 1,
+      "results": {
+        "higher": 1
+      },
+      "resourceAmount": 1,
+      "resourcePlacement": "balanced",
+      "sourceUnchanged": true
+    }
+  },
+  "sourceHashes": {
+    "data": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "expansion-data": "93f72439f23b27fdf5390db74849e3d6d5eb5b1f4021cdfe19eee2757bb59628",
+    "simulation": "388ec671f30480ca8f04e13111d3db320683cf2c37c2df5c79c5263298d88285",
+    "ai": "51b037562ef9d396f846effb389ca52d66e7574f7ae32a8ab47010de89ea8447",
+    "ai-economy": "e70a5f90b5ca1b3f17cf38466c75548161223e800c032897f3bbe3b5be232486",
+    "ai-combat": "3404e710b81981d5a67a585295afad512bdfc3ec0342ce4eda60c5ab1a196f2e",
+    "ai-domain-combat": "43a17b4395b65654efab40fa69170b01a910bc6a40ae93c1e74b3537755b93eb",
+    "ai-logistics": "ca904bc98320012208ca690d110eae6afafe926a81a090ad34b0480513e50f10",
+    "march": "1781b2c2d0fe21a7d88c069bccdadfa298fba7b4c42a563d570236efdea7f3ac",
+    "walls": "5a3a6d0c6841d161a9bafb89994180c5ef719af038486ce273557369dd33ddce"
+  },
+  "limits": [
+    "Small fixed sample, not a statistical ranking or all-matchup guarantee.",
+    "Adjacent difficulty tiers still trade wins; one Easy/Relaxed match timed out.",
+    "Apocalypse is not proven unbeatable by humans.",
+    "Competitive coverage: Humans and Primates, 100-tile maps and one 200-tile large-island match.",
+    "Campaign illustrations remain paused."
+  ]
+}

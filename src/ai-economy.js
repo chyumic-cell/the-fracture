@@ -58,16 +58,21 @@ function step(g,p,ctx={}){
   if(u.bonus==='armor'&&armorCount)value+=Math.min(12,armorCount*2)/(1+count*.3);
   if((u.splash||u.role==='heavy')&&meleeCount)value+=Math.min(9,meleeCount*1.5)/(1+count*.25);
   if(u.airOnly&&!airCount)value-=20;
+  if(config.adaptiveEconomy&&C.category(u)==='breacher'){if(armySize<12)value-=35;else if(armyDefs.filter(d=>C.category(d)==='breacher').length>=Math.max(1,fortCount))value-=25;}
   if(u.role==='scout'&&count>=roles.scout)value-=35;
   if(u.role==='support'&&count>=roles.support)value-=30;
   if(u.range>=3&&u.damage>0&&!u.airOnly)value+=2;
   if(config.counterWeight&&foeUnits.length&&u.damage>0){const compatible=foeUnits.filter(t=>(!t.air||u.aa)&&(!u.airOnly||t.air));const matchup=compatible.reduce((n,t)=>n+C.multiplier(u,t),0)/foeUnits.length;value+=Math.max(-14,Math.min(18,(matchup-1)*18))*config.counterWeight;}
+  if(config.forecastFire&&foeUnits.length&&u.damage>0&&!u.airOnly){const targets=foeUnits.filter(t=>(!t.air||u.aa)&&(!u.airOnly||t.air));const damage=targets.reduce((n,t)=>n+Math.max(1,u.damage*C.multiplier(u,t)-(t.armor||0)),0)/foeUnits.length;const valuePerCost=damage/(u.cooldown||1.25)*Math.sqrt(u.hp)/(u.cost[0]+u.cost[1]*1.2+u.cost[2]*1.5+u.cost[3]*2+20);value+=Math.min(16,valuePerCost*7)*config.counterWeight;}
   value-=Math.max(0,armyDefs.filter(d=>d.id===u.id).length-2)*.2;
   return value;
  }
  const unitOrder=f.units.filter(u=>!u.worker).map(u=>({u,value:unitValue(u)})).sort((a,b)=>b.value-a.value||a.u.cost[0]-b.u.cost[0]);
  function canPlan(u){
-  if(unitValue(u)<1)return false;if(threatened&&armySize<5)return u.cost.slice(1).every(n=>!n)&&!u.research;
+  if(unitValue(u)<1)return false;
+  // One useful field army and a productive branch come before a collection of empty factories.
+  if(config.forecastFire&&!hasReady(u.building)&&armySize<20&&!islandWar&&!u.detector&&!(u.heal&&armySize>=8)&&!(airCount>=3&&u.aa)&&!(fortCount>=2&&u.role==='siege')&&D.buildings[u.building]?.kind!=='inf')return false;
+  if(threatened&&armySize<5)return u.cost.slice(1).every(n=>!n)&&!u.research;
   if(u.detector&&detectors===0)return true;
   if(config.level>=8&&armySize<6)return !u.requires?.length&&!u.extension&&!u.research;
   if(['elite','giant'].includes(u.role))return strategyTime>240&&armySize>=16;
@@ -145,12 +150,21 @@ function step(g,p,ctx={}){
   if(expansion&&(oreLeft<650||stock[0]>260||expansion.n.resource===0&&drops.every(b=>distance(b,expansion.n)>13))){const n=expansion.n,d=f.buildings.find(b=>b.resource===D.resources[n.resource]);plan({kind:'build',def:d,near:n,priority:oreLeft<350?82:45,key:'expansion:'+n.id});}
  }
  // Add capacity only when a useful branch is actually saturated and income supports it.
- if(strategyTime>150&&armySize<armyLimit&&stock[0]>350&&!threatened){const b=ready.find(b=>queueOf(b).some(q=>q.kind==='unit'&&!D.units[q.type]?.worker)&&existingType(b.type).length<(config.productionLimit||2)&&f.units.some(u=>u.building===b.type&&unitValue(u)>5));if(b)plan({kind:'build',def:D.buildings[b.type],priority:32,key:'capacity:'+b.type,duplicate:true});}
+ if(strategyTime>150&&armySize<armyLimit&&stock[0]>(config.adaptiveEconomy?220:350)&&!threatened){const b=ready.find(b=>queueOf(b).some(q=>q.kind==='unit'&&!D.units[q.type]?.worker)&&existingType(b.type).length<(config.productionLimit||2)&&(config.level<9||existingType(b.type).every(other=>other.progress>=1&&queueOf(other).some(q=>q.kind==='unit'&&!D.units[q.type]?.worker)))&&f.units.some(u=>u.building===b.type&&unitValue(u)>5));if(b)plan({kind:'build',def:D.buildings[b.type],priority:config.adaptiveEconomy?94:32,key:'capacity:'+b.type,duplicate:true});}
  priorities.sort((a,b)=>b.priority-a.priority);
  // Hold a small, stable investment goal until it is paid or becomes irrelevant.
  let action=priorities.find(a=>(state.failedSites[a.key]||0)<=time);
  const prior=priorities.find(a=>a.key===state.goal&&a.priority>=45&&(state.failedSites[a.key]||0)<=time);
  if(prior&&action&&action.priority<100&&prior.priority>=action.priority-8&&time-(state.goalAt||0)<40)action=prior;
+ // Keep a paid reinforcement cycle available before optional buildings or research.
+ const readyChoices=unitOrder.filter(({u,value})=>value>0&&ready.some(b=>b.type===u.building&&!g.missing(p.id,u,b).length));
+ const combatBudget=config.adaptiveEconomy?readyChoices.filter(({u})=>u.damage>0&&!u.airOnly).slice(0,2).reduce((n,{u})=>n+u.cost[0],0)*config.investmentBuffer:0;
+ const rebuildingArmy=armySize<Math.max(10,Math.min(28,workers.length*1.15),Math.min(32,foeUnits.length*1.2));
+ // A weapon/armor upgrade benefits the army already on the field. Do not postpone
+ // it forever while replacing casualties; reserve just one affordable reinforcement.
+ const improvesArmy=config.forecastFire&&action?.kind==='research'&&['weapons','armor'].includes(action.def.kind)&&armySize>=8;
+ const investmentFloor=improvesArmy||config.adaptiveEconomy&&action?.key.startsWith('capacity:')?Math.min(...readyChoices.filter(({u})=>u.damage>0&&!u.airOnly).map(({u})=>u.cost[0]),combatBudget):combatBudget;
+ if(config.adaptiveEconomy&&action&&action.priority<100&&rebuildingArmy&&stock[0]-action.def.cost[0]<investmentFloor)action=null;
  if(action?.key!==state.goal){state.goal=action?.key||null;state.goalAt=time;}
  state.goalCost=action?.def?.cost||[0,0,0,0];
  function freeWorker(w){const s=state.workers[w.id]||{};return w.aiScoutUntil<=time||!w.aiScoutUntil?!dangerous(w,2)&&!(s.fleeUntil>time)&&!['build','repair'].includes(w.order?.kind):false;}
@@ -188,7 +202,7 @@ function step(g,p,ctx={}){
  if(stock[0]>90&&workers.length>=6){const damaged=ready.filter(b=>b.hp<b.maxHp*.72&&!dangerous(b,5)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(damaged&&!workers.some(w=>w.order?.kind==='repair')){const w=builder(damaged);if(w)g.order([w.id],{kind:'repair',target:damaged.id});}}
  // Strong opponents protect worker growth from speculative technology reservations.
  // Payment and population limits are the same as for a human player.
- if(config.level>=8&&!threatened&&armySize>=Math.max(2,(workers.length-5)*.65)&&ready.some(b=>definition(b)?.kind==='inf')&&workers.length+deepWorkers+queued.filter(d=>d.worker).length<Math.min(16,workerLimit)&&capacity-g.population(p.id)>2){
+ if(config.level>=8&&!threatened&&armySize>=Math.max(4,(workers.length-5)*1.2)&&ready.some(b=>definition(b)?.kind==='inf')&&workers.length+deepWorkers+queued.filter(d=>d.worker).length<Math.min(16,workerLimit)&&capacity-g.population(p.id)>2){
   const worker=f.units.find(u=>u.worker),base=ready.find(b=>definition(b)?.kind==='hq'&&!queueOf(b).length);
   if(base&&g.affordable(p.id,worker.cost))g.queue(base.id,worker.id);
  }
@@ -204,7 +218,9 @@ function step(g,p,ctx={}){
  const reserve=[...(!bought&&action&&action.priority>=45?state.goalCost:[0,0,0,0])];reserve[0]=Math.max(reserve[0],sustainabilityReserve);p.aiReserve=reserve;
  function spendable(cost,emergency=false){return cost.every((v,i)=>stock[i]>=v&&(emergency||stock[i]-v>=(reserve[i]||0)));}
  const queuedWorkers=queued.filter(d=>d.worker).length;
- const targetWorkers=Math.min(workerLimit,Math.max(7,Math.floor(capacity*.55)),safeNodes.length?workerLimit:7);
+ const paidProduction=ready.filter(b=>['inf','counter','armor','air','elite','dock'].includes(definition(b)?.kind)).length;
+ const growthLimit=config.adaptiveEconomy?Math.max(9,Math.min(workerLimit,Math.max(Math.floor(8+armySize*.55),config.level>=9?paidProduction*5+5:0))):workerLimit;
+ const targetWorkers=Math.min(workerLimit,growthLimit,Math.max(7,Math.floor(capacity*.55)),safeNodes.length?workerLimit:7);
  const workerDef=f.units.find(u=>u.worker),hq=ready.find(b=>definition(b)?.kind==='hq'&&queueOf(b).length<1);
  if(hq&&workers.length+deepWorkers+queuedWorkers<targetWorkers&&(!threatened||workers.length<6)&&spendable(workerDef.cost,workers.length<Math.min(10,targetWorkers)&&!threatened||workers.length<7)&&capacity-g.population(p.id)>1)g.queue(hq.id,workerDef.id);
  if(armySize<armyLimit){
@@ -218,7 +234,7 @@ function step(g,p,ctx={}){
  }
  // Upcoming concrete costs determine staffing, rather than worker index modulo four.
  let demand=[180+workers.length*5,0,0,0];if(action)demand=sumCost(demand,action.def.cost);
- for(const {u}of unitOrder.filter(({u,value})=>value>0&&canPlan(u)).slice(0,3))demand=sumCost(demand,u.cost,1.5);
+ for(const {u}of (config.adaptiveEconomy?readyChoices:unitOrder.filter(({u,value})=>value>0&&canPlan(u))).slice(0,3))demand=sumCost(demand,u.cost,1.5);
  if(strategyTime>90&&armySize>=5)demand=sumCost(demand,D.research[f.id+'_economy'].cost,.5);
  demand[0]=Math.max(300,demand[0]);demand[3]=Math.min(70,demand[3]);
  const workable=nodes.filter(n=>!dangerous(n,5)&&(n.resource!==1||ready.some(b=>definition(b)?.resource==='oil'&&distance(b,n)<6)));

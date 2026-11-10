@@ -1,6 +1,6 @@
 # Gameplay checklist — current implementation, 10 November 2026
 
-This replaces the earlier audit. All 17 sections have been inspected and their implementation gaps addressed below. The gameplay systems are installed. The requested measured AI strength ladder and the final broad air/naval tournament remain unfinished; this document does not certify the whole project complete. Campaign illustrations remain paused at the user's request.
+This replaces the earlier audit. All 17 sections have been inspected and their implementation gaps addressed below. The gameplay systems are installed. The requested consistently ordered AI strength ladder and broad all-faction air/naval balance remain unfinished; this document does not certify the whole project complete. Campaign illustrations remain paused at the user's request.
 
 Source prompt: C:/Users/pc1/.codex/attachments/1a33b0f5-3aaf-446e-849d-cdcade7fc25d/pasted-text.txt
 
@@ -22,7 +22,7 @@ Source prompt: C:/Users/pc1/.codex/attachments/1a33b0f5-3aaf-446e-849d-cdcade7fc
 | 14 | Neutral settlements | Optional generated refuges offer limited, paid recruitment without adding civilizations. Browser recruitment across twelve factions passes. |
 | 15 | Voices, effects, music | Installed offline per-unit/category voice bank: 237 unit definitions, six variants per category, repeated-click responses and one acknowledgment per selected group. Natural neural voices and original nonverbal profiles replace the old robotic bank. Gameplay effects, music controls, clearer default music and priority attack warnings are installed. Live and offline audio browser tests pass. See UNIT-VOICES.md. |
 | 16 | Symbiote collective | Five separate recorded voices play together for collective lines, with matched timing and controlled mixing. Faction lore is retained; approved cinematic narration was not rewritten. Playback and asset checks pass. |
-| 17 | Integration and honest completion | 27 simulation regression files pass; normal browser gameplay, offline launch, voices, connected-wall controls, background sprite parity, Primate flight art and ruins/gates have been checked. AI balance and final campaign validation are separate, unfinished work. |
+| 17 | Integration and honest completion | 29 simulation regression files pass; normal browser gameplay, offline launch, voices, connected-wall controls, background sprite parity, Primate flight art and ruins/gates have been checked. AI balance and final campaign validation are separate, unfinished work. |
 
 ## Additional current fixes
 
@@ -38,8 +38,8 @@ Source prompt: C:/Users/pc1/.codex/attachments/1a33b0f5-3aaf-446e-849d-cdcade7fc
 
 All ten difficulty levels use identical worker gathering, carrying, construction, research, training and deep extraction rates. Starting resources, payment, finite deposits and fog rules are also shared. Legitimate purchased upgrades apply equally to the player. Previous tournament reports using difficulty rate bonuses are superseded and must not be used as evidence.
 
-Stronger settings now vary reaction/planning, workforce targets, actual construction crew sizes, composition, research timing, reserves, reinforcement, flanking, focus fire, ranged spacing, visible-projectile evasion and observed-worker raids. Behavior tests pass, but these differences alone do not establish a reliable strength ladder.
+Current fixes improve spending, paid production planning, shot reservations, artillery spacing, retreats, air/naval targeting and feasible blast evasion. Stronger settings vary reaction/planning, workforce targets, actual construction crew sizes, composition, research timing, reserves, reinforcement, flanking, focus fire, ranged spacing, visible-projectile evasion and observed-worker raids. Behavior tests pass, but these differences alone do not establish a reliable strength ladder.
 
-Latest fair-rate test: `ai-counter-corrected-fair-ladder.json` contains 18 adjacent-level Human games with balanced resource placement, the same seed and sides exchanged, using the corrected combat rules. Higher levels won 13, lower levels won 3, and 2 reached the 1,100-second limit. Apocalypse won both games against Nightmare, but Expert/Veteran and other adjacent results still break the requested ordering. Checked simulation/AI source hashes match from start to finish. This is a narrow calibration, not evidence of unbeatable AI or a completed ladder. Standard's decision-profile values remain unchanged.
+Latest release validation: 31 normal-rule AI games, 25 higher-level wins, 5 lower-level wins and 1 time limit. The main side-swapped ladder has 15/18 higher-level wins and at least one win for every adjacent tier; wider gaps are 4/4. The default-resource upper-level holdout splits 2/4, competitive maritime games are 3/4, and one 200-tile Primate large-island game also wins. Close-tier reversals remain. All tournament source hashes match the uploaded release. Standard's complete five-minute simulation is unchanged. See AI-STRATEGY.md and ai-difficulty-validation.json.
 
 Remaining work, before any new campaign illustrations: tune and retest adjacent difficulty levels and wider gaps; extend the completed twelve-faction passive island-opening matrix to competitive air/naval matches and additional seeds/sizes; then revisit campaign command-only completion and media checks when the user resumes that work. Existing campaign content remains playable; no new illustration was generated in this pass.

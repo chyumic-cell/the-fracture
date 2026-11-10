@@ -1,0 +1,24 @@
+"use strict";
+// Tactical control for paid aircraft and warships. Only visible contacts and own forces are read.
+(function(root){
+const D=root.FD||(typeof require!=='undefined'?require('./data.js'):null),C=root.FractureCombat||(typeof require!=='undefined'?require('./combat.js'):null),distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y),def=e=>e.kind==='unit'?D.units[e.type]:D.buildings[e.type];
+const canHit=(a,b)=>!!a.damage&&(!b.air||a.aa)&&(!a.airOnly||b.air);
+function damage(g,u,t){const d=def(u),td=def(t),upgrades=g.players[u.owner].tech.filter(id=>D.research[id]?.kind==='weapons').length;return Math.max(1,d.damage*(1+.12*upgrades)*C.multiplier(d,td,t.kind==='building')-(td.armor||0)-(t.bracedUntil>g.time?5:0));}
+function move(g,p,u,desired,enemies){const d=def(u),mode=d.naval?'water':true,a=Math.atan2(desired.y-u.y,desired.x-u.x),r=Math.min(4,Math.max(1.8,distance(u,desired)));let best=null,bestScore=Infinity;
+ for(const turn of [0,.45,-.45,.9,-.9,1.4,-1.4]){const q={x:Math.max(.6,Math.min(g.n-.6,u.x+Math.cos(a+turn)*r)),y:Math.max(.6,Math.min(g.n-.6,u.y+Math.sin(a+turn)*r))};if(!g.known(p.id,q)||g.blocked(q.x,q.y,mode,p.id))continue;if(d.naval){const route=g.path(u,q);if(distance(route.at(-1)||u,q)>1.8)continue;}const danger=enemies.reduce((n,e)=>n+(canHit(def(e),d)?Math.max(0,(def(e).range||1)+1-distance(e,q))*def(e).damage/(def(e).cooldown||1.5):0),0),score=distance(q,desired)+danger*.2;if(score<bestScore){bestScore=score;best=q;}}
+ if(best&&(!u.order||u.order.kind!=='move'||distance(u.order,best)>1)){g.order([u.id],{kind:'move',...best});u.aiDomainMoveUntil=g.time+.7;return true;}return false;
+}
+function step(g,p,ctx){if(!ctx.config?.domainMicro)return;const s=(p.aiState.domainCombat||={next:0,decisions:0});if(g.time<s.next)return;s.next=g.time+ctx.config.tacticalInterval;s.decisions++;const units=ctx.own.filter(u=>u.kind==='unit'&&!u.embarkedBy&&!u.insideMine&&!def(u).transport&&(def(u).air||def(u).naval)&&def(u).damage>0),enemies=ctx.enemy,committed=new Map();
+ for(const shot of g.projectiles)if(shot.owner===p.id){const t=enemies.find(e=>e.id===shot.target);if(t)committed.set(t.id,(committed.get(t.id)||0)+Math.max(1,shot.damage-(def(t).armor||0)));}
+ for(const u of units){const target=enemies.find(e=>e.id===u.windup?.target);if(target&&u.windup&&!u.windup.fired)committed.set(target.id,(committed.get(target.id)||0)+damage(g,u,target));}
+ for(const u of units){const d=def(u);if(u.returning||u.windup||u.aiDomainMoveUntil>g.time)continue;const nearby=enemies.filter(e=>distance(u,e)<Math.max(10,d.range+3)),threats=nearby.filter(e=>canHit(def(e),d)&&distance(u,e)<(def(e).range||1)+2),targets=nearby.filter(e=>g.canTarget(u,e)&&distance(u,e)<g.attackReach(u,e)+2);if(!nearby.length)continue;
+  const friends=units.filter(a=>distance(a,u)<9),ownPower=friends.reduce((n,a)=>n+(def(a).damage||0)*a.hp/a.maxHp,0),danger=threats.reduce((n,e)=>n+def(e).damage*e.hp/e.maxHp,0);
+  if(threats.length&&(u.hp<u.maxHp*.4||ctx.config.level>=8&&danger>ownPower*1.65)){const support=ctx.ready.filter(b=>d.air?['hq','air'].includes(def(b).kind):def(b).kind==='dock').sort((a,b)=>distance(a,u)-distance(b,u))[0]||p.home;if(move(g,p,u,support,enemies)){u.aiDomainTargetUntil=g.time+ctx.config.tacticalInterval+.1;continue;}}
+  if(!targets.length)continue;
+  const ranked=targets.map(t=>{const td=def(t),range=distance(u,t),remaining=t.hp-(committed.get(t.id)||0),hit=damage(g,u,t),inRange=range<=g.attackReach(u,t)&&range>=(d.minRange||0)+(d.minRange?(t.size||.35):0);let score=(inRange?45:0)-range*2+Math.min(25,hit/Math.max(1,t.hp)*24)+(td.worker?3:td.damage?14:5);if(d.air&&td.aa)score+=25;if(d.navalRole==='escort'&&td.air)score+=30;if(d.navalRole==='siege'&&t.kind==='building')score+=28;if(td.transport&&td.naval)score+=ctx.config.level>=8?30:10;if(remaining<=0)score-=100;else if(inRange&&hit>=remaining)score+=25;if(d.splash&&ctx.config.splashFocus)score+=Math.min(30,targets.filter(e=>e.id!==t.id&&distance(e,t)<d.splash).length*8);if(d.minRange&&range<d.minRange+(t.size||.35))score-=80;return{t,score};}).sort((a,b)=>b.score-a.score||a.t.id-b.t.id),target=ranked[0].t;
+  const close=threats.sort((a,b)=>distance(a,u)-distance(b,u))[0];if(close&&u.cooldown>.4&&ctx.config.level>=7&&((def(close).range||1)<d.range-1||d.minRange&&distance(u,close)<d.minRange+1)){const a=Math.atan2(u.y-close.y,u.x-close.x);if(move(g,p,u,{x:u.x+Math.cos(a)*2.5,y:u.y+Math.sin(a)*2.5},enemies)){u.aiDomainTargetUntil=g.time+ctx.config.tacticalInterval+.1;continue;}}
+  if(u.order?.kind!=='attack'||u.order.target!==target.id)g.order([u.id],{kind:'attack',target:target.id});u.aiDomainTargetUntil=g.time+ctx.config.tacticalInterval+.1;if(u.cooldown<=ctx.config.tacticalInterval+.25)committed.set(target.id,(committed.get(target.id)||0)+damage(g,u,target));
+ }
+}
+root.FractureAIDomainCombat={step,damage};if(typeof module!=='undefined')module.exports=root.FractureAIDomainCombat;
+})(globalThis);

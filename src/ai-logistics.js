@@ -3,6 +3,7 @@
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 function step(g,p,ctx){
  const D=root.FD||(typeof require!=='undefined'?require('./data.js'):null),s=(p.aiLogistics||={next:0}),own=g.entities.filter(e=>e.owner===p.id&&e.hp>0),ready=own.filter(e=>e.kind==='building'&&e.progress>=1),workers=own.filter(e=>e.kind==='unit'&&g.def(e).worker&&!e.embarkedBy),unsafe=q=>ctx.enemy.some(e=>g.def(e)?.damage>0&&dist(e,q)<(g.def(e).range||1)+5);
+ const domainCombat=root.FractureAIDomainCombat||(typeof require!=='undefined'?require('./ai-domain-combat.js'):null);domainCombat?.step(g,p,ctx);
  const done=id=>D.buildings[id]?g.hasBuilding(p.id,id):p.tech.includes(id),pending=id=>own.some(b=>b.type===id||b.queue?.some(q=>q.type===id));
  function ensure(id,visited=new Set()){
   if(done(id)||pending(id))return done(id);if(visited.has(id))return false;visited.add(id);const d=D.buildings[id]||D.research[id];if(!d)return false;
@@ -90,9 +91,9 @@ function step(g,p,ctx){
  if(s.airRaid&&(wing.length<Math.max(2,s.airRaid.initial*.4)||g.time-s.airRaid.started>85)){for(const u of aircraft)if(!u.returning&&!u.windup)g.order([u.id],{kind:'move',x:p.home.x+3,y:p.home.y+3});s.airRaid=null;s.airRegroup=g.time+15;}
  if(!s.airRaid&&wing.length>=(ctx.enemy.filter(e=>g.def(e)?.aa&&!g.def(e)?.worker).length<3?2:3)&&g.time>(s.airRegroup||0)){
   const objectives=ctx.targets.filter(t=>wing.some(u=>!g.def(u).airOnly)).map(t=>({t,score:(['hq','air','inf','armor','elite'].includes(g.def(t)?.kind)?100:40)-ctx.knownEnemies.filter(e=>g.def(e)?.aa&&dist(e,t)<10).length*12-dist(t,p.home)*.25})).sort((a,b)=>b.score-a.score);
-  if(objectives.length){const t=objectives[0].t;s.airRaid={target:t.id,x:t.x,y:t.y,initial:wing.length,started:g.time};g.order(wing.map(u=>u.id),{kind:'attackMove',x:t.x,y:t.y});p.plan='Coordinated air strike on enemy production';}
+  if(objectives.length){const t=objectives[0].t;s.airRaid={target:t.id,x:t.x,y:t.y,initial:wing.length,started:g.time};g.order((ctx.config.domainMicro?wing.filter(u=>!(u.aiDomainTargetUntil>g.time)&&!u.windup):wing).map(u=>u.id),{kind:'attackMove',x:t.x,y:t.y});p.plan='Coordinated air strike on enemy production';}
  }
- for(const u of aircraft){if(u.returning||u.windup)continue;if(u.hp<u.maxHp*.35){g.order([u.id],{kind:'move',x:p.home.x+3,y:p.home.y+3});continue;}
+ for(const u of aircraft){if(u.returning||u.windup||u.aiDomainTargetUntil>g.time)continue;if(u.hp<u.maxHp*.35){g.order([u.id],{kind:'move',x:p.home.x+3,y:p.home.y+3});continue;}
   const local=ctx.enemy.filter(e=>g.canTarget(u,e)&&dist(u,e)<=g.attackReach(u,e)+2).sort((a,b)=>(g.def(b)?.aa?50:0)-(g.def(a)?.aa?50:0)||(a.hp-b.hp));
   if(local.length){if(u.order?.target!==local[0].id)g.order([u.id],{kind:'attack',target:local[0].id});}
   else if(s.airRaid&&(!u.order||u.stuck>2))g.order([u.id],{kind:'attackMove',x:s.airRaid.x,y:s.airRaid.y});
@@ -118,12 +119,16 @@ function step(g,p,ctx){
  }
  if(maritime&&(ctx.enemy.some(e=>g.def(e)?.naval)||carrier&&g.time>220)){
   const id=p.faction+'_dock';if(ensure(id)){const b=ready.find(b=>b.type===id&&!b.queue.length),fleet=own.filter(e=>g.def(e)?.naval&&!g.def(e).transport),enemyAir=ctx.knownEnemies.some(e=>g.def(e)?.air);
-   const wanted=[['scout_boat',!ctx.targets.length?1:0],['escort_ship',enemyAir?2:g.time>330?1:0],['warship',2],['siege_ship',g.time>360?1:0]];
+   // Size the paid fleet to observed opposition; aircraft call for escorts, not more cannons.
+   const contacts=ctx.knownEnemies.filter(e=>g.def(e)?.naval&&!g.def(e).transport),adapt=ctx.config.domainMicro,limit=Math.min(8,2+Math.floor((ctx.config.level-5)*1.2));
+   const warships=adapt?Math.min(limit,Math.max(2,contacts.length+1)):2;
+   const escorts=adapt?Math.min(4,Math.max(enemyAir?2:1,Math.ceil(ctx.knownEnemies.filter(e=>g.def(e)?.air).length/2))):enemyAir?2:g.time>330?1:0;
+   const wanted=[['scout_boat',!ctx.targets.length?1:0],['escort_ship',escorts],['warship',warships],['siege_ship',g.time>360?(adapt&&ctx.targets.length>2?2:1):0]];
    for(const [suffix,count]of wanted){const u=D.units[p.faction+'_'+suffix];if(fleet.filter(e=>e.type===u.id).length>=count||pending(u.id))continue;let allowed=true;for(const req of u.requires)if(!done(req)){ensure(req);allowed=false;break;}if(allowed&&b)g.queue(b.id,u.id);break;}
   }
  }
  const navalEscort=carriers.find(t=>g.def(t).naval);
- for(const ship of own.filter(e=>g.def(e)?.naval&&g.def(e).damage>0)){if(ship.stuck>2||ship.order?.kind==='move'&&g.blocked(ship.order.x,ship.order.y,'water',p.id))g.order([ship.id],{kind:'stop'});const target=ctx.enemy.filter(e=>g.canTarget(ship,e)&&dist(e,ship)<g.range(ship)+(e.size||0)+3).sort((a,b)=>dist(a,ship)-dist(b,ship))[0];if(target&&ship.order?.target!==target.id)g.order([ship.id],{kind:'attack',target:target.id});else if(!target&&g.def(ship).navalRole==='scout'&&!ship.order){const q=seaGoal(ship);if(q)g.order([ship.id],{kind:'move',x:q.x,y:q.y});}else if(!target&&navalEscort&&g.def(ship).navalRole!=='scout'&&(!ship.order||dist(ship,navalEscort)>9)){const q=g.coastApproach(ship,navalEscort);if(q)g.order([ship.id],{kind:'move',x:q.x,y:q.y});}else if(!target&&!navalEscort&&!ship.order){const t=ctx.targets.find(t=>waterBeside(t));if(t){const q=waterBeside(t);g.order([ship.id],{kind:'move',...q});}}}
+ for(const ship of own.filter(e=>g.def(e)?.naval&&g.def(e).damage>0)){if(ctx.config.domainMicro&&ship.windup||ship.aiDomainTargetUntil>g.time)continue;if(ship.stuck>2||ship.order?.kind==='move'&&g.blocked(ship.order.x,ship.order.y,'water',p.id))g.order([ship.id],{kind:'stop'});const target=ctx.enemy.filter(e=>g.canTarget(ship,e)&&dist(e,ship)<g.range(ship)+(e.size||0)+3).sort((a,b)=>dist(a,ship)-dist(b,ship))[0];if(target&&ship.order?.target!==target.id)g.order([ship.id],{kind:'attack',target:target.id});else if(!target&&g.def(ship).navalRole==='scout'&&!ship.order){const q=seaGoal(ship);if(q)g.order([ship.id],{kind:'move',x:q.x,y:q.y});}else if(!target&&navalEscort&&g.def(ship).navalRole!=='scout'&&(!ship.order||dist(ship,navalEscort)>9)){const q=g.coastApproach(ship,navalEscort);if(q)g.order([ship.id],{kind:'move',x:q.x,y:q.y});}else if(!target&&!navalEscort&&!ship.order){const t=ctx.targets.find(t=>waterBeside(t));if(t){const q=waterBeside(t);g.order([ship.id],{kind:'move',...q});}}}
 }
 root.FractureAILogistics={step};if(typeof module!=='undefined')module.exports=root.FractureAILogistics;
 })(globalThis);

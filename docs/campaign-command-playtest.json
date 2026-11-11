@@ -5,48 +5,48 @@
       "mission": 1,
       "title": "The Bridge at Dawn",
       "status": "victory",
-      "time": 276,
-      "lost": 0,
-      "kills": 12,
+      "time": 552,
+      "lost": 6,
+      "kills": 28,
       "stock": [
-        35,
-        469,
-        362,
-        0
+        306,
+        910,
+        617,
+        40
       ],
-      "seconds": 6,
-      "stage": 2,
+      "seconds": 8,
+      "stage": 4,
       "profile": {
-        "updateVision": 3286.956900000003,
-        "path": 52.01679999999487,
-        "go": 169.84480000000713,
-        "tick": 5880.723700000011,
-        "attackSpot": 84.92200000000321
+        "updateVision": 4111.640900000009,
+        "path": 52.228599999991275,
+        "go": 180.3825999999408,
+        "tick": 7919.826899999962,
+        "attackSpot": 170.78510000003644
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The villages have escaped and the Emperor has retreated through his crossing, leaving his shed tail behind. The containment crew seals the foreign tissue. The invasion has been checked, but the barrier between worlds is already weakening."
     },
     {
       "mission": 2,
       "title": "Imperial Orders",
       "status": "victory",
-      "time": 164,
+      "time": 176,
       "lost": 4,
       "kills": 15,
       "stock": [
-        17,
-        449,
-        339,
+        54,
+        473,
+        351,
         80
       ],
-      "seconds": 3,
+      "seconds": 2,
       "stage": 2,
       "profile": {
-        "updateVision": 1794.2074000000066,
-        "path": 21.60710000002473,
-        "go": 93.0084000000079,
-        "tick": 3043.3537000000106,
-        "attackSpot": 83.09489999997822
+        "updateVision": 976.2910999999931,
+        "path": 12.695600000000923,
+        "go": 51.80140000002757,
+        "tick": 1718.078300000032,
+        "attackSpot": 54.501400000031936
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -56,7 +56,7 @@
       "title": "Keys to a Third World",
       "status": "victory",
       "time": 340,
-      "lost": 19,
+      "lost": 21,
       "kills": 15,
       "stock": [
         18,
@@ -64,14 +64,14 @@
         473,
         80
       ],
-      "seconds": 4,
+      "seconds": 2,
       "stage": 2,
       "profile": {
-        "updateVision": 2758.917900000066,
-        "path": 23.23250000000735,
-        "go": 112.38099999999031,
-        "tick": 4327.186400000088,
-        "attackSpot": 64.43040000000474
+        "updateVision": 1392.995400000007,
+        "path": 9.207999999987805,
+        "go": 53.32630000012614,
+        "tick": 2197.772400000047,
+        "attackSpot": 47.38260000003356
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -80,23 +80,23 @@
       "mission": 4,
       "title": "Through the Breach",
       "status": "victory",
-      "time": 120,
-      "lost": 0,
-      "kills": 2,
+      "time": 320,
+      "lost": 4,
+      "kills": 6,
       "stock": [
-        58,
-        388,
-        303,
+        24,
+        680,
+        449,
         80
       ],
-      "seconds": 2,
+      "seconds": 4,
       "stage": 1,
       "profile": {
-        "updateVision": 1035.8857999999673,
-        "path": 12.107800000005227,
-        "go": 60.277600000041275,
-        "tick": 1712.9493999999977,
-        "attackSpot": 5.099599999997736
+        "updateVision": 2137.1392000000033,
+        "path": 14.974400000004607,
+        "go": 60.1137999999537,
+        "tick": 3651.3671999999387,
+        "attackSpot": 26.83419999999751
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -105,23 +105,23 @@
       "mission": 5,
       "title": "No Neutral Ground",
       "status": "victory",
-      "time": 218,
-      "lost": 1,
-      "kills": 12,
+      "time": 281,
+      "lost": 3,
+      "kills": 18,
       "stock": [
-        23,
-        249,
-        351,
-        80
+        45,
+        286,
+        387,
+        262
       ],
-      "seconds": 7,
+      "seconds": 5,
       "stage": 2,
       "profile": {
-        "updateVision": 3739.885699999966,
-        "path": 32.34700000000521,
-        "go": 163.40590000008524,
-        "tick": 6589.416400000038,
-        "attackSpot": 123.4526999999689
+        "updateVision": 2692.8591999999408,
+        "path": 44.0050999999512,
+        "go": 134.20779999988008,
+        "tick": 4921.372799999979,
+        "attackSpot": 127.19840000003023
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -129,62 +129,49 @@
     {
       "mission": 6,
       "title": "Hold Ashbridge",
-      "status": "defeat",
-      "time": 142,
-      "lost": 4,
-      "kills": 2,
+      "status": "victory",
+      "time": 250,
+      "lost": 17,
+      "kills": 16,
       "stock": [
-        436,
-        312,
-        227,
+        99,
+        362,
+        234,
         80
       ],
-      "seconds": 5,
+      "seconds": 2,
       "stage": 2,
       "profile": {
-        "updateVision": 2713.134599999972,
-        "path": 23.197100000019418,
-        "go": 150.13130000008096,
-        "tick": 4497.151099999966,
-        "attackSpot": 33.40699999999197
+        "updateVision": 1321.6107000000702,
+        "path": 14.013499999990017,
+        "go": 55.71949999975186,
+        "tick": 2274.4256000000605,
+        "attackSpot": 38.43590000008044
       },
-      "remaining": [
-        {
-          "id": "outer",
-          "type": "hold",
-          "progress": 94.80000000000074,
-          "amount": 160
-        },
-        {
-          "id": "evacuation",
-          "type": "evacuate",
-          "progress": 7,
-          "amount": 8
-        }
-      ],
-      "result": "Too few civilians survived to complete the evacuation. Retry the latest checkpoint."
+      "remaining": [],
+      "result": "Mission complete. Your objectives are secured."
     },
     {
       "mission": 7,
       "title": "Lines in the Earth",
       "status": "victory",
-      "time": 285,
-      "lost": 25,
-      "kills": 7,
+      "time": 423,
+      "lost": 32,
+      "kills": 6,
       "stock": [
-        724,
-        644,
-        462,
+        527,
+        851,
+        559,
         100
       ],
-      "seconds": 10,
+      "seconds": 4,
       "stage": 2,
       "profile": {
-        "updateVision": 5674.188099999999,
-        "path": 82.42409999993833,
-        "go": 374.73899999968125,
-        "tick": 9619.276599999874,
-        "attackSpot": 142.18810000000667
+        "updateVision": 2343.2229000000225,
+        "path": 21.220800000017334,
+        "go": 95.47450000036042,
+        "tick": 4154.655799999979,
+        "attackSpot": 54.54870000006122
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -193,23 +180,23 @@
       "mission": 8,
       "title": "The Forest War",
       "status": "victory",
-      "time": 225,
-      "lost": 2,
+      "time": 265,
+      "lost": 5,
       "kills": 17,
       "stock": [
-        154,
-        296,
-        426,
-        100
+        79,
+        317,
+        462,
+        258
       ],
-      "seconds": 9,
+      "seconds": 3,
       "stage": 2,
       "profile": {
-        "updateVision": 5051.30999999991,
-        "path": 32.70219999997062,
-        "go": 440.22980000100506,
-        "tick": 8550.039900000287,
-        "attackSpot": 78.25759999993898
+        "updateVision": 1511.9288000000051,
+        "path": 17.0727000000079,
+        "go": 85.97820000007778,
+        "tick": 2665.8100000000304,
+        "attackSpot": 34.7353999999832
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -218,23 +205,23 @@
       "mission": 9,
       "title": "Logic of War",
       "status": "victory",
-      "time": 195,
-      "lost": 12,
-      "kills": 10,
+      "time": 1083,
+      "lost": 33,
+      "kills": 20,
       "stock": [
-        14,
-        478,
-        295,
+        258,
+        2097,
+        1018,
         65
       ],
-      "seconds": 9,
+      "seconds": 10,
       "stage": 2,
       "profile": {
-        "updateVision": 5145.9237999999605,
-        "path": 103.19270000005054,
-        "go": 310.2903999999544,
-        "tick": 8737.014100000059,
-        "attackSpot": 173.4950000000099
+        "updateVision": 5732.752899999934,
+        "path": 52.55670000023383,
+        "go": 183.1181000002107,
+        "tick": 9847.141300000527,
+        "attackSpot": 59.327099999951315
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -243,23 +230,23 @@
       "mission": 10,
       "title": "Stone and Oath",
       "status": "victory",
-      "time": 172,
-      "lost": 3,
-      "kills": 9,
+      "time": 365,
+      "lost": 5,
+      "kills": 20,
       "stock": [
-        62,
-        335,
-        245,
-        209
+        66,
+        301,
+        196,
+        331
       ],
       "seconds": 5,
       "stage": 2,
       "profile": {
-        "updateVision": 2865.572400000099,
-        "path": 22.943799999899056,
-        "go": 129.0139000002746,
-        "tick": 5089.316600000246,
-        "attackSpot": 81.9600000000355
+        "updateVision": 2571.3660999999865,
+        "path": 71.04190000003655,
+        "go": 171.20490000004247,
+        "tick": 4741.333099999965,
+        "attackSpot": 53.78700000002209
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -268,7 +255,7 @@
       "mission": 11,
       "title": "Fire Against Steel",
       "status": "victory",
-      "time": 298,
+      "time": 297,
       "lost": 7,
       "kills": 18,
       "stock": [
@@ -277,14 +264,14 @@
         433,
         464
       ],
-      "seconds": 12,
+      "seconds": 5,
       "stage": 2,
       "profile": {
-        "updateVision": 5976.760799999975,
-        "path": 42.72779999980412,
-        "go": 220.6314000012353,
-        "tick": 11736.99119999996,
-        "attackSpot": 136.0240999998059
+        "updateVision": 2123.031299999908,
+        "path": 17.74409999999625,
+        "go": 90.35570000010921,
+        "tick": 4307.523699999896,
+        "attackSpot": 66.89949999999226
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -293,23 +280,23 @@
       "mission": 12,
       "title": "The Terms of Fire",
       "status": "victory",
-      "time": 141,
-      "lost": 4,
-      "kills": 9,
+      "time": 350,
+      "lost": 8,
+      "kills": 28,
       "stock": [
-        100,
-        429,
-        340,
-        197
+        40,
+        733,
+        486,
+        452
       ],
-      "seconds": 3,
+      "seconds": 4,
       "stage": 2,
       "profile": {
-        "updateVision": 1662.1937000000325,
-        "path": 28.785099999877275,
-        "go": 101.22159999894211,
-        "tick": 2924.161300000138,
-        "attackSpot": 58.70990000003076
+        "updateVision": 2054.2071000000797,
+        "path": 25.131900000145833,
+        "go": 83.96260000004258,
+        "tick": 3948.5966000001863,
+        "attackSpot": 156.98649999990448
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -318,23 +305,23 @@
       "mission": 13,
       "title": "The Emperor's Wound",
       "status": "victory",
-      "time": 351,
-      "lost": 6,
-      "kills": 16,
+      "time": 433,
+      "lost": 5,
+      "kills": 22,
       "stock": [
-        110,
-        828,
-        573,
+        316,
+        950,
+        634,
         120
       ],
-      "seconds": 10,
+      "seconds": 6,
       "stage": 2,
       "profile": {
-        "updateVision": 5047.209999999919,
-        "path": 36.45030000001134,
-        "go": 191.87760000280105,
-        "tick": 9508.419100000814,
-        "attackSpot": 121.64280000048166
+        "updateVision": 2832.562099999901,
+        "path": 17.315199999931792,
+        "go": 99.00980000034178,
+        "tick": 5395.155100000025,
+        "attackSpot": 86.69569999979285
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -347,19 +334,19 @@
       "lost": 5,
       "kills": 5,
       "stock": [
-        50,
+        0,
         258,
-        488,
-        120
+        476,
+        269
       ],
-      "seconds": 6,
+      "seconds": 3,
       "stage": 2,
       "profile": {
-        "updateVision": 3436.5522000001656,
-        "path": 60.32449999995879,
-        "go": 220.02109999902314,
-        "tick": 5985.422500000146,
-        "attackSpot": 37.3393999998807
+        "updateVision": 1477.5449999998527,
+        "path": 41.27820000003703,
+        "go": 104.30300000018178,
+        "tick": 2715.269300000058,
+        "attackSpot": 23.69840000000113
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -377,14 +364,14 @@
         451,
         120
       ],
-      "seconds": 5,
+      "seconds": 3,
       "stage": 1,
       "profile": {
-        "updateVision": 2878.7882999998983,
-        "path": 36.85060000019439,
-        "go": 179.527999999671,
-        "tick": 5277.496599999911,
-        "attackSpot": 43.036000000007334
+        "updateVision": 1528.0416000000114,
+        "path": 30.240699999951175,
+        "go": 110.75639999900886,
+        "tick": 2983.153800000131,
+        "attackSpot": 39.24450000007346
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -393,23 +380,23 @@
       "mission": 16,
       "title": "A Necessary Pattern",
       "status": "victory",
-      "time": 222,
-      "lost": 8,
-      "kills": 10,
+      "time": 459,
+      "lost": 4,
+      "kills": 21,
       "stock": [
-        13,
-        473,
-        381,
+        840,
+        847,
+        582,
         120
       ],
-      "seconds": 5,
+      "seconds": 7,
       "stage": 3,
       "profile": {
-        "updateVision": 2571.904299999791,
-        "path": 32.858599999934086,
-        "go": 130.9775999991689,
-        "tick": 4537.206899999757,
-        "attackSpot": 34.42969999978959
+        "updateVision": 3415.7728000000125,
+        "path": 53.182700000017576,
+        "go": 180.50489999999627,
+        "tick": 6738.559600000029,
+        "attackSpot": 59.99010000001181
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -418,23 +405,23 @@
       "mission": 17,
       "title": "Deviation",
       "status": "victory",
-      "time": 189,
-      "lost": 5,
-      "kills": 14,
+      "time": 350,
+      "lost": 9,
+      "kills": 24,
       "stock": [
-        734,
-        597,
-        451,
-        120
+        356,
+        828,
+        573,
+        557
       ],
-      "seconds": 4,
+      "seconds": 7,
       "stage": 2,
       "profile": {
-        "updateVision": 2234.6511999998766,
-        "path": 17.06100000005972,
-        "go": 99.06010000075912,
-        "tick": 3945.3946000000287,
-        "attackSpot": 33.26129999985278
+        "updateVision": 3398.3396999997785,
+        "path": 44.60819999969681,
+        "go": 172.20439999843074,
+        "tick": 6487.322000000277,
+        "attackSpot": 45.94969999960449
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -443,23 +430,23 @@
       "mission": 18,
       "title": "The Price of Peace",
       "status": "victory",
-      "time": 167,
+      "time": 262,
       "lost": 4,
       "kills": 13,
       "stock": [
-        622,
-        561,
-        439,
+        475,
+        694,
+        512,
         120
       ],
-      "seconds": 3,
+      "seconds": 4,
       "stage": 2,
       "profile": {
-        "updateVision": 1814.4485999998578,
-        "path": 38.16830000017944,
-        "go": 137.30039999903238,
-        "tick": 3003.4068000001134,
-        "attackSpot": 42.03790000012668
+        "updateVision": 2103.0350999997754,
+        "path": 35.57579999990412,
+        "go": 132.9973000001046,
+        "tick": 3681.3361999998306,
+        "attackSpot": 49.278900000295835
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -468,23 +455,23 @@
       "mission": 19,
       "title": "Without Consent",
       "status": "victory",
-      "time": 364,
-      "lost": 7,
+      "time": 352,
+      "lost": 8,
       "kills": 32,
       "stock": [
-        28,
-        614,
-        374,
+        91,
+        604,
+        373,
         120
       ],
-      "seconds": 12,
+      "seconds": 6,
       "stage": 3,
       "profile": {
-        "updateVision": 6022.693300000057,
-        "path": 81.2932999998884,
-        "go": 420.7067999998253,
-        "tick": 11113.730899999617,
-        "attackSpot": 162.07540000033623
+        "updateVision": 3006.669999999911,
+        "path": 70.65349999994214,
+        "go": 246.43930000018736,
+        "tick": 5562.348200000211,
+        "attackSpot": 109.43250000011176
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -493,23 +480,23 @@
       "mission": 20,
       "title": "Firebreak",
       "status": "victory",
-      "time": 239,
-      "lost": 18,
-      "kills": 6,
+      "time": 420,
+      "lost": 21,
+      "kills": 11,
       "stock": [
-        39,
-        609,
-        457,
-        432
+        44,
+        661,
+        527,
+        662
       ],
-      "seconds": 12,
+      "seconds": 14,
       "stage": 2,
       "profile": {
-        "updateVision": 5550.502799999929,
-        "path": 41.81139999983134,
-        "go": 273.9620000002906,
-        "tick": 11376.774700000416,
-        "attackSpot": 122.1672999993607
+        "updateVision": 6281.196700000059,
+        "path": 50.31540000005043,
+        "go": 229.9341000004788,
+        "tick": 13274.50279999974,
+        "attackSpot": 163.16310000009253
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -518,23 +505,23 @@
       "mission": 21,
       "title": "The Fall of the Crossings",
       "status": "victory",
-      "time": 362,
-      "lost": 15,
-      "kills": 16,
+      "time": 385,
+      "lost": 9,
+      "kills": 23,
       "stock": [
-        271,
-        890,
-        635,
-        140
+        473,
+        807,
+        607,
+        626
       ],
-      "seconds": 24,
+      "seconds": 9,
       "stage": 3,
       "profile": {
-        "updateVision": 12171.67430000013,
-        "path": 209.24560000011115,
-        "go": 811.019399998564,
-        "tick": 22835.93530000036,
-        "attackSpot": 233.22460000036517
+        "updateVision": 4684.100500000015,
+        "path": 195.4324000000197,
+        "go": 364.8048000004201,
+        "tick": 8799.941299999977,
+        "attackSpot": 86.36290000013105
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -543,23 +530,23 @@
       "mission": 22,
       "title": "A Common Oath",
       "status": "victory",
-      "time": 299,
-      "lost": 5,
-      "kills": 5,
+      "time": 404,
+      "lost": 4,
+      "kills": 9,
       "stock": [
-        132,
-        585,
-        407,
+        345,
+        656,
+        466,
         140
       ],
-      "seconds": 24,
+      "seconds": 12,
       "stage": 2,
       "profile": {
-        "updateVision": 10662.82750000013,
-        "path": 166.23230000093463,
-        "go": 832.0228999996034,
-        "tick": 23229.72399999964,
-        "attackSpot": 395.81810000014957
+        "updateVision": 5481.665600000044,
+        "path": 164.18949999994948,
+        "go": 416.2485999999408,
+        "tick": 11478.474599999863,
+        "attackSpot": 139.46209999993152
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -568,23 +555,23 @@
       "mission": 23,
       "title": "The Ground Between Worlds",
       "status": "victory",
-      "time": 268,
-      "lost": 7,
-      "kills": 10,
+      "time": 340,
+      "lost": 8,
+      "kills": 18,
       "stock": [
-        471,
-        417,
-        562,
-        140
+        241,
+        446,
+        611,
+        553
       ],
-      "seconds": 17,
+      "seconds": 6,
       "stage": 3,
       "profile": {
-        "updateVision": 8528.072400000034,
-        "path": 313.4816000002029,
-        "go": 975.0142000048072,
-        "tick": 16685.20869999929,
-        "attackSpot": 161.1481999993266
+        "updateVision": 3106.1898000001383,
+        "path": 132.46529999980703,
+        "go": 315.99250000095344,
+        "tick": 6071.562199999491,
+        "attackSpot": 89.43579999999201
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -593,23 +580,23 @@
       "mission": 24,
       "title": "Breaking the Pattern",
       "status": "victory",
-      "time": 459,
-      "lost": 10,
+      "time": 456,
+      "lost": 9,
       "kills": 33,
       "stock": [
-        758,
+        891,
         1036,
         696,
-        723
+        711
       ],
-      "seconds": 35,
+      "seconds": 7,
       "stage": 3,
       "profile": {
-        "updateVision": 17689.37829999969,
-        "path": 149.78740000040852,
-        "go": 1170.2452000004123,
-        "tick": 34001.1869999996,
-        "attackSpot": 287.71819999985746
+        "updateVision": 3430.4805000004126,
+        "path": 55.12229999998817,
+        "go": 199.12509999822942,
+        "tick": 6703.867699999333,
+        "attackSpot": 71.25499999916065
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."
@@ -618,23 +605,23 @@
       "mission": 25,
       "title": "One More Choice",
       "status": "victory",
-      "time": 599,
-      "lost": 54,
+      "time": 888,
+      "lost": 46,
       "kills": 26,
       "stock": [
-        104,
-        1278,
-        1039,
-        1173
+        796,
+        1703,
+        1270,
+        1842
       ],
-      "seconds": 122,
+      "seconds": 71,
       "stage": 4,
       "profile": {
-        "updateVision": 57335.46430000104,
-        "path": 691.6617000009865,
-        "go": 2272.9456999841495,
-        "attackSpot": 661.8373000024585,
-        "tick": 119606.51070000016
+        "updateVision": 32747.3679999999,
+        "path": 255.1573999999673,
+        "go": 859.596300004021,
+        "attackSpot": 470.0088000007963,
+        "tick": 69200.3794000012
       },
       "remaining": [],
       "result": "Mission complete. Your objectives are secured."

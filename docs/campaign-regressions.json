@@ -1,0 +1,17 @@
+{
+  "fullSuiteFilesPassed": 30,
+  "additionalMediaServerTestPassed": true,
+  "finalAffectedChecks": [
+    "campaign-revision (4 groups)",
+    "media-server",
+    "25 command-only missions",
+    "25 route audits",
+    "41 simulation checks",
+    "11 legacy checks",
+    "campaign-browser",
+    "campaign-visual-browser",
+    "cinematic-browser (50 paintings,48 voice passages)",
+    "browser-gameplay"
+  ],
+  "failed": []
+}

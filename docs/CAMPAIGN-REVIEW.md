@@ -7,7 +7,7 @@ Updated 10 November 2026. The 8 November review assessed an outline before imple
 - Eight mission-definition groups pass: all 25 unique missions, four acts, all twelve playable civilizations, correct progression and cinematic placement, valid production/structure references, acyclic objective dependencies, actual faction unit roles, recovery economy, civilian loss allowances and the final four-stage operation.
 - All 25 static route audits pass using the simulation's actual movement checks. Every objective interaction area and convoy destination is connected to the initial ground army; workers share that component; all four resources are accessible; starting Ore is visible. Report: [campaign-route-audit.json](campaign-route-audit.json).
 - Fourteen campaign runtime regression groups pass. These isolate movement-driven objectives, paid production, real gathering, protected structures, civilian loss rules, military withdrawal counts, moving/repeating convoys, actual resource districts, stage clocks, one-shot triggers and save restoration.
-- The final Standard command-only playthrough of all 25 missions is running. Its current result record is [campaign-command-playtest.json](campaign-command-playtest.json). The commander uses ordinary movement, attack, gathering, construction and paid production. It does not teleport units, inject damage or resources, or mark objectives complete.
+- The final Standard command-only playthroughs of all 25 missions passed. Its current result record is [campaign-command-playtest.json](campaign-command-playtest.json). The commander uses ordinary movement, attack, gathering, construction and paid production. It does not teleport units, inject damage or resources, or mark objectives complete.
 - Browser integration checks exercise mission selection, briefings, objective navigation, separate saves, checkpoint recovery, outcome persistence, all progression locks, cinematic controls, missing-media fallback and offline launch. Deliberate outcome fixtures test the interface; they are not mission wins.
 - A successful automated playthrough establishes mechanical feasibility for that controller and difficulty. Representative human playtesting is still needed before claiming average-player balance across the entire campaign.
 
@@ -25,9 +25,9 @@ Updated 10 November 2026. The 8 November review assessed an outline before imple
 
 | Mission | Player | Playable structure |
 |---|---|---|
-| 1 — The Bridge at Dawn | Wizards | Build a Ward Tower, train Spellguards, defend the physical bridge through stage-timed attacks and evacuate six of eight civilian groups. |
+| 1 — The Bridge at Dawn | Wizards | Prepare the valley, defend and evacuate, counterattack the siege camp, wound the Emperor so he actively sheds his tail to escape, then protect the arriving containment crew. |
 | 2 — Imperial Orders | Reptilians | Construct an armory, capture an actual Aetherite district, anchor the gateway; optional Captive-funded Thrall production. |
-| 3 — Keys to a Third World | Wizards | Scout the research site, destroy its spire, capture the imperial apparatus intact and protect activation toward Morvane. |
+| 3 — Keys to a Third World | Wizards | Scout the research site, destroy its spire, capture the imperial apparatus intact and protect researchers stabilizing an uncontrolled rupture toward Morvane. |
 | 4 — Through the Breach | Night Kingdom | Defend the Gothic compound, secure the road, recover stranded residents and evacuate them using ranged/assault troops. |
 | 5 — No Neutral Ground | Humans | Establish vehicle production, take both supply routes, withstand a mechanized probe and remove the outpost with Machine assistance. |
 | 6 — Hold Ashbridge | Elder Races | Protect the infirmary, open withdrawal, delay successive attacks and evacuate eight of ten groups. Victory is evacuation. |
@@ -53,7 +53,7 @@ Updated 10 November 2026. The 8 November review assessed an outline before imple
 
 ## Fairness corrections already made
 
-- Normal collection, production, health and damage remain in Standard. Campaign difficulty changes finite wave pressure; it does not enable the Skirmish challenge economy bonuses for scripted opponents.
+- Normal collection, production, health and damage remain in Standard. Campaign difficulty changes finite wave pressure; it does not grant resource-rate or combat-stat bonuses. Skirmish also uses normal player rates at every difficulty.
 - Protected starting supplies and Ore-only armies permit recovery. Strategic mining districts contain actual finite deposits rather than merely named markers.
 - Critical routes are physically connected and wide enough for current movement. Scripted armies target walkable building approaches instead of occupied centers, avoiding repeated map-wide path searches.
 - Civilians physically move and their saved arrival IDs prevent double counting. Missions advertise quotas with spare groups. Mission 19 releases the populations sequentially instead of exposing both before the player can respond.
@@ -62,10 +62,14 @@ Updated 10 November 2026. The 8 November review assessed an outline before imple
 - The opening, Ashbridge, air-defense and shelter attacks were moved inside their intended objective windows after early command runs showed they could arrive after victory.
 - Mandatory mission objectives override Skirmish elimination. Optional tasks never block progression. Four-stage final victory requires the support objectives; early core occupation cannot skip them.
 
-## Media and fidelity work still being verified
+## Media and mission fidelity
 
-All ten approved transcripts are present. Cinematic entries contain five independent image/passage slots and the playback system is operational. Final watercolor/colored-pencil painting installation and real-recording cue alignment are still being completed. The three supplied recordings are preserved as audio sources; no synthesized substitute is used. The first recording ends during Scene 4. Its remaining two passages can be read, but matching narration was not supplied. The final asset manifest is authoritative for exact completed image and verified-audio coverage.
+All fifty paintings are installed. Fourteen missing paintings were completed with the built-in image tool; the asset paths and prompt record are in CAMPAIGN-ILLUSTRATION-PROMPTS.md. Cinematic browser checks cover every painting, all 48 available narration passages, seek/pause/replay, and the manual ending of Scene 4. The supplied first recording ends before its last two passages; no replacement voice is fabricated.
 
-The current mission rules express research-team protection through activation/defense perimeters rather than separate researcher units. Machine interference currently supplies mission objectives rather than an actual production-efficiency effect. A general research-completion objective is not yet in the objective switch, although ordinary research and unit prerequisites work. These specific mechanics are under review for a small follow-up implementation; they must not be described as present until their focused checks pass.
+Twenty-one pauses were inserted into the original voice recordings and cue times remapped. Original audio is retained. The local HTTP server now supports correct audio MIME types and byte ranges, preventing seeks from restarting at zero. Duration and speech-preservation evidence is in campaign-narration-quality.json.
 
-Dragon development currently uses the existing production and research tree, including optional Mature Dragon production; no new biological age simulation is claimed. The campaign reuses current faction abilities and combat instead of inventing unsupported trench tools, a new ritual economy or separate combat rules.
+Deployment briefings and preview maps show only opening objectives. Later orders arrive at their stage, so the Emperor's tail, refused integration, and failed crossing are not predicted in the opening orders. Tail shedding is triggered by actual damage below 38% health, leaving the living Emperor with a shortened tail; he physically retreats to the crossing and a separate discarded tail remains. Containment requires adult specialists to reach the site after his escape. Save/load preserves this one-time event.
+
+Researchers are real moving units, research completion is evaluated, and the Machine interference objective has a production effect. Dragon development uses the existing production/research tree, not a new biological aging simulation. Boys remain story-only. All 25 command playthroughs use ordinary paid actions; human playtesting remains necessary to assess difficulty and pacing.
+
+Restart/replay a mission for the new definitions. Existing checkpoints retain their original objective lists.

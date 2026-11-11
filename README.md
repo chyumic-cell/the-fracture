@@ -16,7 +16,7 @@ Briefings show the actual mission map and objectives. During play, click an obje
 
 F5/F9 use separate campaign saves. Stage changes create recovery checkpoints, and defeat offers checkpoint recovery or a full retry. Continue Campaign restores progress or a pending cinematic. Campaign Settings exports/imports campaign saves independently of Skirmish. Choose Easy, Standard, or Veteran; campaign pressure changes finite waves rather than giving the enemy unlimited resources.
 
-Cinematics support five passages and illustrations, the supplied recordings, subtitles, pause, seeking, replay, and skip. Unavailable media is identified and cannot block progression. Final painting installation and audio cue verification are being completed; the supplied first recording ends during Scene 4, and its last two passages currently remain readable without replacement narration. See [campaign controls](docs/CAMPAIGN-CONTROLS.md) and [current campaign review](docs/CAMPAIGN-REVIEW.md).
+Cinematics support five passages and illustrations, the supplied recordings, subtitles, pause, seeking, replay, and skip. Unavailable media is identified and cannot block progression. All fifty paintings are installed and playback/seek checks pass. The three recordings include 21 added sentence/passage pauses; the supplied first recording ends during Scene 4, and its last two passages currently remain readable without replacement narration. See [campaign controls](docs/CAMPAIGN-CONTROLS.md) and [current campaign review](docs/CAMPAIGN-REVIEW.md).
 
 ## First Skirmish match
 

@@ -1,0 +1,223 @@
+{
+  "method": "Canonical sentence endings aligned with existing local word timestamps. Insert silence only at sentence boundaries; preserve the original recordings and narrator. Captions and passage cues remapped to edited audio.",
+  "files": [
+    {
+      "original": "assets/campaign/audio/The Fracture.mp3",
+      "edited": "assets/campaign/audio/The Fracture - paced.mp3",
+      "durationBefore": 442.6,
+      "durationAfter": 447.36,
+      "insertions": [
+        {
+          "sample": 758077,
+          "at": 17.189954648526076,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "At the time, none of us knew.",
+          "before": "I was a boy, and my world was still small."
+        },
+        {
+          "sample": 1704417,
+          "at": 38.64891156462585,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "I drew it so often that I thought I knew every stone.",
+          "before": "I suppose children believe that the things they know will always be there."
+        },
+        {
+          "sample": 3140180,
+          "at": 71.20589569160998,
+          "seconds": 0.32,
+          "samples": 14112,
+          "originalGap": 0.36,
+          "after": "The first signs of war came from beyond the hills.",
+          "before": "Smoke, then strange lights in the sky."
+        },
+        {
+          "sample": 3926306,
+          "at": 89.0318820861678,
+          "seconds": 0.52,
+          "samples": 22932,
+          "originalGap": 0.16,
+          "after": "We left before dawn.",
+          "before": "I carried my sketchbook because I couldn't think of anything else worth taking."
+        },
+        {
+          "sample": 9983622,
+          "at": 226.38598639455782,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "We were three boys from three worlds, with different bodies, different childhoods, and different ideas about almost everything.",
+          "before": "I didn't understand why we felt so familiar to one another."
+        },
+        {
+          "sample": 15346135,
+          "at": 347.9849206349206,
+          "seconds": 0.1,
+          "samples": 4410,
+          "originalGap": 0.58,
+          "after": "And I remember the creature crawling into my hands.",
+          "before": "At the time, I thought we'd saved a life."
+        },
+        {
+          "sample": 15617085,
+          "at": 354.12891156462587,
+          "seconds": 0.5,
+          "samples": 22050,
+          "originalGap": 0.18,
+          "after": "At the time, I thought we'd saved a life.",
+          "before": "I remember the sound of that glass more clearly than almost anything else."
+        },
+        {
+          "sample": 16224078,
+          "at": 367.89292517006805,
+          "seconds": 0.6,
+          "samples": 26460,
+          "originalGap": 0.08,
+          "after": "The war followed us wherever we went.",
+          "before": "Soldiers fought over roads, bridges, and the passages between worlds."
+        },
+        {
+          "sample": 17159924,
+          "at": 389.1139229024943,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "We needed a name for it.",
+          "before": "I chose Thread, because of the little strands that moved across its body."
+        }
+      ]
+    },
+    {
+      "original": "assets/campaign/audio/The Empty Box.mp3",
+      "edited": "assets/campaign/audio/The Empty Box - paced.mp3",
+      "durationBefore": 409.4,
+      "durationAfter": 412.5,
+      "insertions": [
+        {
+          "sample": 195362,
+          "at": 4.429977324263039,
+          "seconds": 0.58,
+          "samples": 25578,
+          "originalGap": 0.1,
+          "after": "Thread had begun to change.",
+          "before": "Its movements were no longer uncertain."
+        },
+        {
+          "sample": 4050227,
+          "at": 91.8418820861678,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0,
+          "after": "where the lid had lifted.",
+          "before": "Thread had left without waking us.",
+          "review": "Adjoining ASR word timestamps reviewed; canonical wording retained."
+        },
+        {
+          "sample": 4416875,
+          "at": 100.15589569160997,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "We searched for days.",
+          "before": "I told myself that it was frightened, or lost, or perhaps looking for food."
+        },
+        {
+          "sample": 7979405,
+          "at": 180.9388888888889,
+          "seconds": 0.48,
+          "samples": 21168,
+          "originalGap": 0.2,
+          "after": "We had seen what the Machines could accomplish through perfect coordination.",
+          "before": "Thread had seen it too."
+        },
+        {
+          "sample": 9058973,
+          "at": 205.4188888888889,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0,
+          "after": "For a time, it was difficult to argue.",
+          "before": "Thread could organize shelter",
+          "review": "Adjoining ASR word timestamps reviewed; canonical wording retained."
+        }
+      ]
+    },
+    {
+      "original": "assets/campaign/audio/The Sound of Glass.mp3",
+      "edited": "assets/campaign/audio/The Sound of Glass - paced.mp3",
+      "durationBefore": 423.4,
+      "durationAfter": 427.94,
+      "insertions": [
+        {
+          "sample": 254937,
+          "at": 5.780884353741497,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "By then, the war had changed again.",
+          "before": "Armies that had invaded one another's worlds now fought alongside their former enemies."
+        },
+        {
+          "sample": 3198393,
+          "at": 72.52591836734693,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0,
+          "after": "For a long time, I did not know whether my friends had survived.",
+          "before": "News came from places I could not reach.",
+          "review": "Adjoining ASR word timestamps reviewed; canonical wording retained."
+        },
+        {
+          "sample": 3537432,
+          "at": 80.2138775510204,
+          "seconds": 0.46,
+          "samples": 20286,
+          "originalGap": 0.22,
+          "after": "News came from places I couldn't reach, through soldiers who had never seen their faces.",
+          "before": "I discovered that a person can be surrounded by thousands of others and still feel entirely alone."
+        },
+        {
+          "sample": 8271833,
+          "at": 187.56990929705216,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "When the fighting reached us, Thread could have allowed us to die.",
+          "before": "We were opposing everything it had built."
+        },
+        {
+          "sample": 12682583,
+          "at": 287.58691609977325,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "The great network fell silent.",
+          "before": "Armies stopped moving."
+        },
+        {
+          "sample": 14144189,
+          "at": 320.72990929705213,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0,
+          "after": "In the end, they had needed one another to survive.",
+          "before": "I wish I could say that made them wise.",
+          "review": "Adjoining ASR word timestamps reviewed; canonical wording retained."
+        },
+        {
+          "sample": 16172479,
+          "at": 366.7228798185941,
+          "seconds": 0.68,
+          "samples": 29988,
+          "originalGap": 0.0,
+          "after": "The road.",
+          "before": "Three friends sitting beside a fire."
+        }
+      ]
+    }
+  ],
+  "skipped": []
+}

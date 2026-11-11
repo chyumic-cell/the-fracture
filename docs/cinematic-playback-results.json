@@ -1,0 +1,109 @@
+{
+  "checkedAt": "2026-11-10T18:56:32.592Z",
+  "verifiedAvailableNarrationCues": true,
+  "voicedPassages": 48,
+  "totalPassages": 50,
+  "requiredArt": true,
+  "scenes": [
+    {
+      "scene": "scene_01",
+      "recording": "assets/campaign/audio/The Fracture - paced.mp3",
+      "duration": 447.36,
+      "start": 0,
+      "end": 113.2,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    },
+    {
+      "scene": "scene_02",
+      "recording": "assets/campaign/audio/The Fracture - paced.mp3",
+      "duration": 447.36,
+      "start": 113.2,
+      "end": 237.88,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    },
+    {
+      "scene": "scene_03",
+      "recording": "assets/campaign/audio/The Fracture - paced.mp3",
+      "duration": 447.36,
+      "start": 237.88,
+      "end": 366.48,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    },
+    {
+      "scene": "scene_04",
+      "recording": "assets/campaign/audio/The Fracture - paced.mp3",
+      "duration": 447.36,
+      "start": 366.48,
+      "end": 447.36,
+      "checkedShots": 5,
+      "voicedShots": 3,
+      "unrecordedPassages": 2
+    },
+    {
+      "scene": "scene_05",
+      "recording": "assets/campaign/audio/The Empty Box - paced.mp3",
+      "duration": 412.500658,
+      "start": 0,
+      "end": 125.44,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    },
+    {
+      "scene": "scene_06",
+      "recording": "assets/campaign/audio/The Empty Box - paced.mp3",
+      "duration": 412.500658,
+      "start": 125.44,
+      "end": 264.6,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    },
+    {
+      "scene": "scene_07",
+      "recording": "assets/campaign/audio/The Empty Box - paced.mp3",
+      "duration": 412.500658,
+      "start": 264.6,
+      "end": 412.5,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    },
+    {
+      "scene": "scene_08",
+      "recording": "assets/campaign/audio/The Sound of Glass - paced.mp3",
+      "duration": 427.94,
+      "start": 0,
+      "end": 119.82,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    },
+    {
+      "scene": "scene_09",
+      "recording": "assets/campaign/audio/The Sound of Glass - paced.mp3",
+      "duration": 427.94,
+      "start": 119.82,
+      "end": 273.5,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    },
+    {
+      "scene": "scene_10",
+      "recording": "assets/campaign/audio/The Sound of Glass - paced.mp3",
+      "duration": 427.94,
+      "start": 273.5,
+      "end": 427.94,
+      "checkedShots": 5,
+      "voicedShots": 5,
+      "unrecordedPassages": 0
+    }
+  ]
+}

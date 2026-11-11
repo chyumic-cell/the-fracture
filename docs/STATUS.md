@@ -1,3 +1,14 @@
+# Campaign release â€” 11 November 2026
+
+This release supersedes the older campaign/media work-in-progress notes below. The user resumed illustrations and campaign work. Skirmish AI balance work remains separate; previous AI tournament hashes describe commit 0bf3528, not this campaign revision.
+
+- All 25 missions have context briefings and staged orders. Deployment shows only current objectives; discoveries and reversals are revealed in play. Mission 1 has four stages, a damage-triggered Emperor tail-shedding escape, and a subsequent adult containment assignment. The first illustrated scene follows that battle. Its latest command-only completion took 552 simulated seconds.
+- Campaigns include current air transports, markets, deep extraction and three working harbors with paid warships and hostile blockade vessels. Ashbridge evacuation and the shelter defense have adjusted attack windows.
+- All 50 watercolor/colored-pencil story paintings are installed. Fourteen missing paintings were made with built-in image_gen; gameplay art remains code-authored. See CAMPAIGN-ILLUSTRATION-PROMPTS.md.
+- Added 21 pauses to the three supplied recordings, remapped subtitles/picture cues and fixed HTTP audio seeking with byte-range responses. Originals are retained. Speech-window correlations exceed 0.999. Narration exists for 48/50 passages; Scene 4's last two passages remain illustrated text because the supplied recording ends early.
+- All 25 Standard command-only playthroughs and route audits pass. These establish mechanical feasibility, not average-player balance certification. Campaign/browser, gameplay/offline, all 50 paintings/48 narration cues, 41 simulation and 11 legacy checks pass. Focused Emperor/save/harbor/media tests pass. Reports are in this directory.
+- Replay/restart a mission to use revised objectives. Existing checkpoints preserve their saved objective set. The children remain story-only; Thread's final fate remains uncertain.
+
 # Fair AI decisions and GitHub checkpoint — 10 November 2026
 
 This checkpoint supersedes earlier AI balance reports below. Campaign illustrations remain paused.

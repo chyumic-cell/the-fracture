@@ -31,7 +31,7 @@ function enemiesNear(g,p,r=7){return g.entities.filter(e=>e.hp>0&&e.owner!==unde
 function friendNear(g,p,r=7){return teamUnits(g).some(e=>!g.def(e).air&&distance(e,p)<r);}
 function activeObjective(g,o){return !o.complete&&(o.stage||1)<=g.campaign.stage&&(o.requires||[]).every(id=>g.campaign.objectives.find(q=>q.id===id)?.complete);}
 function unlockTargets(g){for(const s of g.campaign.sites){const e=g.entity(s.entityId);if(!e)continue;const blockers=g.campaign.objectives.filter(o=>o.target===s.id&&!o.optional&&o.type==='destroy');e.campaignLocked=blockers.length>0&&!blockers.some(o=>activeObjective(g,o));}}
-function complete(g,o){if(o.complete)return;o.complete=true;o.progress=o.amount??o.duration??1;o.completedAt=g.time;const s=targetFor(g,o),e=g.entity(s.entityId);if(['capture','activate','disable'].includes(o.type)){s.secured=true;if(e){e.owner=0;e.campaignImmune=o.type==='disable';if(o.type==='activate')e.hp=e.maxHp;g.rebuildNav();g.updateVision();}}note(g,'Objective completed: '+o.label,o.id+'-complete');}
+function complete(g,o){const c=g.campaign;if(o.complete)return;o.complete=true;o.progress=o.amount??o.duration??1;o.completedAt=g.time;const s=targetFor(g,o),e=g.entity(s.entityId);if(['capture','activate','disable'].includes(o.type)){s.secured=true;if(e){e.owner=0;e.campaignImmune=o.type==='disable';if(o.type==='activate')e.hp=e.maxHp;g.rebuildNav();g.updateVision();}}if(o.id==='containment'&&c.emperor){c.emperor.contained=true;for(const b of c.landmarks.filter(b=>b.kind==='shed-tail'))b.contained=true;}note(g,'Objective completed: '+o.label,o.id+'-complete');}
 function finish(g,status,reason){const c=g.campaign;if(c.status!=='active')return;c.status=status;c.finishedAt=g.time;c.result=reason;c.checkpointRequested=false;g.winner=status==='victory'?g.players[0].team:-1;note(g,reason,'mission-'+status);}
 function prepareEvacuation(g,o){if(o.evacIds)return;const c=g.campaign,source=siteById(g,o.source)||c.sites.find(s=>s.kind==='rescue')||g.players[0].home,destination=targetFor(g,o);o.evacIds=[];o.arrivedIds=[];o.startedAt=g.time;const total=o.available||Math.max((o.amount||4)+2,Math.ceil((o.amount||4)*1.25));
  for(let i=0;i<total;i++){const u=spawnSquad(g,0,[{role:o.unitRole||'worker',count:1}],source)[0];u.campaignCivilian=!o.unitRole||o.unitRole==='worker';u.campaignEscort=true;u.campaignObjective=o.id;u.campaignName=o.groupName|| (o.type==='escort'?'Supply carrier':'Evacuee');if(o.type==='escort'){u.carry=8;u.carryType=0;}u.campaignSafe=false;o.evacIds.push(u.id);}
@@ -46,7 +46,10 @@ function updateResearchCrew(g,o){const spec=o.researcherCrew;if(!spec)return tru
  o.researchersOnSite=alive.filter(u=>distance(u,site)<(o.radius||site.radius||7)).length;return o.researchersOnSite>=(spec.required||1);
 }
 function updateProductionRate(g){const m=get(g.campaign.missionId),rule=m?.interference,finished=!rule||g.campaign.objectives.some(o=>o.id===rule.untilObjective&&o.complete);g.campaign.productionRate=finished?1:Math.max(.1,Math.min(1,rule.productionRate||.75));}
+function mEmperor(g){return !!get(g.campaign.missionId)?.emperorEncounter;}
 function evaluate(g,o,dt){const c=g.campaign,s=targetFor(g,o),e=g.entity(s.entityId),radius=o.radius||s.radius||7;
+ if(o.requiresTailShed&&!c.emperor?.tailShed)return;
+ if(o.id==='containment'&&mEmperor(g)&&c.emperor?.phase!=='escaped')return;
  if(o.researcherCrew&&!updateResearchCrew(g,o))return;
  switch(o.type){
  case 'protect':if(s.entityId&&!e){finish(g,'defeat',(s.name||o.label)+' was lost. Retry the latest checkpoint.');return;}o.progress=e?e.hp/e.maxHp:1;o.complete=true;break;
@@ -90,16 +93,16 @@ function update(g,dt){const c=g.campaign;if(!c||c.status!=='active')return;const
  for(const o of c.objectives.filter(o=>o.type==='protect')){const s=targetFor(g,o);if(s.entityId&&!g.entity(s.entityId)){finish(g,'defeat',(s.name||o.label)+' was destroyed. Retry the latest checkpoint.');return;}}
  const owned=g.entities.filter(e=>e.owner===0&&e.hp>0);if(!owned.some(e=>e.kind==='unit'&&!e.campaignCivilian||e.kind==='building'&&['hq','inf','armor','air','elite','counter'].includes(g.def(e).kind))){finish(g,'defeat','Your command force was lost. Retry the latest checkpoint.');return;}
  updateConvoys(g);for(const o of c.objectives){o.active=activeObjective(g,o);if(o.active)evaluate(g,o,dt);if(c.status!=='active')return;}
- processScripts(g);if(g.time>=(c.nextAllyOrder||0)){c.nextAllyOrder=g.time+8;const goal=c.objectives.find(o=>o.active&&!o.optional&&!['produce','build','gather','protect','research'].includes(o.type));if(goal){const dest=targetFor(g,goal);for(const owner of c.alliedOwners||[]){const squad=g.entities.filter(e=>e.owner===owner&&e.kind==='unit'&&!g.def(e).worker&&!e.windup);for(const u of squad){const target=g.entity(dest.entityId),p=target?g.approach(u,target,2):g.blocked(dest.x,dest.y,!!g.def(u).air,u.owner)?openSpot(g,dest,.3):dest;if(distance(u,p)>2&&(!u.order||u.order.kind!=='attackMove'||Math.hypot(u.order.x-p.x,u.order.y-p.y)>3))g.order([u.id],{kind:'attackMove',x:p.x,y:p.y});}}}}const required=c.objectives.filter(o=>!o.optional&&(o.stage||1)===c.stage&&o.type!=='protect');if(required.length&&required.every(o=>o.complete)){const next=Math.min(...c.objectives.filter(o=>!o.optional&&!o.complete&&(o.stage||1)>c.stage).map(o=>o.stage));if(Number.isFinite(next)){c.stage=next;c.stageStarted[next]=g.time;c.stageTitle=m.stages?.find(s=>Number(s.id)===next)?.title||'Stage '+next;c.checkpointRequested='stage-'+next;note(g,c.stageTitle+' — new objectives are available.','stage-'+next);unlockTargets(g);}else if(c.objectives.filter(o=>!o.optional&&o.type!=='protect').every(o=>o.complete)){finish(g,'victory',m.victoryText||'Mission complete. Your objectives are secured.');}}
+ processScripts(g);updateEmperor(g);if(g.time>=(c.nextAllyOrder||0)){c.nextAllyOrder=g.time+8;const goal=c.objectives.find(o=>o.active&&!o.optional&&!['produce','build','gather','protect','research'].includes(o.type));if(goal){const dest=targetFor(g,goal);for(const owner of c.alliedOwners||[]){const squad=g.entities.filter(e=>e.owner===owner&&e.kind==='unit'&&!g.def(e).worker&&!e.windup);for(const u of squad){const target=g.entity(dest.entityId),p=target?g.approach(u,target,2):g.blocked(dest.x,dest.y,!!g.def(u).air,u.owner)?openSpot(g,dest,.3):dest;if(distance(u,p)>2&&(!u.order||u.order.kind!=='attackMove'||Math.hypot(u.order.x-p.x,u.order.y-p.y)>3))g.order([u.id],{kind:'attackMove',x:p.x,y:p.y});}}}}const required=c.objectives.filter(o=>!o.optional&&(o.stage||1)===c.stage&&o.type!=='protect');c.stageWait=required.length&&required.every(o=>o.complete)?Math.max(0,(m.stageMinimums?.[c.stage]||0)*c.pressure.delay-(g.time-(c.stageStarted[c.stage]||0))):0;if(required.length&&required.every(o=>o.complete)&&g.time-(c.stageStarted[c.stage]||0)>=(m.stageMinimums?.[c.stage]||0)*c.pressure.delay){const next=Math.min(...c.objectives.filter(o=>!o.optional&&!o.complete&&(o.stage||1)>c.stage).map(o=>o.stage));if(Number.isFinite(next)){c.stage=next;c.stageStarted[next]=g.time;c.stageTitle=m.stages?.find(s=>Number(s.id)===next)?.title||'Stage '+next;c.checkpointRequested='stage-'+next;note(g,'New orders: '+c.stageTitle+'. '+c.objectives.filter(o=>!o.optional&&(o.stage||1)===next).map(o=>o.label).join('. '),'stage-'+next);unlockTargets(g);}else if(c.objectives.filter(o=>!o.optional&&o.type!=='protect').every(o=>o.complete)){finish(g,'victory',m.victoryText||'Mission complete. Your objectives are secured.');}}
  unlockTargets(g);for(const o of c.objectives)o.active=activeObjective(g,o);
 }
 function create(missionId,difficulty='standard'){
  const m=get(missionId);if(!m)throw Error('Unknown mission '+missionId);const A=root.FractureAI||(typeof require!=='undefined'?require('./ai.js'):null),level=A.configFor(difficulty).level||4;
  const allied=(m.allies||[]).map(a=>typeof a==='string'?a:a.faction),factions=[m.faction,m.enemyFaction||m.enemies?.[0]?.faction||'symbiotes',...allied,m.faction],neutral=factions.length-1;
- const g=new (sim().Game)({size:m.size||100,seed:m.seed||7000+m.number,theme:m.theme||m.biome||'Kareth',layout:m.layout||'natural',factions,teams:[0,1,...allied.map(()=>0),0],difficulty,startingResources:false,resourceAmount:.5,resourcePlacement:'balanced'});
+ const g=new (sim().Game)({size:m.size||100,seed:m.seed||7000+m.number,theme:m.theme||m.biome||'Kareth',environment:m.environment,layout:m.layout||'natural',factions,teams:[0,1,...allied.map(()=>0),0],difficulty,startingResources:false,resourceAmount:.5,resourcePlacement:'balanced'});
  const decor=g.entities.filter(e=>e.kind==='tree');g.entities=[];g.projectiles=[];g.effects=[];g.nextId=1;g.players.forEach(p=>{p.ai=false;p.stock=[0,0,0,0];p.tech=[];p.special=0;p.gathered=[0,0,0,0];p.explored.fill(0);p.visible.fill(0);p.knownNav.fill(0);p.knownTiles.fill(0);p.knowledge={};});
  const home=point(g,m.start||{x:.15,y:.77}),enemy=point(g,m.enemyStart||{x:.85,y:.2}),sites=(m.sites||[]).map(s=>({...copy(s),...point(g,s)}));g.players[0].home=home;g.players[1].home=enemy;g.starts[0]=home;g.starts[1]=enemy;g.players[neutral].home=home;
- g.campaign={version:1,missionId:m.id,number:m.number,title:m.title,status:'active',stage:1,stageTitle:m.stages?.[0]?.title||'Opening orders',stageStarted:{1:0},objectives:(m.objectives||[]).map(o=>({...copy(o),label:o.text||o.label||o.id,...(o.type==='gather'?{resource:resourceIndex(o.resource)}:{}),complete:false,active:(o.stage||1)===1,progress:0,...(o.target&&sites.find(s=>s.id===o.target)?{x:sites.find(s=>s.id===o.target).x,y:sites.find(s=>s.id===o.target).y}:{x:home.x,y:home.y})})),sites,events:[],fired:[],warned:[],alerts:[],production:{},initialBuildings:[],checkpointRequested:'start',difficulty,pressure:{count:level<=2?.7:level<=4?1:level<=6?1.15:level<=8?1.35:1.55,delay:level<=2?1.2:level<=4?1:level<=6?.95:.85},neutralOwner:neutral,alliedOwners:allied.map((_,i)=>i+2)};
+ g.campaign={version:1,revision:m.campaignRevision||1,missionId:m.id,number:m.number,title:m.title,status:'active',stage:1,stageTitle:m.stages?.[0]?.title||'Opening orders',stageStarted:{1:0},objectives:(m.objectives||[]).map(o=>({...copy(o),label:o.text||o.label||o.id,...(o.type==='gather'?{resource:resourceIndex(o.resource)}:{}),complete:false,active:(o.stage||1)===1,progress:0,...(o.target&&sites.find(s=>s.id===o.target)?{x:sites.find(s=>s.id===o.target).x,y:sites.find(s=>s.id===o.target).y}:{x:home.x,y:home.y})})),sites,events:[],fired:[],warned:[],alerts:[],production:{},initialBuildings:[],checkpointRequested:'start',difficulty,pressure:{count:level<=2?.7:level<=4?1:level<=6?1.15:level<=8?1.35:1.55,delay:level<=2?1.2:level<=4?1:level<=6?.95:.85},neutralOwner:neutral,alliedOwners:allied.map((_,i)=>i+2)};
  // The mission routes are authored from its sites. Clear broad paths and staging areas,
  // preserving the surrounding generated cliffs, forests, coast and material detail.
  flatten(g,home,17);flatten(g,enemy,10);for(const s of sites){flatten(g,s,9);if(s.kind==='convoy'){const end=point(g,s.destination);flatten(g,end,6);corridor(g,s,end,4);}}let previous=home;for(const s of sites){corridor(g,previous,s,4.2);previous=s;}for(const s of sites)corridor(g,home,s,3.5);corridor(g,enemy,sites.find(s=>s.kind==='destroy')||home,4);
@@ -114,6 +117,7 @@ function create(missionId,difficulty='standard'){
  const resourceCenters=[{x:home.x-10,y:home.y+7},{x:home.x+11,y:home.y+8},{x:home.x+9,y:home.y-11},{x:home.x-10,y:home.y-11}];for(let r=0;r<4;r++){const center=resourceCenters[r];flatten(g,center,5);corridor(g,home,center,3);for(let k=0;k<3;k++){const q=openSpot(g,{x:center.x+(k-1)*2.8,y:center.y+(k%2)*2.4},.6);g.add({kind:'resource',resource:r,...q,hp:1,amount:r===3?1500:4500,maxAmount:r===3?1500:4500,size:r===3?.65:.85});g.rebuildNav();}if(r===1){const well=D.factions[m.faction].buildings.find(b=>b.resource==='oil');if(well)addBuilding(g,0,well.id,{x:center.x-3,y:center.y-2},'starting-oil-well');}}
  for(const s of sites){if(s.id==='home'&&s.kind==='protect'){const base=g.entities.find(e=>e.owner===0&&e.kind==='building'&&g.def(e).kind==='hq');s.entityId=base.id;s.x=base.x;s.y=base.y;base.campaignTag=s.id;base.campaignName=s.name;continue;}if(s.kind==='exit'||s.kind==='reach'||s.kind==='convoy')continue;let owner=s.owner;if(owner===undefined)owner=s.kind==='destroy'?1:s.kind==='protect'?0:neutral;const selectedFaction=s.faction||g.players[owner].faction,d=buildingDefinition(selectedFaction,s.building|| (s.kind==='destroy'?'defense':'depot')),p=openSpot(g,s,d.size),b=g.spawnBuilding(d.id,owner,p.x,p.y,true);b.campaignTag=s.id;b.campaignName=s.name;b.campaignFaction=selectedFaction;s.entityId=b.id;b.campaignImmune=['capture','rescue','activate','disable'].includes(s.kind);if(s.hpFraction)b.hp=b.maxHp*s.hpFraction;g.rebuildNav();const guards=s.guards??(['destroy','capture','activate','disable'].includes(s.kind)?[{role:'rifle',count:m.number<=3?2:3}]:[]);if(guards.length)spawnSquad(g,1,guards,{x:s.x+4,y:s.y+3},{kind:'hold'});}
  for(const s of sites.filter(s=>s.resource!==undefined)){const r=resourceIndex(s.resource);for(let k=0;k<(s.resourceCount||3);k++){const q=openSpot(g,{x:s.x-4+(k%2)*2.7,y:s.y-4+Math.floor(k/2)*2.7},.6),amount=s.resourceAmount||3000;g.add({kind:'resource',resource:r,...q,hp:1,amount,maxAmount:amount,size:r===3?.65:.85,campaignTag:s.id+'-resource'});g.rebuildNav();}}
+ if(m.harbor)prepareHarbor(g,m);
  g.players[0].stock=[...(m.startingResources||[900,240,240,100])];g.players[0].tech=[...(m.startingTech||[])];if(m.researchLevel)for(const r of D.factions[m.faction].research)if(['weapons','armor'].includes(r.kind)&&/[123]$/.test(r.id)&&Number(r.id.slice(-1))<=m.researchLevel)g.players[0].tech.push(r.id);
  const specs=m.startingUnits||[{role:'worker',count:6},{role:'rifle',count:8},{role:'support',count:1}];spawnSquad(g,0,specs.filter(s=>s.role==='worker'),{x:home.x-5,y:home.y+4});spawnSquad(g,0,specs.filter(s=>s.role!=='worker'),{x:home.x+2,y:home.y+5});if(!g.entities.some(e=>e.owner===0&&e.kind==='unit'&&g.def(e).worker))spawnSquad(g,0,[{role:'worker',count:6}],{x:home.x+3,y:home.y+4});
  // Surplus capacity avoids a trap when campaign starting squads are larger than a skirmish start.
@@ -122,7 +126,48 @@ function create(missionId,difficulty='standard'){
  const landmarks=root.FractureCampaignLandmarks||(typeof require!=='undefined'?(()=>{try{return require('./campaign-landmarks.js');}catch(e){if(e.code==='MODULE_NOT_FOUND')return null;throw e;}})():null);if(landmarks?.decorate)landmarks.decorate(g,m);
  updateProductionRate(g);g.rebuildNav();g.updateVision();for(const s of sites)reveal(g,s,5);reveal(g,home,18);unlockTargets(g);for(const o of g.campaign.objectives)if(o.type==='protect')o.complete=true;note(g,m.briefing||m.title,'briefing');return g;
 }
+
+function prepareHarbor(g,m){
+ const shore=Math.floor(g.n*.9);
+ // The bottom strip is a connected navigable sea; keep every inland objective and base intact.
+ for(let y=shore;y<g.n;y++)for(let x=0;x<g.n;x++){const t=g.tile(x,y);t.water=true;t.height=0;t.road=false;}
+ for(let y=shore-4;y<shore;y++)for(let x=2;x<g.n-2;x++){const t=g.tile(x,y);t.water=false;t.height=0;t.road=true;}
+ g.entities=g.entities.filter(e=>e.y<shore-1||e.kind!=='tree');g.rebuildNav();
+ const x=Math.floor(g.n*.23)+.5,y=shore-.5,d=D.buildings[m.faction+'_dock'];
+ const dock=g.spawnBuilding(d.id,0,x,y,true);dock.campaignName='Supply harbor';g.rebuildNav();
+ const ferry=g.spawnUnit(m.faction+'_transport_ship',0,x+3,shore+3);ferry.campaignName=D.units[ferry.type].name;
+ const s=siteById(g,'harbor');if(s){s.x=x;s.y=y;s.entityId=dock.id;}
+ const blockade=siteById(g,'blockade');if(blockade){const foe=g.spawnUnit(m.enemyFaction+'_scout_boat',1,Math.floor(g.n*.56)+.5,shore+3);foe.campaignName='Coastal blockade vessel';g.order([foe.id],{kind:'hold'});blockade.x=foe.x;blockade.y=foe.y;blockade.entityId=foe.id;blockade.kind='destroy';for(const o of g.campaign.objectives.filter(o=>o.target==='blockade')){o.x=foe.x;o.y=foe.y;}reveal(g,foe,8);}
+ reveal(g,{x,y},13);g.campaign.harbor={x,y,shore,dock:dock.id,ferry:ferry.id};
+}
+function updateEmperor(g){
+ const c=g.campaign,m=get(c.missionId);if(!m.emperorEncounter)return;
+ if(c.stage>=3&&!c.emperor){
+  const site=siteById(g,'imperial'),u=spawnSquad(g,1,[{role:'heavy',count:1}],site,{kind:'hold'})[0];
+  u.campaignEmperor=true;u.campaignName='Reptilian Emperor';u.campaignLocked=true;
+  c.emperor={id:u.id,tailShed:false,phase:'guarded'};reveal(g,site,12);
+  note(g,'The Emperor directs the invasion from the crossing. Silence his siege camp, then advance and drive him back.','emperor-sighted');
+ }
+ const state=c.emperor;if(!state)return;const u=g.entity(state.id);
+ if(u&&!state.tailShed&&c.objectives.find(o=>o.id==='battery')?.complete){u.campaignLocked=false;state.phase='fighting';}
+ if(u&&state.tailShed){
+  if(g.time-state.shedAt<3){u.order={kind:'hold'};u.path=[];return;}
+  const dest=state.escape;if(distance(u,dest)<3){state.phase='escaped';state.escapedAt=g.time;u.hp=0;u.order=null;note(g,'The wounded Emperor reaches the crossing. His discarded tail remains on this side.','emperor-escaped');}
+  else if(u.order?.kind!=='move')g.order([u.id],{kind:'move',...dest});
+ }
+}
+function emperorDamage(g,e,value){
+ const c=g.campaign,state=c?.emperor;if(!e.campaignEmperor||!state||state.tailShed||e.hp-value>e.maxHp*.38)return false;
+ e.hp=Math.max(1,e.maxHp*.38);e.campaignImmune=true;e.campaignTailShed=true;e.windup=null;e.order={kind:'hold'};e.path=[];
+ state.tailShed=true;state.shedAt=g.time;state.phase='shedding';const gate=g.entity(siteById(g,'breach')?.entityId);state.escape=gate?g.approach(e,gate,2):{x:g.players[1].home.x-5,y:g.players[1].home.y+5};
+ const tail={kind:'shed-tail',x:e.x,y:e.y,face:e.face||0,at:g.time};c.landmarks.push(tail);state.tail={x:e.x,y:e.y};
+ for(const id of ['tissue','imperial']){const s=siteById(g,id);s.x=e.x;s.y=e.y;for(const o of c.objectives.filter(o=>o.target===id)){o.x=e.x;o.y=e.y;}}
+ c.focus={x:e.x,y:e.y,at:g.time,seconds:4};reveal(g,e,10);
+ note(g,'The Emperor sheds his tail to escape! The living tissue falls beside the crossing as he retreats. Keep clear of it; a containment crew will recover it.','emperor-tail-shed');
+ return true;
+}
+
 function restriction(g,definition,kind){if(!g.campaign||!definition)return null;const m=get(g.campaign.missionId);if(kind==='unit'&&(m.allowedRoles||m.roleLocks)&&!(m.allowedRoles||m.roleLocks).includes(definition.role)&&!(definition.worker&&(m.allowedRoles||m.roleLocks).includes('worker')))return 'This unit is not available in this mission.';if(kind==='building'&&(m.allowedBuildings||m.allowedBuildingKinds)&&!(m.allowedBuildings||m.allowedBuildingKinds).includes(definition.kind))return 'This building is not available in this mission.';return null;}
 function recordProduction(g,type){if(g.campaign)g.campaign.production[type]=(g.campaign.production[type]||0)+1;}
-const API={create,get,update,restriction,recordProduction,unitDefinition,siteById,checkpoint:g=>g.serialize(),restore:text=>sim().Game.restore(text)};Object.defineProperty(API,'missions',{get:()=>defs().missions});root.FractureCampaign=API;if(typeof module!=='undefined')module.exports=API;
+const API={create,get,update,emperorDamage,restriction,recordProduction,unitDefinition,siteById,checkpoint:g=>g.serialize(),restore:text=>sim().Game.restore(text)};Object.defineProperty(API,'missions',{get:()=>defs().missions});root.FractureCampaign=API;if(typeof module!=='undefined')module.exports=API;
 })(globalThis);

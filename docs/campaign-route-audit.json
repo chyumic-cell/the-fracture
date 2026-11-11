@@ -6,7 +6,7 @@
       "title": "The Bridge at Dawn",
       "size": 100,
       "layout": "plains",
-      "reachableCells": 8388,
+      "reachableCells": 8364,
       "goals": [
         {
           "id": "home",
@@ -25,6 +25,31 @@
         },
         {
           "id": "exit",
+          "reachable": true,
+          "distance": 0.71
+        },
+        {
+          "id": "ford",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "battery",
+          "reachable": true,
+          "distance": 1.58
+        },
+        {
+          "id": "imperial",
+          "reachable": true,
+          "distance": 0.71
+        },
+        {
+          "id": "tissue",
+          "reachable": true,
+          "distance": 0.71
+        },
+        {
+          "id": "breach",
           "reachable": true,
           "distance": 0.71
         }
@@ -63,7 +88,7 @@
       "title": "Imperial Orders",
       "size": 100,
       "layout": "plains",
-      "reachableCells": 8453,
+      "reachableCells": 8502,
       "goals": [
         {
           "id": "home",
@@ -120,7 +145,7 @@
       "title": "Keys to a Third World",
       "size": 100,
       "layout": "plains",
-      "reachableCells": 8806,
+      "reachableCells": 8838,
       "goals": [
         {
           "id": "home",
@@ -177,7 +202,7 @@
       "title": "Through the Breach",
       "size": 100,
       "layout": "plains",
-      "reachableCells": 8082,
+      "reachableCells": 8123,
       "goals": [
         {
           "id": "home",
@@ -239,7 +264,7 @@
       "title": "No Neutral Ground",
       "size": 100,
       "layout": "plains",
-      "reachableCells": 8665,
+      "reachableCells": 8697,
       "goals": [
         {
           "id": "home",
@@ -285,7 +310,7 @@
           "name": "rift",
           "total": 3,
           "reachable": 3,
-          "visible": 0
+          "visible": 2
         }
       ],
       "workersConnected": true,
@@ -296,7 +321,7 @@
       "title": "Hold Ashbridge",
       "size": 100,
       "layout": "plains",
-      "reachableCells": 8372,
+      "reachableCells": 8434,
       "goals": [
         {
           "id": "home",
@@ -363,7 +388,7 @@
       "title": "Lines in the Earth",
       "size": 120,
       "layout": "plains",
-      "reachableCells": 11900,
+      "reachableCells": 12056,
       "goals": [
         {
           "id": "home",
@@ -415,7 +440,7 @@
       "title": "The Forest War",
       "size": 120,
       "layout": "labyrinth",
-      "reachableCells": 7734,
+      "reachableCells": 7725,
       "goals": [
         {
           "id": "home",
@@ -476,7 +501,7 @@
           "name": "rift",
           "total": 3,
           "reachable": 3,
-          "visible": 0
+          "visible": 2
         }
       ],
       "workersConnected": true,
@@ -487,7 +512,7 @@
       "title": "Logic of War",
       "size": 120,
       "layout": "plains",
-      "reachableCells": 11480,
+      "reachableCells": 11517,
       "goals": [
         {
           "id": "home",
@@ -544,7 +569,7 @@
       "title": "Stone and Oath",
       "size": 120,
       "layout": "mountain-passes",
-      "reachableCells": 11124,
+      "reachableCells": 10241,
       "goals": [
         {
           "id": "home",
@@ -570,6 +595,16 @@
           "id": "garrison",
           "reachable": true,
           "distance": 1.9
+        },
+        {
+          "id": "harbor",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "blockade",
+          "reachable": true,
+          "distance": 3.5
         }
       ],
       "resources": [
@@ -583,7 +618,7 @@
           "name": "oil",
           "total": 3,
           "reachable": 3,
-          "visible": 1
+          "visible": 2
         },
         {
           "name": "aether",
@@ -668,7 +703,7 @@
       "title": "The Terms of Fire",
       "size": 120,
       "layout": "plains",
-      "reachableCells": 12079,
+      "reachableCells": 12167,
       "goals": [
         {
           "id": "home",
@@ -725,7 +760,7 @@
       "title": "The Emperor's Wound",
       "size": 140,
       "layout": "plains",
-      "reachableCells": 15489,
+      "reachableCells": 15095,
       "goals": [
         {
           "id": "home",
@@ -782,7 +817,7 @@
       "title": "Unaccounted Movements",
       "size": 140,
       "layout": "plains",
-      "reachableCells": 15852,
+      "reachableCells": 16004,
       "goals": [
         {
           "id": "home",
@@ -833,7 +868,7 @@
           "name": "rift",
           "total": 3,
           "reachable": 3,
-          "visible": 0
+          "visible": 2
         }
       ],
       "workersConnected": true,
@@ -844,7 +879,7 @@
       "title": "Shelter of the Unclaimed",
       "size": 140,
       "layout": "plains",
-      "reachableCells": 16135,
+      "reachableCells": 16404,
       "goals": [
         {
           "id": "home",
@@ -906,7 +941,7 @@
       "title": "A Necessary Pattern",
       "size": 140,
       "layout": "plains",
-      "reachableCells": 16817,
+      "reachableCells": 16746,
       "goals": [
         {
           "id": "home",
@@ -963,7 +998,7 @@
       "title": "Deviation",
       "size": 140,
       "layout": "plains",
-      "reachableCells": 16635,
+      "reachableCells": 16734,
       "goals": [
         {
           "id": "home",
@@ -1009,7 +1044,7 @@
           "name": "rift",
           "total": 3,
           "reachable": 3,
-          "visible": 0
+          "visible": 2
         }
       ],
       "workersConnected": true,
@@ -1020,7 +1055,7 @@
       "title": "The Price of Peace",
       "size": 140,
       "layout": "plains",
-      "reachableCells": 16435,
+      "reachableCells": 16425,
       "goals": [
         {
           "id": "home",
@@ -1082,7 +1117,7 @@
       "title": "Without Consent",
       "size": 140,
       "layout": "plains",
-      "reachableCells": 16266,
+      "reachableCells": 16402,
       "goals": [
         {
           "id": "home",
@@ -1211,7 +1246,7 @@
       "title": "The Fall of the Crossings",
       "size": 160,
       "layout": "plains",
-      "reachableCells": 21002,
+      "reachableCells": 19233,
       "goals": [
         {
           "id": "home",
@@ -1237,6 +1272,16 @@
           "id": "exit",
           "reachable": true,
           "distance": 0.32
+        },
+        {
+          "id": "harbor",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "blockade",
+          "reachable": true,
+          "distance": 3.5
         }
       ],
       "resources": [
@@ -1262,7 +1307,7 @@
           "name": "rift",
           "total": 3,
           "reachable": 3,
-          "visible": 0
+          "visible": 2
         }
       ],
       "workersConnected": true,
@@ -1273,7 +1318,7 @@
       "title": "A Common Oath",
       "size": 160,
       "layout": "steppes",
-      "reachableCells": 24520,
+      "reachableCells": 22040,
       "goals": [
         {
           "id": "home",
@@ -1304,6 +1349,16 @@
           "id": "exit",
           "reachable": true,
           "distance": 0.42
+        },
+        {
+          "id": "harbor",
+          "reachable": true,
+          "distance": 2
+        },
+        {
+          "id": "blockade",
+          "reachable": true,
+          "distance": 3.5
         }
       ],
       "resources": [
@@ -1340,7 +1395,7 @@
       "title": "The Ground Between Worlds",
       "size": 160,
       "layout": "labyrinth",
-      "reachableCells": 13125,
+      "reachableCells": 13116,
       "goals": [
         {
           "id": "home",
@@ -1396,7 +1451,7 @@
           "name": "rift",
           "total": 3,
           "reachable": 3,
-          "visible": 0
+          "visible": 2
         }
       ],
       "workersConnected": true,

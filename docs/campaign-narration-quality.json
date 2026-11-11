@@ -1,0 +1,289 @@
+{
+  "method": "Decode original and paced audio, verify inserted duration and finite samples, compare unchanged speech windows by normalized correlation allowing codec sample rounding. Not a listening-panel certification.",
+  "files": [
+    {
+      "file": "assets/campaign/audio/The Fracture - paced.mp3",
+      "insertedPauses": 9,
+      "durationErrorSeconds": 0.0,
+      "speechWindows": [
+        {
+          "sourceTime": 10,
+          "editedTime": 10,
+          "correlation": 0.999669
+        },
+        {
+          "sourceTime": 33,
+          "editedTime": 33.68,
+          "correlation": 0.999831
+        },
+        {
+          "sourceTime": 56,
+          "editedTime": 57.36,
+          "correlation": 0.999812
+        },
+        {
+          "sourceTime": 79,
+          "editedTime": 80.68,
+          "correlation": 0.999915
+        },
+        {
+          "sourceTime": 102,
+          "editedTime": 104.2,
+          "correlation": 0.999511
+        },
+        {
+          "sourceTime": 125,
+          "editedTime": 127.2,
+          "correlation": 0.999857
+        },
+        {
+          "sourceTime": 148,
+          "editedTime": 150.2,
+          "correlation": 0.99976
+        },
+        {
+          "sourceTime": 171,
+          "editedTime": 173.2,
+          "correlation": 0.999943
+        },
+        {
+          "sourceTime": 194,
+          "editedTime": 196.2,
+          "correlation": 0.999692
+        },
+        {
+          "sourceTime": 217,
+          "editedTime": 219.2,
+          "correlation": 0.999849
+        },
+        {
+          "sourceTime": 240,
+          "editedTime": 242.88,
+          "correlation": 0.999931
+        },
+        {
+          "sourceTime": 263,
+          "editedTime": 265.88,
+          "correlation": 0.999577
+        },
+        {
+          "sourceTime": 286,
+          "editedTime": 288.88,
+          "correlation": 0.999753
+        },
+        {
+          "sourceTime": 309,
+          "editedTime": 311.88,
+          "correlation": 0.999911
+        },
+        {
+          "sourceTime": 332,
+          "editedTime": 334.88,
+          "correlation": 0.999972
+        },
+        {
+          "sourceTime": 378,
+          "editedTime": 382.08,
+          "correlation": 0.999835
+        },
+        {
+          "sourceTime": 401,
+          "editedTime": 405.76,
+          "correlation": 0.999798
+        },
+        {
+          "sourceTime": 424,
+          "editedTime": 428.76,
+          "correlation": 0.999808
+        }
+      ],
+      "allFinite": true
+    },
+    {
+      "file": "assets/campaign/audio/The Empty Box - paced.mp3",
+      "insertedPauses": 5,
+      "durationErrorSeconds": 0.00068749999999973,
+      "speechWindows": [
+        {
+          "sourceTime": 10,
+          "editedTime": 10.58,
+          "correlation": 0.999683
+        },
+        {
+          "sourceTime": 33,
+          "editedTime": 33.58,
+          "correlation": 0.999404
+        },
+        {
+          "sourceTime": 56,
+          "editedTime": 56.58,
+          "correlation": 0.999536
+        },
+        {
+          "sourceTime": 79,
+          "editedTime": 79.58,
+          "correlation": 0.999675
+        },
+        {
+          "sourceTime": 102,
+          "editedTime": 103.94,
+          "correlation": 0.999833
+        },
+        {
+          "sourceTime": 125,
+          "editedTime": 126.94,
+          "correlation": 0.999993
+        },
+        {
+          "sourceTime": 148,
+          "editedTime": 149.94,
+          "correlation": 0.999947
+        },
+        {
+          "sourceTime": 171,
+          "editedTime": 172.94,
+          "correlation": 0.999848
+        },
+        {
+          "sourceTime": 194,
+          "editedTime": 196.42,
+          "correlation": 0.999934
+        },
+        {
+          "sourceTime": 217,
+          "editedTime": 220.1,
+          "correlation": 0.999949
+        },
+        {
+          "sourceTime": 240,
+          "editedTime": 243.1,
+          "correlation": 0.999974
+        },
+        {
+          "sourceTime": 263,
+          "editedTime": 266.1,
+          "correlation": 0.99983
+        },
+        {
+          "sourceTime": 286,
+          "editedTime": 289.1,
+          "correlation": 0.999886
+        },
+        {
+          "sourceTime": 309,
+          "editedTime": 312.1,
+          "correlation": 0.999747
+        },
+        {
+          "sourceTime": 332,
+          "editedTime": 335.1,
+          "correlation": 0.999916
+        },
+        {
+          "sourceTime": 355,
+          "editedTime": 358.1,
+          "correlation": 0.999801
+        },
+        {
+          "sourceTime": 378,
+          "editedTime": 381.1,
+          "correlation": 0.999933
+        },
+        {
+          "sourceTime": 401,
+          "editedTime": 404.1,
+          "correlation": 0.999799
+        }
+      ],
+      "allFinite": true
+    },
+    {
+      "file": "assets/campaign/audio/The Sound of Glass - paced.mp3",
+      "insertedPauses": 7,
+      "durationErrorSeconds": 0.0,
+      "speechWindows": [
+        {
+          "sourceTime": 10,
+          "editedTime": 10.68,
+          "correlation": 0.999765
+        },
+        {
+          "sourceTime": 33,
+          "editedTime": 33.68,
+          "correlation": 0.999246
+        },
+        {
+          "sourceTime": 56,
+          "editedTime": 56.68,
+          "correlation": 0.999982
+        },
+        {
+          "sourceTime": 102,
+          "editedTime": 103.82,
+          "correlation": 0.999994
+        },
+        {
+          "sourceTime": 125,
+          "editedTime": 126.82,
+          "correlation": 0.999853
+        },
+        {
+          "sourceTime": 148,
+          "editedTime": 149.82,
+          "correlation": 0.999912
+        },
+        {
+          "sourceTime": 171,
+          "editedTime": 172.82,
+          "correlation": 0.999947
+        },
+        {
+          "sourceTime": 194,
+          "editedTime": 196.5,
+          "correlation": 0.999885
+        },
+        {
+          "sourceTime": 217,
+          "editedTime": 219.5,
+          "correlation": 0.999962
+        },
+        {
+          "sourceTime": 240,
+          "editedTime": 242.5,
+          "correlation": 0.999979
+        },
+        {
+          "sourceTime": 263,
+          "editedTime": 265.5,
+          "correlation": 0.999499
+        },
+        {
+          "sourceTime": 309,
+          "editedTime": 312.18,
+          "correlation": 0.999809
+        },
+        {
+          "sourceTime": 332,
+          "editedTime": 335.86,
+          "correlation": 0.999951
+        },
+        {
+          "sourceTime": 355,
+          "editedTime": 358.86,
+          "correlation": 0.999855
+        },
+        {
+          "sourceTime": 378,
+          "editedTime": 382.54,
+          "correlation": 0.999908
+        },
+        {
+          "sourceTime": 401,
+          "editedTime": 405.54,
+          "correlation": 0.999917
+        }
+      ],
+      "allFinite": true
+    }
+  ]
+}

@@ -1,0 +1,4597 @@
+{
+  "file": "The Fracture.mp3",
+  "duration": 442.6,
+  "segments": [
+    {
+      "start": 2.479999999999999,
+      "end": 7.86,
+      "text": " I learned much later that something had begun growing in the wreckage of a battle.",
+      "words": [
+        {
+          "word": " I",
+          "start": 2.479999999999999,
+          "end": 3.1,
+          "probability": 0.7848730087280273
+        },
+        {
+          "word": " learned",
+          "start": 3.1,
+          "end": 3.3,
+          "probability": 0.8907911777496338
+        },
+        {
+          "word": " much",
+          "start": 3.3,
+          "end": 3.56,
+          "probability": 0.9758068919181824
+        },
+        {
+          "word": " later",
+          "start": 3.56,
+          "end": 4.04,
+          "probability": 0.9976945519447327
+        },
+        {
+          "word": " that",
+          "start": 4.04,
+          "end": 5.22,
+          "probability": 0.7039304375648499
+        },
+        {
+          "word": " something",
+          "start": 5.22,
+          "end": 5.56,
+          "probability": 0.9957906603813171
+        },
+        {
+          "word": " had",
+          "start": 5.56,
+          "end": 5.76,
+          "probability": 0.9941819310188293
+        },
+        {
+          "word": " begun",
+          "start": 5.76,
+          "end": 6.1,
+          "probability": 0.9948920011520386
+        },
+        {
+          "word": " growing",
+          "start": 6.1,
+          "end": 6.46,
+          "probability": 0.994963526725769
+        },
+        {
+          "word": " in",
+          "start": 6.46,
+          "end": 6.72,
+          "probability": 0.9953996539115906
+        },
+        {
+          "word": " the",
+          "start": 6.72,
+          "end": 6.84,
+          "probability": 0.9975813627243042
+        },
+        {
+          "word": " wreckage",
+          "start": 6.84,
+          "end": 7.08,
+          "probability": 0.9982388019561768
+        },
+        {
+          "word": " of",
+          "start": 7.08,
+          "end": 7.38,
+          "probability": 0.9981445074081421
+        },
+        {
+          "word": " a",
+          "start": 7.38,
+          "end": 7.54,
+          "probability": 0.9935169219970703
+        },
+        {
+          "word": " battle.",
+          "start": 7.54,
+          "end": 7.86,
+          "probability": 0.9972653388977051
+        }
+      ]
+    },
+    {
+      "start": 9.32,
+      "end": 14.54,
+      "text": " From a severed piece of the Reptilian Emperor himself, at the time.",
+      "words": [
+        {
+          "word": " From",
+          "start": 9.32,
+          "end": 9.94,
+          "probability": 0.9506223201751709
+        },
+        {
+          "word": " a",
+          "start": 9.94,
+          "end": 10.12,
+          "probability": 0.9206709861755371
+        },
+        {
+          "word": " severed",
+          "start": 10.12,
+          "end": 10.36,
+          "probability": 0.9995367527008057
+        },
+        {
+          "word": " piece",
+          "start": 10.36,
+          "end": 10.7,
+          "probability": 0.9760875701904297
+        },
+        {
+          "word": " of",
+          "start": 10.7,
+          "end": 10.94,
+          "probability": 0.9945383667945862
+        },
+        {
+          "word": " the",
+          "start": 10.94,
+          "end": 11.06,
+          "probability": 0.9653456211090088
+        },
+        {
+          "word": " Reptilian",
+          "start": 11.06,
+          "end": 11.6,
+          "probability": 0.536092184484005
+        },
+        {
+          "word": " Emperor",
+          "start": 11.6,
+          "end": 11.98,
+          "probability": 0.8946329355239868
+        },
+        {
+          "word": " himself,",
+          "start": 11.98,
+          "end": 12.6,
+          "probability": 0.987083911895752
+        },
+        {
+          "word": " at",
+          "start": 13.46,
+          "end": 13.94,
+          "probability": 0.9662207961082458
+        },
+        {
+          "word": " the",
+          "start": 13.94,
+          "end": 14.08,
+          "probability": 0.9822863936424255
+        },
+        {
+          "word": " time.",
+          "start": 14.08,
+          "end": 14.54,
+          "probability": 0.9996755123138428
+        }
+      ]
+    },
+    {
+      "start": 16.4,
+      "end": 22.32,
+      "text": " None of us knew I was a boy, and my world was still small.",
+      "words": [
+        {
+          "word": " None",
+          "start": 16.4,
+          "end": 16.64,
+          "probability": 0.9915221929550171
+        },
+        {
+          "word": " of",
+          "start": 16.64,
+          "end": 16.82,
+          "probability": 0.9991059899330139
+        },
+        {
+          "word": " us",
+          "start": 16.82,
+          "end": 16.96,
+          "probability": 0.9968581199645996
+        },
+        {
+          "word": " knew",
+          "start": 16.96,
+          "end": 17.2,
+          "probability": 0.9968991279602051
+        },
+        {
+          "word": " I",
+          "start": 17.2,
+          "end": 17.4,
+          "probability": 0.9802287220954895
+        },
+        {
+          "word": " was",
+          "start": 17.4,
+          "end": 17.56,
+          "probability": 0.9993293285369873
+        },
+        {
+          "word": " a",
+          "start": 17.56,
+          "end": 17.72,
+          "probability": 0.9977265000343323
+        },
+        {
+          "word": " boy,",
+          "start": 17.72,
+          "end": 18.02,
+          "probability": 0.9967718720436096
+        },
+        {
+          "word": " and",
+          "start": 18.72,
+          "end": 19.76,
+          "probability": 0.9787085652351379
+        },
+        {
+          "word": " my",
+          "start": 19.76,
+          "end": 19.94,
+          "probability": 0.9963621497154236
+        },
+        {
+          "word": " world",
+          "start": 19.94,
+          "end": 20.4,
+          "probability": 0.9994831085205078
+        },
+        {
+          "word": " was",
+          "start": 20.4,
+          "end": 21.5,
+          "probability": 0.9607787132263184
+        },
+        {
+          "word": " still",
+          "start": 21.5,
+          "end": 21.8,
+          "probability": 0.9990423321723938
+        },
+        {
+          "word": " small.",
+          "start": 21.8,
+          "end": 22.32,
+          "probability": 0.9993993043899536
+        }
+      ]
+    },
+    {
+      "start": 27.8,
+      "end": 32.2,
+      "text": " I used to spend my afternoons drawing the old bridge near our village.",
+      "words": [
+        {
+          "word": " I",
+          "start": 27.8,
+          "end": 28.3,
+          "probability": 0.7082681059837341
+        },
+        {
+          "word": " used",
+          "start": 28.3,
+          "end": 28.44,
+          "probability": 0.9629806280136108
+        },
+        {
+          "word": " to",
+          "start": 28.44,
+          "end": 28.64,
+          "probability": 0.9984762072563171
+        },
+        {
+          "word": " spend",
+          "start": 28.64,
+          "end": 28.82,
+          "probability": 0.9938401579856873
+        },
+        {
+          "word": " my",
+          "start": 28.82,
+          "end": 29.06,
+          "probability": 0.9961175918579102
+        },
+        {
+          "word": " afternoons",
+          "start": 29.06,
+          "end": 29.7,
+          "probability": 0.9623912771542867
+        },
+        {
+          "word": " drawing",
+          "start": 29.7,
+          "end": 30.82,
+          "probability": 0.8104456067085266
+        },
+        {
+          "word": " the",
+          "start": 30.82,
+          "end": 31.06,
+          "probability": 0.9935507774353027
+        },
+        {
+          "word": " old",
+          "start": 31.06,
+          "end": 31.26,
+          "probability": 0.9794387817382812
+        },
+        {
+          "word": " bridge",
+          "start": 31.26,
+          "end": 31.5,
+          "probability": 0.9913938641548157
+        },
+        {
+          "word": " near",
+          "start": 31.5,
+          "end": 31.7,
+          "probability": 0.9739641547203064
+        },
+        {
+          "word": " our",
+          "start": 31.7,
+          "end": 31.84,
+          "probability": 0.9519939422607422
+        },
+        {
+          "word": " village.",
+          "start": 31.84,
+          "end": 32.2,
+          "probability": 0.9902018904685974
+        }
+      ]
+    },
+    {
+      "start": 34.2,
+      "end": 39.98,
+      "text": " I drew it so often that I thought I knew every stone I suppose children believe",
+      "words": [
+        {
+          "word": " I",
+          "start": 34.2,
+          "end": 34.64,
+          "probability": 0.995124876499176
+        },
+        {
+          "word": " drew",
+          "start": 34.64,
+          "end": 34.8,
+          "probability": 0.9949317574501038
+        },
+        {
+          "word": " it",
+          "start": 34.8,
+          "end": 34.96,
+          "probability": 0.9971020817756653
+        },
+        {
+          "word": " so",
+          "start": 34.96,
+          "end": 35.2,
+          "probability": 0.9952367544174194
+        },
+        {
+          "word": " often",
+          "start": 35.2,
+          "end": 35.82,
+          "probability": 0.9991523027420044
+        },
+        {
+          "word": " that",
+          "start": 35.82,
+          "end": 37.46,
+          "probability": 0.4941372871398926
+        },
+        {
+          "word": " I",
+          "start": 37.46,
+          "end": 37.62,
+          "probability": 0.986778974533081
+        },
+        {
+          "word": " thought",
+          "start": 37.62,
+          "end": 37.78,
+          "probability": 0.9820636510848999
+        },
+        {
+          "word": " I",
+          "start": 37.78,
+          "end": 37.94,
+          "probability": 0.9814304709434509
+        },
+        {
+          "word": " knew",
+          "start": 37.94,
+          "end": 38.06,
+          "probability": 0.9861839413642883
+        },
+        {
+          "word": " every",
+          "start": 38.06,
+          "end": 38.32,
+          "probability": 0.9916664958000183
+        },
+        {
+          "word": " stone",
+          "start": 38.32,
+          "end": 38.64,
+          "probability": 0.9990600943565369
+        },
+        {
+          "word": " I",
+          "start": 38.64,
+          "end": 38.8,
+          "probability": 0.8948318958282471
+        },
+        {
+          "word": " suppose",
+          "start": 38.8,
+          "end": 39.08,
+          "probability": 0.8998816013336182
+        },
+        {
+          "word": " children",
+          "start": 39.08,
+          "end": 39.48,
+          "probability": 0.9710493683815002
+        },
+        {
+          "word": " believe",
+          "start": 39.48,
+          "end": 39.98,
+          "probability": 0.9766870737075806
+        }
+      ]
+    },
+    {
+      "start": 41.28,
+      "end": 45.44,
+      "text": " that the things they know will always be there.",
+      "words": [
+        {
+          "word": " that",
+          "start": 41.28,
+          "end": 41.78,
+          "probability": 0.3930821716785431
+        },
+        {
+          "word": " the",
+          "start": 41.78,
+          "end": 41.96,
+          "probability": 0.9857829809188843
+        },
+        {
+          "word": " things",
+          "start": 41.96,
+          "end": 42.26,
+          "probability": 0.9928162097930908
+        },
+        {
+          "word": " they",
+          "start": 42.26,
+          "end": 42.5,
+          "probability": 0.9902709722518921
+        },
+        {
+          "word": " know",
+          "start": 42.5,
+          "end": 43.02,
+          "probability": 0.9966111779212952
+        },
+        {
+          "word": " will",
+          "start": 43.02,
+          "end": 44.64,
+          "probability": 0.8921093940734863
+        },
+        {
+          "word": " always",
+          "start": 44.64,
+          "end": 44.96,
+          "probability": 0.9985654950141907
+        },
+        {
+          "word": " be",
+          "start": 44.96,
+          "end": 45.2,
+          "probability": 0.9988613128662109
+        },
+        {
+          "word": " there.",
+          "start": 45.2,
+          "end": 45.45,
+          "probability": 0.9965338706970215
+        }
+      ]
+    },
+    {
+      "start": 49.39,
+      "end": 56.65,
+      "text": " My mother was a healer. People came to her with broken bones, fevers, and troubles that",
+      "words": [
+        {
+          "word": " My",
+          "start": 49.39,
+          "end": 49.95,
+          "probability": 0.7280639410018921
+        },
+        {
+          "word": " mother",
+          "start": 49.95,
+          "end": 50.17,
+          "probability": 0.9858536720275879
+        },
+        {
+          "word": " was",
+          "start": 50.17,
+          "end": 50.45,
+          "probability": 0.9982308745384216
+        },
+        {
+          "word": " a",
+          "start": 50.45,
+          "end": 50.61,
+          "probability": 0.9969797730445862
+        },
+        {
+          "word": " healer.",
+          "start": 50.61,
+          "end": 50.91,
+          "probability": 0.9895602464675903
+        },
+        {
+          "word": " People",
+          "start": 52.51,
+          "end": 52.67,
+          "probability": 0.993463397026062
+        },
+        {
+          "word": " came",
+          "start": 52.67,
+          "end": 52.99,
+          "probability": 0.9685614705085754
+        },
+        {
+          "word": " to",
+          "start": 52.99,
+          "end": 53.15,
+          "probability": 0.9748992323875427
+        },
+        {
+          "word": " her",
+          "start": 53.15,
+          "end": 53.23,
+          "probability": 0.9742079973220825
+        },
+        {
+          "word": " with",
+          "start": 53.23,
+          "end": 53.35,
+          "probability": 0.996044933795929
+        },
+        {
+          "word": " broken",
+          "start": 53.35,
+          "end": 53.69,
+          "probability": 0.9981492757797241
+        },
+        {
+          "word": " bones,",
+          "start": 53.69,
+          "end": 54.09,
+          "probability": 0.9969911575317383
+        },
+        {
+          "word": " fevers,",
+          "start": 54.29,
+          "end": 54.61,
+          "probability": 0.9923278093338013
+        },
+        {
+          "word": " and",
+          "start": 54.77,
+          "end": 54.85,
+          "probability": 0.9945829510688782
+        },
+        {
+          "word": " troubles",
+          "start": 54.85,
+          "end": 55.27,
+          "probability": 0.9986477494239807
+        },
+        {
+          "word": " that",
+          "start": 55.27,
+          "end": 56.65,
+          "probability": 0.5038509368896484
+        }
+      ]
+    },
+    {
+      "start": 56.65,
+      "end": 63.85,
+      "text": " had nothing to do with the medicine. I remember thinking that she could mend almost anything.",
+      "words": [
+        {
+          "word": " had",
+          "start": 56.65,
+          "end": 56.79,
+          "probability": 0.9654800295829773
+        },
+        {
+          "word": " nothing",
+          "start": 56.79,
+          "end": 56.99,
+          "probability": 0.9982030391693115
+        },
+        {
+          "word": " to",
+          "start": 56.99,
+          "end": 57.21,
+          "probability": 0.9992621541023254
+        },
+        {
+          "word": " do",
+          "start": 57.21,
+          "end": 57.35,
+          "probability": 0.99785977602005
+        },
+        {
+          "word": " with",
+          "start": 57.35,
+          "end": 57.51,
+          "probability": 0.9984885454177856
+        },
+        {
+          "word": " the",
+          "start": 57.51,
+          "end": 57.67,
+          "probability": 0.9874938130378723
+        },
+        {
+          "word": " medicine.",
+          "start": 57.67,
+          "end": 57.95,
+          "probability": 0.9981877207756042
+        },
+        {
+          "word": " I",
+          "start": 59.57,
+          "end": 59.95,
+          "probability": 0.996820330619812
+        },
+        {
+          "word": " remember",
+          "start": 59.95,
+          "end": 60.21,
+          "probability": 0.9962085485458374
+        },
+        {
+          "word": " thinking",
+          "start": 60.21,
+          "end": 60.75,
+          "probability": 0.9974027276039124
+        },
+        {
+          "word": " that",
+          "start": 60.75,
+          "end": 62.33,
+          "probability": 0.8660521507263184
+        },
+        {
+          "word": " she",
+          "start": 62.33,
+          "end": 62.49,
+          "probability": 0.9979360103607178
+        },
+        {
+          "word": " could",
+          "start": 62.49,
+          "end": 62.67,
+          "probability": 0.9963783621788025
+        },
+        {
+          "word": " mend",
+          "start": 62.67,
+          "end": 62.93,
+          "probability": 0.9972274899482727
+        },
+        {
+          "word": " almost",
+          "start": 62.93,
+          "end": 63.27,
+          "probability": 0.9986308217048645
+        },
+        {
+          "word": " anything.",
+          "start": 63.27,
+          "end": 63.85,
+          "probability": 0.9977402687072754
+        }
+      ]
+    },
+    {
+      "start": 68.01,
+      "end": 75.19,
+      "text": " The first signs of war came from beyond the hills, smoke. Then strange lights in the sky.",
+      "words": [
+        {
+          "word": " The",
+          "start": 68.01,
+          "end": 68.57,
+          "probability": 0.9873980283737183
+        },
+        {
+          "word": " first",
+          "start": 68.57,
+          "end": 68.79,
+          "probability": 0.9978395700454712
+        },
+        {
+          "word": " signs",
+          "start": 68.79,
+          "end": 69.17,
+          "probability": 0.9924446940422058
+        },
+        {
+          "word": " of",
+          "start": 69.17,
+          "end": 69.39,
+          "probability": 0.999148964881897
+        },
+        {
+          "word": " war",
+          "start": 69.39,
+          "end": 69.65,
+          "probability": 0.993535041809082
+        },
+        {
+          "word": " came",
+          "start": 69.65,
+          "end": 69.95,
+          "probability": 0.9941372871398926
+        },
+        {
+          "word": " from",
+          "start": 69.95,
+          "end": 70.23,
+          "probability": 0.998349666595459
+        },
+        {
+          "word": " beyond",
+          "start": 70.23,
+          "end": 70.57,
+          "probability": 0.993996262550354
+        },
+        {
+          "word": " the",
+          "start": 70.57,
+          "end": 70.75,
+          "probability": 0.9962433576583862
+        },
+        {
+          "word": " hills,",
+          "start": 70.75,
+          "end": 71.01,
+          "probability": 0.8911437392234802
+        },
+        {
+          "word": " smoke.",
+          "start": 71.37,
+          "end": 71.47,
+          "probability": 0.6079743504524231
+        },
+        {
+          "word": " Then",
+          "start": 73.25,
+          "end": 73.81,
+          "probability": 0.9852129817008972
+        },
+        {
+          "word": " strange",
+          "start": 73.81,
+          "end": 74.17,
+          "probability": 0.9684693217277527
+        },
+        {
+          "word": " lights",
+          "start": 74.17,
+          "end": 74.53,
+          "probability": 0.993979811668396
+        },
+        {
+          "word": " in",
+          "start": 74.53,
+          "end": 74.75,
+          "probability": 0.997611403465271
+        },
+        {
+          "word": " the",
+          "start": 74.75,
+          "end": 74.87,
+          "probability": 0.9994157552719116
+        },
+        {
+          "word": " sky.",
+          "start": 74.87,
+          "end": 75.19,
+          "probability": 0.9962233304977417
+        }
+      ]
+    },
+    {
+      "start": 77.45,
+      "end": 79.91,
+      "text": " The adults knew more than they told us.",
+      "words": [
+        {
+          "word": " The",
+          "start": 77.45,
+          "end": 77.97,
+          "probability": 0.9238121509552002
+        },
+        {
+          "word": " adults",
+          "start": 77.97,
+          "end": 78.23,
+          "probability": 0.9962544441223145
+        },
+        {
+          "word": " knew",
+          "start": 78.23,
+          "end": 78.49,
+          "probability": 0.9907999634742737
+        },
+        {
+          "word": " more",
+          "start": 78.49,
+          "end": 78.67,
+          "probability": 0.9985590577125549
+        },
+        {
+          "word": " than",
+          "start": 78.67,
+          "end": 78.81,
+          "probability": 0.9814619421958923
+        },
+        {
+          "word": " they",
+          "start": 78.81,
+          "end": 78.93,
+          "probability": 0.9887802600860596
+        },
+        {
+          "word": " told",
+          "start": 78.93,
+          "end": 79.15,
+          "probability": 0.9889028668403625
+        },
+        {
+          "word": " us.",
+          "start": 79.15,
+          "end": 79.91,
+          "probability": 0.9990956783294678
+        }
+      ]
+    },
+    {
+      "start": 81.33,
+      "end": 84.01,
+      "text": " I remember how carefully they began choosing their words.",
+      "words": [
+        {
+          "word": " I",
+          "start": 81.33,
+          "end": 81.51,
+          "probability": 0.9964080452919006
+        },
+        {
+          "word": " remember",
+          "start": 81.51,
+          "end": 81.79,
+          "probability": 0.9936668276786804
+        },
+        {
+          "word": " how",
+          "start": 81.79,
+          "end": 82.05,
+          "probability": 0.9947675466537476
+        },
+        {
+          "word": " carefully",
+          "start": 82.05,
+          "end": 82.47,
+          "probability": 0.9909436106681824
+        },
+        {
+          "word": " they",
+          "start": 82.47,
+          "end": 82.69,
+          "probability": 0.992689311504364
+        },
+        {
+          "word": " began",
+          "start": 82.69,
+          "end": 83.03,
+          "probability": 0.991540253162384
+        },
+        {
+          "word": " choosing",
+          "start": 83.03,
+          "end": 83.37,
+          "probability": 0.9878716468811035
+        },
+        {
+          "word": " their",
+          "start": 83.37,
+          "end": 83.61,
+          "probability": 0.9971646666526794
+        },
+        {
+          "word": " words.",
+          "start": 83.61,
+          "end": 84.01,
+          "probability": 0.9972918629646301
+        }
+      ]
+    },
+    {
+      "start": 87.61,
+      "end": 90.15,
+      "text": " We left before dawn, I carried my sketchbook.",
+      "words": [
+        {
+          "word": " We",
+          "start": 87.61,
+          "end": 88.13,
+          "probability": 0.9889587163925171
+        },
+        {
+          "word": " left",
+          "start": 88.13,
+          "end": 88.31,
+          "probability": 0.9983828067779541
+        },
+        {
+          "word": " before",
+          "start": 88.31,
+          "end": 88.67,
+          "probability": 0.9920152425765991
+        },
+        {
+          "word": " dawn,",
+          "start": 88.67,
+          "end": 88.93,
+          "probability": 0.9980804920196533
+        },
+        {
+          "word": " I",
+          "start": 89.09,
+          "end": 89.13,
+          "probability": 0.9700126051902771
+        },
+        {
+          "word": " carried",
+          "start": 89.13,
+          "end": 89.33,
+          "probability": 0.9985342025756836
+        },
+        {
+          "word": " my",
+          "start": 89.33,
+          "end": 89.59,
+          "probability": 0.9988127946853638
+        },
+        {
+          "word": " sketchbook.",
+          "start": 89.59,
+          "end": 90.15,
+          "probability": 0.9647240340709686
+        }
+      ]
+    },
+    {
+      "start": 91.85000000000001,
+      "end": 94.29,
+      "text": " Because I couldn't think of anything else worth taking.",
+      "words": [
+        {
+          "word": " Because",
+          "start": 91.85000000000001,
+          "end": 92.37,
+          "probability": 0.9654228091239929
+        },
+        {
+          "word": " I",
+          "start": 92.37,
+          "end": 92.53,
+          "probability": 0.9899829626083374
+        },
+        {
+          "word": " couldn't",
+          "start": 92.53,
+          "end": 92.81,
+          "probability": 0.9920477867126465
+        },
+        {
+          "word": " think",
+          "start": 92.81,
+          "end": 93.01,
+          "probability": 0.9974883794784546
+        },
+        {
+          "word": " of",
+          "start": 93.01,
+          "end": 93.15,
+          "probability": 0.9982024431228638
+        },
+        {
+          "word": " anything",
+          "start": 93.15,
+          "end": 93.41,
+          "probability": 0.9975831508636475
+        },
+        {
+          "word": " else",
+          "start": 93.41,
+          "end": 93.65,
+          "probability": 0.9784741997718811
+        },
+        {
+          "word": " worth",
+          "start": 93.65,
+          "end": 93.85,
+          "probability": 0.9920834302902222
+        },
+        {
+          "word": " taking.",
+          "start": 93.85,
+          "end": 94.29,
+          "probability": 0.9911012053489685
+        }
+      ]
+    },
+    {
+      "start": 96.85000000000001,
+      "end": 99.47,
+      "text": " I looked back at the bridge until the road turned.",
+      "words": [
+        {
+          "word": " I",
+          "start": 96.85000000000001,
+          "end": 97.37,
+          "probability": 0.9973655343055725
+        },
+        {
+          "word": " looked",
+          "start": 97.37,
+          "end": 97.47,
+          "probability": 0.8140773773193359
+        },
+        {
+          "word": " back",
+          "start": 97.47,
+          "end": 97.73,
+          "probability": 0.9981672763824463
+        },
+        {
+          "word": " at",
+          "start": 97.73,
+          "end": 97.87,
+          "probability": 0.9950330257415771
+        },
+        {
+          "word": " the",
+          "start": 97.87,
+          "end": 97.99,
+          "probability": 0.9968850016593933
+        },
+        {
+          "word": " bridge",
+          "start": 97.99,
+          "end": 98.27,
+          "probability": 0.9971007704734802
+        },
+        {
+          "word": " until",
+          "start": 98.27,
+          "end": 98.63,
+          "probability": 0.9304267168045044
+        },
+        {
+          "word": " the",
+          "start": 98.63,
+          "end": 98.79,
+          "probability": 0.9982253909111023
+        },
+        {
+          "word": " road",
+          "start": 98.79,
+          "end": 98.97,
+          "probability": 0.9994383454322815
+        },
+        {
+          "word": " turned.",
+          "start": 98.97,
+          "end": 99.47,
+          "probability": 0.9977661371231079
+        }
+      ]
+    },
+    {
+      "start": 101.63000000000001,
+      "end": 103.29,
+      "text": " And I couldn't see it anymore.",
+      "words": [
+        {
+          "word": " And",
+          "start": 101.63000000000001,
+          "end": 102.15,
+          "probability": 0.9754828214645386
+        },
+        {
+          "word": " I",
+          "start": 102.15,
+          "end": 102.29,
+          "probability": 0.9901435375213623
+        },
+        {
+          "word": " couldn't",
+          "start": 102.29,
+          "end": 102.59,
+          "probability": 0.9986285865306854
+        },
+        {
+          "word": " see",
+          "start": 102.59,
+          "end": 102.77,
+          "probability": 0.9992828965187073
+        },
+        {
+          "word": " it",
+          "start": 102.77,
+          "end": 102.93,
+          "probability": 0.9981282353401184
+        },
+        {
+          "word": " anymore.",
+          "start": 102.93,
+          "end": 103.29,
+          "probability": 0.9392337799072266
+        }
+      ]
+    },
+    {
+      "start": 105.49000000000001,
+      "end": 109.55,
+      "text": " I thought we'd return in a few days.",
+      "words": [
+        {
+          "word": " I",
+          "start": 105.49000000000001,
+          "end": 106.17,
+          "probability": 0.7597602605819702
+        },
+        {
+          "word": " thought",
+          "start": 106.17,
+          "end": 106.37,
+          "probability": 0.9557153582572937
+        },
+        {
+          "word": " we'd",
+          "start": 106.37,
+          "end": 106.63,
+          "probability": 0.9569759666919708
+        },
+        {
+          "word": " return",
+          "start": 106.63,
+          "end": 106.99,
+          "probability": 0.9919922947883606
+        },
+        {
+          "word": " in",
+          "start": 106.99,
+          "end": 108.79,
+          "probability": 0.6296273469924927
+        },
+        {
+          "word": " a",
+          "start": 108.79,
+          "end": 108.91,
+          "probability": 0.9959982633590698
+        },
+        {
+          "word": " few",
+          "start": 108.91,
+          "end": 109.09,
+          "probability": 0.9991126656532288
+        },
+        {
+          "word": " days.",
+          "start": 109.09,
+          "end": 109.55,
+          "probability": 0.9994300007820129
+        }
+      ]
+    },
+    {
+      "start": 112.93,
+      "end": 117.15,
+      "text": " We reached Ashbridge with hundreds of other refugees.",
+      "words": [
+        {
+          "word": " We",
+          "start": 112.93,
+          "end": 113.61,
+          "probability": 0.9803460240364075
+        },
+        {
+          "word": " reached",
+          "start": 113.61,
+          "end": 113.87,
+          "probability": 0.9819713234901428
+        },
+        {
+          "word": " Ashbridge",
+          "start": 113.87,
+          "end": 114.41,
+          "probability": 0.9655807316303253
+        },
+        {
+          "word": " with",
+          "start": 114.41,
+          "end": 115.89,
+          "probability": 0.741235077381134
+        },
+        {
+          "word": " hundreds",
+          "start": 115.89,
+          "end": 116.23,
+          "probability": 0.9950472116470337
+        },
+        {
+          "word": " of",
+          "start": 116.23,
+          "end": 116.45,
+          "probability": 0.998778760433197
+        },
+        {
+          "word": " other",
+          "start": 116.45,
+          "end": 116.69,
+          "probability": 0.9982732534408569
+        },
+        {
+          "word": " refugees.",
+          "start": 116.69,
+          "end": 117.15,
+          "probability": 0.983572781085968
+        }
+      ]
+    },
+    {
+      "start": 119.47,
+      "end": 124.25,
+      "text": " My mother began helping in the infirmary almost immediately.",
+      "words": [
+        {
+          "word": " My",
+          "start": 119.47,
+          "end": 119.81,
+          "probability": 0.9961282014846802
+        },
+        {
+          "word": " mother",
+          "start": 119.81,
+          "end": 120.03,
+          "probability": 0.9925476908683777
+        },
+        {
+          "word": " began",
+          "start": 120.03,
+          "end": 120.35,
+          "probability": 0.9981257319450378
+        },
+        {
+          "word": " helping",
+          "start": 120.35,
+          "end": 120.77,
+          "probability": 0.9987102746963501
+        },
+        {
+          "word": " in",
+          "start": 120.77,
+          "end": 120.97,
+          "probability": 0.9629375338554382
+        },
+        {
+          "word": " the",
+          "start": 120.97,
+          "end": 121.07,
+          "probability": 0.9959762692451477
+        },
+        {
+          "word": " infirmary",
+          "start": 121.07,
+          "end": 122.09,
+          "probability": 0.985081950823466
+        },
+        {
+          "word": " almost",
+          "start": 122.09,
+          "end": 123.67,
+          "probability": 0.5662561655044556
+        },
+        {
+          "word": " immediately.",
+          "start": 123.67,
+          "end": 124.25,
+          "probability": 0.9991822838783264
+        }
+      ]
+    },
+    {
+      "start": 126.49000000000001,
+      "end": 128.33,
+      "text": " That was where I first saw Kesh,",
+      "words": [
+        {
+          "word": " That",
+          "start": 126.49000000000001,
+          "end": 127.17,
+          "probability": 0.9907264709472656
+        },
+        {
+          "word": " was",
+          "start": 127.17,
+          "end": 127.27,
+          "probability": 0.9945189356803894
+        },
+        {
+          "word": " where",
+          "start": 127.27,
+          "end": 127.45,
+          "probability": 0.9873440265655518
+        },
+        {
+          "word": " I",
+          "start": 127.45,
+          "end": 127.57,
+          "probability": 0.9920045733451843
+        },
+        {
+          "word": " first",
+          "start": 127.57,
+          "end": 127.71,
+          "probability": 0.9939836859703064
+        },
+        {
+          "word": " saw",
+          "start": 127.71,
+          "end": 128.05,
+          "probability": 0.9968467354774475
+        },
+        {
+          "word": " Kesh,",
+          "start": 128.05,
+          "end": 128.33,
+          "probability": 0.7933706641197205
+        }
+      ]
+    },
+    {
+      "start": 129.15,
+      "end": 135.17,
+      "text": " A reptilian boy whose injuries had brought him far from his own world.",
+      "words": [
+        {
+          "word": " A",
+          "start": 129.15,
+          "end": 129.83,
+          "probability": 0.41926100850105286
+        },
+        {
+          "word": " reptilian",
+          "start": 129.83,
+          "end": 130.45,
+          "probability": 0.9879142642021179
+        },
+        {
+          "word": " boy",
+          "start": 130.45,
+          "end": 130.77,
+          "probability": 0.9919441938400269
+        },
+        {
+          "word": " whose",
+          "start": 130.77,
+          "end": 131.07,
+          "probability": 0.7555617690086365
+        },
+        {
+          "word": " injuries",
+          "start": 131.07,
+          "end": 131.45,
+          "probability": 0.9791572093963623
+        },
+        {
+          "word": " had",
+          "start": 131.45,
+          "end": 131.71,
+          "probability": 0.9154141545295715
+        },
+        {
+          "word": " brought",
+          "start": 131.71,
+          "end": 131.89,
+          "probability": 0.990023672580719
+        },
+        {
+          "word": " him",
+          "start": 131.89,
+          "end": 132.05,
+          "probability": 0.9944387674331665
+        },
+        {
+          "word": " far",
+          "start": 132.05,
+          "end": 132.39,
+          "probability": 0.9916765689849854
+        },
+        {
+          "word": " from",
+          "start": 132.39,
+          "end": 132.61,
+          "probability": 0.995973527431488
+        },
+        {
+          "word": " his",
+          "start": 132.61,
+          "end": 132.75,
+          "probability": 0.9979838132858276
+        },
+        {
+          "word": " own",
+          "start": 132.75,
+          "end": 132.97,
+          "probability": 0.9956587553024292
+        },
+        {
+          "word": " world.",
+          "start": 132.97,
+          "end": 135.17,
+          "probability": 0.9934822916984558
+        }
+      ]
+    },
+    {
+      "start": 137.21,
+      "end": 142.93,
+      "text": " Keshe had a soldier's confidence, although he was no older than I was.",
+      "words": [
+        {
+          "word": " Keshe",
+          "start": 137.21,
+          "end": 137.55,
+          "probability": 0.6712548136711121
+        },
+        {
+          "word": " had",
+          "start": 137.55,
+          "end": 138.55,
+          "probability": 0.8204103708267212
+        },
+        {
+          "word": " a",
+          "start": 138.55,
+          "end": 138.73,
+          "probability": 0.9662951231002808
+        },
+        {
+          "word": " soldier's",
+          "start": 138.73,
+          "end": 139.17,
+          "probability": 0.9559154510498047
+        },
+        {
+          "word": " confidence,",
+          "start": 139.17,
+          "end": 139.67,
+          "probability": 0.9937248826026917
+        },
+        {
+          "word": " although",
+          "start": 141.01,
+          "end": 141.55,
+          "probability": 0.9646803140640259
+        },
+        {
+          "word": " he",
+          "start": 141.55,
+          "end": 141.71,
+          "probability": 0.9941715598106384
+        },
+        {
+          "word": " was",
+          "start": 141.71,
+          "end": 141.81,
+          "probability": 0.9982938170433044
+        },
+        {
+          "word": " no",
+          "start": 141.81,
+          "end": 142.01,
+          "probability": 0.9914789795875549
+        },
+        {
+          "word": " older",
+          "start": 142.01,
+          "end": 142.27,
+          "probability": 0.9973717927932739
+        },
+        {
+          "word": " than",
+          "start": 142.27,
+          "end": 142.47,
+          "probability": 0.9930296540260315
+        },
+        {
+          "word": " I",
+          "start": 142.47,
+          "end": 142.63,
+          "probability": 0.9881008863449097
+        },
+        {
+          "word": " was.",
+          "start": 142.63,
+          "end": 142.93,
+          "probability": 0.998887836933136
+        }
+      ]
+    },
+    {
+      "start": 145.05,
+      "end": 146.89,
+      "text": " He thought my drawings were inaccurate.",
+      "words": [
+        {
+          "word": " He",
+          "start": 145.05,
+          "end": 145.45,
+          "probability": 0.9933872818946838
+        },
+        {
+          "word": " thought",
+          "start": 145.45,
+          "end": 145.61,
+          "probability": 0.9931848645210266
+        },
+        {
+          "word": " my",
+          "start": 145.61,
+          "end": 145.79,
+          "probability": 0.9883747100830078
+        },
+        {
+          "word": " drawings",
+          "start": 145.79,
+          "end": 146.17,
+          "probability": 0.9926355481147766
+        },
+        {
+          "word": " were",
+          "start": 146.17,
+          "end": 146.39,
+          "probability": 0.9968454241752625
+        },
+        {
+          "word": " inaccurate.",
+          "start": 146.39,
+          "end": 146.89,
+          "probability": 0.9970636963844299
+        }
+      ]
+    },
+    {
+      "start": 148.73,
+      "end": 151.25,
+      "text": " I thought he was insufferably certain of himself.",
+      "words": [
+        {
+          "word": " I",
+          "start": 148.73,
+          "end": 149.11,
+          "probability": 0.9905610680580139
+        },
+        {
+          "word": " thought",
+          "start": 149.11,
+          "end": 149.27,
+          "probability": 0.9909374117851257
+        },
+        {
+          "word": " he",
+          "start": 149.27,
+          "end": 149.39,
+          "probability": 0.9948377013206482
+        },
+        {
+          "word": " was",
+          "start": 149.39,
+          "end": 149.55,
+          "probability": 0.9965795874595642
+        },
+        {
+          "word": " insufferably",
+          "start": 149.55,
+          "end": 150.23,
+          "probability": 0.9682797789573669
+        },
+        {
+          "word": " certain",
+          "start": 150.23,
+          "end": 150.61,
+          "probability": 0.9987801909446716
+        },
+        {
+          "word": " of",
+          "start": 150.61,
+          "end": 150.77,
+          "probability": 0.999218225479126
+        },
+        {
+          "word": " himself.",
+          "start": 150.77,
+          "end": 151.25,
+          "probability": 0.9978735446929932
+        }
+      ]
+    },
+    {
+      "start": 153.59,
+      "end": 154.27,
+      "text": " Somehow.",
+      "words": [
+        {
+          "word": " Somehow.",
+          "start": 153.59,
+          "end": 154.27,
+          "probability": 0.9782714247703552
+        }
+      ]
+    },
+    {
+      "start": 154.27,
+      "end": 158.23,
+      "text": " Now, that was enough to begin a friendship.",
+      "words": [
+        {
+          "word": " Now,",
+          "start": 154.27,
+          "end": 154.37,
+          "probability": 0.08392414450645447
+        },
+        {
+          "word": " that",
+          "start": 154.91,
+          "end": 156.95,
+          "probability": 0.9506903290748596
+        },
+        {
+          "word": " was",
+          "start": 156.95,
+          "end": 157.07,
+          "probability": 0.9945857524871826
+        },
+        {
+          "word": " enough",
+          "start": 157.07,
+          "end": 157.33,
+          "probability": 0.9991955161094666
+        },
+        {
+          "word": " to",
+          "start": 157.33,
+          "end": 157.49,
+          "probability": 0.9982706308364868
+        },
+        {
+          "word": " begin",
+          "start": 157.49,
+          "end": 157.69,
+          "probability": 0.9946241974830627
+        },
+        {
+          "word": " a",
+          "start": 157.69,
+          "end": 157.85,
+          "probability": 0.992890477180481
+        },
+        {
+          "word": " friendship.",
+          "start": 157.85,
+          "end": 158.23,
+          "probability": 0.9989956021308899
+        }
+      ]
+    },
+    {
+      "start": 162.53,
+      "end": 164.63,
+      "text": " Roque arrived with refugees from Morvay.",
+      "words": [
+        {
+          "word": " Roque",
+          "start": 162.53,
+          "end": 162.63,
+          "probability": 0.5963427722454071
+        },
+        {
+          "word": " arrived",
+          "start": 162.63,
+          "end": 162.99,
+          "probability": 0.9969189167022705
+        },
+        {
+          "word": " with",
+          "start": 162.99,
+          "end": 163.25,
+          "probability": 0.9957475066184998
+        },
+        {
+          "word": " refugees",
+          "start": 163.25,
+          "end": 163.71,
+          "probability": 0.9950537085533142
+        },
+        {
+          "word": " from",
+          "start": 163.71,
+          "end": 164.19,
+          "probability": 0.9949959516525269
+        },
+        {
+          "word": " Morvay.",
+          "start": 164.19,
+          "end": 164.63,
+          "probability": 0.6307142972946167
+        }
+      ]
+    },
+    {
+      "start": 166.07,
+      "end": 167.45,
+      "text": " He was a young werewolf.",
+      "words": [
+        {
+          "word": " He",
+          "start": 166.07,
+          "end": 166.53,
+          "probability": 0.9947251677513123
+        },
+        {
+          "word": " was",
+          "start": 166.53,
+          "end": 166.63,
+          "probability": 0.9994439482688904
+        },
+        {
+          "word": " a",
+          "start": 166.63,
+          "end": 166.77,
+          "probability": 0.9960946440696716
+        },
+        {
+          "word": " young",
+          "start": 166.77,
+          "end": 166.95,
+          "probability": 0.9984049201011658
+        },
+        {
+          "word": " werewolf.",
+          "start": 166.95,
+          "end": 167.45,
+          "probability": 0.9884076714515686
+        }
+      ]
+    },
+    {
+      "start": 169.33,
+      "end": 171.05,
+      "text": " And at first I was frightened of him.",
+      "words": [
+        {
+          "word": " And",
+          "start": 169.33,
+          "end": 169.57,
+          "probability": 0.7398632764816284
+        },
+        {
+          "word": " at",
+          "start": 169.57,
+          "end": 169.69,
+          "probability": 0.9642603397369385
+        },
+        {
+          "word": " first",
+          "start": 169.69,
+          "end": 169.89,
+          "probability": 0.9984713196754456
+        },
+        {
+          "word": " I",
+          "start": 169.89,
+          "end": 170.05,
+          "probability": 0.7187055945396423
+        },
+        {
+          "word": " was",
+          "start": 170.05,
+          "end": 170.17,
+          "probability": 0.999002993106842
+        },
+        {
+          "word": " frightened",
+          "start": 170.17,
+          "end": 170.51,
+          "probability": 0.9925904273986816
+        },
+        {
+          "word": " of",
+          "start": 170.51,
+          "end": 170.73,
+          "probability": 0.9966715574264526
+        },
+        {
+          "word": " him.",
+          "start": 170.73,
+          "end": 171.05,
+          "probability": 0.9988800883293152
+        }
+      ]
+    },
+    {
+      "start": 172.95,
+      "end": 175.85,
+      "text": " I had heard too many stories about the creatures of his world.",
+      "words": [
+        {
+          "word": " I",
+          "start": 172.95,
+          "end": 173.45,
+          "probability": 0.9964662790298462
+        },
+        {
+          "word": " had",
+          "start": 173.45,
+          "end": 173.57,
+          "probability": 0.9550303220748901
+        },
+        {
+          "word": " heard",
+          "start": 173.57,
+          "end": 173.73,
+          "probability": 0.9946866035461426
+        },
+        {
+          "word": " too",
+          "start": 173.73,
+          "end": 173.89,
+          "probability": 0.9759835600852966
+        },
+        {
+          "word": " many",
+          "start": 173.89,
+          "end": 174.07,
+          "probability": 0.9989144802093506
+        },
+        {
+          "word": " stories",
+          "start": 174.07,
+          "end": 174.45,
+          "probability": 0.9979006052017212
+        },
+        {
+          "word": " about",
+          "start": 174.45,
+          "end": 174.77,
+          "probability": 0.9955146908760071
+        },
+        {
+          "word": " the",
+          "start": 174.77,
+          "end": 174.95,
+          "probability": 0.9971121549606323
+        },
+        {
+          "word": " creatures",
+          "start": 174.95,
+          "end": 175.15,
+          "probability": 0.9930770397186279
+        },
+        {
+          "word": " of",
+          "start": 175.15,
+          "end": 175.41,
+          "probability": 0.9933520555496216
+        },
+        {
+          "word": " his",
+          "start": 175.41,
+          "end": 175.51,
+          "probability": 0.990739107131958
+        },
+        {
+          "word": " world.",
+          "start": 175.51,
+          "end": 175.85,
+          "probability": 0.9984561204910278
+        }
+      ]
+    },
+    {
+      "start": 178.69,
+      "end": 181.37,
+      "text": " Most of those stories had been told by people",
+      "words": [
+        {
+          "word": " Most",
+          "start": 178.69,
+          "end": 179.19,
+          "probability": 0.9958035349845886
+        },
+        {
+          "word": " of",
+          "start": 179.19,
+          "end": 179.37,
+          "probability": 0.9991508722305298
+        },
+        {
+          "word": " those",
+          "start": 179.37,
+          "end": 179.53,
+          "probability": 0.9862847328186035
+        },
+        {
+          "word": " stories",
+          "start": 179.53,
+          "end": 179.87,
+          "probability": 0.9986733198165894
+        },
+        {
+          "word": " had",
+          "start": 179.87,
+          "end": 180.09,
+          "probability": 0.9549065828323364
+        },
+        {
+          "word": " been",
+          "start": 180.09,
+          "end": 180.25,
+          "probability": 0.99910968542099
+        },
+        {
+          "word": " told",
+          "start": 180.25,
+          "end": 180.49,
+          "probability": 0.9986522793769836
+        },
+        {
+          "word": " by",
+          "start": 180.49,
+          "end": 180.95,
+          "probability": 0.9933642148971558
+        },
+        {
+          "word": " people",
+          "start": 180.95,
+          "end": 181.37,
+          "probability": 0.9983783960342407
+        }
+      ]
+    },
+    {
+      "start": 182.69000000000003,
+      "end": 186.47,
+      "text": " Who had never met one.",
+      "words": [
+        {
+          "word": " Who",
+          "start": 182.69000000000003,
+          "end": 183.33,
+          "probability": 0.45933371782302856
+        },
+        {
+          "word": " had",
+          "start": 183.33,
+          "end": 183.45,
+          "probability": 0.9289675951004028
+        },
+        {
+          "word": " never",
+          "start": 183.45,
+          "end": 183.67,
+          "probability": 0.9989761114120483
+        },
+        {
+          "word": " met",
+          "start": 183.67,
+          "end": 183.87,
+          "probability": 0.9940521121025085
+        },
+        {
+          "word": " one.",
+          "start": 183.87,
+          "end": 186.47,
+          "probability": 0.9904852509498596
+        }
+      ]
+    },
+    {
+      "start": 188.69,
+      "end": 193.65,
+      "text": " One afternoon, we spent hours trying to repair a broken card.",
+      "words": [
+        {
+          "word": " One",
+          "start": 188.39000000000001,
+          "end": 188.71,
+          "probability": 0.9883916974067688
+        },
+        {
+          "word": " afternoon,",
+          "start": 188.71,
+          "end": 189.17,
+          "probability": 0.9979345798492432
+        },
+        {
+          "word": " we",
+          "start": 189.83,
+          "end": 191.53,
+          "probability": 0.7848972082138062
+        },
+        {
+          "word": " spent",
+          "start": 191.53,
+          "end": 191.73,
+          "probability": 0.9622652530670166
+        },
+        {
+          "word": " hours",
+          "start": 191.73,
+          "end": 192.09,
+          "probability": 0.991306483745575
+        },
+        {
+          "word": " trying",
+          "start": 192.09,
+          "end": 192.41,
+          "probability": 0.9889005422592163
+        },
+        {
+          "word": " to",
+          "start": 192.41,
+          "end": 192.55,
+          "probability": 0.9974983334541321
+        },
+        {
+          "word": " repair",
+          "start": 192.55,
+          "end": 192.91,
+          "probability": 0.9948429465293884
+        },
+        {
+          "word": " a",
+          "start": 192.91,
+          "end": 193.07,
+          "probability": 0.9666129946708679
+        },
+        {
+          "word": " broken",
+          "start": 193.07,
+          "end": 193.31,
+          "probability": 0.9992656111717224
+        },
+        {
+          "word": " card.",
+          "start": 193.31,
+          "end": 193.65,
+          "probability": 0.40744712948799133
+        }
+      ]
+    },
+    {
+      "start": 193.89,
+      "end": 195.11,
+      "text": " Keshe understood the mechanism.",
+      "words": [
+        {
+          "word": " Keshe",
+          "start": 193.89,
+          "end": 194.15,
+          "probability": 0.7584522068500519
+        },
+        {
+          "word": " understood",
+          "start": 194.15,
+          "end": 194.51,
+          "probability": 0.993044912815094
+        },
+        {
+          "word": " the",
+          "start": 194.51,
+          "end": 194.71,
+          "probability": 0.9982169270515442
+        },
+        {
+          "word": " mechanism.",
+          "start": 194.71,
+          "end": 195.11,
+          "probability": 0.9943689703941345
+        }
+      ]
+    },
+    {
+      "start": 197.53,
+      "end": 204.23,
+      "text": " I had drawn a solution, and Rook could see what neither of us had noticed.",
+      "words": [
+        {
+          "word": " I",
+          "start": 197.53,
+          "end": 198.17,
+          "probability": 0.9963119626045227
+        },
+        {
+          "word": " had",
+          "start": 198.17,
+          "end": 198.27,
+          "probability": 0.983498752117157
+        },
+        {
+          "word": " drawn",
+          "start": 198.27,
+          "end": 198.49,
+          "probability": 0.9971412420272827
+        },
+        {
+          "word": " a",
+          "start": 198.49,
+          "end": 198.67,
+          "probability": 0.9924134612083435
+        },
+        {
+          "word": " solution,",
+          "start": 198.67,
+          "end": 199.07,
+          "probability": 0.9988473653793335
+        },
+        {
+          "word": " and",
+          "start": 201.29,
+          "end": 201.63,
+          "probability": 0.9701055884361267
+        },
+        {
+          "word": " Rook",
+          "start": 201.63,
+          "end": 201.85,
+          "probability": 0.8658616244792938
+        },
+        {
+          "word": " could",
+          "start": 201.85,
+          "end": 202.87,
+          "probability": 0.977307915687561
+        },
+        {
+          "word": " see",
+          "start": 202.87,
+          "end": 203.05,
+          "probability": 0.9986116886138916
+        },
+        {
+          "word": " what",
+          "start": 203.05,
+          "end": 203.19,
+          "probability": 0.9961780309677124
+        },
+        {
+          "word": " neither",
+          "start": 203.19,
+          "end": 203.33,
+          "probability": 0.9959936141967773
+        },
+        {
+          "word": " of",
+          "start": 203.33,
+          "end": 203.57,
+          "probability": 0.9956687688827515
+        },
+        {
+          "word": " us",
+          "start": 203.57,
+          "end": 203.73,
+          "probability": 0.9986857771873474
+        },
+        {
+          "word": " had",
+          "start": 203.73,
+          "end": 203.85,
+          "probability": 0.9907194972038269
+        },
+        {
+          "word": " noticed.",
+          "start": 203.85,
+          "end": 204.23,
+          "probability": 0.9979653358459473
+        }
+      ]
+    },
+    {
+      "start": 206.17,
+      "end": 210.37,
+      "text": " It was the first time we accomplished something together.",
+      "words": [
+        {
+          "word": " It",
+          "start": 206.17,
+          "end": 207.01,
+          "probability": 0.7346574664115906
+        },
+        {
+          "word": " was",
+          "start": 207.01,
+          "end": 207.85,
+          "probability": 0.990548312664032
+        },
+        {
+          "word": " the",
+          "start": 207.85,
+          "end": 208.01,
+          "probability": 0.9958999752998352
+        },
+        {
+          "word": " first",
+          "start": 208.01,
+          "end": 208.21,
+          "probability": 0.9981808662414551
+        },
+        {
+          "word": " time",
+          "start": 208.21,
+          "end": 208.57,
+          "probability": 0.9986214637756348
+        },
+        {
+          "word": " we",
+          "start": 208.57,
+          "end": 208.73,
+          "probability": 0.9895738959312439
+        },
+        {
+          "word": " accomplished",
+          "start": 208.73,
+          "end": 209.19,
+          "probability": 0.9686116576194763
+        },
+        {
+          "word": " something",
+          "start": 209.19,
+          "end": 209.59,
+          "probability": 0.9979482293128967
+        },
+        {
+          "word": " together.",
+          "start": 209.59,
+          "end": 210.37,
+          "probability": 0.9977214932441711
+        }
+      ]
+    },
+    {
+      "start": 214.53000000000003,
+      "end": 224.57,
+      "text": " We were three boys from three worlds, with different bodies, different childhoods, and",
+      "words": [
+        {
+          "word": " We",
+          "start": 214.14999999999998,
+          "end": 214.57,
+          "probability": 0.9897408485412598
+        },
+        {
+          "word": " were",
+          "start": 214.57,
+          "end": 214.71,
+          "probability": 0.9953510761260986
+        },
+        {
+          "word": " three",
+          "start": 214.71,
+          "end": 214.97,
+          "probability": 0.9420329928398132
+        },
+        {
+          "word": " boys",
+          "start": 214.97,
+          "end": 215.33,
+          "probability": 0.9931824803352356
+        },
+        {
+          "word": " from",
+          "start": 215.33,
+          "end": 215.59,
+          "probability": 0.9760703444480896
+        },
+        {
+          "word": " three",
+          "start": 215.59,
+          "end": 215.89,
+          "probability": 0.9869144558906555
+        },
+        {
+          "word": " worlds,",
+          "start": 215.89,
+          "end": 216.37,
+          "probability": 0.9970308542251587
+        },
+        {
+          "word": " with",
+          "start": 217.13,
+          "end": 218.55,
+          "probability": 0.7586113214492798
+        },
+        {
+          "word": " different",
+          "start": 218.55,
+          "end": 218.85,
+          "probability": 0.9971555471420288
+        },
+        {
+          "word": " bodies,",
+          "start": 218.85,
+          "end": 219.31,
+          "probability": 0.9990630745887756
+        },
+        {
+          "word": " different",
+          "start": 221.53,
+          "end": 222.01,
+          "probability": 0.9382665753364563
+        },
+        {
+          "word": " childhoods,",
+          "start": 222.01,
+          "end": 223.81,
+          "probability": 0.9837445020675659
+        },
+        {
+          "word": " and",
+          "start": 224.23,
+          "end": 224.57,
+          "probability": 0.9807823896408081
+        }
+      ]
+    },
+    {
+      "start": 224.57,
+      "end": 227.41,
+      "text": " different ideas about almost everything I didn't understand.",
+      "words": [
+        {
+          "word": " different",
+          "start": 224.57,
+          "end": 224.81,
+          "probability": 0.9968326687812805
+        },
+        {
+          "word": " ideas",
+          "start": 224.81,
+          "end": 225.29,
+          "probability": 0.9987885355949402
+        },
+        {
+          "word": " about",
+          "start": 225.29,
+          "end": 225.63,
+          "probability": 0.9779567718505859
+        },
+        {
+          "word": " almost",
+          "start": 225.63,
+          "end": 225.89,
+          "probability": 0.9721226692199707
+        },
+        {
+          "word": " everything",
+          "start": 225.89,
+          "end": 226.41,
+          "probability": 0.7310073971748352
+        },
+        {
+          "word": " I",
+          "start": 226.41,
+          "end": 226.73,
+          "probability": 0.9726832509040833
+        },
+        {
+          "word": " didn't",
+          "start": 226.73,
+          "end": 226.89,
+          "probability": 0.9915479719638824
+        },
+        {
+          "word": " understand.",
+          "start": 226.89,
+          "end": 227.41,
+          "probability": 0.9983956217765808
+        }
+      ]
+    },
+    {
+      "start": 227.41,
+      "end": 233.17,
+      "text": " Why we felt so familiar to one another.",
+      "words": [
+        {
+          "word": " Why",
+          "start": 227.41,
+          "end": 228.29,
+          "probability": 0.43748268485069275
+        },
+        {
+          "word": " we",
+          "start": 228.29,
+          "end": 230.55,
+          "probability": 0.9778783321380615
+        },
+        {
+          "word": " felt",
+          "start": 230.55,
+          "end": 230.77,
+          "probability": 0.9969354867935181
+        },
+        {
+          "word": " so",
+          "start": 230.77,
+          "end": 231.07,
+          "probability": 0.9966386556625366
+        },
+        {
+          "word": " familiar",
+          "start": 231.07,
+          "end": 231.43,
+          "probability": 0.9899342656135559
+        },
+        {
+          "word": " to",
+          "start": 231.43,
+          "end": 231.73,
+          "probability": 0.995552122592926
+        },
+        {
+          "word": " one",
+          "start": 231.73,
+          "end": 231.89,
+          "probability": 0.9973500967025757
+        },
+        {
+          "word": " another.",
+          "start": 231.89,
+          "end": 233.17,
+          "probability": 0.994394063949585
+        }
+      ]
+    },
+    {
+      "start": 237.55,
+      "end": 242.55,
+      "text": " Ashbridge was full of people who had nowhere else to go.",
+      "words": [
+        {
+          "word": " Ashbridge",
+          "start": 237.55,
+          "end": 238.15,
+          "probability": 0.8936134576797485
+        },
+        {
+          "word": " was",
+          "start": 238.15,
+          "end": 238.43,
+          "probability": 0.99772709608078
+        },
+        {
+          "word": " full",
+          "start": 238.43,
+          "end": 238.63,
+          "probability": 0.9985116124153137
+        },
+        {
+          "word": " of",
+          "start": 238.63,
+          "end": 238.79,
+          "probability": 0.9989460110664368
+        },
+        {
+          "word": " people",
+          "start": 238.79,
+          "end": 239.15,
+          "probability": 0.9992471933364868
+        },
+        {
+          "word": " who",
+          "start": 239.15,
+          "end": 241.03,
+          "probability": 0.49115264415740967
+        },
+        {
+          "word": " had",
+          "start": 241.03,
+          "end": 241.15,
+          "probability": 0.9965137839317322
+        },
+        {
+          "word": " nowhere",
+          "start": 241.15,
+          "end": 241.39,
+          "probability": 0.9784353971481323
+        },
+        {
+          "word": " else",
+          "start": 241.39,
+          "end": 241.69,
+          "probability": 0.9961373209953308
+        },
+        {
+          "word": " to",
+          "start": 241.69,
+          "end": 241.85,
+          "probability": 0.9986215829849243
+        },
+        {
+          "word": " go.",
+          "start": 241.85,
+          "end": 242.55,
+          "probability": 0.9997761845588684
+        }
+      ]
+    },
+    {
+      "start": 244.23,
+      "end": 246.35,
+      "text": " My mother worked in the infirmary.",
+      "words": [
+        {
+          "word": " My",
+          "start": 244.23,
+          "end": 244.77,
+          "probability": 0.9966578483581543
+        },
+        {
+          "word": " mother",
+          "start": 244.77,
+          "end": 244.91,
+          "probability": 0.9926303625106812
+        },
+        {
+          "word": " worked",
+          "start": 244.91,
+          "end": 245.21,
+          "probability": 0.9981132745742798
+        },
+        {
+          "word": " in",
+          "start": 245.21,
+          "end": 245.37,
+          "probability": 0.9959306120872498
+        },
+        {
+          "word": " the",
+          "start": 245.37,
+          "end": 245.47,
+          "probability": 0.9939706325531006
+        },
+        {
+          "word": " infirmary.",
+          "start": 245.47,
+          "end": 246.35,
+          "probability": 0.9889556964238485
+        }
+      ]
+    },
+    {
+      "start": 247.85,
+      "end": 250.09,
+      "text": " Some of the patients came from our world.",
+      "words": [
+        {
+          "word": " Some",
+          "start": 247.85,
+          "end": 248.25,
+          "probability": 0.9947394728660583
+        },
+        {
+          "word": " of",
+          "start": 248.25,
+          "end": 248.39,
+          "probability": 0.9766182899475098
+        },
+        {
+          "word": " the",
+          "start": 248.39,
+          "end": 248.49,
+          "probability": 0.6581907272338867
+        },
+        {
+          "word": " patients",
+          "start": 248.49,
+          "end": 248.81,
+          "probability": 0.8277732133865356
+        },
+        {
+          "word": " came",
+          "start": 248.81,
+          "end": 249.09,
+          "probability": 0.9978164434432983
+        },
+        {
+          "word": " from",
+          "start": 249.09,
+          "end": 249.31,
+          "probability": 0.9979792237281799
+        },
+        {
+          "word": " our",
+          "start": 249.31,
+          "end": 249.49,
+          "probability": 0.9945957064628601
+        },
+        {
+          "word": " world.",
+          "start": 249.49,
+          "end": 250.09,
+          "probability": 0.998375654220581
+        }
+      ]
+    },
+    {
+      "start": 252.10999999999999,
+      "end": 255.01,
+      "text": " Others came from places we hadn't even known existed.",
+      "words": [
+        {
+          "word": " Others",
+          "start": 252.10999999999999,
+          "end": 252.67,
+          "probability": 0.9002454876899719
+        },
+        {
+          "word": " came",
+          "start": 252.67,
+          "end": 252.97,
+          "probability": 0.9968963861465454
+        },
+        {
+          "word": " from",
+          "start": 252.97,
+          "end": 253.21,
+          "probability": 0.9977788329124451
+        },
+        {
+          "word": " places",
+          "start": 253.21,
+          "end": 253.51,
+          "probability": 0.9936459064483643
+        },
+        {
+          "word": " we",
+          "start": 253.51,
+          "end": 253.77,
+          "probability": 0.980575680732727
+        },
+        {
+          "word": " hadn't",
+          "start": 253.77,
+          "end": 254.01,
+          "probability": 0.9948181509971619
+        },
+        {
+          "word": " even",
+          "start": 254.01,
+          "end": 254.27,
+          "probability": 0.9894200563430786
+        },
+        {
+          "word": " known",
+          "start": 254.27,
+          "end": 254.49,
+          "probability": 0.970820426940918
+        },
+        {
+          "word": " existed.",
+          "start": 254.49,
+          "end": 255.01,
+          "probability": 0.9983865022659302
+        }
+      ]
+    },
+    {
+      "start": 258.11,
+      "end": 261.11,
+      "text": " We found it in a room where they kept things brought through the crossings.",
+      "words": [
+        {
+          "word": " We",
+          "start": 258.11,
+          "end": 258.67,
+          "probability": 0.9950518012046814
+        },
+        {
+          "word": " found",
+          "start": 258.67,
+          "end": 258.91,
+          "probability": 0.9971702694892883
+        },
+        {
+          "word": " it",
+          "start": 258.91,
+          "end": 259.05,
+          "probability": 0.9954661130905151
+        },
+        {
+          "word": " in",
+          "start": 259.05,
+          "end": 259.15,
+          "probability": 0.9948288798332214
+        },
+        {
+          "word": " a",
+          "start": 259.15,
+          "end": 259.25,
+          "probability": 0.991118848323822
+        },
+        {
+          "word": " room",
+          "start": 259.25,
+          "end": 259.43,
+          "probability": 0.9990671277046204
+        },
+        {
+          "word": " where",
+          "start": 259.43,
+          "end": 259.61,
+          "probability": 0.9715623259544373
+        },
+        {
+          "word": " they",
+          "start": 259.61,
+          "end": 259.73,
+          "probability": 0.9862050414085388
+        },
+        {
+          "word": " kept",
+          "start": 259.73,
+          "end": 259.89,
+          "probability": 0.9896807074546814
+        },
+        {
+          "word": " things",
+          "start": 259.89,
+          "end": 260.25,
+          "probability": 0.9954196214675903
+        },
+        {
+          "word": " brought",
+          "start": 260.25,
+          "end": 260.45,
+          "probability": 0.9907870888710022
+        },
+        {
+          "word": " through",
+          "start": 260.45,
+          "end": 260.65,
+          "probability": 0.9851962327957153
+        },
+        {
+          "word": " the",
+          "start": 260.65,
+          "end": 260.81,
+          "probability": 0.9970901012420654
+        },
+        {
+          "word": " crossings.",
+          "start": 260.81,
+          "end": 261.11,
+          "probability": 0.6552907228469849
+        }
+      ]
+    },
+    {
+      "start": 264.07,
+      "end": 268.63,
+      "text": " It was small, dark, and covered in tiny moving threads.",
+      "words": [
+        {
+          "word": " It",
+          "start": 264.07,
+          "end": 264.63,
+          "probability": 0.9930903315544128
+        },
+        {
+          "word": " was",
+          "start": 264.63,
+          "end": 264.71,
+          "probability": 0.9992727637290955
+        },
+        {
+          "word": " small,",
+          "start": 264.71,
+          "end": 265.17,
+          "probability": 0.9979210495948792
+        },
+        {
+          "word": " dark,",
+          "start": 265.51,
+          "end": 266.05,
+          "probability": 0.9978082776069641
+        },
+        {
+          "word": " and",
+          "start": 266.61,
+          "end": 267.01,
+          "probability": 0.9851081967353821
+        },
+        {
+          "word": " covered",
+          "start": 267.01,
+          "end": 267.29,
+          "probability": 0.9974586367607117
+        },
+        {
+          "word": " in",
+          "start": 267.29,
+          "end": 267.49,
+          "probability": 0.9967150688171387
+        },
+        {
+          "word": " tiny",
+          "start": 267.49,
+          "end": 267.79,
+          "probability": 0.9943181872367859
+        },
+        {
+          "word": " moving",
+          "start": 267.79,
+          "end": 268.07,
+          "probability": 0.7414839267730713
+        },
+        {
+          "word": " threads.",
+          "start": 268.07,
+          "end": 268.63,
+          "probability": 0.9969518184661865
+        }
+      ]
+    },
+    {
+      "start": 272.23,
+      "end": 274.63,
+      "text": " Someone had sealed it inside a glass chamber.",
+      "words": [
+        {
+          "word": " Someone",
+          "start": 272.23,
+          "end": 272.79,
+          "probability": 0.9925082325935364
+        },
+        {
+          "word": " had",
+          "start": 272.79,
+          "end": 272.95,
+          "probability": 0.9949158430099487
+        },
+        {
+          "word": " sealed",
+          "start": 272.95,
+          "end": 273.21,
+          "probability": 0.999541163444519
+        },
+        {
+          "word": " it",
+          "start": 273.21,
+          "end": 273.39,
+          "probability": 0.9974013566970825
+        },
+        {
+          "word": " inside",
+          "start": 273.39,
+          "end": 273.69,
+          "probability": 0.9900285601615906
+        },
+        {
+          "word": " a",
+          "start": 273.69,
+          "end": 273.89,
+          "probability": 0.9943143725395203
+        },
+        {
+          "word": " glass",
+          "start": 273.89,
+          "end": 274.09,
+          "probability": 0.9993305206298828
+        },
+        {
+          "word": " chamber.",
+          "start": 274.09,
+          "end": 274.63,
+          "probability": 0.9988138675689697
+        }
+      ]
+    },
+    {
+      "start": 277.19,
+      "end": 278.63,
+      "text": " Nobody seemed to know what it was.",
+      "words": [
+        {
+          "word": " Nobody",
+          "start": 277.19,
+          "end": 277.63,
+          "probability": 0.8426771759986877
+        },
+        {
+          "word": " seemed",
+          "start": 277.63,
+          "end": 278.03,
+          "probability": 0.9802228808403015
+        },
+        {
+          "word": " to",
+          "start": 278.03,
+          "end": 278.21,
+          "probability": 0.9982174038887024
+        },
+        {
+          "word": " know",
+          "start": 278.21,
+          "end": 278.33,
+          "probability": 0.998448371887207
+        },
+        {
+          "word": " what",
+          "start": 278.33,
+          "end": 278.47,
+          "probability": 0.9516893625259399
+        },
+        {
+          "word": " it",
+          "start": 278.47,
+          "end": 278.55,
+          "probability": 0.990307092666626
+        },
+        {
+          "word": " was.",
+          "start": 278.55,
+          "end": 278.77000000000004,
+          "probability": 0.999420166015625
+        }
+      ]
+    },
+    {
+      "start": 282.91,
+      "end": 287.73,
+      "text": " At first, we thought it simply moved toward our hands.",
+      "words": [
+        {
+          "word": " At",
+          "start": 282.91,
+          "end": 283.33,
+          "probability": 0.9848626255989075
+        },
+        {
+          "word": " first,",
+          "start": 283.33,
+          "end": 283.69,
+          "probability": 0.9980776309967041
+        },
+        {
+          "word": " we",
+          "start": 284.45,
+          "end": 286.05,
+          "probability": 0.9302024245262146
+        },
+        {
+          "word": " thought",
+          "start": 286.05,
+          "end": 286.23,
+          "probability": 0.948785662651062
+        },
+        {
+          "word": " it",
+          "start": 286.23,
+          "end": 286.35,
+          "probability": 0.9846832156181335
+        },
+        {
+          "word": " simply",
+          "start": 286.35,
+          "end": 286.63,
+          "probability": 0.8011337518692017
+        },
+        {
+          "word": " moved",
+          "start": 286.63,
+          "end": 286.89,
+          "probability": 0.9776712656021118
+        },
+        {
+          "word": " toward",
+          "start": 286.89,
+          "end": 287.13,
+          "probability": 0.921531081199646
+        },
+        {
+          "word": " our",
+          "start": 287.13,
+          "end": 287.33,
+          "probability": 0.998325765132904
+        },
+        {
+          "word": " hands.",
+          "start": 287.33,
+          "end": 287.73,
+          "probability": 0.9969964027404785
+        }
+      ]
+    },
+    {
+      "start": 289.59,
+      "end": 291.45,
+      "text": " Then I drew a little mark on the glass.",
+      "words": [
+        {
+          "word": " Then",
+          "start": 289.59,
+          "end": 289.97,
+          "probability": 0.9742844700813293
+        },
+        {
+          "word": " I",
+          "start": 289.97,
+          "end": 290.09,
+          "probability": 0.9390348792076111
+        },
+        {
+          "word": " drew",
+          "start": 290.09,
+          "end": 290.27,
+          "probability": 0.9988825917243958
+        },
+        {
+          "word": " a",
+          "start": 290.27,
+          "end": 290.41,
+          "probability": 0.9973118305206299
+        },
+        {
+          "word": " little",
+          "start": 290.41,
+          "end": 290.57,
+          "probability": 0.9969918727874756
+        },
+        {
+          "word": " mark",
+          "start": 290.57,
+          "end": 290.83,
+          "probability": 0.9975346326828003
+        },
+        {
+          "word": " on",
+          "start": 290.83,
+          "end": 290.99,
+          "probability": 0.9950476884841919
+        },
+        {
+          "word": " the",
+          "start": 290.99,
+          "end": 291.11,
+          "probability": 0.9968612194061279
+        },
+        {
+          "word": " glass.",
+          "start": 291.11,
+          "end": 291.45,
+          "probability": 0.9994654059410095
+        }
+      ]
+    },
+    {
+      "start": 293.61,
+      "end": 294.69,
+      "text": " It copied me.",
+      "words": [
+        {
+          "word": " It",
+          "start": 293.61,
+          "end": 293.97,
+          "probability": 0.9414339065551758
+        },
+        {
+          "word": " copied",
+          "start": 293.97,
+          "end": 294.21,
+          "probability": 0.9958335161209106
+        },
+        {
+          "word": " me.",
+          "start": 294.21,
+          "end": 294.69,
+          "probability": 0.9991651773452759
+        }
+      ]
+    },
+    {
+      "start": 296.65,
+      "end": 298.63,
+      "text": " When we returned the next day, it remembered.",
+      "words": [
+        {
+          "word": " When",
+          "start": 296.65,
+          "end": 297.09,
+          "probability": 0.992771565914154
+        },
+        {
+          "word": " we",
+          "start": 297.09,
+          "end": 297.23,
+          "probability": 0.997711181640625
+        },
+        {
+          "word": " returned",
+          "start": 297.23,
+          "end": 297.51,
+          "probability": 0.9681393504142761
+        },
+        {
+          "word": " the",
+          "start": 297.51,
+          "end": 297.71,
+          "probability": 0.7877312898635864
+        },
+        {
+          "word": " next",
+          "start": 297.71,
+          "end": 297.91,
+          "probability": 0.9993458390235901
+        },
+        {
+          "word": " day,",
+          "start": 297.91,
+          "end": 298.17,
+          "probability": 0.9990488886833191
+        },
+        {
+          "word": " it",
+          "start": 298.23,
+          "end": 298.29,
+          "probability": 0.9677041172981262
+        },
+        {
+          "word": " remembered.",
+          "start": 298.29,
+          "end": 298.63,
+          "probability": 0.9972431659698486
+        }
+      ]
+    },
+    {
+      "start": 301.73,
+      "end": 304.49,
+      "text": " That was when I began to think it was trying to speak to us.",
+      "words": [
+        {
+          "word": " That",
+          "start": 301.73,
+          "end": 302.17,
+          "probability": 0.9944063425064087
+        },
+        {
+          "word": " was",
+          "start": 302.17,
+          "end": 302.27,
+          "probability": 0.9864528775215149
+        },
+        {
+          "word": " when",
+          "start": 302.27,
+          "end": 302.43,
+          "probability": 0.9939159750938416
+        },
+        {
+          "word": " I",
+          "start": 302.43,
+          "end": 302.53,
+          "probability": 0.9955283999443054
+        },
+        {
+          "word": " began",
+          "start": 302.53,
+          "end": 302.75,
+          "probability": 0.9881393909454346
+        },
+        {
+          "word": " to",
+          "start": 302.75,
+          "end": 302.93,
+          "probability": 0.9960928559303284
+        },
+        {
+          "word": " think",
+          "start": 302.93,
+          "end": 303.15,
+          "probability": 0.9995569586753845
+        },
+        {
+          "word": " it",
+          "start": 303.15,
+          "end": 303.29,
+          "probability": 0.902798056602478
+        },
+        {
+          "word": " was",
+          "start": 303.29,
+          "end": 303.39,
+          "probability": 0.9978545308113098
+        },
+        {
+          "word": " trying",
+          "start": 303.39,
+          "end": 303.65,
+          "probability": 0.9950856566429138
+        },
+        {
+          "word": " to",
+          "start": 303.65,
+          "end": 303.81,
+          "probability": 0.9983878135681152
+        },
+        {
+          "word": " speak",
+          "start": 303.81,
+          "end": 304.03,
+          "probability": 0.9988646507263184
+        },
+        {
+          "word": " to",
+          "start": 304.03,
+          "end": 304.25,
+          "probability": 0.9991083741188049
+        },
+        {
+          "word": " us.",
+          "start": 304.25,
+          "end": 304.49,
+          "probability": 0.9995129108428955
+        }
+      ]
+    },
+    {
+      "start": 308.29,
+      "end": 310.59,
+      "text": " My mother warned us not to open the chamber.",
+      "words": [
+        {
+          "word": " My",
+          "start": 308.29,
+          "end": 308.85,
+          "probability": 0.9459806084632874
+        },
+        {
+          "word": " mother",
+          "start": 308.85,
+          "end": 309.03,
+          "probability": 0.984669029712677
+        },
+        {
+          "word": " warned",
+          "start": 309.03,
+          "end": 309.37,
+          "probability": 0.9997153878211975
+        },
+        {
+          "word": " us",
+          "start": 309.37,
+          "end": 309.57,
+          "probability": 0.9970107078552246
+        },
+        {
+          "word": " not",
+          "start": 309.57,
+          "end": 309.75,
+          "probability": 0.9847069382667542
+        },
+        {
+          "word": " to",
+          "start": 309.75,
+          "end": 309.91,
+          "probability": 0.9968425035476685
+        },
+        {
+          "word": " open",
+          "start": 309.91,
+          "end": 310.11,
+          "probability": 0.9990047812461853
+        },
+        {
+          "word": " the",
+          "start": 310.11,
+          "end": 310.29,
+          "probability": 0.9926120638847351
+        },
+        {
+          "word": " chamber.",
+          "start": 310.29,
+          "end": 310.59,
+          "probability": 0.9745225310325623
+        }
+      ]
+    },
+    {
+      "start": 313.19,
+      "end": 318.89,
+      "text": " The organism wasn't from our world, and nobody knew what it might do.",
+      "words": [
+        {
+          "word": " The",
+          "start": 312.95000000000005,
+          "end": 313.23,
+          "probability": 0.9856017231941223
+        },
+        {
+          "word": " organism",
+          "start": 313.23,
+          "end": 313.63,
+          "probability": 0.9639120101928711
+        },
+        {
+          "word": " wasn't",
+          "start": 313.63,
+          "end": 313.97,
+          "probability": 0.9953407347202301
+        },
+        {
+          "word": " from",
+          "start": 313.97,
+          "end": 314.19,
+          "probability": 0.895828127861023
+        },
+        {
+          "word": " our",
+          "start": 314.19,
+          "end": 314.37,
+          "probability": 0.9954721927642822
+        },
+        {
+          "word": " world,",
+          "start": 314.37,
+          "end": 314.83,
+          "probability": 0.9978874325752258
+        },
+        {
+          "word": " and",
+          "start": 315.23,
+          "end": 317.07,
+          "probability": 0.9376189708709717
+        },
+        {
+          "word": " nobody",
+          "start": 317.07,
+          "end": 317.29,
+          "probability": 0.9963141083717346
+        },
+        {
+          "word": " knew",
+          "start": 317.29,
+          "end": 317.57,
+          "probability": 0.9932668209075928
+        },
+        {
+          "word": " what",
+          "start": 317.57,
+          "end": 317.73,
+          "probability": 0.9987468719482422
+        },
+        {
+          "word": " it",
+          "start": 317.73,
+          "end": 317.85,
+          "probability": 0.9981467723846436
+        },
+        {
+          "word": " might",
+          "start": 317.85,
+          "end": 318.01,
+          "probability": 0.9984026551246643
+        },
+        {
+          "word": " do.",
+          "start": 318.01,
+          "end": 318.89,
+          "probability": 0.9982074499130249
+        }
+      ]
+    },
+    {
+      "start": 322.15,
+      "end": 323.93,
+      "text": " Then the fighting reached Ashbridge.",
+      "words": [
+        {
+          "word": " Then",
+          "start": 322.15,
+          "end": 322.71,
+          "probability": 0.9827437400817871
+        },
+        {
+          "word": " the",
+          "start": 322.71,
+          "end": 322.83,
+          "probability": 0.9668347239494324
+        },
+        {
+          "word": " fighting",
+          "start": 322.83,
+          "end": 323.07,
+          "probability": 0.9934712648391724
+        },
+        {
+          "word": " reached",
+          "start": 323.07,
+          "end": 323.41,
+          "probability": 0.9960989952087402
+        },
+        {
+          "word": " Ashbridge.",
+          "start": 323.41,
+          "end": 323.93,
+          "probability": 0.9280339479446411
+        }
+      ]
+    },
+    {
+      "start": 325.69,
+      "end": 331.17,
+      "text": " We were ordered to leave, and there wasn't enough time to take everything.",
+      "words": [
+        {
+          "word": " We",
+          "start": 325.69,
+          "end": 326.25,
+          "probability": 0.9807317852973938
+        },
+        {
+          "word": " were",
+          "start": 326.25,
+          "end": 326.35,
+          "probability": 0.9984766840934753
+        },
+        {
+          "word": " ordered",
+          "start": 326.35,
+          "end": 326.55,
+          "probability": 0.9953262805938721
+        },
+        {
+          "word": " to",
+          "start": 326.55,
+          "end": 326.75,
+          "probability": 0.9992566704750061
+        },
+        {
+          "word": " leave,",
+          "start": 326.75,
+          "end": 327.07,
+          "probability": 0.9993770718574524
+        },
+        {
+          "word": " and",
+          "start": 327.89,
+          "end": 329.45,
+          "probability": 0.9736557602882385
+        },
+        {
+          "word": " there",
+          "start": 329.45,
+          "end": 329.55,
+          "probability": 0.9948800802230835
+        },
+        {
+          "word": " wasn't",
+          "start": 329.55,
+          "end": 329.81,
+          "probability": 0.9962922632694244
+        },
+        {
+          "word": " enough",
+          "start": 329.81,
+          "end": 330.05,
+          "probability": 0.9983720183372498
+        },
+        {
+          "word": " time",
+          "start": 330.05,
+          "end": 330.33,
+          "probability": 0.9978985786437988
+        },
+        {
+          "word": " to",
+          "start": 330.33,
+          "end": 330.53,
+          "probability": 0.9986007809638977
+        },
+        {
+          "word": " take",
+          "start": 330.53,
+          "end": 330.73,
+          "probability": 0.9991508722305298
+        },
+        {
+          "word": " everything.",
+          "start": 330.73,
+          "end": 331.17,
+          "probability": 0.9986931681632996
+        }
+      ]
+    },
+    {
+      "start": 336.73,
+      "end": 345.97,
+      "text": " I remember Keshe watching the doorway, I remember Rook breaking the glass, and I remember the",
+      "words": [
+        {
+          "word": " I",
+          "start": 336.73,
+          "end": 337.29,
+          "probability": 0.7060152888298035
+        },
+        {
+          "word": " remember",
+          "start": 337.29,
+          "end": 337.59,
+          "probability": 0.9162466526031494
+        },
+        {
+          "word": " Keshe",
+          "start": 337.59,
+          "end": 338.03,
+          "probability": 0.6718861013650894
+        },
+        {
+          "word": " watching",
+          "start": 338.03,
+          "end": 338.33,
+          "probability": 0.96028733253479
+        },
+        {
+          "word": " the",
+          "start": 338.33,
+          "end": 338.53,
+          "probability": 0.9882379174232483
+        },
+        {
+          "word": " doorway,",
+          "start": 338.53,
+          "end": 338.87,
+          "probability": 0.94782555103302
+        },
+        {
+          "word": " I",
+          "start": 341.47,
+          "end": 341.47,
+          "probability": 0.980143129825592
+        },
+        {
+          "word": " remember",
+          "start": 341.47,
+          "end": 341.79,
+          "probability": 0.9959558844566345
+        },
+        {
+          "word": " Rook",
+          "start": 341.79,
+          "end": 342.03,
+          "probability": 0.8686623275279999
+        },
+        {
+          "word": " breaking",
+          "start": 342.03,
+          "end": 342.33,
+          "probability": 0.989794135093689
+        },
+        {
+          "word": " the",
+          "start": 342.33,
+          "end": 342.53,
+          "probability": 0.9962676167488098
+        },
+        {
+          "word": " glass,",
+          "start": 342.53,
+          "end": 342.89,
+          "probability": 0.998877227306366
+        },
+        {
+          "word": " and",
+          "start": 344.61,
+          "end": 345.45,
+          "probability": 0.7522099018096924
+        },
+        {
+          "word": " I",
+          "start": 345.45,
+          "end": 345.55,
+          "probability": 0.9933526515960693
+        },
+        {
+          "word": " remember",
+          "start": 345.55,
+          "end": 345.83,
+          "probability": 0.9948965907096863
+        },
+        {
+          "word": " the",
+          "start": 345.83,
+          "end": 345.97,
+          "probability": 0.25793781876564026
+        }
+      ]
+    },
+    {
+      "start": 345.97,
+      "end": 354.61,
+      "text": " creature crawling into my hands, at the time, I thought we'd save the life, I remember the",
+      "words": [
+        {
+          "word": " creature",
+          "start": 345.97,
+          "end": 346.21,
+          "probability": 0.9857613444328308
+        },
+        {
+          "word": " crawling",
+          "start": 346.21,
+          "end": 346.57,
+          "probability": 0.9977613687515259
+        },
+        {
+          "word": " into",
+          "start": 346.57,
+          "end": 346.85,
+          "probability": 0.9898471236228943
+        },
+        {
+          "word": " my",
+          "start": 346.85,
+          "end": 347.07,
+          "probability": 0.995707631111145
+        },
+        {
+          "word": " hands,",
+          "start": 347.07,
+          "end": 347.69,
+          "probability": 0.9928962588310242
+        },
+        {
+          "word": " at",
+          "start": 348.27,
+          "end": 349.89,
+          "probability": 0.9548675417900085
+        },
+        {
+          "word": " the",
+          "start": 349.89,
+          "end": 350.03,
+          "probability": 0.9831740260124207
+        },
+        {
+          "word": " time,",
+          "start": 350.03,
+          "end": 350.27,
+          "probability": 0.9989271759986877
+        },
+        {
+          "word": " I",
+          "start": 351.73,
+          "end": 353.01,
+          "probability": 0.9789519309997559
+        },
+        {
+          "word": " thought",
+          "start": 353.01,
+          "end": 353.19,
+          "probability": 0.8740174770355225
+        },
+        {
+          "word": " we'd",
+          "start": 353.19,
+          "end": 353.41,
+          "probability": 0.9680943191051483
+        },
+        {
+          "word": " save",
+          "start": 353.41,
+          "end": 353.61,
+          "probability": 0.6415159106254578
+        },
+        {
+          "word": " the",
+          "start": 353.61,
+          "end": 353.81,
+          "probability": 0.9890106320381165
+        },
+        {
+          "word": " life,",
+          "start": 353.81,
+          "end": 354.03,
+          "probability": 0.996800422668457
+        },
+        {
+          "word": " I",
+          "start": 354.21,
+          "end": 354.23,
+          "probability": 0.9796459078788757
+        },
+        {
+          "word": " remember",
+          "start": 354.23,
+          "end": 354.43,
+          "probability": 0.9943411350250244
+        },
+        {
+          "word": " the",
+          "start": 354.43,
+          "end": 354.71,
+          "probability": 0.9953321814537048
+        }
+      ]
+    },
+    {
+      "start": 354.71,
+      "end": 361.39,
+      "text": " sound of that glass more clearly than almost anything else.",
+      "words": [
+        {
+          "word": " sound",
+          "start": 354.71,
+          "end": 355.03,
+          "probability": 0.10737349838018417
+        },
+        {
+          "word": " of",
+          "start": 355.03,
+          "end": 355.23,
+          "probability": 0.9912664294242859
+        },
+        {
+          "word": " that",
+          "start": 355.23,
+          "end": 355.43,
+          "probability": 0.9745666980743408
+        },
+        {
+          "word": " glass",
+          "start": 355.43,
+          "end": 355.77,
+          "probability": 0.9890994429588318
+        },
+        {
+          "word": " more",
+          "start": 355.77,
+          "end": 356.07,
+          "probability": 0.9826349020004272
+        },
+        {
+          "word": " clearly",
+          "start": 356.07,
+          "end": 356.51,
+          "probability": 0.9875622987747192
+        },
+        {
+          "word": " than",
+          "start": 356.51,
+          "end": 359.91,
+          "probability": 0.7438534498214722
+        },
+        {
+          "word": " almost",
+          "start": 359.91,
+          "end": 360.21,
+          "probability": 0.9967902302742004
+        },
+        {
+          "word": " anything",
+          "start": 360.21,
+          "end": 360.53,
+          "probability": 0.9976153373718262
+        },
+        {
+          "word": " else.",
+          "start": 360.53,
+          "end": 361.39,
+          "probability": 0.9938440322875977
+        }
+      ]
+    },
+    {
+      "start": 364.71,
+      "end": 371.89,
+      "text": " The war followed us, wherever we went, soldiers fought over roads, bridges, and the passages",
+      "words": [
+        {
+          "word": " The",
+          "start": 364.43,
+          "end": 364.75,
+          "probability": 0.9750062823295593
+        },
+        {
+          "word": " war",
+          "start": 364.75,
+          "end": 364.95,
+          "probability": 0.9866411089897156
+        },
+        {
+          "word": " followed",
+          "start": 364.95,
+          "end": 365.33,
+          "probability": 0.9719840288162231
+        },
+        {
+          "word": " us,",
+          "start": 365.33,
+          "end": 366.53,
+          "probability": 0.9973700046539307
+        },
+        {
+          "word": " wherever",
+          "start": 366.95,
+          "end": 367.43,
+          "probability": 0.9592168927192688
+        },
+        {
+          "word": " we",
+          "start": 367.43,
+          "end": 367.65,
+          "probability": 0.9924815893173218
+        },
+        {
+          "word": " went,",
+          "start": 367.65,
+          "end": 367.85,
+          "probability": 0.9968081116676331
+        },
+        {
+          "word": " soldiers",
+          "start": 367.93,
+          "end": 368.21,
+          "probability": 0.9889996647834778
+        },
+        {
+          "word": " fought",
+          "start": 368.21,
+          "end": 368.53,
+          "probability": 0.9975080490112305
+        },
+        {
+          "word": " over",
+          "start": 368.53,
+          "end": 368.81,
+          "probability": 0.9942830204963684
+        },
+        {
+          "word": " roads,",
+          "start": 368.81,
+          "end": 369.13,
+          "probability": 0.9881181120872498
+        },
+        {
+          "word": " bridges,",
+          "start": 369.31,
+          "end": 369.61,
+          "probability": 0.9967980980873108
+        },
+        {
+          "word": " and",
+          "start": 371.25,
+          "end": 371.39,
+          "probability": 0.9841378331184387
+        },
+        {
+          "word": " the",
+          "start": 371.39,
+          "end": 371.51,
+          "probability": 0.9944599866867065
+        },
+        {
+          "word": " passages",
+          "start": 371.51,
+          "end": 371.89,
+          "probability": 0.8497838973999023
+        }
+      ]
+    },
+    {
+      "start": 371.89,
+      "end": 372.65,
+      "text": " between worlds.",
+      "words": [
+        {
+          "word": " between",
+          "start": 371.89,
+          "end": 372.29,
+          "probability": 0.9987099170684814
+        },
+        {
+          "word": " worlds.",
+          "start": 372.29,
+          "end": 372.65,
+          "probability": 0.5677832961082458
+        }
+      ]
+    },
+    {
+      "start": 375.87,
+      "end": 383.23,
+      "text": " We tried to stay ahead of them, and beneath my coat, I carried something nobody knew about.",
+      "words": [
+        {
+          "word": " We",
+          "start": 375.57,
+          "end": 375.89,
+          "probability": 0.9917499423027039
+        },
+        {
+          "word": " tried",
+          "start": 375.89,
+          "end": 376.11,
+          "probability": 0.8743876218795776
+        },
+        {
+          "word": " to",
+          "start": 376.11,
+          "end": 376.25,
+          "probability": 0.9976154565811157
+        },
+        {
+          "word": " stay",
+          "start": 376.25,
+          "end": 376.47,
+          "probability": 0.9985843896865845
+        },
+        {
+          "word": " ahead",
+          "start": 376.47,
+          "end": 376.71,
+          "probability": 0.9950528740882874
+        },
+        {
+          "word": " of",
+          "start": 376.71,
+          "end": 376.83,
+          "probability": 0.9811124801635742
+        },
+        {
+          "word": " them,",
+          "start": 376.83,
+          "end": 377.77,
+          "probability": 0.8943910598754883
+        },
+        {
+          "word": " and",
+          "start": 378.47,
+          "end": 379.03,
+          "probability": 0.9791539907455444
+        },
+        {
+          "word": " beneath",
+          "start": 379.03,
+          "end": 379.23,
+          "probability": 0.9975417852401733
+        },
+        {
+          "word": " my",
+          "start": 379.23,
+          "end": 379.49,
+          "probability": 0.9976832866668701
+        },
+        {
+          "word": " coat,",
+          "start": 379.49,
+          "end": 379.75,
+          "probability": 0.4199312925338745
+        },
+        {
+          "word": " I",
+          "start": 380.89,
+          "end": 381.77,
+          "probability": 0.9909290671348572
+        },
+        {
+          "word": " carried",
+          "start": 381.77,
+          "end": 381.99,
+          "probability": 0.9985836744308472
+        },
+        {
+          "word": " something",
+          "start": 381.99,
+          "end": 382.35,
+          "probability": 0.9972796440124512
+        },
+        {
+          "word": " nobody",
+          "start": 382.35,
+          "end": 382.67,
+          "probability": 0.9871795773506165
+        },
+        {
+          "word": " knew",
+          "start": 382.67,
+          "end": 383.03,
+          "probability": 0.9682552218437195
+        },
+        {
+          "word": " about.",
+          "start": 383.03,
+          "end": 383.23,
+          "probability": 0.8764469027519226
+        }
+      ]
+    },
+    {
+      "start": 387.79,
+      "end": 394.53,
+      "text": " We needed a name for it I chose, Thred, because the little strands that moved across its body.",
+      "words": [
+        {
+          "word": " We",
+          "start": 387.79,
+          "end": 388.23,
+          "probability": 0.896912693977356
+        },
+        {
+          "word": " needed",
+          "start": 388.23,
+          "end": 388.43,
+          "probability": 0.9946271777153015
+        },
+        {
+          "word": " a",
+          "start": 388.43,
+          "end": 388.59,
+          "probability": 0.9934520721435547
+        },
+        {
+          "word": " name",
+          "start": 388.59,
+          "end": 388.75,
+          "probability": 0.9983583092689514
+        },
+        {
+          "word": " for",
+          "start": 388.75,
+          "end": 389.01,
+          "probability": 0.9973641037940979
+        },
+        {
+          "word": " it",
+          "start": 389.01,
+          "end": 389.11,
+          "probability": 0.9965642094612122
+        },
+        {
+          "word": " I",
+          "start": 389.11,
+          "end": 389.23,
+          "probability": 0.43310704827308655
+        },
+        {
+          "word": " chose,",
+          "start": 389.23,
+          "end": 389.51,
+          "probability": 0.9792268872261047
+        },
+        {
+          "word": " Thred,",
+          "start": 389.79,
+          "end": 389.89,
+          "probability": 0.5959656834602356
+        },
+        {
+          "word": " because",
+          "start": 390.49,
+          "end": 392.35,
+          "probability": 0.861253023147583
+        },
+        {
+          "word": " the",
+          "start": 392.35,
+          "end": 392.51,
+          "probability": 0.6329686045646667
+        },
+        {
+          "word": " little",
+          "start": 392.51,
+          "end": 392.71,
+          "probability": 0.9929777979850769
+        },
+        {
+          "word": " strands",
+          "start": 392.71,
+          "end": 393.15,
+          "probability": 0.9932360053062439
+        },
+        {
+          "word": " that",
+          "start": 393.15,
+          "end": 393.43,
+          "probability": 0.9909533262252808
+        },
+        {
+          "word": " moved",
+          "start": 393.43,
+          "end": 393.63,
+          "probability": 0.9468048810958862
+        },
+        {
+          "word": " across",
+          "start": 393.63,
+          "end": 393.99,
+          "probability": 0.9941033720970154
+        },
+        {
+          "word": " its",
+          "start": 393.99,
+          "end": 394.21,
+          "probability": 0.9488304257392883
+        },
+        {
+          "word": " body.",
+          "start": 394.21,
+          "end": 394.53,
+          "probability": 0.9934840798377991
+        }
+      ]
+    },
+    {
+      "start": 397.07,
+      "end": 406.83000000000004,
+      "text": " Keshe thought I could have been more imagined, but whenever I called it by that name, it",
+      "words": [
+        {
+          "word": " Keshe",
+          "start": 397.07,
+          "end": 397.19,
+          "probability": 0.8156195878982544
+        },
+        {
+          "word": " thought",
+          "start": 397.19,
+          "end": 397.33,
+          "probability": 0.9924546480178833
+        },
+        {
+          "word": " I",
+          "start": 397.33,
+          "end": 397.45,
+          "probability": 0.9807894825935364
+        },
+        {
+          "word": " could",
+          "start": 397.45,
+          "end": 397.57,
+          "probability": 0.9975334405899048
+        },
+        {
+          "word": " have",
+          "start": 397.57,
+          "end": 397.63,
+          "probability": 0.741662859916687
+        },
+        {
+          "word": " been",
+          "start": 397.63,
+          "end": 397.75,
+          "probability": 0.9944493770599365
+        },
+        {
+          "word": " more",
+          "start": 397.75,
+          "end": 398.01,
+          "probability": 0.998927652835846
+        },
+        {
+          "word": " imagined,",
+          "start": 398.01,
+          "end": 398.41,
+          "probability": 0.6959508061408997
+        },
+        {
+          "word": " but",
+          "start": 399.95,
+          "end": 402.43,
+          "probability": 0.9456002712249756
+        },
+        {
+          "word": " whenever",
+          "start": 402.43,
+          "end": 402.65,
+          "probability": 0.987721860408783
+        },
+        {
+          "word": " I",
+          "start": 402.65,
+          "end": 402.87,
+          "probability": 0.9959932565689087
+        },
+        {
+          "word": " called",
+          "start": 402.87,
+          "end": 403.09,
+          "probability": 0.9975208640098572
+        },
+        {
+          "word": " it",
+          "start": 403.09,
+          "end": 403.25,
+          "probability": 0.9947356581687927
+        },
+        {
+          "word": " by",
+          "start": 403.25,
+          "end": 403.37,
+          "probability": 0.9886725544929504
+        },
+        {
+          "word": " that",
+          "start": 403.37,
+          "end": 403.53,
+          "probability": 0.9934089183807373
+        },
+        {
+          "word": " name,",
+          "start": 403.53,
+          "end": 403.97,
+          "probability": 0.9981285929679871
+        },
+        {
+          "word": " it",
+          "start": 405.85,
+          "end": 406.83000000000004,
+          "probability": 0.972201406955719
+        }
+      ]
+    },
+    {
+      "start": 406.83,
+      "end": 415.97,
+      "text": " came toward me. Near the machine factories, thread would sit for hours watching the mechanisms",
+      "words": [
+        {
+          "word": " came",
+          "start": 406.83,
+          "end": 407.03,
+          "probability": 0.024042969569563866
+        },
+        {
+          "word": " toward",
+          "start": 407.03,
+          "end": 407.29,
+          "probability": 0.7946330904960632
+        },
+        {
+          "word": " me.",
+          "start": 407.29,
+          "end": 408.35,
+          "probability": 0.9923410415649414
+        },
+        {
+          "word": " Near",
+          "start": 410.75,
+          "end": 410.95,
+          "probability": 0.9659238457679749
+        },
+        {
+          "word": " the",
+          "start": 410.95,
+          "end": 411.11,
+          "probability": 0.9947277903556824
+        },
+        {
+          "word": " machine",
+          "start": 411.11,
+          "end": 411.35,
+          "probability": 0.8785911202430725
+        },
+        {
+          "word": " factories,",
+          "start": 411.35,
+          "end": 411.89,
+          "probability": 0.9676761031150818
+        },
+        {
+          "word": " thread",
+          "start": 414.11,
+          "end": 414.13,
+          "probability": 0.8257637619972229
+        },
+        {
+          "word": " would",
+          "start": 414.13,
+          "end": 414.35,
+          "probability": 0.9946385025978088
+        },
+        {
+          "word": " sit",
+          "start": 414.35,
+          "end": 414.51,
+          "probability": 0.9917130470275879
+        },
+        {
+          "word": " for",
+          "start": 414.51,
+          "end": 414.71,
+          "probability": 0.9950340986251831
+        },
+        {
+          "word": " hours",
+          "start": 414.71,
+          "end": 415.01,
+          "probability": 0.9966685175895691
+        },
+        {
+          "word": " watching",
+          "start": 415.01,
+          "end": 415.37,
+          "probability": 0.7721052765846252
+        },
+        {
+          "word": " the",
+          "start": 415.37,
+          "end": 415.59,
+          "probability": 0.9929764866828918
+        },
+        {
+          "word": " mechanisms",
+          "start": 415.59,
+          "end": 415.97,
+          "probability": 0.8271864652633667
+        }
+      ]
+    },
+    {
+      "start": 415.97,
+      "end": 426.87,
+      "text": " move. Everything there seemed perfectly organized. Soon it began arranging stones, scraps in",
+      "words": [
+        {
+          "word": " move.",
+          "start": 415.97,
+          "end": 416.83,
+          "probability": 0.9703176021575928
+        },
+        {
+          "word": " Everything",
+          "start": 419.11,
+          "end": 419.49,
+          "probability": 0.9854001402854919
+        },
+        {
+          "word": " there",
+          "start": 419.49,
+          "end": 419.65,
+          "probability": 0.20345355570316315
+        },
+        {
+          "word": " seemed",
+          "start": 419.65,
+          "end": 419.87,
+          "probability": 0.9899803996086121
+        },
+        {
+          "word": " perfectly",
+          "start": 419.87,
+          "end": 420.37,
+          "probability": 0.9918869137763977
+        },
+        {
+          "word": " organized.",
+          "start": 420.37,
+          "end": 420.79,
+          "probability": 0.9606790542602539
+        },
+        {
+          "word": " Soon",
+          "start": 423.29,
+          "end": 423.55,
+          "probability": 0.9586427211761475
+        },
+        {
+          "word": " it",
+          "start": 423.55,
+          "end": 423.69,
+          "probability": 0.9219301342964172
+        },
+        {
+          "word": " began",
+          "start": 423.69,
+          "end": 423.97,
+          "probability": 0.9942883253097534
+        },
+        {
+          "word": " arranging",
+          "start": 423.97,
+          "end": 424.31,
+          "probability": 0.5900153517723083
+        },
+        {
+          "word": " stones,",
+          "start": 424.31,
+          "end": 424.87,
+          "probability": 0.9952750205993652
+        },
+        {
+          "word": " scraps",
+          "start": 426.61,
+          "end": 426.65,
+          "probability": 0.9934161901473999
+        },
+        {
+          "word": " in",
+          "start": 426.65,
+          "end": 426.87,
+          "probability": 0.5884284973144531
+        }
+      ]
+    },
+    {
+      "start": 426.87,
+      "end": 434.67,
+      "text": " piece arranging stones, and pieces of wire into patterns of its own. It became distressed",
+      "words": [
+        {
+          "word": " piece",
+          "start": 426.87,
+          "end": 427.03,
+          "probability": 0.5300632119178772
+        },
+        {
+          "word": " arranging",
+          "start": 427.03,
+          "end": 427.33,
+          "probability": 0.7051681876182556
+        },
+        {
+          "word": " stones,",
+          "start": 427.33,
+          "end": 427.83,
+          "probability": 0.9909674525260925
+        },
+        {
+          "word": " and",
+          "start": 429.29,
+          "end": 429.63,
+          "probability": 0.8290579319000244
+        },
+        {
+          "word": " pieces",
+          "start": 429.63,
+          "end": 429.99,
+          "probability": 0.9959178566932678
+        },
+        {
+          "word": " of",
+          "start": 429.99,
+          "end": 430.17,
+          "probability": 0.9981445074081421
+        },
+        {
+          "word": " wire",
+          "start": 430.17,
+          "end": 430.53,
+          "probability": 0.9891216158866882
+        },
+        {
+          "word": " into",
+          "start": 430.53,
+          "end": 430.81,
+          "probability": 0.9585675001144409
+        },
+        {
+          "word": " patterns",
+          "start": 430.81,
+          "end": 431.13,
+          "probability": 0.9697318077087402
+        },
+        {
+          "word": " of",
+          "start": 431.13,
+          "end": 431.25,
+          "probability": 0.990500271320343
+        },
+        {
+          "word": " its",
+          "start": 431.25,
+          "end": 431.37,
+          "probability": 0.9586881995201111
+        },
+        {
+          "word": " own.",
+          "start": 431.37,
+          "end": 431.73,
+          "probability": 0.9989244341850281
+        },
+        {
+          "word": " It",
+          "start": 433.37,
+          "end": 433.85,
+          "probability": 0.9842682480812073
+        },
+        {
+          "word": " became",
+          "start": 433.85,
+          "end": 434.11,
+          "probability": 0.9975621700286865
+        },
+        {
+          "word": " distressed",
+          "start": 434.11,
+          "end": 434.67,
+          "probability": 0.9781783223152161
+        }
+      ]
+    },
+    {
+      "start": 434.67,
+      "end": 437.03,
+      "text": " ...whenever we disturbed.",
+      "words": [
+        {
+          "word": " ...whenever",
+          "start": 434.67,
+          "end": 436.45,
+          "probability": 0.5733165840307871
+        },
+        {
+          "word": " we",
+          "start": 436.45,
+          "end": 436.67,
+          "probability": 0.9845192432403564
+        },
+        {
+          "word": " disturbed.",
+          "start": 436.67,
+          "end": 437.03,
+          "probability": 0.5820940136909485
+        }
+      ]
+    }
+  ]
+}

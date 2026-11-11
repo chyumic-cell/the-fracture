@@ -7,7 +7,7 @@ Open **Story Campaign** from the setup screen. Skirmish remains available below 
 - **Mission Select** lists all 25 operations, grouped into four acts. Completed missions may be replayed; later missions remain locked.
 - **Campaign Settings** chooses Easy, Standard, or Veteran for the next mission. Existing checkpoints retain their original difficulty.
 
-The briefing shows the actual generated mission map, military objectives, starting civilization and field notes. Its preview marks bases and objective locations. **Start Mission** deploys the prepared map.
+The briefing shows the actual generated mission map, opening military objectives, starting civilization and field notes. Its preview marks bases and objective locations. **Start Mission** deploys the prepared map.
 
 During play, the objective panel is at the upper left. Click an objective to center the camera on its location, or collapse the panel to uncover the battlefield. Gold diamonds mark active objective positions. The newest mission instruction appears below the objectives.
 
@@ -30,3 +30,5 @@ When verified cue times are available, the current narration time controls the i
 The three children appear only in the story. Playable evacuation missions use unnamed adults; the player is never responsible for protecting Tarin, Kesh or Rook as gameplay entities.
 
 A recording that ends before its scene is complete follows verified cues for the available narration, then explicitly switches to the remaining readable passages and illustrations. No missing narration is fabricated. Replay restarts the available recording; Continue/Skip still advances normally.
+
+Later assignments appear as the operation develops. Opening briefings do not list later-stage surprises. Restart/replay a mission to use revised objectives; old checkpoints retain their saved objective set. All fifty illustrations are installed; two unrecorded passages at the end of Scene 4 use readable text.

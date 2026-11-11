@@ -33,6 +33,7 @@ function polygon(ctx,points,fill,stroke){ctx.beginPath();points.forEach((p,i)=>i
 function drawGround(ctx,g,point,zoom){
  if(!g.campaign)return;
  for(const b of g.campaign.landmarks||[]){
+  if(b.kind==='shed-tail'){const p=point(b.x,b.y);if(!g.visible(0,b)&&!g.players[0].explored[Math.floor(b.y)*g.n+Math.floor(b.x)])continue;ctx.save();ctx.translate(p.x,p.y);ctx.scale(zoom,zoom);const elapsed=g.time-b.at,twist=elapsed<3?Math.sin(elapsed*14)*3:0;for(let j=11;j>=0;j--){const x=-j*2.1,y=j*j*.09+Math.sin(j*.3)*twist,r=Math.max(1,5-j*.35);ctx.fillStyle=j%2?'#748760':'#9da36e';ctx.beginPath();ctx.ellipse(x,y,r,r*.55,-.4,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#4d5d46';ctx.stroke();ctx.fillStyle='#bcb888';ctx.fillRect(x-1,y-r*.6,2,2);}ctx.restore();continue;}
   const map=(a,c,z=0)=>{const p=point(b.x+b.ax*a-b.ay*c,b.y+b.ay*a+b.ax*c);return{x:p.x,y:p.y-z*zoom};};
   const L=b.length/2,W=b.width/2;
   const q=[map(-L,-W),map(L,-W),map(L,W),map(-L,W)];

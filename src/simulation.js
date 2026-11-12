@@ -232,9 +232,16 @@ class Game{
  if(e.kind==='unit'){p.lost++;this.effects.push({kind:'corpse',type:e.type,x:e.x,y:e.y,owner:e.owner,face:e.face,time:10,max:10});if(source&&this.hostile(source.owner,e.owner)){const k=this.players[source.owner];k.kills++;if(D.factions[k.faction].counter&&d.biological&&!d.reconstructed&&!e.summoned)k.special++;}}
  if(e.kind==='building'){this.effects.push({kind:'ruin',type:e.type,owner:e.owner,campaignFaction:e.campaignFaction,variant:e.id%3,x:e.x,y:e.y,time:15,max:15});this.rebuildNav();}if(e.owner===0)this.say(d.name+' lost.',0);
  }
+ collectionPoint(u){
+ const cache=u.collectionRoute,revision=this.navVersion;
+ if(cache&&cache.until>this.time&&cache.revision===revision){const b=this.entity(cache.id);if(b&&b.progress>=1)return b;}
+ const drops=this.entitiesByKind('building').filter(e=>e.owner===u.owner&&e.progress>=1&&e.hp>0&&['hq','depot','extractor'].includes(this.def(e).kind)).sort((a,b)=>dist(u,a)-dist(u,b));
+ for(const b of drops){const q=this.approach(u,b,1),route=this.path(u,q);if(dist(route.at(-1)||u,b)<b.size+1.8){u.collectionRoute={id:b.id,until:this.time+8,revision};return b;}}
+ u.collectionRoute=null;return null;
+ }
  tickWorker(u,dt){const p=this.players[u.owner],o=u.order,d=this.def(u);if(!o)return false;let t=this.entity(o.target);if(o.kind==='gather'){
- if(!t||t.amount<=0){const resource=t?.resource??u.carryType;const next=this.entities.filter(e=>e.kind==='resource'&&e.resource===resource&&e.amount>0&&this.visible(u.owner,e)).sort((a,b)=>dist(u,a)-dist(u,b))[0];if(next){o.target=next.id;t=next;}else if(!u.carry){u.order=null;return true;}}
- const drop=this.entitiesByKind('building').filter(e=>e.kind==='building'&&e.owner===u.owner&&e.progress>=1&&e.hp>0&&['hq','depot','extractor'].includes(this.def(e).kind)).sort((a,b)=>dist(u,a)-dist(u,b))[0];
+ if(!t||t.amount<=0){const resource=t?.resource??u.carryType;const next=this.entities.filter(e=>e.kind==='resource'&&e.resource===resource&&e.amount>0&&this.visible(u.owner,e)).sort((a,b)=>dist(u,a)-dist(u,b)).find(n=>{const q=this.approach(u,n,.7);return dist(this.path(u,q).at(-1)||u,q)<2;});if(next){o.target=next.id;t=next;}else if(!u.carry){u.order=null;return true;}}
+ const drop=this.collectionPoint(u);
  if(u.carry>=12*Math.max(1,this.aiEconomicRate(u.owner,'gather'))||!t||t.amount<=0||u.carry>0&&t.resource!==u.carryType){if(!drop){u.action='idle';return true;}if(dist(u,drop)<drop.size+1.8){p.stock[u.carryType]+=u.carry;p.gathered[u.carryType]+=u.carry;u.carry=0;u.destination=null;u.path=[];}else this.go(u,this.approach(u,drop,1),dt);return true;}
  if(t.resource===1&&!this.entitiesByKind('building').some(e=>e.kind==='building'&&e.owner===u.owner&&e.progress>=1&&this.def(e).resource==='oil'&&dist(e,t)<6)){u.action='idle';u.blockReason='An extraction well must be completed beside this oil deposit.';return true;}u.blockReason=null;
  if(dist(u,t)<t.size+.95&&!this.cliffBetween(u.x,u.y,t.x,t.y)){u.action='gather';u.face=Math.atan2(t.y-u.y,t.x-u.x);u.phase+=dt*5;const amount=Math.min(t.amount,dt*1.5*this.aiEconomicRate(u.owner,'gather')*(p.tech.includes(p.faction+'_economy')?1.3:1));u.carry+=amount;u.carryType=t.resource;t.amount-=amount;if(t.amount<=0){t.amount=0;t.exhausted=true;this.rebuildNav();}}else {const spot=this.gatherSpot(u,t);if(spot)this.go(u,spot,dt,.15);else{u.action='idle';u.blockReason='No accessible working edge on this deposit.';}}return true;

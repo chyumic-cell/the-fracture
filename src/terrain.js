@@ -19,7 +19,6 @@ function surface(art,game,x,y){
  const fineGrid=new Float32Array(16);for(let j=0;j<4;j++)for(let i=0;i<4;i++)fineGrid[j*4+i]=noise((x+i/3)*2.2,(y+j/3)*2.2,s+773);
  const edges=[];for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){const q=game.tile(x+dx,y+dy);if(q&&q.water!==t.water)edges.push([dx,dy]);}
  const narrowsRock=game.options.layout==='narrows'&&t.height>=(game.n<=100?1:game.n<=300?2:game.n<=500?3:game.n<=600?4:5)*3+4;
- const rampSurface=!t.water&&t.road&&[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>{const q=game.tile(x+dx,y+dy);return q&&!q.water&&Math.abs(q.height-t.height)===1;});
  const bytes=im.data,[grass,dry,soil,stone,sand,shallow,deep]=materialFields.map((f,i)=>mixed?materialValues.subarray(i*3,i*3+3):p[f]);
  for(const q of pixels){
   if(mixed)for(let k=0;k<21;k++)materialValues[k]=materialCorners[0][k]*q.a+materialCorners[1][k]*q.b+materialCorners[2][k]*q.c+materialCorners[3][k]*q.d;
@@ -33,7 +32,7 @@ function surface(art,game,x,y){
    red+=(soil[0]-red)*b;green+=(soil[1]-green)*b;blue+=(soil[2]-blue)*b;red+=(stone[0]-red)*c;green+=(stone[1]-green)*c;blue+=(stone[2]-blue)*c;red+=(sand[0]-red)*d;green+=(sand[1]-green)*d;blue+=(sand[2]-blue)*d;
    const moss=Math.sin(gx*.31+Math.sin(gy*.27))*Math.sin(gy*.34+gx*.09),grit=(grain-.5)*(patch>.56?15:11)+(fine-.5)*11+(patch>.59&&grain>.982?14:0)+moss*(patch<.5?3:1);red+=grit;green+=grit;blue+=grit;
   }
-  if(narrowsRock){const relief=(grain-.5)*20;red=stone[0]*.72+relief;green=stone[1]*.72+relief;blue=stone[2]*.72+relief;}else if(rampSurface){red=red*.3+(sand[0]*.65+stone[0]*.35)*.7;green=green*.3+(sand[1]*.65+stone[1]*.35)*.7;blue=blue*.3+(sand[2]*.65+stone[2]*.35)*.7;}
+  if(narrowsRock){const relief=(grain-.5)*20;red=stone[0]*.72+relief;green=stone[1]*.72+relief;blue=stone[2]*.72+relief;}
   for(const pixel of q.targets){const grit=(hash(x*25+pixel.gx,y*25+pixel.gy,s+119)-.5)*8;bytes[pixel.at]=red+grit;bytes[pixel.at+1]=green+grit;bytes[pixel.at+2]=blue+grit;bytes[pixel.at+3]=255;}
  }
  if(!t.water&&['moon','hell','desert','arctic'].includes(p.scenery)){
@@ -47,7 +46,7 @@ function surface(art,game,x,y){
   const blade=(xx,yy,dx,h,col)=>{for(let j=0;j<=h;j++)dab(xx+dx*j/h,yy-j,col,.65+j/h*.15);};
   for(let j=0;j<13;j++){
    const u=.09+hash(x*17+j,y,s+3)*.82,v=.09+hash(x,y*19+j,s+7)*.82,px=25+(u-v)*24,py=1+(u+v)*12,patch=lerp(u,v,0),variant=hash(x*37+j,y*43,s+41);
-   if(!narrowsRock&&!rampSurface&&p.vegetation&&patch<.54&&variant>.2+(1-Number(p.vegetation))*.8){
+   if(!narrowsRock&&p.vegetation&&patch<.54&&variant>.2+(1-Number(p.vegetation))*.8){
     const col=p.grass.map((v,k)=>v+[37,42,23][k]),shadow=p.grass.map(v=>v*.68),h=1+(variant>.65?2:1);
     dab(px,py+1,shadow,.65);dab(px+1,py+1,shadow,.45);
     blade(px,py,-1,h,col);blade(px+1,py,1,h+1,col.map(v=>v-8));
@@ -100,7 +99,7 @@ function backgroundSource(){
  return environments.workerSource+'const root=self;const canvas=(w,h)=>new OffscreenCanvas(w,h);const hash='+hash.toString()+';const noise='+noise.toString()+';const clamp='+clamp.toString()+';const styles='+JSON.stringify(styles)+';const pixels='+JSON.stringify(pixels)+';const groundCaches=new WeakMap();const poly='+root.FractureArt.poly.toString()+';const surface='+surface.toString()+';const renderRegion='+renderRegion.toString()+';root.FractureTerrain={surface,renderRegion};const art={'+A.project.toString()+','+A.terrain.toString()+'};let game;onmessage=e=>{if(e.data.init){game=Object.assign({'+[G.tile,G.height,G.cornerHeight,G.surfaceHeight].map(f=>f.toString()).join(',')+'},e.data.init);if(game.tiles){game.map=Array.from(game.tiles,v=>({water:!!(v&128),height:v&127,road:!!(v&256)}));delete game.tiles;}return;}try{const began=performance.now(),c=art.terrain(game,e.data.region),bitmap=c.transferToImageBitmap();postMessage({key:e.data.key,bitmap,ms:performance.now()-began},[bitmap]);}catch(error){postMessage({key:e.data.key,error:String(error)});}}';
 }
 // Immediate geometry keeps panning usable while detailed textures arrive.
-function previewRegion(art,game,r){const c=canvas(r.w,r.h),ctx=c.getContext('2d');ctx.translate(-r.x,-r.y);const poly=(points,color)=>{ctx.fillStyle=color;ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.fill();};cells(game,r,(x,y)=>{const t=game.tile(x,y),p=environments.palette(game.options,x+.5,y+.5),h=t.height,corners=[[x,y],[x+1,y],[x+1,y+1],[x,y+1]],v=corners.map(([a,b])=>art.project(a,b,h)),color=t.water?p.shallow:t.road?p.soil:p.grass;poly(v,'rgb('+color.join(',')+')');for(const [dx,dy,a,b]of [[1,0,1,2],[0,1,2,3]]){const low=game.tile(x+dx,y+dy);if(!low||h-low.height<2)continue;poly([v[a],v[b],art.project(...corners[b],low.height),art.project(...corners[a],low.height)],'rgb('+p.stone.map(c=>Math.round(c*.8)).join(',')+')');}});return c;}
+function previewRegion(art,game,r){const c=canvas(r.w,r.h),ctx=c.getContext('2d');ctx.translate(-r.x,-r.y);const poly=(points,color)=>{ctx.fillStyle=color;ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.fill();};cells(game,r,(x,y)=>{const t=game.tile(x,y),p=environments.palette(game.options,x+.5,y+.5),h=t.height,corners=[[x,y],[x+1,y],[x+1,y+1],[x,y+1]],v=corners.map(([a,b])=>art.project(a,b,h)),color=t.water?p.shallow:p.grass;poly(v,'rgb('+color.join(',')+')');for(const [dx,dy,a,b]of [[1,0,1,2],[0,1,2,3]]){const low=game.tile(x+dx,y+dy);if(!low||h-low.height<2)continue;poly([v[a],v[b],art.project(...corners[b],low.height),art.project(...corners[a],low.height)],'rgb('+p.stone.map(c=>Math.round(c*.8)).join(',')+')');}});return c;}
 class Layer{
  constructor(art,game){this.art=art;this.game=game;this.size=512;this.maxChunks=48;this.maxFogChunks=48;this.chunks=new Map();this.fogChunks=new Map();this.width=game.n*48+96;this.height=game.n*24+80;this.queue=new Map();this.worker=null;this.inFlight=null;this.workerFailed=false;this.disposed=false;this.readyChunks=0;this.jobStats=[];}
  region(cx,cy,pad){return{x:cx*this.size-pad,y:cy*this.size-pad,w:this.size+pad*2,h:this.size+pad*2};}

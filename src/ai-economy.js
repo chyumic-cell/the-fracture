@@ -13,13 +13,38 @@ function knownResources(g,p){
  const result=new Map();for(const e of Object.values(p.knowledge||{}))if(e.kind==='resource'&&e.hp>0&&e.amount>0&&!g.visible(p.id,e))result.set(e.id,{...e,observed:false});
  for(const e of current.values())result.set(e.id,{...e,observed:true});return [...result.values()];
 }
+// Price the complete renewable-economy chain before any controller spends.
+// Already paid foundations/research queues are excluded; all four currencies matter.
+function sustainability(g,p,ctx={}){
+ const own=(ctx.own||g.entities.filter(e=>e.owner===p.id)).filter(alive),workers=own.filter(e=>e.kind==='unit'&&definition(e)?.worker&&!e.embarkedBy),f=D.factions[p.faction];
+ const completed=id=>p.tech.includes(id)||own.some(e=>e.type===id&&e.kind==='building');
+ const pending=id=>own.some(e=>e.queue?.some(q=>q.type===id));
+ const need=new Map();function add(id){if(!id||completed(id)||pending(id)||need.has(id))return;const d=D.buildings[id]||D.research[id]||D.units[id];if(!d)return;need.set(id,d);for(const r of d.requires||[])add(r);add(d.research);if(D.research[id]||D.units[id])add(d.building);}
+ const cache=p.aiSupplyRoutes||(p.aiSupplyRoutes={}),nodes=knownResources(g,p),exhausted=Object.values(p.knowledge||{}).filter(n=>n.kind==='resource'&&n.amount<=0);
+ const reachable=n=>{const candidates=workers.filter(w=>!w.aiLogistics).sort((a,b)=>distance(a,n)-distance(b,n)).slice(0,3),signature=candidates.map(w=>w.id+':'+Math.floor(w.x/8)+':'+Math.floor(w.y/8)).join(','),c=cache[n.id];if(c&&c.signature===signature&&c.until>g.time)return c.ok;const ok=candidates.some(w=>{const q=g.approach(w,n,.7);const route=g.path(w,q);return distance(route.at(-1)||w,q)<2&&route.every(v=>p.explored[Math.floor(v.y)*g.n+Math.floor(v.x)]);});cache[n.id]={ok,signature,revision:p.navigationRevision,until:g.time+12};return ok;};
+ const accessible=nodes.filter(reachable),remaining=D.resources.map((_,r)=>accessible.filter(n=>n.resource===r).reduce((sum,n)=>sum+n.amount,0));
+ const supply=[...accessible,...exhausted.filter(reachable)],mineResources=[];
+ p.aiRenewableTargets||=[];if(workers.length&&g.time>20)for(const r of [0,1,2,3]){if(supply.some(n=>n.resource===r)&&remaining[r]<(r===0?3500:r===1?1200:500)&&!p.aiRenewableTargets.includes(r))p.aiRenewableTargets.push(r);if(p.aiRenewableTargets.includes(r)&&!own.some(b=>b.type===f.id+'_deep_'+D.resources[r])){mineResources.push(r);add(f.id+'_deep_'+D.resources[r]);}}
+ // Oil cannot be gathered without a collection facility; reserve that prerequisite too.
+ if(need.size&&remaining[1]>0&&!own.some(b=>definition(b)?.kind==='extractor'&&definition(b)?.resource==='oil'))add(f.buildings.find(b=>b.kind==='extractor'&&b.resource==='oil')?.id);
+ const maritime=['rivers','narrows','continental','small-islands','large-islands','mediterranean','coastal'].includes(g.options.layout);
+ const relocation=maritime&&remaining[0]<1800&&workers.length>=4;
+ if(relocation&&!own.some(u=>definition(u)?.transport)){add(f.id+'_transport_ship');add(f.buildings.find(b=>b.kind==='extractor'&&b.resource==='oil')?.id);}
+ const outpost=p.aiLogistics?.expansion||p.aiLogistics?.lastExpansion,depot=outpost?.depot&&D.buildings[outpost.depot],site=outpost?.landing||outpost,needsDepot=depot&&!own.some(b=>b.kind==='building'&&['hq','depot','extractor'].includes(definition(b)?.kind)&&distance(b,site)<10);
+ if(needsDepot)for(const req of depot.requires||[])add(req);
+ const cost=[0,0,0,0];for(const d of need.values())d.cost.forEach((v,i)=>cost[i]+=v);
+ if(needsDepot){depot.cost.forEach((v,i)=>cost[i]+=v);need.set(depot.id,depot);}
+ const plan={cost,ids:[...need.keys()],remaining,resources:mineResources,relocation,critical:need.size>0&&remaining[0]<cost[0]+600,at:g.time};p.aiSustainability=plan;p.aiReserve=cost.map((v,i)=>Math.max(v,p.aiReserve?.[i]||0));return plan;
+}
+function protectedSpend(p,d){const plan=p.aiSustainability;if(!plan)return true;return plan.ids.includes(d.id)||d.cost.every((v,i)=>p.stock[i]-v>=(plan.cost[i]||0));}
 function step(g,p,ctx={}){
  const f=ctx.f||D.factions[p.faction];if(!f||!g.order||!g.queue)return;
  const time=g.time||0,own=(ctx.own||g.entities.filter(e=>e.owner===p.id)).filter(alive);
- const workers=ctx.workers||own.filter(e=>e.kind==='unit'&&definition(e)?.worker),military=ctx.military||own.filter(e=>e.kind==='unit'&&!definition(e)?.worker);
+ const workers=(ctx.workers||own.filter(e=>e.kind==='unit'&&definition(e)?.worker)).filter(w=>!w.aiLogistics&&!w.embarkedBy&&w.order?.kind!=='extract'),military=ctx.military||own.filter(e=>e.kind==='unit'&&!definition(e)?.worker);
  const buildings=(ctx.buildings||own.filter(e=>e.kind==='building')).filter(alive),ready=buildings.filter(b=>b.progress>=1),stock=p.stock,tech=p.tech||[];
  if(!workers.length&&!ready.some(b=>definition(b)?.kind==='hq'))return;
  const config=ctx.config||(root.FractureAI||(typeof require!=='undefined'?require('./ai.js'):null)).configuration(g,p),strategyTime=time/(config.techPace||1),difficulty=typeof ctx.difficulty==='string'?ctx.difficulty:g.options?.difficulty||'normal';
+ const sustainable=sustainability(g,p,ctx);
  const deepWorkers=own.filter(e=>e.kind==='unit'&&definition(e)?.worker&&e.order?.kind==='extract').length;
  const workerLimit=config.workerTarget??config.workers??(difficulty==='hard'?16:difficulty==='easy'?9:13),armyLimit=config.maxMilitary??config.armyLimit??(difficulty==='hard'?64:difficulty==='easy'?30:48);
  const state=(p.aiState||(p.aiState={})).economy||((p.aiState).economy={});state.workers=state.workers||{};state.failedSites=state.failedSites||{};
@@ -35,7 +60,8 @@ function step(g,p,ctx={}){
  // Cache routes against private map knowledge; distant deposits on another island
  // cannot receive builders or gatherers until a transport establishes a foothold.
  state.routes||={};const probe=workers[0]||military.find(u=>!definition(u)?.air);
- function reachable(n){if(!probe)return false;const cached=state.routes[n.id],key=p.navigationRevision||0;if(cached&&cached.until>time)return cached.ok;const start={...probe,x:home.x+(home.size||.4)+1,y:home.y},q=g.approach(start,n,.7),route=g.path(start,q),ok=distance(route.at(-1)||start,q)<2.5;state.routes[n.id]={ok,key,until:time+18};return ok;}
+ function reachable(n){if(!probe)return false;const cached=state.routes[n.id],key=p.navigationRevision||0,anchors=workers.filter(w=>!w.aiLogistics).sort((a,b)=>distance(a,n)-distance(b,n)).slice(0,3),signature=anchors.map(w=>w.id+':'+Math.floor(w.x/8)+':'+Math.floor(w.y/8)).join(',');if(cached&&cached.until>time&&cached.signature===signature)return cached.ok;const ok=anchors.some(w=>{const q=g.approach(w,n,.7);const route=g.path(w,q);return distance(route.at(-1)||w,q)<2&&route.every(v=>p.explored[Math.floor(v.y)*g.n+Math.floor(v.x)]);});state.routes[n.id]={ok,key,signature,until:time+12};return ok;}
+ function workerReaches(w,n){const key=w.id+':'+n.id,c=state.routes[key],signature=Math.floor(w.x/8)+':'+Math.floor(w.y/8),revision=p.navigationRevision||0;if(c&&c.until>time&&c.signature===signature)return c.ok;const q=g.approach(w,n,.7),route=g.path(w,q),ok=distance(route.at(-1)||w,q)<2&&route.every(v=>p.explored[Math.floor(v.y)*g.n+Math.floor(v.x)]);state.routes[key]={ok,signature,revision,until:time+12};return ok;}
  const nodes=knownResources(g,p).sort((a,b)=>distance(home,a)-distance(home,b)).slice(0,48).filter(reachable),nodeById=new Map(nodes.map(n=>[n.id,n]));
  const drops=ready.filter(b=>['hq','depot','extractor'].includes(definition(b)?.kind));
  const queued=buildings.flatMap(b=>queueOf(b).filter(q=>q.kind==='unit').map(q=>D.units[q.type]).filter(Boolean));
@@ -116,12 +142,12 @@ function step(g,p,ctx={}){
  const capacity=g.capacity(p.id),population=g.population(p.id),pendingHouse=buildings.some(b=>definition(b)?.kind==='house'&&b.progress<1);
  if(capacity<200&&capacity-population<Math.max(5,Math.min(12,armySize*.25+3))&&!pendingHouse)plan({kind:'build',def:house,priority:capacity-population<2?125:105,key:'house'});
  const oilNodes=nodes.filter(n=>n.resource===1&&!dangerous(n,5)),needOil=stock[1]<100&&(armySize>=3||strategyTime>65)&&!buildings.some(b=>definition(b)?.resource==='oil'&&oilNodes.some(n=>distance(b,n)<6));
- if(needOil){const oil=oilNodes.filter(n=>!buildings.some(b=>definition(b)?.resource==='oil'&&distance(b,n)<6)).sort((a,b)=>distance(a,home)-distance(b,home))[0];if(oil)plan({kind:'build',def:f.buildings.find(b=>b.resource==='oil'),near:oil,priority:stock[1]<60?119:70,key:'oil:'+oil.id});}
+ if(needOil){const oil=oilNodes.filter(n=>!buildings.some(b=>definition(b)?.resource==='oil'&&distance(b,n)<6)).sort((a,b)=>distance(a,home)-distance(b,home))[0];if(oil)plan({kind:'build',def:f.buildings.find(b=>b.resource==='oil'),near:oil,priority:sustainable.ids.includes(f.buildings.find(b=>b.resource==='oil')?.id)?132:stock[1]<60?119:70,key:'oil:'+oil.id});}
  if(p.aiLogistics?.transportWanted){
-  const u=D.units[p.aiLogistics.transportWanted];
+  const u=D.units[p.aiLogistics.transportWanted],transportPriority=sustainable.relocation?131:114;
   if(u&&!own.some(e=>e.type===u.id)&&!queuedType(u.id)){
-   const next=unlockAction(u,114);if(next)plan(next);
-   else if(hasReady(u.building)&&!g.missing(p.id,u,ready.find(b=>b.type===u.building)).length)plan({kind:'unit',def:u,priority:114,key:'transport:'+u.id});
+   const next=unlockAction(u,transportPriority);if(next)plan(next);
+   else if(hasReady(u.building)&&!g.missing(p.id,u,ready.find(b=>b.type===u.building)).length)plan({kind:'unit',def:u,priority:transportPriority,key:'transport:'+u.id});
   }
  }else if(p.aiLogistics?.needAirTransport)plan(unlockAction(D.units[f.id+'_air_transport'],109));
  if(strategyTime>65&&armySize>=(config.level>=8?6:4))plan(buildingAction(f.buildings.find(b=>b.kind==='lab').id,68));
@@ -139,10 +165,10 @@ function step(g,p,ctx={}){
  // follows each faction's real prerequisites and the mine is built only on depletion.
  const remaining=safeNodes.filter(n=>n.resource===0).reduce((n,e)=>n+e.amount,0),deepId=f.id+'_deep_ore',deepTech=f.id+'_deep_extraction';
  const exhausted=Object.values(p.knowledge||{}).filter(e=>e.kind==='resource'&&e.resource===0&&e.amount<=0&&!dangerous(e,5)&&reachable(e));
- let sustainabilityReserve=0;
- if(time>80&&workers.length>=6&&remaining<Math.max(2800,workers.length*(config.economyRates?.gather||1)*100)&&!existingType(deepId).length){
-  if(!tech.includes(deepTech))plan(researchAction(deepTech,111));
-  else{const n=exhausted.find(n=>!g.placement(deepId,p.id,n.x,n.y,false,null,true));if(n)plan({kind:'deep',def:D.buildings[deepId],near:n,priority:112,key:'deep:'+n.id});else sustainabilityReserve=D.buildings[deepId].cost[0];}
+ for(const r of sustainable.resources){
+  const id=f.id+'_deep_'+D.resources[r],priority=sustainable.critical?128:116;
+  if(!tech.includes(deepTech))plan(researchAction(deepTech,priority));
+  else{const n=Object.values(p.knowledge||{}).find(n=>n.kind==='resource'&&n.resource===r&&n.amount<=0&&!dangerous(n,5)&&reachable(n)&&!g.placement(id,p.id,n.x,n.y,false,null,true));if(n)plan({kind:'deep',def:D.buildings[id],near:n,priority:priority+1,key:'deep:'+n.id});}
  }
 
  if(strategyTime>110&&workers.length>=9&&!threatened){
@@ -152,6 +178,7 @@ function step(g,p,ctx={}){
  // Add capacity only when a useful branch is actually saturated and income supports it.
  if(strategyTime>150&&armySize<armyLimit&&stock[0]>(config.adaptiveEconomy?220:350)&&!threatened){const b=ready.find(b=>queueOf(b).some(q=>q.kind==='unit'&&!D.units[q.type]?.worker)&&existingType(b.type).length<(config.productionLimit||2)&&(config.level<9||existingType(b.type).every(other=>other.progress>=1&&queueOf(other).some(q=>q.kind==='unit'&&!D.units[q.type]?.worker)))&&f.units.some(u=>u.building===b.type&&unitValue(u)>5));if(b)plan({kind:'build',def:D.buildings[b.type],priority:config.adaptiveEconomy?94:32,key:'capacity:'+b.type,duplicate:true});}
  priorities.sort((a,b)=>b.priority-a.priority);
+ for(let i=priorities.length-1;i>=0;i--)if(!protectedSpend(p,priorities[i].def)&&!['hq','inf'].includes(priorities[i].def.kind))priorities.splice(i,1);
  // Hold a small, stable investment goal until it is paid or becomes irrelevant.
  let action=priorities.find(a=>(state.failedSites[a.key]||0)<=time);
  const prior=priorities.find(a=>a.key===state.goal&&a.priority>=45&&(state.failedSites[a.key]||0)<=time);
@@ -167,7 +194,7 @@ function step(g,p,ctx={}){
  if(config.adaptiveEconomy&&action&&action.priority<100&&rebuildingArmy&&stock[0]-action.def.cost[0]<investmentFloor)action=null;
  if(action?.key!==state.goal){state.goal=action?.key||null;state.goalAt=time;}
  state.goalCost=action?.def?.cost||[0,0,0,0];
- function freeWorker(w){const s=state.workers[w.id]||{};return w.aiScoutUntil<=time||!w.aiScoutUntil?!dangerous(w,2)&&!(s.fleeUntil>time)&&!['build','repair'].includes(w.order?.kind):false;}
+ function freeWorker(w){if(w.aiLogistics||w.embarkedBy||w.order?.kind==='extract')return false;const s=state.workers[w.id]||{};return w.aiScoutUntil<=time||!w.aiScoutUntil?!dangerous(w,2)&&!(s.fleeUntil>time)&&!['build','repair'].includes(w.order?.kind):false;}
  function builder(near){return workers.filter(freeWorker).filter(w=>safeRoute(w,near)).sort((a,b)=>(a.carry||0)*2+distance(a,near)-(b.carry||0)*2-distance(b,near))[0];}
  function buildAction(a){
   if(!a.def||g.missing(p.id,a.def).length||!g.affordable(p.id,a.def.cost))return false;
@@ -193,18 +220,18 @@ function step(g,p,ctx={}){
   state.failedSites[a.key]=time+10;return false;
  }
  // Rescue abandoned projects and repair vulnerable key structures with bounded labor.
- const usable=workers.filter(w=>!(w.aiScoutUntil>time));
+ const usable=workers.filter(w=>!w.aiLogistics&&!w.embarkedBy&&w.order?.kind!=='extract'&&!(w.aiScoutUntil>time));
  for(const w of usable)if(['build','repair'].includes(w.order?.kind)&&w.stuck>6){const ws=state.workers[w.id]||(state.workers[w.id]={});ws.failedProject=w.order.target;ws.failedUntil=time+25;g.order([w.id],{kind:'stop'});}
  for(const b of buildings.filter(b=>b.progress<1&&!dangerous(b,5)).sort((a,b)=>(definition(a)?.kind==='hq'?-2:0)-(definition(b)?.kind==='hq'?-2:0)||b.progress-a.progress)){
   const assigned=workers.filter(w=>['build','repair'].includes(w.order?.kind)&&w.order.target===b.id).length;
   if(!assigned){const w=workers.filter(freeWorker).filter(w=>!(state.workers[w.id]?.failedProject===b.id&&state.workers[w.id]?.failedUntil>time)).sort((a,c)=>distance(a,b)-distance(c,b)).find(w=>{const q=g.approach(w,b,1.3),route=g.path(w,q);return distance(route.at(-1)||w,b)<b.size+1.8;});if(w)g.order([w.id],{kind:'build',target:b.id});}
  }
- if(stock[0]>90&&workers.length>=6){const damaged=ready.filter(b=>b.hp<b.maxHp*.72&&!dangerous(b,5)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(damaged&&!workers.some(w=>w.order?.kind==='repair')){const w=builder(damaged);if(w)g.order([w.id],{kind:'repair',target:damaged.id});}}
+ if(stock[0]>Math.max(90,sustainable.cost[0]+30)&&workers.length>=6){const damaged=ready.filter(b=>b.hp<b.maxHp*.72&&!dangerous(b,5)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(damaged&&!workers.some(w=>w.order?.kind==='repair')){const w=builder(damaged);if(w)g.order([w.id],{kind:'repair',target:damaged.id});}}
  // Strong opponents protect worker growth from speculative technology reservations.
  // Payment and population limits are the same as for a human player.
  if(config.level>=8&&!threatened&&armySize>=Math.max(4,(workers.length-5)*1.2)&&ready.some(b=>definition(b)?.kind==='inf')&&workers.length+deepWorkers+queued.filter(d=>d.worker).length<Math.min(16,workerLimit)&&capacity-g.population(p.id)>2){
   const worker=f.units.find(u=>u.worker),base=ready.find(b=>definition(b)?.kind==='hq'&&!queueOf(b).length);
-  if(base&&g.affordable(p.id,worker.cost))g.queue(base.id,worker.id);
+  if(base&&g.affordable(p.id,worker.cost)&&protectedSpend(p,worker))g.queue(base.id,worker.id);
  }
  let bought=false;
  if(action){
@@ -215,8 +242,8 @@ function step(g,p,ctx={}){
  if(bought){state.goal=null;state.lastInvestment=time;}
  // Do not reserve an impossible resource forever. Stock accumulation still funds tech,
  // while a paced Ore-only replacement can keep the player alive during a shortage.
- const reserve=[...(!bought&&action&&action.priority>=45?state.goalCost:[0,0,0,0])];reserve[0]=Math.max(reserve[0],sustainabilityReserve);p.aiReserve=reserve;
- function spendable(cost,emergency=false){return cost.every((v,i)=>stock[i]>=v&&(emergency||stock[i]-v>=(reserve[i]||0)));}
+ const reserve=[...(!bought&&action&&action.priority>=45?state.goalCost:[0,0,0,0])];for(let i=0;i<4;i++)reserve[i]=Math.max(reserve[i],sustainable.cost[i]-(bought&&sustainable.ids.includes(action.def.id)?action.def.cost[i]:0));p.aiReserve=reserve;
+ function spendable(cost,emergency=false){return cost.every((v,i)=>stock[i]>=v&&((emergency&&(!v||stock[i]-v+sustainable.remaining[i]>=sustainable.cost[i]+(i===0?120:30)))||stock[i]-v>=(reserve[i]||0)));}
  const queuedWorkers=queued.filter(d=>d.worker).length;
  const paidProduction=ready.filter(b=>['inf','counter','armor','air','elite','dock'].includes(definition(b)?.kind)).length;
  const growthLimit=config.adaptiveEconomy?Math.max(9,Math.min(workerLimit,Math.max(Math.floor(8+armySize*.55),config.level>=9?paidProduction*5+5:0))):workerLimit;
@@ -233,14 +260,14 @@ function step(g,p,ctx={}){
   }
  }
  // Upcoming concrete costs determine staffing, rather than worker index modulo four.
- let demand=[180+workers.length*5,0,0,0];if(action)demand=sumCost(demand,action.def.cost);
+ let demand=sumCost([180+workers.length*5,0,0,0],sustainable.cost);if(action)demand=sumCost(demand,action.def.cost);
  for(const {u}of (config.adaptiveEconomy?readyChoices:unitOrder.filter(({u,value})=>value>0&&canPlan(u))).slice(0,3))demand=sumCost(demand,u.cost,1.5);
  if(strategyTime>90&&armySize>=5)demand=sumCost(demand,D.research[f.id+'_economy'].cost,.5);
- demand[0]=Math.max(300,demand[0]);demand[3]=Math.min(70,demand[3]);
+ demand[0]=Math.max(300,demand[0]);demand[3]=Math.max(sustainable.cost[3],Math.min(70,demand[3]));
  const workable=nodes.filter(n=>!dangerous(n,5)&&(n.resource!==1||ready.some(b=>definition(b)?.resource==='oil'&&distance(b,n)<6)));
  const byResource=D.resources.map((r,i)=>workable.filter(n=>n.resource===i));
  const eligible=usable.filter(w=>!['build','repair'].includes(w.order?.kind));
- const quotas=[Math.min(eligible.length,Math.max(Math.min(4,eligible.length),Math.ceil(eligible.length*(threatened||config.level>=8&&workers.length<16?.70:.54)))),0,0,0];
+ const quotas=[byResource[0].length?Math.min(eligible.length,Math.max(Math.min(4,eligible.length),Math.ceil(eligible.length*(threatened||config.level>=8&&workers.length<16?.70:.54)))):0,0,0,0];
  const need=demand.map((v,i)=>byResource[i].length?Math.max(0,v-stock[i])/(i===0?80:i===3?38:55):0);need[0]=Math.max(need[0],.2);
  while(quotas.reduce((a,b)=>a+b,0)<eligible.length){let best=0,score=-1;for(let i=0;i<4;i++){const s=need[i]/(quotas[i]+1);if(s>score&&byResource[i].length){best=i;score=s;}}quotas[best]++;}
  state.desiredWorkers=quotas;state.demand=demand;
@@ -269,7 +296,7 @@ function step(g,p,ctx={}){
   const resourceOrder=[0,1,2,3].sort((a,b)=>(quotas[b]-assigned[b])-(quotas[a]-assigned[a]));let best=null;
   for(const r of resourceOrder){
    if(r!==0&&stock[r]>Math.max(300,demand[r]*2))continue;
-   const candidates=byResource[r].filter(n=>!(n.id===s.avoid&&s.avoidUntil>time)&&safeRoute(w,n));
+   const candidates=byResource[r].filter(n=>!(n.id===s.avoid&&s.avoidUntil>time)&&safeRoute(w,n)&&workerReaches(w,n));
    candidates.sort((a,b)=>nodeScore(a)-nodeScore(b));if(candidates.length){best=candidates[0];break;}
   }
   function nodeScore(n){const dropDistance=drops.length?Math.min(...drops.map(b=>distance(b,n))):distance(home,n);return distance(w,n)+dropDistance*.65+(nodeUse.get(n.id)||0)*2.1+(n.observed?0:3);}
@@ -279,5 +306,5 @@ function step(g,p,ctx={}){
  state.activeWorkers=assigned;state.lastStep=time;
  return{workers:workers.length,army:armySize,threatened,goal:state.goal,nodes:nodeById.size};
 }
-const api={step,knownResources};root.FractureAIEconomy=api;if(typeof module!=='undefined')module.exports=api;
+const api={step,knownResources,sustainability,protectedSpend};root.FractureAIEconomy=api;if(typeof module!=='undefined')module.exports=api;
 })(globalThis);

@@ -1,3 +1,12 @@
+# AI economic survival and terrain-matched ramps - 12 November 2026
+
+- Full four-resource budgets protect the remaining drilling prerequisite chain and mine cost. Committed mines stay funded after new resource discoveries; optional naval, market and defense purchases cannot consume that reserve. Known supplies require charted routes. No AI gathering, cost, combat or fog bonuses were added.
+- Island worker voyages preserve boarding orders, prioritize supply recovery, reserve collection facilities and retry outposts. Workers and deep-mining haulers use reachable drop-off buildings. Repeated resource path checks are cached.
+- Veteran and above can build paid mines and short wall flanks beside towers. Master and above can bait visible patrols toward prepared defenses and counterattack. Wall orientation stays fixed to preserve the passage. These tactics are conditional, not a guarantee against a human opponent.
+- Ramps now use the adjoining ground material and vegetation, retaining slope shading and cliff crowns. Six environments were visually checked. Campaign illustrations are unchanged.
+- Validation: 41 simulation, 11 legacy, 17 strategy, 14 advanced-tactics and 15 sustainability/defense regression groups pass, plus fair-island rates/fog, physical worker expansion, naval trade and browser/offline gameplay. The three-Apocalypse small-islands scenario sustained paid ore extraction through 1,200 simulated seconds; it continues after victory over a passive player to measure late economy. This is not a competitive all-faction balance claim.
+- Details and limitations: AI-ECONOMIC-SURVIVAL.md, ai-economy-endurance.json and ramp-material-review.png. Refresh the game; start a new match to evaluate budgeting from the opening. Previously exhausted saves receive no free resources.
+
 # Cargo ships, bombers and nonblocking terrain - 12 November 2026
 
 - Added code-authored cargo decks and loading equipment for all twelve merchant ships, replacing weapon mounts. Added twelve dedicated bomber silhouettes with visible payloads and release animations. Campaign illustrations are unchanged.

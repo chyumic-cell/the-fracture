@@ -66,6 +66,30 @@ function raid(g,p,ctx){
  const route=g.path(units[0],g.approach(units[0],target,1));if(dist(route.at(-1)||units[0],target)>3)return;
  p.aiRaid={ids:units.map(u=>u.id),target:target.id,started:g.time};g.order(p.aiRaid.ids,{kind:'attackMove',x:target.x,y:target.y,formation:'wedge'});p.plan='Raiding exposed workers while the main army holds together';
 }
-function step(g,p,ctx){ctx.config={...config(g,p),...ctx.config};ctx.knownEnemies=ctx.knownEnemies||[];defend(g,p,ctx);raid(g,p,ctx);if(p.operation)operationStep(g,p,ctx.enemy);if(!p.operation)chooseAttack(g,p,ctx);reinforce(g,p,ctx);micro(g,p,ctx);}
-root.FractureAICombat={step,operationStep,power};if(typeof module!=='undefined')module.exports=root.FractureAICombat;
+// A real bait-and-withdraw maneuver, based only on visible opponents and
+// completed friendly defenses. Nothing changes the enemy's orders or statistics.
+function ambush(g,p,ctx){
+ if(ctx.config.level<8)return;
+ let op=p.aiAmbush;
+ if(op){const bait=g.entity(op.bait),tower=g.entity(op.tower),enemy=ctx.enemy.find(e=>e.id===op.target),guards=op.guards.map(id=>g.entity(id)).filter(Boolean);
+  const release=()=>{p.aiAmbush=null;p.nextAmbush=g.time+65;};
+  if(!bait||!tower||tower.progress<1||!guards.length||g.time-op.started>28){release();return;}
+  if(!enemy||bait.hp<bait.maxHp*.5||dist(bait,enemy)<g.range(enemy)+2||g.time-op.started>5)op.phase='withdraw';
+  if(op.phase==='probe'){if(!bait.windup)order(g,bait,{kind:'attack',target:enemy.id},1);}
+  else{const a=Math.atan2(op.y-tower.y,op.x-tower.x),back={x:tower.x-Math.cos(a)*3,y:tower.y-Math.sin(a)*3};if(!bait.windup)order(g,bait,{kind:'move',...back},1);}
+  if(enemy&&dist(enemy,tower)<g.range(tower)+1){g.order(guards.map(u=>u.id),{kind:'attackMove',x:enemy.x,y:enemy.y});release();p.plan='Springing a defended counterattack';}
+  return;
+ }
+ if(g.time<(p.nextAmbush||180)||ctx.military.length<6)return;
+ const towers=ctx.ready.filter(b=>def(b).kind==='defense'),free=ctx.military.filter(u=>!p.operation?.ids.includes(u.id)&&!p.aiRaid?.ids.includes(u.id)&&!u.aiScoutUntil&&!u.returning&&u.hp>u.maxHp*.8&&def(u).damage>0&&!def(u).air);
+ for(const tower of towers){const traps=ctx.own.filter(e=>e.kind==='building'&&def(e).kind==='trap'&&e.progress>=1&&dist(e,tower)<9);if(!traps.length)continue;
+  const enemy=ctx.enemy.find(e=>e.kind==='unit'&&!def(e).air&&!def(e).naval&&!def(e).worker&&dist(e,tower)>g.range(tower)+1&&dist(e,tower)<19);if(!enemy)continue;
+  const bait=free.filter(u=>def(u).speed>=1.65&&dist(u,tower)<9).sort((a,b)=>def(b).speed-def(a).speed)[0],guards=free.filter(u=>u!==bait&&dist(u,tower)<10).slice(0,5);if(!bait||guards.length<3)continue;
+  const q=g.approach(bait,enemy,1),route=g.path(bait,q);if(dist(route.at(-1)||bait,q)>2)continue;
+  const opposition=ctx.enemy.filter(e=>dist(e,enemy)<8);if(power(g,opposition,guards)>power(g,[...guards,tower],opposition)*1.15)continue;
+  p.aiAmbush={bait:bait.id,guards:guards.map(u=>u.id),tower:tower.id,target:enemy.id,x:enemy.x,y:enemy.y,phase:'probe',started:g.time};g.order(p.aiAmbush.guards,{kind:'hold'});g.order([bait.id],{kind:'attack',target:enemy.id});p.plan='Drawing a visible patrol toward a mined defensive position';return;
+ }
+}
+function step(g,p,ctx){ctx.config={...config(g,p),...ctx.config};ctx.knownEnemies=ctx.knownEnemies||[];ambush(g,p,ctx);if(p.aiAmbush){const held=new Set([p.aiAmbush.bait,...p.aiAmbush.guards]);ctx={...ctx,military:ctx.military.filter(u=>!held.has(u.id))};}defend(g,p,ctx);raid(g,p,ctx);if(p.operation)operationStep(g,p,ctx.enemy);if(!p.operation)chooseAttack(g,p,ctx);reinforce(g,p,ctx);micro(g,p,ctx);}
+root.FractureAICombat={step,operationStep,power,ambush};if(typeof module!=='undefined')module.exports=root.FractureAICombat;
 })(globalThis);

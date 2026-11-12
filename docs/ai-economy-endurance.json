@@ -1,0 +1,2336 @@
+{
+  "scenario": "Three allied Apocalypse AIs versus a passive player, small islands, normal starting resources and rates",
+  "report": [
+    {
+      "time": 60,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            86,
+            60,
+            84,
+            10
+          ],
+          "gathered": [
+            401,
+            0,
+            24,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": "build:humans_b3",
+          "remaining": [
+            3756.074999999961,
+            8100,
+            868.9499999999969,
+            1120
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            39,
+            60,
+            96,
+            10
+          ],
+          "gathered": [
+            304,
+            0,
+            36,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 9,
+          "goal": "oil:13",
+          "remaining": [
+            8655.749999999998,
+            900,
+            5656.124999999995,
+            820
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            54,
+            60,
+            96,
+            10
+          ],
+          "gathered": [
+            389,
+            0,
+            36,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": null,
+          "remaining": [
+            3776.7749999999696,
+            9300,
+            856.1249999999956,
+            1120
+          ],
+          "defenses": 0,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 120,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            291,
+            145,
+            145,
+            10
+          ],
+          "gathered": [
+            936,
+            85,
+            85,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": null,
+          "remaining": [
+            3210.224999999945,
+            8010.449999999991,
+            803.9249999999903,
+            1420
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            247,
+            84,
+            157,
+            10
+          ],
+          "gathered": [
+            827,
+            24,
+            97,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": null,
+          "remaining": [
+            10503.15000000002,
+            858.8249999999958,
+            6802.79999999999,
+            820
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            266,
+            109,
+            157,
+            10
+          ],
+          "gathered": [
+            936,
+            49,
+            97,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": null,
+          "remaining": [
+            3205.0499999999374,
+            9240.149999999994,
+            802.7999999999902,
+            2320
+          ],
+          "defenses": 0,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 180,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            565,
+            212,
+            174,
+            34
+          ],
+          "gathered": [
+            1520,
+            182,
+            134,
+            24
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": "research:humans_advanced",
+          "remaining": [
+            2642.12249999999,
+            7917.749999999982,
+            755.3249999999861,
+            1395.6100000000006
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            364,
+            218,
+            157,
+            10
+          ],
+          "gathered": [
+            1349,
+            158,
+            97,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": null,
+          "remaining": [
+            10001.175000000052,
+            734.8499999999833,
+            6802.79999999999,
+            820
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            443,
+            176,
+            186,
+            10
+          ],
+          "gathered": [
+            1483,
+            146,
+            146,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": "research:machines_advanced",
+          "remaining": [
+            2673.3974999999473,
+            10349.879999999986,
+            754.1774999999857,
+            2320
+          ],
+          "defenses": 0,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 240,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            693,
+            213,
+            160,
+            36
+          ],
+          "gathered": [
+            2208,
+            293,
+            220,
+            61
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": null,
+          "remaining": [
+            1956.8625000000168,
+            7807.184999999975,
+            680.4449999999814,
+            1346.4700000000025
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            502,
+            273,
+            149,
+            10
+          ],
+          "gathered": [
+            1932,
+            243,
+            109,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": "research:primates_weapons1",
+          "remaining": [
+            9430.80000000009,
+            645.9749999999743,
+            6778.5,
+            820
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            995,
+            286,
+            272,
+            10
+          ],
+          "gathered": [
+            2035,
+            256,
+            232,
+            0
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": "research:machines_advanced",
+          "remaining": [
+            2116.6350000000534,
+            10243.702499999978,
+            668.1824999999803,
+            2320
+          ],
+          "defenses": 0,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 300,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            569,
+            158,
+            160,
+            61
+          ],
+          "gathered": [
+            2859,
+            293,
+            220,
+            86
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 14,
+          "goal": "research:humans_weapons1",
+          "remaining": [
+            1250.7225000000396,
+            7807.184999999975,
+            680.4449999999814,
+            1334.1850000000018
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            1048,
+            358,
+            196,
+            22
+          ],
+          "gathered": [
+            2568,
+            353,
+            171,
+            12
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": "research:primates_advanced",
+          "remaining": [
+            8794.635000000157,
+            539.5274999999666,
+            6720.135000000002,
+            807.7150000000004
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            791,
+            196,
+            174,
+            36
+          ],
+          "gathered": [
+            2736,
+            256,
+            269,
+            61
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": null,
+          "remaining": [
+            1427.7975000000106,
+            10243.702499999978,
+            631.327499999978,
+            2258.575
+          ],
+          "defenses": 0,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 360,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            710,
+            70,
+            80,
+            31
+          ],
+          "gathered": [
+            3965,
+            305,
+            220,
+            86
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 20,
+          "goal": "research:humans_weapons1",
+          "remaining": [
+            187.43249999998338,
+            7794.899999999974,
+            680.4449999999814,
+            1334.1850000000018
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            1292,
+            366,
+            194,
+            24
+          ],
+          "gathered": [
+            3072,
+            451,
+            269,
+            49
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 10,
+          "goal": null,
+          "remaining": [
+            8271.08250000019,
+            438.0299999999603,
+            6623.024999999996,
+            764.7175000000019
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            766,
+            161,
+            186,
+            36
+          ],
+          "gathered": [
+            3276,
+            256,
+            281,
+            61
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 14,
+          "goal": null,
+          "remaining": [
+            888.7799999999806,
+            10243.702499999978,
+            619.0424999999773,
+            2258.575
+          ],
+          "defenses": 0,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 420,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            70,
+            411,
+            60,
+            92
+          ],
+          "gathered": [
+            4215,
+            711,
+            265,
+            147
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 416.99999999998244
+            }
+          ],
+          "workers": 23,
+          "goal": null,
+          "remaining": [
+            7896.975000000167,
+            7804.1249999999145,
+            7216.889999999972,
+            1998.2825000000016
+          ],
+          "expansion": {
+            "x": 77.59659628756344,
+            "y": 15.345717613585293,
+            "node": 25,
+            "depot": "humans_orewell",
+            "at": 377.24999999998846,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            658,
+            372,
+            176,
+            36
+          ],
+          "gathered": [
+            3428,
+            477,
+            306,
+            61
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 11,
+          "goal": null,
+          "remaining": [
+            7896.975000000167,
+            422.81999999995935,
+            6594.359999999994,
+            758.5750000000021
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            606,
+            61,
+            71,
+            6
+          ],
+          "gathered": [
+            4186,
+            256,
+            281,
+            61
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 19,
+          "goal": null,
+          "remaining": [
+            7896.975000000167,
+            10666.229999999938,
+            7213.1099999999715,
+            2717.150000000002
+          ],
+          "expansion": {
+            "x": 83.59659628756344,
+            "y": 18.809819228723047,
+            "node": 25,
+            "depot": "machines_b2",
+            "at": 396.1499999999856,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 480,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            102,
+            423,
+            502,
+            559
+          ],
+          "gathered": [
+            4397,
+            723,
+            707,
+            614
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 477.2999999999733
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            6796.005000000099,
+            17555.257499999872,
+            6873.899999999904,
+            3057.965000000002
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            285,
+            214,
+            171,
+            6
+          ],
+          "gathered": [
+            4300,
+            489,
+            381,
+            61
+          ],
+          "deep": false,
+          "mines": [],
+          "workers": 15,
+          "goal": null,
+          "remaining": [
+            6796.005000000099,
+            409.3649999999585,
+            6511.289999999989,
+            758.5750000000021
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            190,
+            434,
+            441,
+            424
+          ],
+          "gathered": [
+            4310,
+            699,
+            711,
+            479
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 0.7987500000000011
+            }
+          ],
+          "workers": 22,
+          "goal": null,
+          "remaining": [
+            8596.0050000001,
+            11080.679999999917,
+            13581.344999999947,
+            3082.857499999999
+          ],
+          "expansion": {
+            "x": 37.6710995817557,
+            "y": 80.62369005125076,
+            "node": 59,
+            "depot": "machines_b2",
+            "at": 453.74999999997686,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": true
+        }
+      ]
+    },
+    {
+      "time": 540,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            99,
+            373,
+            472,
+            571
+          ],
+          "gathered": [
+            4574,
+            723,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 539.9999999999638
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            5448.165000000055,
+            17339.977499999866,
+            6654.412499999943,
+            2938.625000000006
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": true
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            424,
+            205,
+            150,
+            6
+          ],
+          "gathered": [
+            5479,
+            575,
+            430,
+            61
+          ],
+          "deep": true,
+          "mines": [],
+          "workers": 20,
+          "goal": null,
+          "remaining": [
+            5448.165000000055,
+            323.6624999999532,
+            6461.8574999999855,
+            758.5750000000021
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            116,
+            593,
+            630,
+            571
+          ],
+          "gathered": [
+            4361,
+            858,
+            900,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 538.0499999999641
+            }
+          ],
+          "workers": 22,
+          "goal": null,
+          "remaining": [
+            5448.165000000055,
+            9965.39999999991,
+            5261.8574999999855,
+            2444.9800000000027
+          ],
+          "expansion": {
+            "x": 37.6710995817557,
+            "y": 80.62369005125076,
+            "node": 59,
+            "depot": "machines_b2",
+            "at": 453.74999999997686,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 600,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            75,
+            318,
+            452,
+            571
+          ],
+          "gathered": [
+            4695,
+            723,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 596.8499999999552
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            3871.837499999961,
+            17113.087499999907,
+            6480.959999999932,
+            2828.937500000006
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": true
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            1140,
+            252,
+            220,
+            6
+          ],
+          "gathered": [
+            7015,
+            747,
+            590,
+            61
+          ],
+          "deep": true,
+          "mines": [],
+          "workers": 26,
+          "goal": "research:primates_armor2",
+          "remaining": [
+            3871.837499999961,
+            138.5099999999531,
+            6288.404999999975,
+            758.5750000000021
+          ],
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            151,
+            630,
+            630,
+            682
+          ],
+          "gathered": [
+            4397,
+            895,
+            900,
+            737
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 598.349999999955
+            }
+          ],
+          "workers": 22,
+          "goal": null,
+          "remaining": [
+            3871.837499999961,
+            9738.509999999953,
+            5100.104999999976,
+            2335.2925000000027
+          ],
+          "expansion": {
+            "x": 83.59659628756344,
+            "y": 18.809819228723047,
+            "node": 25,
+            "depot": "machines_b2",
+            "at": 574.3499999999586,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 660,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            96,
+            612,
+            452,
+            571
+          ],
+          "gathered": [
+            4816,
+            1042,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 657.1499999999461
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            2369.4524999999235,
+            16565.234999999888,
+            6286.154999999921,
+            3037.1975000000034
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": true
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            699,
+            178,
+            177,
+            6
+          ],
+          "gathered": [
+            8464,
+            883,
+            787,
+            61
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1
+            }
+          ],
+          "workers": 31,
+          "goal": null,
+          "remaining": [
+            2369.4524999999235,
+            12.149999999952897,
+            6093.599999999963,
+            758.5750000000021
+          ],
+          "defenses": 1,
+          "attacking": true
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            185,
+            630,
+            642,
+            780
+          ],
+          "gathered": [
+            4431,
+            895,
+            912,
+            835
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 658.6499999999459
+            }
+          ],
+          "workers": 22,
+          "goal": null,
+          "remaining": [
+            2369.4524999999235,
+            9612.149999999952,
+            4994.219999999969,
+            2243.5525000000007
+          ],
+          "expansion": {
+            "x": 29.31289952877849,
+            "y": 86.78538685850799,
+            "node": 48,
+            "depot": "machines_b2",
+            "at": 643.9499999999481,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 720,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            145,
+            1030,
+            452,
+            571
+          ],
+          "gathered": [
+            4925,
+            1460,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 717.449999999937
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            1195.9049999999997,
+            16210.319999999963,
+            6010.619999999903,
+            2952.0800000000067
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": true
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            1360,
+            75,
+            382,
+            6
+          ],
+          "gathered": [
+            9715,
+            930,
+            1082,
+            61
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 716.3999999999371
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 718.4999999999368
+            }
+          ],
+          "workers": 33,
+          "goal": null,
+          "remaining": [
+            1195.9049999999997,
+            0,
+            5818.064999999946,
+            758.5750000000021
+          ],
+          "defenses": 1,
+          "attacking": true
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            221,
+            630,
+            642,
+            854
+          ],
+          "gathered": [
+            4467,
+            895,
+            912,
+            909
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 718.9499999999367
+            }
+          ],
+          "workers": 22,
+          "goal": null,
+          "remaining": [
+            1195.9049999999997,
+            9600,
+            4792.394999999957,
+            2158.435000000003
+          ],
+          "expansion": {
+            "x": 29.31289952877849,
+            "y": 86.78538685850799,
+            "node": 48,
+            "depot": "machines_b2",
+            "at": 643.9499999999481,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 780,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            37,
+            985,
+            422,
+            571
+          ],
+          "gathered": [
+            5177,
+            1460,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 777.7499999999278
+            },
+            {
+              "type": "humans_deep_aether",
+              "progress": 0
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            0,
+            16210.319999999963,
+            192.55499999995723,
+            2107.802500000004
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            751,
+            57,
+            388,
+            56
+          ],
+          "gathered": [
+            9901,
+            1002,
+            1203,
+            111
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 776.699999999928
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 778.7999999999276
+            }
+          ],
+          "workers": 34,
+          "goal": "transport:primates_transport_ship",
+          "remaining": [
+            1195.9049999999997,
+            6610.319999999963,
+            5865.247499999894,
+            1490.7950000000033
+          ],
+          "expansion": {
+            "x": 15.045347701534032,
+            "y": 26.063909823074937,
+            "node": 61,
+            "depot": "primates_b2",
+            "at": 749.2499999999321,
+            "naval": false
+          },
+          "defenses": 1,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            287,
+            630,
+            655,
+            940
+          ],
+          "gathered": [
+            4533,
+            895,
+            925,
+            995
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 779.2499999999276
+            }
+          ],
+          "workers": 22,
+          "goal": null,
+          "remaining": [
+            1195.9049999999997,
+            9600,
+            4647.022499999948,
+            2011.3075000000017
+          ],
+          "expansion": {
+            "x": 83.59659628756344,
+            "y": 18.809819228723047,
+            "node": 25,
+            "depot": "machines_b2",
+            "at": 722.5499999999362,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 840,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            129,
+            960,
+            422,
+            571
+          ],
+          "gathered": [
+            5429,
+            1460,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 838.0499999999187
+            },
+            {
+              "type": "humans_deep_aether",
+              "progress": 1
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            0,
+            16115.54999999996,
+            192.55499999995723,
+            2082.062500000004
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            263,
+            58,
+            432,
+            166
+          ],
+          "gathered": [
+            10193,
+            1148,
+            1362,
+            221
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 836.9999999999188
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 839.0999999999185
+            }
+          ],
+          "workers": 34,
+          "goal": null,
+          "remaining": [
+            2991.2249999999995,
+            7415.549999999958,
+            15005.542499999885,
+            1663.7025000000028
+          ],
+          "expansion": {
+            "x": 35,
+            "y": 65.53589838486225,
+            "node": 1,
+            "depot": "primates_b2",
+            "at": 816.149999999922,
+            "naval": false
+          },
+          "defenses": 1,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            359,
+            630,
+            655,
+            977
+          ],
+          "gathered": [
+            4605,
+            895,
+            925,
+            1032
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 839.5499999999184
+            }
+          ],
+          "workers": 22,
+          "goal": null,
+          "remaining": [
+            1191.2249999999995,
+            9600,
+            4511.887499999939,
+            1877.049999999999
+          ],
+          "expansion": {
+            "x": 83.59659628756344,
+            "y": 18.809819228723047,
+            "node": 25,
+            "depot": "machines_b2",
+            "at": 798.7499999999246,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 900,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            236,
+            905,
+            402,
+            571
+          ],
+          "gathered": [
+            5681,
+            1460,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 898.3499999999095
+            },
+            {
+              "type": "humans_deep_aether",
+              "progress": 1
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            0,
+            15934.199999999946,
+            192.55499999995723,
+            2082.062500000004
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            42,
+            264,
+            347,
+            309
+          ],
+          "gathered": [
+            10542,
+            1374,
+            1362,
+            364
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 897.2999999999097
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 861.5999999999151
+            },
+            {
+              "type": "primates_deep_rift",
+              "progress": 0.5812499999999993
+            }
+          ],
+          "workers": 34,
+          "goal": null,
+          "remaining": [
+            2862.2324999999914,
+            900,
+            14812.987499999927,
+            871.3750000000001
+          ],
+          "expansion": {
+            "x": 35,
+            "y": 65.53589838486225,
+            "node": 1,
+            "depot": "primates_b2",
+            "at": 816.149999999922,
+            "naval": false
+          },
+          "defenses": 1,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            242,
+            630,
+            655,
+            977
+          ],
+          "gathered": [
+            4739,
+            895,
+            925,
+            1032
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 899.8499999999093
+            }
+          ],
+          "workers": 22,
+          "goal": null,
+          "remaining": [
+            2862.2324999999914,
+            10500,
+            13787.317499999937,
+            2159.7925000000014
+          ],
+          "expansion": {
+            "x": 33,
+            "y": 65,
+            "node": 1,
+            "depot": "machines_b2",
+            "at": 855.449999999916,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 960,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            128,
+            845,
+            317,
+            571
+          ],
+          "gathered": [
+            5933,
+            1460,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 958.6499999999004
+            },
+            {
+              "type": "humans_deep_aether",
+              "progress": 1
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            0,
+            15934.199999999946,
+            192.55499999995723,
+            2082.062500000004
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            169,
+            270,
+            347,
+            423
+          ],
+          "gathered": [
+            10749,
+            1380,
+            1362,
+            478
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 956.2499999999008
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 861.5999999999151
+            },
+            {
+              "type": "primates_deep_rift",
+              "progress": 1
+            }
+          ],
+          "workers": 34,
+          "goal": null,
+          "remaining": [
+            2558.6174999999726,
+            900,
+            14812.987499999927,
+            862.0150000000004
+          ],
+          "expansion": {
+            "x": 26.82043852541536,
+            "y": 43.78517639171332,
+            "node": 33,
+            "depot": "primates_b2",
+            "at": 948.4499999999019,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            201,
+            610,
+            655,
+            977
+          ],
+          "gathered": [
+            5017,
+            895,
+            925,
+            1032
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 953.5499999999012
+            }
+          ],
+          "workers": 25,
+          "goal": null,
+          "remaining": [
+            1150.274999999997,
+            9600,
+            4511.887499999939,
+            1630.4325000000017
+          ],
+          "expansion": {
+            "x": 83.59659628756344,
+            "y": 18.809819228723047,
+            "node": 25,
+            "depot": "machines_b2",
+            "at": 919.3499999999063,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 1020,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            220,
+            825,
+            317,
+            571
+          ],
+          "gathered": [
+            6185,
+            1460,
+            707,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 1018.9499999998912
+            },
+            {
+              "type": "humans_deep_aether",
+              "progress": 1
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            0,
+            15934.199999999946,
+            192.55499999995723,
+            2082.062500000004
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            258,
+            170,
+            491,
+            413
+          ],
+          "gathered": [
+            11148,
+            1380,
+            1571,
+            478
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 1017.1499999998915
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 861.5999999999151
+            },
+            {
+              "type": "primates_deep_rift",
+              "progress": 1
+            }
+          ],
+          "workers": 34,
+          "goal": null,
+          "remaining": [
+            2395.1099999999624,
+            900,
+            14601.802499999914,
+            862.0150000000004
+          ],
+          "expansion": {
+            "x": 26.82043852541536,
+            "y": 43.78517639171332,
+            "node": 33,
+            "depot": "primates_b2",
+            "at": 948.4499999999019,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            296,
+            610,
+            655,
+            977
+          ],
+          "gathered": [
+            5162,
+            895,
+            925,
+            1032
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 1013.849999999892
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            1137.9899999999961,
+            9600,
+            4300.702499999927,
+            1630.4325000000017
+          ],
+          "expansion": {
+            "x": 83.59659628756344,
+            "y": 18.809819228723047,
+            "node": 25,
+            "depot": "machines_b2",
+            "at": 919.3499999999063,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 1080,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            122,
+            802,
+            459,
+            571
+          ],
+          "gathered": [
+            6437,
+            1487,
+            879,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 1079.249999999924
+            },
+            {
+              "type": "humans_deep_aether",
+              "progress": 1
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            0,
+            15934.199999999946,
+            20.564999999958935,
+            2082.062500000004
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            705,
+            170,
+            516,
+            413
+          ],
+          "gathered": [
+            11595,
+            1380,
+            1596,
+            478
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 1077.449999999923
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 861.5999999999151
+            },
+            {
+              "type": "primates_deep_rift",
+              "progress": 1
+            }
+          ],
+          "workers": 34,
+          "goal": "expansion:25",
+          "remaining": [
+            2241.547499999953,
+            900,
+            14579.572499999913,
+            862.0150000000004
+          ],
+          "expansion": {
+            "x": 26.82043852541536,
+            "y": 43.78517639171332,
+            "node": 33,
+            "depot": "primates_b2",
+            "at": 948.4499999999019,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            224,
+            610,
+            655,
+            977
+          ],
+          "gathered": [
+            5270,
+            895,
+            925,
+            1032
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 1074.149999999921
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            2241.547499999953,
+            10500,
+            13553.902499999924,
+            2150.4325000000017
+          ],
+          "expansion": {
+            "x": 35,
+            "y": 65.53589838486225,
+            "node": 1,
+            "depot": "machines_b2",
+            "at": 1077.449999999923,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 1140,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            104,
+            782,
+            459,
+            571
+          ],
+          "gathered": [
+            6689,
+            1487,
+            879,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 1139.5499999999606
+            },
+            {
+              "type": "humans_deep_aether",
+              "progress": 1
+            }
+          ],
+          "workers": 29,
+          "goal": null,
+          "remaining": [
+            0,
+            15934.199999999946,
+            20.564999999958935,
+            2082.062500000004
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            1141,
+            170,
+            516,
+            413
+          ],
+          "gathered": [
+            12031,
+            1380,
+            1596,
+            478
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 1137.7499999999595
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 861.5999999999151
+            },
+            {
+              "type": "primates_deep_rift",
+              "progress": 1
+            }
+          ],
+          "workers": 34,
+          "goal": null,
+          "remaining": [
+            2072.4824999999423,
+            900,
+            14579.572499999913,
+            862.0150000000004
+          ],
+          "expansion": {
+            "x": 26.82043852541536,
+            "y": 43.78517639171332,
+            "node": 33,
+            "depot": "primates_b2",
+            "at": 948.4499999999019,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            344,
+            610,
+            655,
+            977
+          ],
+          "gathered": [
+            5390,
+            895,
+            925,
+            1032
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 1134.4499999999575
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            1056.382499999991,
+            9600,
+            4278.472499999925,
+            1630.4325000000017
+          ],
+          "expansion": {
+            "x": 78.1324946724257,
+            "y": 13.345717613585295,
+            "node": 25,
+            "depot": "machines_b2",
+            "at": 1138.64999999996,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    },
+    {
+      "time": 1200,
+      "players": [
+        {
+          "faction": "humans",
+          "stock": [
+            112,
+            732,
+            429,
+            571
+          ],
+          "gathered": [
+            6977,
+            1487,
+            879,
+            626
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "humans_deep_ore",
+              "progress": 1,
+              "extracted": 1199.8499999999972
+            },
+            {
+              "type": "humans_deep_aether",
+              "progress": 1
+            }
+          ],
+          "workers": 32,
+          "goal": null,
+          "remaining": [
+            0,
+            15934.199999999946,
+            20.564999999958935,
+            2082.062500000004
+          ],
+          "expansion": {
+            "x": 72.7185108428821,
+            "y": 59.132743469215335,
+            "node": 63,
+            "depot": "humans_riftwell",
+            "at": 479.8499999999729,
+            "naval": true
+          },
+          "defenses": 0,
+          "attacking": false
+        },
+        {
+          "faction": "primates",
+          "stock": [
+            1588,
+            170,
+            516,
+            413
+          ],
+          "gathered": [
+            12478,
+            1380,
+            1596,
+            478
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "primates_deep_ore",
+              "progress": 1,
+              "extracted": 1198.049999999996
+            },
+            {
+              "type": "primates_deep_oil",
+              "progress": 1,
+              "extracted": 861.5999999999151
+            },
+            {
+              "type": "primates_deep_rift",
+              "progress": 1
+            }
+          ],
+          "workers": 34,
+          "goal": "house",
+          "remaining": [
+            1915.9949999999326,
+            900,
+            14579.572499999913,
+            862.0150000000004
+          ],
+          "expansion": {
+            "x": 26.82043852541536,
+            "y": 43.78517639171332,
+            "node": 33,
+            "depot": "primates_b2",
+            "at": 948.4499999999019,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        },
+        {
+          "faction": "machines",
+          "stock": [
+            202,
+            565,
+            620,
+            977
+          ],
+          "gathered": [
+            5498,
+            895,
+            925,
+            1032
+          ],
+          "deep": true,
+          "mines": [
+            {
+              "type": "machines_deep_ore",
+              "progress": 1,
+              "extracted": 1194.749999999994
+            }
+          ],
+          "workers": 27,
+          "goal": null,
+          "remaining": [
+            1015.1399999999885,
+            9600,
+            4278.472499999925,
+            1630.4325000000017
+          ],
+          "expansion": {
+            "x": 35,
+            "y": 65.53589838486225,
+            "node": 1,
+            "depot": "machines_b2",
+            "at": 1195.9499999999948,
+            "naval": true
+          },
+          "defenses": 1,
+          "attacking": false
+        }
+      ]
+    }
+  ],
+  "victoryAt": 763.49999999993,
+  "continuedAfterVictory": true
+}

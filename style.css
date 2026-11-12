@@ -19,3 +19,5 @@
 #campaignLiveObjectives .objective-contested{color:#e8ba8b}#campaignLiveStage{margin:0 0 9px;color:#b9c6b9}
 
 #selectionManagement{grid-column:1/-1;order:1000;margin-top:22px;padding:14px 4px 4px;border-top:1px solid #52605a;color:#aeb6b1;font-size:11px}#selectionManagement summary{cursor:pointer;padding:7px 3px;letter-spacing:.4px}#selectionManagement p{font-size:10px;line-height:1.5;color:#a7a39b;margin:8px 3px 12px}#selectionManagement .destructive-action{width:100%;min-height:40px;border-color:#8c615b;background:#332b2b;color:#edc4b7}#selectionManagement .destructive-action:hover{background:#513430;border-color:#c28b79}
+
+#campaignObjectiveBody{max-height:calc(100vh - 155px);overflow:auto}#campaignJournal{font-size:11px;margin-top:10px;color:#c7d4cb}#campaignJournal summary{cursor:pointer;color:#d9c89d}#campaignDispatches{max-height:220px;overflow:auto}#campaignDispatches p{padding:7px 0;margin:0;border-bottom:1px solid #43534d;line-height:1.55}

@@ -1,0 +1,38 @@
+{
+  "method": "Ordinary paid commands with slower decision intervals and bounded standing forces. No resource, damage, position or objective injection. A pacing/feasibility probe, not human-playtest certification.",
+  "results": [
+    {
+      "name": "steady",
+      "commandInterval": 4,
+      "armyCap": 24,
+      "status": "victory",
+      "seconds": 561,
+      "losses": 11,
+      "kills": 33,
+      "evacuated": 6,
+      "remaining": []
+    },
+    {
+      "name": "slower",
+      "commandInterval": 12,
+      "armyCap": 18,
+      "status": "victory",
+      "seconds": 562,
+      "losses": 9,
+      "kills": 33,
+      "evacuated": 6,
+      "remaining": []
+    },
+    {
+      "name": "minimal-reinforcement",
+      "commandInterval": 12,
+      "armyCap": 12,
+      "status": "victory",
+      "seconds": 565,
+      "losses": 13,
+      "kills": 30,
+      "evacuated": 6,
+      "remaining": []
+    }
+  ]
+}

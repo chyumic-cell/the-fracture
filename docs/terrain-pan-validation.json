@@ -1,0 +1,42 @@
+{
+  "pans": [
+    {
+      "point": {
+        "x": 810,
+        "y": 480.373471741638
+      },
+      "visible": 24,
+      "retained": true,
+      "max": 64,
+      "busy": true
+    },
+    {
+      "point": {
+        "x": 809.9983197380517,
+        "y": 504.61624684053294
+      },
+      "visible": 24,
+      "retained": true,
+      "max": 64,
+      "busy": true
+    },
+    {
+      "point": {
+        "x": 810.0016802619485,
+        "y": 489.01792710248185
+      },
+      "visible": 20,
+      "retained": true,
+      "max": 64,
+      "busy": true
+    }
+  ],
+  "metrics": {
+    "ready": true,
+    "cached": 64,
+    "capacity": 64,
+    "p95FrameMs": 33.69999999999891,
+    "maxFrameMs": 466.60000000000036
+  },
+  "errors": []
+}

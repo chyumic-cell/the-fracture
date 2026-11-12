@@ -109,8 +109,11 @@ function create(missionId,difficulty='standard'){
  for(const w of m.waves||[]){const p=point(g,w.spawn||{x:.84,y:.23});flatten(g,p,6);corridor(g,p,sites.find(s=>s.id===w.target)||home,3.5);}
  const keep=decor.filter(e=>distance(e,home)>18&&distance(e,enemy)>12&&sites.every(s=>distance(e,s)>10)&&!g.tile(e.x,e.y)?.road);for(const e of keep){let close=false;for(let dy=-3;dy<=3;dy++)for(let dx=-3;dx<=3;dx++)if(g.tile(e.x+dx,e.y+dy)?.road)close=true;if(!close)g.add({...e});}g.rebuildNav();
  const offsets=[[0,0],[-7,0],[0,-7],[7,0],[-7,-7],[7,-7],[-7,7],[7,7],[0,12],[-12,0],[12,0],[0,-12]];
- const buildingKinds=[...new Set(m.startingBuildings||['hq','inf','house'])];if(!buildingKinds.includes('hq'))buildingKinds.unshift('hq');if(!buildingKinds.includes('house'))buildingKinds.push('house');
+ const playerAirSpecs=[...(m.startingUnits||[]),...(m.events||[]).filter(e=>(e.owner??0)===0).flatMap(e=>e.units||[])];
+ const needsAviation=playerAirSpecs.some(spec=>unitDefinition(m.faction,spec).air);
+ const buildingKinds=[...new Set([...(m.startingBuildings||['hq','inf','house']),...(needsAviation?['air']:[])])];if(!buildingKinds.includes('hq'))buildingKinds.unshift('hq');if(!buildingKinds.includes('house'))buildingKinds.push('house');
  buildingKinds.forEach((kind,i)=>{const off=offsets[i%offsets.length];addBuilding(g,0,kind,{x:home.x+off[0],y:home.y+off[1]},'base-'+kind);});
+ if((m.waves||[]).some(w=>(w.units||[]).some(spec=>unitDefinition(m.enemyFaction,spec).air)))addBuilding(g,1,'air',{x:enemy.x+7,y:enemy.y},'enemy-aviation');
  addBuilding(g,1,'hq',enemy,'enemy-command');addBuilding(g,1,'inf',{x:enemy.x-6,y:enemy.y},'enemy-production');spawnSquad(g,1,[{role:'rifle',count:3}],{x:enemy.x-3,y:enemy.y+5},{kind:'hold'});
  for(let a=0;a<allied.length;a++){const owner=a+2,p=point(g,(m.allies[a]?.at)||{x:.18+a*.09,y:.37});g.players[owner].home=p;g.starts[owner]=p;flatten(g,p,10);corridor(g,p,home);addBuilding(g,owner,'hq',p);const squad=spawnSquad(g,owner,[{role:'rifle',count:4},{role:'support',count:1}],{x:p.x+4,y:p.y+4});g.players[owner].stock=[500,200,200,60];for(const u of squad){const p=openSpot(g,{x:home.x+6,y:home.y-6},.3);g.order([u.id],{kind:'attackMove',x:p.x,y:p.y});}}
  // Resource deposits are separate clusters beside the base, with one expansion per region.
@@ -124,7 +127,7 @@ function create(missionId,difficulty='standard'){
  for(let k=0;g.capacity(0)<g.population(0)+12&&k<6;k++)addBuilding(g,0,'house',{x:home.x-8+k*3,y:home.y+12});
  g.campaign.initialBuildings=g.entities.filter(e=>e.kind==='building').map(e=>e.id);for(const o of g.campaign.objectives)if(o.type==='gather')o.baseline=g.players[0].gathered[resourceIndex(o.resource)];
  const landmarks=root.FractureCampaignLandmarks||(typeof require!=='undefined'?(()=>{try{return require('./campaign-landmarks.js');}catch(e){if(e.code==='MODULE_NOT_FOUND')return null;throw e;}})():null);if(landmarks?.decorate)landmarks.decorate(g,m);
- updateProductionRate(g);g.rebuildNav();g.updateVision();for(const s of sites)reveal(g,s,5);reveal(g,home,18);unlockTargets(g);for(const o of g.campaign.objectives)if(o.type==='protect')o.complete=true;note(g,m.briefing||m.title,'briefing');return g;
+ updateProductionRate(g);g.rebuildNav();g.updateVision();reveal(g,home,18);unlockTargets(g);for(const o of g.campaign.objectives)if(o.type==='protect')o.complete=true;note(g,m.briefing||m.title,'briefing');return g;
 }
 
 function prepareHarbor(g,m){

@@ -5,23 +5,23 @@
       "mission": 1,
       "title": "The Bridge at Dawn",
       "status": "victory",
-      "time": 552,
-      "lost": 6,
-      "kills": 28,
+      "time": 554,
+      "lost": 4,
+      "kills": 32,
       "stock": [
-        306,
-        910,
-        617,
+        436,
+        922,
+        629,
         40
       ],
-      "seconds": 8,
+      "seconds": 47,
       "stage": 4,
       "profile": {
-        "updateVision": 4111.640900000009,
-        "path": 52.228599999991275,
-        "go": 180.3825999999408,
-        "tick": 7919.826899999962,
-        "attackSpot": 170.78510000003644
+        "updateVision": 21250.521899999978,
+        "path": 144.5945000000138,
+        "go": 924.1795000000129,
+        "tick": 44693.7068999999,
+        "attackSpot": 1073.8688000000475
       },
       "remaining": [],
       "result": "The villages have escaped and the Emperor has retreated through his crossing, leaving his shed tail behind. The containment crew seals the foreign tissue. The invasion has been checked, but the barrier between worlds is already weakening."
@@ -30,33 +30,33 @@
       "mission": 2,
       "title": "Imperial Orders",
       "status": "victory",
-      "time": 176,
+      "time": 177,
       "lost": 4,
       "kills": 15,
       "stock": [
-        54,
+        29,
         473,
         351,
         80
       ],
-      "seconds": 2,
+      "seconds": 4,
       "stage": 2,
       "profile": {
-        "updateVision": 976.2910999999931,
-        "path": 12.695600000000923,
-        "go": 51.80140000002757,
-        "tick": 1718.078300000032,
-        "attackSpot": 54.501400000031936
+        "updateVision": 2119.5360000000364,
+        "path": 31.52740000011545,
+        "go": 124.30000000017026,
+        "tick": 3713.9038,
+        "attackSpot": 129.2877999998309
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The imperial foothold is secure, but its repeated crossings are making the boundary unstable. Wizard scouts are closing on the apparatus that controls the breach."
     },
     {
       "mission": 3,
       "title": "Keys to a Third World",
       "status": "victory",
-      "time": 340,
-      "lost": 21,
+      "time": 339,
+      "lost": 19,
       "kills": 15,
       "stock": [
         18,
@@ -64,17 +64,17 @@
         473,
         80
       ],
-      "seconds": 2,
+      "seconds": 4,
       "stage": 2,
       "profile": {
-        "updateVision": 1392.995400000007,
-        "path": 9.207999999987805,
-        "go": 53.32630000012614,
-        "tick": 2197.772400000047,
-        "attackSpot": 47.38260000003356
+        "updateVision": 2738.706500000044,
+        "path": 22.463600000082806,
+        "go": 116.36610000005749,
+        "tick": 4335.453500000171,
+        "attackSpot": 71.50060000006488
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The researchers have steadied the apparatus, not repaired the boundary. Morvane is now connected to the war. Refugees from the first invasion are gathering at Ashbridge while fighting spreads into the third world."
     },
     {
       "mission": 4,
@@ -92,89 +92,89 @@
       "seconds": 4,
       "stage": 1,
       "profile": {
-        "updateVision": 2137.1392000000033,
-        "path": 14.974400000004607,
-        "go": 60.1137999999537,
-        "tick": 3651.3671999999387,
-        "attackSpot": 26.83419999999751
+        "updateVision": 1985.3666999999477,
+        "path": 14.201400000034482,
+        "go": 59.61579999989044,
+        "tick": 3498.237099999991,
+        "attackSpot": 38.18060000005062
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The residents have reached the compound. Morvane's old rivalries now have roads into other worlds. Back in Kareth, Human commanders can no longer treat the imperial invasion as a distant conflict."
     },
     {
       "mission": 5,
       "title": "No Neutral Ground",
       "status": "victory",
-      "time": 281,
-      "lost": 3,
-      "kills": 18,
+      "time": 323,
+      "lost": 0,
+      "kills": 14,
       "stock": [
-        45,
-        286,
-        387,
-        262
+        26,
+        347,
+        424,
+        287
       ],
       "seconds": 5,
       "stage": 2,
       "profile": {
-        "updateVision": 2692.8591999999408,
-        "path": 44.0050999999512,
-        "go": 134.20779999988008,
-        "tick": 4921.372799999979,
-        "attackSpot": 127.19840000003023
+        "updateVision": 2510.688500000011,
+        "path": 35.1457999998529,
+        "go": 113.1593000007415,
+        "tick": 4579.88139999994,
+        "attackSpot": 111.99820000002364
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The frontier supply routes are open. Human and Machine forces have cooperated on this front, but the wider war continues. In Elyndra, a new imperial offensive is approaching Ashbridge."
     },
     {
       "mission": 6,
       "title": "Hold Ashbridge",
       "status": "victory",
       "time": 250,
-      "lost": 17,
-      "kills": 16,
+      "lost": 16,
+      "kills": 19,
       "stock": [
-        99,
-        362,
+        103,
+        374,
         234,
         80
       ],
-      "seconds": 2,
+      "seconds": 3,
       "stage": 2,
       "profile": {
-        "updateVision": 1321.6107000000702,
-        "path": 14.013499999990017,
-        "go": 55.71949999975186,
-        "tick": 2274.4256000000605,
-        "attackSpot": 38.43590000008044
+        "updateVision": 1450.6808000002784,
+        "path": 21.945100000157254,
+        "go": 75.77820000033535,
+        "tick": 2496.9378999999026,
+        "attackSpot": 38.20540000022447
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The evacuation has cleared Ashbridge. The infirmary must be abandoned, along with its stored specimens. What happens to one small glass chamber belongs to the refugees' story."
     },
     {
       "mission": 7,
       "title": "Lines in the Earth",
       "status": "victory",
-      "time": 423,
-      "lost": 32,
+      "time": 390,
+      "lost": 25,
       "kills": 6,
       "stock": [
-        527,
-        851,
-        559,
+        573,
+        790,
+        535,
         100
       ],
       "seconds": 4,
       "stage": 2,
       "profile": {
-        "updateVision": 2343.2229000000225,
-        "path": 21.220800000017334,
-        "go": 95.47450000036042,
-        "tick": 4154.655799999979,
-        "attackSpot": 54.54870000006122
+        "updateVision": 2385.9930999997305,
+        "path": 22.460999999879277,
+        "go": 99.95439999924565,
+        "tick": 4202.875500000053,
+        "attackSpot": 62.055399999939254
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The Queen Chamber and its supply district have survived. The colony has defended its independence, while industrial supply roads carry the war into Primate forests."
     },
     {
       "mission": 8,
@@ -189,42 +189,42 @@
         462,
         258
       ],
-      "seconds": 3,
+      "seconds": 5,
       "stage": 2,
       "profile": {
-        "updateVision": 1511.9288000000051,
-        "path": 17.0727000000079,
-        "go": 85.97820000007778,
-        "tick": 2665.8100000000304,
-        "attackSpot": 34.7353999999832
+        "updateVision": 2706.85870000007,
+        "path": 40.71899999988091,
+        "go": 175.46760000083304,
+        "tick": 4730.782499999783,
+        "attackSpot": 51.30400000004738
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The military convoys have been intercepted and the crossing secured. Primate communities have kept control of this route. Elsewhere, the Machines are rebuilding the factories that sustain their war."
     },
     {
       "mission": 9,
       "title": "Logic of War",
       "status": "victory",
-      "time": 1083,
-      "lost": 33,
+      "time": 1061,
+      "lost": 32,
       "kills": 20,
       "stock": [
-        258,
-        2097,
-        1018,
+        222,
+        2060,
+        1006,
         65
       ],
-      "seconds": 10,
+      "seconds": 19,
       "stage": 2,
       "profile": {
-        "updateVision": 5732.752899999934,
-        "path": 52.55670000023383,
-        "go": 183.1181000002107,
-        "tick": 9847.141300000527,
-        "attackSpot": 59.327099999951315
+        "updateVision": 10238.181799999802,
+        "path": 176.2454999997135,
+        "go": 586.181900000578,
+        "tick": 18301.74909999901,
+        "attackSpot": 112.0564999999915
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "Machine coordination is restored and the siege is broken. To the refugees passing those factories, such order offers a striking contrast to the war. Elyndra's mountain peoples still fight to keep their own supply roads open."
     },
     {
       "mission": 10,
@@ -236,45 +236,45 @@
       "stock": [
         66,
         301,
-        196,
+        318,
         331
       ],
-      "seconds": 5,
+      "seconds": 9,
       "stage": 2,
       "profile": {
-        "updateVision": 2571.3660999999865,
-        "path": 71.04190000003655,
-        "go": 171.20490000004247,
-        "tick": 4741.333099999965,
-        "attackSpot": 53.78700000002209
+        "updateVision": 4482.385599999718,
+        "path": 129.07590000012715,
+        "go": 349.66279999990365,
+        "tick": 8430.850600000209,
+        "attackSpot": 92.10060000012163
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The temple and its supply routes are secure. Local oaths have held this alliance together. Beyond the mountains, Draconic hatcheries face an industrial offensive of their own."
     },
     {
       "mission": 11,
       "title": "Fire Against Steel",
       "status": "victory",
-      "time": 297,
-      "lost": 7,
+      "time": 301,
+      "lost": 8,
       "kills": 18,
       "stock": [
-        49,
+        61,
         639,
         433,
-        464
+        477
       ],
-      "seconds": 5,
+      "seconds": 8,
       "stage": 2,
       "profile": {
-        "updateVision": 2123.031299999908,
-        "path": 17.74409999999625,
-        "go": 90.35570000010921,
-        "tick": 4307.523699999896,
-        "attackSpot": 66.89949999999226
+        "updateVision": 3818.708100000207,
+        "path": 28.958100000047125,
+        "go": 230.31989999882353,
+        "tick": 7772.7904999997845,
+        "attackSpot": 126.31260000032489
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The hatchery has survived and the assault depot is gone. Air power alone could not save it: supplies and ground defenses mattered. In Morvane, rivals continue fighting for access to the crossings."
     },
     {
       "mission": 12,
@@ -287,69 +287,69 @@
         40,
         733,
         486,
-        452
+        477
       ],
-      "seconds": 4,
+      "seconds": 8,
       "stage": 2,
       "profile": {
-        "updateVision": 2054.2071000000797,
-        "path": 25.131900000145833,
-        "go": 83.96260000004258,
-        "tick": 3948.5966000001863,
-        "attackSpot": 156.98649999990448
+        "updateVision": 3874.2505000002275,
+        "path": 82.22689999961585,
+        "go": 275.0617999993847,
+        "tick": 7625.013099999924,
+        "attackSpot": 280.2904000002309
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The crossing remains open, but no power controls the widening war. Among the refugees, Thread has left its box. Imperial investigators are now reopening records of the first battle."
     },
     {
       "mission": 13,
       "title": "The Emperor's Wound",
       "status": "victory",
-      "time": 433,
-      "lost": 5,
+      "time": 439,
+      "lost": 2,
       "kills": 22,
       "stock": [
-        316,
-        950,
-        634,
+        588,
+        962,
+        646,
         120
       ],
-      "seconds": 6,
+      "seconds": 11,
       "stage": 2,
       "profile": {
-        "updateVision": 2832.562099999901,
-        "path": 17.315199999931792,
-        "go": 99.00980000034178,
-        "tick": 5395.155100000025,
-        "attackSpot": 86.69569999979285
+        "updateVision": 5673.831799999811,
+        "path": 35.18740000046091,
+        "go": 299.7917000000598,
+        "tick": 10771.531900000118,
+        "attackSpot": 160.02050000040617
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The records trace the contamination to the Emperor's discarded tail, living regenerative tissue, fungus and foreign magic. The specimen is missing. Across Kareth, reports of unexplained biological activity are beginning to arrive."
     },
     {
       "mission": 14,
       "title": "Unaccounted Movements",
       "status": "victory",
       "time": 234,
-      "lost": 5,
-      "kills": 5,
+      "lost": 4,
+      "kills": 3,
       "stock": [
-        0,
+        50,
         258,
-        476,
-        269
+        488,
+        266
       ],
-      "seconds": 3,
+      "seconds": 6,
       "stage": 2,
       "profile": {
-        "updateVision": 1477.5449999998527,
-        "path": 41.27820000003703,
-        "go": 104.30300000018178,
-        "tick": 2715.269300000058,
-        "attackSpot": 23.69840000000113
+        "updateVision": 2980.4349000002258,
+        "path": 61.717599999770755,
+        "go": 252.17439999739872,
+        "tick": 5555.133500000637,
+        "attackSpot": 42.82389999987208
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The supply column is safe, but the patrol reports confirm an unfamiliar biological force. Other communities tell a different story: organisms that offer food, shelter and healing."
     },
     {
       "mission": 15,
@@ -364,24 +364,24 @@
         451,
         120
       ],
-      "seconds": 3,
+      "seconds": 6,
       "stage": 1,
       "profile": {
-        "updateVision": 1528.0416000000114,
-        "path": 30.240699999951175,
-        "go": 110.75639999900886,
-        "tick": 2983.153800000131,
-        "attackSpot": 39.24450000007346
+        "updateVision": 2835.285799999925,
+        "path": 47.85250000018277,
+        "go": 251.642099997669,
+        "tick": 5507.56599999973,
+        "attackSpot": 73.32780000005732
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The shelter has held. The biological helpers have saved lives and earned trust. Thread's promise of coordinated care will now be tested by people who want to keep their independence."
     },
     {
       "mission": 16,
       "title": "A Necessary Pattern",
       "status": "victory",
       "time": 459,
-      "lost": 4,
+      "lost": 5,
       "kills": 21,
       "stock": [
         840,
@@ -389,242 +389,242 @@
         582,
         120
       ],
-      "seconds": 7,
+      "seconds": 13,
       "stage": 3,
       "profile": {
-        "updateVision": 3415.7728000000125,
-        "path": 53.182700000017576,
-        "go": 180.50489999999627,
-        "tick": 6738.559600000029,
-        "attackSpot": 59.99010000001181
+        "updateVision": 6544.832999999926,
+        "path": 100.10780000177328,
+        "go": 404.24550000060117,
+        "tick": 12437.628300000535,
+        "attackSpot": 65.52299999975367
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The district has been integrated despite its refusal. Its people remain conscious, but the network directs their actions. Thread calls this protection; those who resist call it the loss of choice."
     },
     {
       "mission": 17,
       "title": "Deviation",
       "status": "victory",
       "time": 350,
-      "lost": 9,
-      "kills": 24,
+      "lost": 11,
+      "kills": 29,
       "stock": [
-        356,
+        369,
         828,
-        573,
+        585,
         557
       ],
-      "seconds": 7,
+      "seconds": 10,
       "stage": 2,
       "profile": {
-        "updateVision": 3398.3396999997785,
-        "path": 44.60819999969681,
-        "go": 172.20439999843074,
-        "tick": 6487.322000000277,
-        "attackSpot": 45.94969999960449
+        "updateVision": 5273.027499999269,
+        "path": 54.07869999966351,
+        "go": 313.84450000114157,
+        "tick": 10051.599200000113,
+        "attackSpot": 83.87070000026142
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "Independent Machine coordination is restored. The interference was physical, not the absorption of a mechanical mind. The same network is now directing people inside apparently peaceful settlements."
     },
     {
       "mission": 18,
       "title": "The Price of Peace",
       "status": "victory",
       "time": 262,
-      "lost": 4,
+      "lost": 6,
       "kills": 13,
       "stock": [
-        475,
+        320,
         694,
         512,
         120
       ],
-      "seconds": 4,
+      "seconds": 6,
       "stage": 2,
       "profile": {
-        "updateVision": 2103.0350999997754,
-        "path": 35.57579999990412,
-        "go": 132.9973000001046,
-        "tick": 3681.3361999998306,
-        "attackSpot": 49.278900000295835
+        "updateVision": 3416.4936999990314,
+        "path": 50.45089999990887,
+        "go": 285.1478999988758,
+        "tick": 6132.289000000106,
+        "attackSpot": 56.0073999989545
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The residents can act for themselves again and have reached safety. Their memories survived integration; their freedom did not. The rescue provides evidence for a larger effort to disconnect controlled populations."
     },
     {
       "mission": 19,
       "title": "Without Consent",
       "status": "victory",
-      "time": 352,
-      "lost": 8,
+      "time": 371,
+      "lost": 6,
       "kills": 32,
       "stock": [
-        91,
-        604,
-        373,
+        40,
+        627,
+        398,
         120
       ],
-      "seconds": 6,
+      "seconds": 9,
       "stage": 3,
       "profile": {
-        "updateVision": 3006.669999999911,
-        "path": 70.65349999994214,
-        "go": 246.43930000018736,
-        "tick": 5562.348200000211,
-        "attackSpot": 109.43250000011176
+        "updateVision": 4579.999799999874,
+        "path": 108.42319999955362,
+        "go": 464.35559999741963,
+        "tick": 8859.230400001135,
+        "attackSpot": 116.48979999916628
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "Both populations have been extracted. The promise of peace has become compulsory assimilation. Former enemies now have a shared reason to resist, even if trust between them remains fragile."
     },
     {
       "mission": 20,
       "title": "Firebreak",
       "status": "victory",
       "time": 420,
-      "lost": 21,
-      "kills": 11,
+      "lost": 22,
+      "kills": 9,
       "stock": [
         44,
         661,
         527,
         662
       ],
-      "seconds": 14,
+      "seconds": 20,
       "stage": 2,
       "profile": {
-        "updateVision": 6281.196700000059,
-        "path": 50.31540000005043,
-        "go": 229.9341000004788,
-        "tick": 13274.50279999974,
-        "attackSpot": 163.16310000009253
+        "updateVision": 9791.722800000018,
+        "path": 67.2729000004183,
+        "go": 486.9289999983157,
+        "tick": 19804.201800000068,
+        "attackSpot": 225.78710000080173
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The mountain corridor remains open for coalition reinforcements. Thread's siege has been broken here, but the crossings carrying those reinforcements are becoming dangerously unstable."
     },
     {
       "mission": 21,
       "title": "The Fall of the Crossings",
       "status": "victory",
-      "time": 385,
-      "lost": 9,
-      "kills": 23,
+      "time": 387,
+      "lost": 11,
+      "kills": 21,
       "stock": [
-        473,
+        343,
         807,
         607,
         626
       ],
-      "seconds": 9,
+      "seconds": 17,
       "stage": 3,
       "profile": {
-        "updateVision": 4684.100500000015,
-        "path": 195.4324000000197,
-        "go": 364.8048000004201,
-        "tick": 8799.941299999977,
-        "attackSpot": 86.36290000013105
+        "updateVision": 8902.416400000686,
+        "path": 390.62859999897773,
+        "go": 855.5535000009404,
+        "tick": 16604.147800000297,
+        "attackSpot": 100.66510000050766
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The surviving troops have reached the rear assembly. Stabilization failed, but the withdrawal saved lives. Elsewhere in the confusion, the collapsing routes separate Tarin, Kesh and Rook."
     },
     {
       "mission": 22,
       "title": "A Common Oath",
       "status": "victory",
-      "time": 404,
-      "lost": 4,
+      "time": 403,
+      "lost": 5,
       "kills": 9,
       "stock": [
         345,
-        656,
+        644,
         466,
         140
       ],
-      "seconds": 12,
+      "seconds": 22,
       "stage": 2,
       "profile": {
-        "updateVision": 5481.665600000044,
-        "path": 164.18949999994948,
-        "go": 416.2485999999408,
-        "tick": 11478.474599999863,
-        "attackSpot": 139.46209999993152
+        "updateVision": 10036.05320000017,
+        "path": 318.71279999933904,
+        "go": 1065.9955999987724,
+        "tick": 21387.772699999914,
+        "attackSpot": 207.19940000091447
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The coalition corridor is open and the allied forces are connected. Cooperation has become practical rather than merely promised. The next column still needs a safe route through the damaged crossings."
     },
     {
       "mission": 23,
       "title": "The Ground Between Worlds",
       "status": "victory",
-      "time": 340,
-      "lost": 8,
+      "time": 341,
+      "lost": 10,
       "kills": 18,
       "stock": [
-        241,
+        253,
         446,
-        611,
+        623,
         553
       ],
-      "seconds": 6,
+      "seconds": 11,
       "stage": 3,
       "profile": {
-        "updateVision": 3106.1898000001383,
-        "path": 132.46529999980703,
-        "go": 315.99250000095344,
-        "tick": 6071.562199999491,
-        "attackSpot": 89.43579999999201
+        "updateVision": 5799.011400000221,
+        "path": 158.24649999971734,
+        "go": 541.6695999974036,
+        "tick": 10948.433700000722,
+        "attackSpot": 145.5626000002958
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The coalition column has escaped and the pursuit relay is down. The armies can now bring their disruption equipment within reach of Thread's outer network."
     },
     {
       "mission": 24,
       "title": "Breaking the Pattern",
       "status": "victory",
-      "time": 456,
-      "lost": 9,
+      "time": 481,
+      "lost": 6,
       "kills": 33,
       "stock": [
-        891,
-        1036,
-        696,
-        711
+        1129,
+        1073,
+        720,
+        747
       ],
-      "seconds": 7,
+      "seconds": 15,
       "stage": 3,
       "profile": {
-        "updateVision": 3430.4805000004126,
-        "path": 55.12229999998817,
-        "go": 199.12509999822942,
-        "tick": 6703.867699999333,
-        "attackSpot": 71.25499999916065
+        "updateVision": 7481.361699999543,
+        "path": 63.597199999785516,
+        "go": 549.5394000024535,
+        "tick": 14567.099800000433,
+        "attackSpot": 186.14909999864176
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The ordered relay disruptions and broadcast have isolated the convergence. The surviving troops have withdrawn. The coalition can now attempt to silence the central network without treating every absorbed life as an enemy."
     },
     {
       "mission": 25,
       "title": "One More Choice",
       "status": "victory",
       "time": 888,
-      "lost": 46,
-      "kills": 26,
+      "lost": 43,
+      "kills": 31,
       "stock": [
-        796,
+        731,
         1703,
         1270,
         1842
       ],
-      "seconds": 71,
+      "seconds": 70,
       "stage": 4,
       "profile": {
-        "updateVision": 32747.3679999999,
-        "path": 255.1573999999673,
-        "go": 859.596300004021,
-        "attackSpot": 470.0088000007963,
-        "tick": 69200.3794000012
+        "updateVision": 33663.64920000057,
+        "path": 250.7079000028316,
+        "go": 869.7080999990576,
+        "attackSpot": 435.25889999815263,
+        "tick": 68109.85069999925
       },
       "remaining": [],
-      "result": "Mission complete. Your objectives are secured."
+      "result": "The core coordination network falls silent. Its armies cease their advance, and survivors begin searching for one another. The worlds remain connected and changed. What may survive beyond the broken network is still unknown."
     }
   ]
 }

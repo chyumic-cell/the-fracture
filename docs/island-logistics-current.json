@@ -1,0 +1,58 @@
+[
+  {
+    "crossing": [
+      {
+        "type": "humans_transport_ship",
+        "passengers": 5
+      }
+    ],
+    "faction": "humans",
+    "size": 100,
+    "seed": 42,
+    "layout": "small-islands",
+    "time": 984,
+    "winner": 0,
+    "ships": [
+      {
+        "type": "humans_transport_ship",
+        "at": 178
+      },
+      {
+        "type": "humans_scout_boat",
+        "at": 248
+      },
+      {
+        "type": "humans_warship",
+        "at": 326
+      },
+      {
+        "type": "humans_escort_ship",
+        "at": 372
+      }
+    ],
+    "landings": [
+      {
+        "at": 387,
+        "n": 7,
+        "naval": true,
+        "x": 65.5,
+        "y": 14.5
+      },
+      {
+        "at": 838,
+        "n": 3,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      },
+      {
+        "at": 924,
+        "n": 4,
+        "naval": true,
+        "x": 56.989566077353274,
+        "y": 20.025115379253833
+      }
+    ],
+    "paid": 8645
+  }
+]

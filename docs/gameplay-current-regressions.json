@@ -1,0 +1,264 @@
+{
+  "date": "2026-11-12T11:21:15.321Z",
+  "results": [
+    {
+      "name": "ai-advanced-tactics.test.cjs",
+      "ok": true,
+      "seconds": 1.725,
+      "output": "PASS Expert and stronger fund available soldiers before an optional technology branch\nPASS Earlier casualties do not abort a currently winning assault\nPASS The harder AI still withdraws a truly overwhelmed assault\nPASS Artillery backs out of its minimum firing distance\nPASS A shot already winding up reserves its victim for the rest of the army\nPASS Aircraft focus visible anti-air threats rather than harmless workers\nPASS A wounded aircraft withdraws to friendly support\nPASS Air orders preserve a committed shot through the logistics controller\nPASS Escorts prioritize aircraft while siege ships prioritize shore structures\nPASS Unseen ships and aircraft cannot affect domain tactics\nPASS New tactical state and withdrawal orders survive save/load\nPASS Wounded veterans without a healer do not enter an endless retreat loop\nPASS Top AI only dodges splash when it can escape before impact without sacrificing a ready shot\nPASS Paid production expands only after the current infantry factories are busy\nTOTAL 14 advanced AI regression groups passed\n"
+    },
+    {
+      "name": "ai-difficulty.test.cjs",
+      "ok": true,
+      "seconds": 8.551,
+      "output": "PASS Ten ordered named profiles have increasing workforce planning and faster reactions\nPASS All ten settings survive saves and never change starting resources or combat stats\nPASS Live scheduler gives Apocalypse more decision opportunities than Gentle\n  Gentle: 12 units, 912 ore gathered\n  Relaxed: 16 units, 996 ore gathered\n  Easy: 16 units, 1044 ore gathered\n  Standard: 18 units, 1104 ore gathered\n  Challenging: 18 units, 1068 ore gathered\n  Veteran: 18 units, 1080 ore gathered\n  Expert: 17 units, 1092 ore gathered\n  Master: 18 units, 1092 ore gathered\n  Nightmare: 17 units, 1068 ore gathered\n  Apocalypse: 17 units, 1080 ore gathered\nPASS Every setting scouts, gathers, constructs and recruits during an opening\nPASS Every difficulty uses identical worker gathering and finite-resource consumption\nPASS Top AI finishes a visibly weakened position without waiting for a full replacement army\nPASS AI training pays full costs and progresses at exactly the player rate\nPASS AI builders construct at exactly the player rate\nPASS All levels research and extract deep resources under the same rules, including restored saves\nTOTAL 9 difficulty regression groups passed\n"
+    },
+    {
+      "name": "ai-fair-islands.test.cjs",
+      "ok": true,
+      "seconds": 0.281,
+      "output": "PASS preserved Standard baseline\nPASS all ten levels: no hidden naval terrain/obstacle knowledge, discovered-route refresh, full transport prices and normal production speed\n"
+    },
+    {
+      "name": "ai-naval-trade.test.cjs",
+      "ok": true,
+      "seconds": 1.023,
+      "output": "PASS AI paid for dock merchants and completed profitable physical naval trades\n"
+    },
+    {
+      "name": "ai-strategy.test.cjs",
+      "ok": true,
+      "seconds": 0.367,
+      "output": "PASS Unseen enemy and resource changes cannot alter scouting or targets\nPASS Lost enemy contacts retain their observed position then expire\nPASS Hidden resource depletion remains unknown until revisited\nPASS Target selection favors exposed economy over a turret-protected headquarters\nPASS A reconnaissance scout retreats from a visible weapon threat\nPASS A lone scout intrusion receives a limited defense, not the entire army\nPASS Ranged troops prioritize an exposed artillery piece\nPASS Anti-armor troops choose armor when both targets are in reach\nPASS Fire assignments avoid spending multiple shots on a nearly dead target\nPASS Observed aircraft lead to paid anti-air production\nPASS AI state and old saves both restore without losing fog discipline\nPASS AI foundations leave friendly ground units outside the new blocked cells\nPASS A working oil well prevents wasteful duplicate wells at other deposits\nPASS One enemy scout does not freeze worker recruitment across the whole base\nPASS A wounded unit finishes its committed shot and then actually withdraws\nPASS Fresh troops reinforce an ongoing assault as a group while leaving a reserve\nPASS Renewable staffing counts hidden miners and preserves productive surface crews\nTOTAL 17 AI strategic behavior checks passed\n"
+    },
+    {
+      "name": "ai-worker-expansion.test.cjs",
+      "ok": true,
+      "seconds": 2.868,
+      "output": "PASS AI transported actual workers, landed them, and paid for an island resource depot\n"
+    },
+    {
+      "name": "aviation-corridor.test.cjs",
+      "ok": true,
+      "seconds": 0.227,
+      "output": "PASS geographic bounds, contraction, safety fallback, manual choice, destruction diversion, free return, refuel origin, no HQ, passenger crash\n"
+    },
+    {
+      "name": "build-placement.test.cjs",
+      "ok": true,
+      "seconds": 0.287,
+      "output": "PASS Trees permit previews without mutation and clear only after successful paid construction\nPASS Unpaid, prerequisite-blocked, and unseen building attempts never clear trees\nPASS Visible resource and building blockers are named and outlined; trees do not hide them\nPASS Depleted and dead deposits cannot invisibly block a foundation\nPASS Every touched footprint tile must be explored and unseen terrain is never disclosed\nPASS Hidden live changes do not alter previews or disclose enemy names on a failed commit\nPASS Remembered obstruction remains private until observed again\nPASS Paid extensions clear decorative trees, while failed extension orders preserve them\nPASS Visible extension obstructions are named and empty deposits do not block an extension\nPASS Tree clearing refreshes only visible knowledge and survives save/load\nTOTAL 10 building placement checks passed\n"
+    },
+    {
+      "name": "building-passages.test.cjs",
+      "ok": true,
+      "seconds": 0.329,
+      "output": "PASS A visible lane between large buildings is routable at quarter-tile placement offsets\nPASS Building centers and solid foundation interiors remain impassable\nPASS Old saved navigation is refreshed in visible building passages on load\nTOTAL 3 building passage checks passed\n"
+    },
+    {
+      "name": "campaign-definitions.test.cjs",
+      "ok": true,
+      "seconds": 0.136,
+      "output": "PASS Twenty-five missions, four acts, twelve player factions and complete progression\nPASS Scene 1 follows the opening battle and all ten cinematics have exact placements\nPASS Objective references, coordinates, stages, triggers and production requirements resolve\nPASS Prerequisites are acyclic and every stage has a reachable completion rule\nPASS Standard economy, civilian loss allowances, and no child battlefield entities\nPASS Finale has four causal stages, ten allies, eighteen-month timeline and uncertain ending\nPASS Every scripted squad resolves to a real faction role without fallback substitutions\nPASS Mission-specific logistics and late-stage military tasks are concrete\nPASS Researchers, advanced manufacturing and production interference have actual rule definitions\nTOTAL 9 campaign definition groups passed\n"
+    },
+    {
+      "name": "campaign-review.test.cjs",
+      "ok": true,
+      "seconds": 3.441,
+      "output": "PASS Unclaimed mission sites do not reveal guards; scouting and capture grant ordinary vision\nPASS Spatial slot assignment preserves side-to-side ordering regardless of selection order\nPASS Marches advance immediately and blend into formation without an initial pile-up\nTOTAL 3 campaign and march review groups passed\n"
+    },
+    {
+      "name": "campaign-revision.test.cjs",
+      "ok": true,
+      "seconds": 1.218,
+      "output": "PASS Opening explains the invasion, has four causal stages, and leaves Scene One after the battle\nPASS Real damage sheds the tail exactly once, changes the living sprite, and survives save/load\nPASS Every mission has a story bridge, all advertised new faction units/buildings resolve\nPASS Campaign harbors have actual water, usable ships, and a valid paid dock replacement\nTOTAL 4 campaign revision groups passed\n"
+    },
+    {
+      "name": "campaign-runtime.test.cjs",
+      "ok": true,
+      "seconds": 2.742,
+      "output": "PASS Campaign capture requires real travel and control; enemy elimination cannot auto-win\nPASS Completed objectives and event IDs survive save/load without repeating reinforcements\nPASS An enemy contest prevents proximity capture without resetting earned progress\nPASS Final-stage core is shielded until earlier objectives finish, then normal combat can damage it\nPASS Protect failure overrides victory and is never a skirmish-elimination rule\nPASS Production counts paid completed units, not starting squads or scripted reinforcements\nPASS Real gather deliveries drive the resource goal\nPASS Adults physically evacuate, with saved arrival IDs and no child entities\nPASS Civilian losses have a clear failure threshold\nPASS Wave clocks are relative to stage entry and fire exactly once after save/load\nPASS A military withdrawal requires the advertised number of soldiers, not workers or one scout\nPASS An escaped physical convoy repeats; escape cannot count as destruction, including after save/load\nPASS Military escorts use real soldiers and marked deposits contain finite resources\nPASS Scripted allies and waves route to free building approaches rather than occupied centers\nPASS Advanced manufacturing requires normal paid prerequisite research and completion\nPASS Vulnerable researchers travel from base, survive save restoration and allow one casualty\nPASS Losing every researcher before activation gives an explicit failure\nPASS Coordination interference persists through saves and clears only after the real junction objective\nTOTAL 18 campaign runtime groups passed\n"
+    },
+    {
+      "name": "combat-orders.test.cjs",
+      "ok": true,
+      "seconds": 22.807,
+      "output": "  398 roster/building combinations\nPASS Every ground-capable damaging roster unit can complete a manual building attack\n  256 melee approach combinations\nPASS Symbiote melee approaches work at every bearing and both grid alignments\nPASS A crowded melee group surrounding a structure makes sustained attacks\nPASS A mixed army clustered around an enemy base damages defenders and the structure\nPASS Repeated orders for the same attack target do not cancel weapon release\nPASS Attack-move, patrol and Hold preserve an already committed shot\nPASS Frequent AI-style attack-move refreshes cannot suppress fire\nPASS Move and Stop deliberately cancel pending shots; Stop then permits reacquisition\nPASS An explicit different target cancels the old wind-up and attacks the new target\nPASS Patrol engages an enemy on its route and resumes patrol after the kill\nPASS An AI flank aimed at a worker or support entity remains an attack-move order\nPASS Zero-damage support units do not begin attacks against a manually selected enemy\nPASS Air-only fighters cannot damage ground buildings\nTOTAL 13 combat order/approach regression checks passed\n"
+    },
+    {
+      "name": "completion-gameplay.test.cjs",
+      "ok": true,
+      "seconds": 4.485,
+      "output": "PASS Renewable ore supports miners, haulers, save/load and demolition\nPASS Renewable oil supports miners, haulers, save/load and demolition\nPASS Renewable aether supports miners, haulers, save/load and demolition\nPASS Renewable rift supports miners, haulers, save/load and demolition\nPASS Mixed army narrows through a cliff gap and reforms without crossing blocked ground\nPASS Saving mid march resumes the original final destinations\nPASS Air transport consumes fuel and refuels with its actual passenger\nPASS AI uses an air transport to land an actual assault across water\nPASS All faction technology paths remain attainable and basic troops stay available\nPASS Invalid route coordinates cannot exhaust memory and an AI without its headquarters still plans\nTOTAL 10 remaining gameplay checks\n"
+    },
+    {
+      "name": "connected-walls.test.cjs",
+      "ok": true,
+      "seconds": 0.286,
+      "output": "PASS All drag directions use adjacent unique cells without extra staircase blocks\nPASS Diagonal wall corners block ground crossing for either side, while aircraft pass\nPASS Connected mesh masks update after deletion and never join opposing owners\nPASS Corners and junctions connect without diagonal cross-braces\nTOTAL 4 connected wall checks passed\n"
+    },
+    {
+      "name": "environments.test.cjs",
+      "ok": true,
+      "seconds": 1.865,
+      "output": "PASS 122 environment cases: all layouts preserve map/nav/deposit/RNG data, all scenery follows paid tree clearing, saves persist choices, smooth climates and coherent minimap palettes.\n"
+    },
+    {
+      "name": "expansion-systems.test.cjs",
+      "ok": true,
+      "seconds": 1.162,
+      "output": "PASS Every faction has actual docks, transports, trap, wall and extraction definitions\nPASS Drag walls share contiguous occupied squares and ordinary destruction opens a gap\nPASS Single-use traps ignore allies and air and damage only the triggering soldier\nPASS Water transport boards actual units, sails only on water, saves and unloads ashore\nPASS Full transports refuse extra passengers and demolition awards no kill resources\nPASS Deep extraction needs exhausted site and research, miners enter and deliver continuously\nPASS Merchants physically travel, earn trade-only credits and exchange four resources\nTOTAL 7 transport/economy/fortification checks passed\n"
+    },
+    {
+      "name": "explored-routes.test.cjs",
+      "ok": true,
+      "seconds": 0.271,
+      "output": "PASS known Labyrinth paths in both directions, no repeated route cells, allied chart sharing, private unknown terrain\n"
+    },
+    {
+      "name": "fog-construction.test.cjs",
+      "ok": true,
+      "seconds": 0.652,
+      "output": "PASS Explored fog accepts a paid plan without clearing trees, blocking movement, granting vision or exposing it to enemies\nPASS Any black tile in the footprint rejects the order without charging\nPASS Workers physically travel to a clear site and start construction without a second charge\nPASS A newly discovered enemy-building cancels the plan and refunds every resource exactly once\nPASS A newly discovered enemy-soldier cancels the plan and refunds every resource exactly once\nPASS A newly discovered terrain cancels the plan and refunds every resource exactly once\nPASS A newly discovered depleted-extractor cancels the plan and refunds every resource exactly once\nPASS Hidden-world changes neither change the preview nor reject an order before workers arrive\nPASS Multiple builders and a save/load refund only one reservation\nPASS Manual cancellation refunds a plan fully and reserves it against duplicate orders\nPASS An unreachable planned site refunds after all assigned workers stop making progress\nTOTAL 11 explored-fog construction checks passed\n"
+    },
+    {
+      "name": "gameplay-expansion.test.cjs",
+      "ok": true,
+      "seconds": 0.313,
+      "output": "PASS Shared counters distinguish all eight target classes\nPASS Every civilization HQ fires a visible damaging faction projectile\nPASS Demolition affects only owned entities and grants no kill resources\nPASS Demolished foundations refund and release walkable space\nPASS Future extension is reserved before any extension is purchased\nTOTAL 5 gameplay expansion checks passed\n"
+    },
+    {
+      "name": "gates-shoreline.test.cjs",
+      "ok": true,
+      "seconds": 0.786,
+      "output": "PASS Walls occupy the last dry tile at a shore but never water\nPASS Continuing a wall snaps to its actual end and does not buy a duplicate\nPASS One click converts exactly three paid walls without workers, healing, or ownership exploits\nPASS Friendly ground units actually walk through gates; enemies cannot, including after save/load\nPASS Diagonal gates preserve enemy corner blocking and allow friendly routes\nPASS Converting a gate invalidates a previously blocked friendly route\nPASS All four map edges accept walls and a complete boundary wall has no bypass\nPASS Normal buildings can place their full footprint against each edge without an extra empty tile\nTOTAL 8 shoreline, snap and gate checks\n"
+    },
+    {
+      "name": "gathering-distance.test.cjs",
+      "ok": true,
+      "seconds": 10.184,
+      "output": "PASS 12 crowded-deposit scenarios: close working distance, all four resources, deliveries; 44049 working samples\n"
+    },
+    {
+      "name": "graphics.test.cjs",
+      "ok": true,
+      "seconds": 1.129,
+      "output": "PASS Every unit and defensive structure has a finite, valid weapon profile\nPASS Weapons use the intended physical, magical and biological categories\nPASS Clawed or sword-only units no longer fire generic stat-role bullets\nPASS Siege shells and biological mortar shots originate at the appropriate weapon\nPASS One-level slopes are traversable and visually continuous\nPASS Sheer two-level cliffs block both sides, including diagonal shortcuts; aircraft pass\nPASS Unknown cliffs are not used by private pathfinding until observed\nPASS Actual movement routes around a cliff through its walkable opening\nPASS All ranged attacks wind up before release and use their configured projectile\nPASS Generated land crossings remain connected across twelve seeds\nTOTAL 10 graphics/terrain/weapon behavior checks passed\n"
+    },
+    {
+      "name": "maps.test.cjs",
+      "ok": true,
+      "seconds": 79.423,
+      "output": "conomy and orders\nPASS 700: save/load preserves map, economy and orders\nPASS 48: save/load preserves map, economy and orders\nPASS 64: save/load preserves map, economy and orders\nPASS 88: save/load preserves map, economy and orders\nPASS Legacy small saves without optional knowledge fields still load\nRESOURCE COUNTS [{\"size\":100,\"seed\":42,\"resources\":73,\"trees\":223},{\"size\":100,\"seed\":48122,\"resources\":71,\"trees\":241},{\"size\":100,\"seed\":213301,\"resources\":72,\"trees\":243},{\"size\":200,\"seed\":42,\"resources\":244,\"trees\":892},{\"size\":200,\"seed\":48122,\"resources\":244,\"trees\":942},{\"size\":200,\"seed\":213301,\"resources\":253,\"trees\":954},{\"size\":300,\"seed\":42,\"resources\":537,\"trees\":2068},{\"size\":300,\"seed\":48122,\"resources\":547,\"trees\":2069},{\"size\":300,\"seed\":213301,\"resources\":529,\"trees\":2074},{\"size\":400,\"seed\":42,\"resources\":984,\"trees\":3852},{\"size\":400,\"seed\":48122,\"resources\":960,\"trees\":3616},{\"size\":400,\"seed\":213301,\"resources\":954,\"trees\":3831},{\"size\":500,\"seed\":42,\"resources\":1476,\"trees\":5860},{\"size\":500,\"seed\":48122,\"resources\":1479,\"trees\":5677},{\"size\":500,\"seed\":213301,\"resources\":1449,\"trees\":5866},{\"size\":600,\"seed\":42,\"resources\":2093,\"trees\":8495},{\"size\":600,\"seed\":48122,\"resources\":2098,\"trees\":8326},{\"size\":600,\"seed\":213301,\"resources\":2109,\"trees\":8457},{\"size\":700,\"seed\":42,\"resources\":2845,\"trees\":11479},{\"size\":700,\"seed\":48122,\"resources\":2952,\"trees\":11377},{\"size\":700,\"seed\":213301,\"resources\":2886,\"trees\":11390}]\nGENERATION METRICS [{\"size\":100,\"seed\":42,\"ms\":59.71809999999999},{\"size\":100,\"seed\":48122,\"ms\":25.63220000000001},{\"size\":100,\"seed\":213301,\"ms\":20.447100000000034},{\"size\":200,\"seed\":42,\"ms\":77.31009999999998},{\"size\":200,\"seed\":48122,\"ms\":55.99070000000006},{\"size\":200,\"seed\":213301,\"ms\":48.22670000000005},{\"size\":300,\"seed\":42,\"ms\":113.16529999999989},{\"size\":300,\"seed\":48122,\"ms\":100.17309999999998},{\"size\":300,\"seed\":213301,\"ms\":160.42650000000003},{\"size\":400,\"seed\":42,\"ms\":189.02449999999953},{\"size\":400,\"seed\":48122,\"ms\":234.76500000000033},{\"size\":400,\"seed\":213301,\"ms\":164.51749999999993},{\"size\":500,\"seed\":42,\"ms\":253.23170000000027},{\"size\":500,\"seed\":48122,\"ms\":421.9953999999998},{\"size\":500,\"seed\":213301,\"ms\":237.79080000000067},{\"size\":600,\"seed\":42,\"ms\":462.92509999999857},{\"size\":600,\"seed\":48122,\"ms\":433.2410999999993},{\"size\":600,\"seed\":213301,\"ms\":439.95950000000084},{\"size\":700,\"seed\":42,\"ms\":738.7631999999976},{\"size\":700,\"seed\":48122,\"ms\":2559.4410000000025},{\"size\":700,\"seed\":213301,\"ms\":4688.995900000002},{\"size\":100,\"seed\":42,\"layout\":\"mountain-passes\",\"ms\":10.988900000003923},{\"size\":200,\"seed\":42,\"layout\":\"mountain-passes\",\"ms\":62.75470000000496},{\"size\":300,\"seed\":42,\"layout\":\"mountain-passes\",\"ms\":138.97179999999935},{\"size\":400,\"seed\":42,\"layout\":\"mountain-passes\",\"ms\":305.1840000000011},{\"size\":500,\"seed\":42,\"layout\":\"mountain-passes\",\"ms\":444.9802999999956},{\"size\":600,\"seed\":42,\"layout\":\"mountain-passes\",\"ms\":720.3768999999957},{\"size\":700,\"seed\":42,\"layout\":\"mountain-passes\",\"ms\":1776.6858000000066},{\"size\":100,\"seed\":42,\"layout\":\"steppes\",\"ms\":16.855299999995623},{\"size\":200,\"seed\":42,\"layout\":\"steppes\",\"ms\":42.871300000013434},{\"size\":300,\"seed\":42,\"layout\":\"steppes\",\"ms\":78.6767000000109},{\"size\":400,\"seed\":42,\"layout\":\"steppes\",\"ms\":132.5841999999975},{\"size\":500,\"seed\":42,\"layout\":\"steppes\",\"ms\":229.53409999998985},{\"size\":600,\"seed\":42,\"layout\":\"steppes\",\"ms\":392.4511000000057},{\"size\":700,\"seed\":42,\"layout\":\"steppes\",\"ms\":527.7437000000064},{\"size\":100,\"seed\":42,\"layout\":\"labyrinth\",\"ms\":11.91710000000603},{\"size\":200,\"seed\":42,\"layout\":\"labyrinth\",\"ms\":28.477700000003097},{\"size\":300,\"seed\":42,\"layout\":\"labyrinth\",\"ms\":75.62269999999262},{\"size\":400,\"seed\":42,\"layout\":\"labyrinth\",\"ms\":96.94959999999264},{\"size\":500,\"seed\":42,\"layout\":\"labyrinth\",\"ms\":174.23619999999937},{\"size\":600,\"seed\":42,\"layout\":\"labyrinth\",\"ms\":279.73719999998866},{\"size\":700,\"seed\":42,\"layout\":\"labyrinth\",\"ms\":355.9238999999943}]\nSAVE METRICS [{\"size\":100,\"version\":2,\"bytes\":41932,\"encodeMs\":11.470300000000861,\"decodeMs\":4.536899999991874},{\"size\":200,\"version\":2,\"bytes\":137113,\"encodeMs\":27.543499999999767,\"decodeMs\":18.988500000006752},{\"size\":300,\"version\":2,\"bytes\":302061,\"encodeMs\":77.55389999999898,\"decodeMs\":24.819599999987986},{\"size\":400,\"version\":2,\"bytes\":550739,\"encodeMs\":125.4027999999962,\"decodeMs\":42.42519999999786},{\"size\":500,\"version\":2,\"bytes\":831909,\"encodeMs\":170.8539000000019,\"decodeMs\":62.23730000000796},{\"size\":600,\"version\":2,\"bytes\":1193193,\"encodeMs\":233.67209999999614,\"decodeMs\":89.36900000000605},{\"size\":700,\"version\":2,\"bytes\":1615880,\"encodeMs\":314.9502999999968,\"decodeMs\":214.80930000000808},{\"size\":48,\"version\":2,\"bytes\":18046,\"encodeMs\":1.4839999999967404,\"decodeMs\":1.484199999991688},{\"size\":64,\"version\":2,\"bytes\":23029,\"encodeMs\":2.407900000005611,\"decodeMs\":1.705099999991944},{\"size\":88,\"version\":2,\"bytes\":33854,\"encodeMs\":4.680300000007264,\"decodeMs\":2.4657999999908498}]\nTOTAL 37 large-map and legacy-save checks passed\n"
+    },
+    {
+      "name": "maritime-maps.test.cjs",
+      "ok": true,
+      "seconds": 0.726,
+      "output": "PASS mediterranean seed 18 water 34% · four dry bases, all resources and dock sites\nPASS mediterranean seed 67 water 34% · four dry bases, all resources and dock sites\nPASS continental seed 18 water 50% · four dry bases, all resources and dock sites\nPASS continental seed 67 water 49% · four dry bases, all resources and dock sites\nPASS coastal seed 18 water 34% · four dry bases, all resources and dock sites\nPASS coastal seed 67 water 37% · four dry bases, all resources and dock sites\nPASS small-islands seed 18 water 73% · four dry bases, all resources and dock sites\nPASS small-islands seed 67 water 73% · four dry bases, all resources and dock sites\nPASS large-islands seed 18 water 63% · four dry bases, all resources and dock sites\nPASS large-islands seed 67 water 63% · four dry bases, all resources and dock sites\nTOTAL 10 maritime map scenarios passed; large islands have more land than small islands.\n"
+    },
+    {
+      "name": "media-server.test.cjs",
+      "ok": true,
+      "seconds": 0.294,
+      "output": "PASS media MIME, exact partial-byte responses, HEAD, and invalid-range handling.\n"
+    },
+    {
+      "name": "mines-naval.test.cjs",
+      "ok": true,
+      "seconds": 0.224,
+      "output": "PASS Mine has no line of sight, cannot be seen or targeted by enemy troops or sensors\nPASS Only specialist infantry can clear mines; clearance is slow, interruptible and survives saves\nPASS Normal movement detonates a hidden mine once, with no splash and an explosion sound event\nPASS Every faction offers six distinct paid ship roles with meaningful target rules\nPASS Shared counters favor siege against buildings and scouts against exposed artillery\nPASS Hostile hits issue rate-limited unit and base alerts; environmental loss stays silent\nTOTAL 6 naval, mine and counter checks\n"
+    },
+    {
+      "name": "motion-detail.test.cjs",
+      "ok": true,
+      "seconds": 0.074,
+      "output": "PASS planted support foot, constant stance speed, continuous gait loop, grounded vertices, attack release anchor, working weight shift\n"
+    },
+    {
+      "name": "naval-trade.test.cjs",
+      "ok": true,
+      "seconds": 0.273,
+      "output": "PASS twelve dock rosters, repeated physical voyages, all four purchases, save, vulnerability, disconnected-water rejection\n"
+    },
+    {
+      "name": "navigation-performance.test.cjs",
+      "ok": true,
+      "seconds": 1.31,
+      "output": "PASS 700-map blocked goal uses fewer than 100 cells; safe cached copies, nav invalidation, lookup indexes, save/restore and private fog (1.44ms sampled route)\n"
+    },
+    {
+      "name": "resource-settings.test.cjs",
+      "ok": true,
+      "seconds": 4.12,
+      "output": "RESOURCE LEVEL COUNTS 56, 122, 233, 443\nPASS Resource amount changes map deposits without changing construction or unit costs\nPASS Each distribution is deterministic and preserves separated resource types\nPASS Balanced territories give every player expansion access to every resource\nPASS Contested frontier placement concentrates deposits between neighboring opponents\nPASS Opening deposits can be disabled without removing resources from the map\nPASS All distribution choices remain usable in each strategic layout\nTOTAL 6 resource configuration checks passed\n"
+    },
+    {
+      "name": "save-codec.test.cjs",
+      "ok": true,
+      "seconds": 1.641,
+      "output": "PASS Small save round trip preserves every map, entity, player, and custom field\nPASS Sparse tile edits preserve exact floats, absent fields, unusual heights, and arbitrary extra properties\nPASS Literal textures work without a generator and incorrect noise generators fail clearly\nPASS All byte values and raw-versus-run encodings round trip exactly\nPASS Existing version-one saves load unchanged, including optional missing navigation fields\nPASS Browser UMD works without CommonJS, Buffer, or base64 globals\nPASS Malformed descriptors, byte corruption, bad references, and unsupported formats reject clearly\n{\"map\":\"500x500\",\"players\":4,\"entities\":6500,\"utf16Bytes\":3166912,\"characters\":1583456,\"encodeMs\":326,\"decodeMs\":285}\nPASS Fully explored 500-by-500 four-player save fits below four megabytes of UTF-16 storage\nTOTAL 8 compact-save checks passed\n"
+    },
+    {
+      "name": "transport-choice.test.cjs",
+      "ok": true,
+      "seconds": 0.205,
+      "output": "PASS nearby land preference, air range limits, bomber salvos, selected-level unloading\n"
+    },
+    {
+      "name": "unit-counters.test.cjs",
+      "ok": true,
+      "seconds": 1.244,
+      "output": "PASS Ram is a dedicated building breaker, not an infantry or tank counter\n  132 weapon-bonus units checked\nPASS Every advertised bonus increases actual strike damage by the documented factor\nPASS Catapult splash uses each victim armor/class and cannot splash aircraft or allies\nPASS Catapults punish approaching grouped infantry but cannot fire at point blank range\nPASS Every faction help entry uses the actual combat matchup table\nPASS Fleet counters are distinct in all twelve civilizations\nPASS Actual battles: warships beat escorts, escorts stop aircraft, and melee punishes exposed catapults\n  208 armed unit targeting profiles checked\nPASS All civilizations respect air-only and anti-air targeting, with bonuses confined to their intended targets\nTOTAL 8 unit counter regression groups passed\n"
+    },
+    {
+      "name": "simulation.test.cjs",
+      "ok": true,
+      "seconds": 1.086,
+      "output": "PASS Exactly twelve civilizations, four resource types, and two kill counters\nPASS All unit, production, research and extension references resolve\nPASS Building and research prerequisite graphs are acyclic\nPASS humans: five workers, 20 capacity, all four deposits accessible near base\nPASS reptilians: five workers, 20 capacity, all four deposits accessible near base\nPASS machines: five workers, 20 capacity, all four deposits accessible near base\nPASS insects: five workers, 20 capacity, all four deposits accessible near base\nPASS primates: five workers, 20 capacity, all four deposits accessible near base\nPASS wizards: five workers, 20 capacity, all four deposits accessible near base\nPASS elders: five workers, 20 capacity, all four deposits accessible near base\nPASS myth: five workers, 20 capacity, all four deposits accessible near base\nPASS dragons: five workers, 20 capacity, all four deposits accessible near base\nPASS night: five workers, 20 capacity, all four deposits accessible near base\nPASS infernal: five workers, 20 capacity, all four deposits accessible near base\nPASS symbiotes: five workers, 20 capacity, all four deposits accessible near base\nPASS Workers physically gather, deliver, and deplete Ore\nPASS Oil requires a well; completed extraction allows physical collection\nPASS Construction costs Ore and cannot train until complete\nPASS Population reservations prevent over-queuing and housing adds capacity\nPASS Tank requires research and the correct physical extension\nPASS humans: every roster entry can be queued after its declared prerequisites\nPASS reptilians: every roster entry can be queued after its declared prerequisites\nPASS machines: every roster entry can be queued after its declared prerequisites\nPASS insects: every roster entry can be queued after its declared prerequisites\nPASS primates: every roster entry can be queued after its declared prerequisites\nPASS wizards: every roster entry can be queued after its declared prerequisites\nPASS elders: every roster entry can be queued after its declared prerequisites\nPASS myth: every roster entry can be queued after its declared prerequisites\nPASS dragons: every roster entry can be queued after its declared prerequisites\nPASS night: every roster entry can be queued after its declared prerequisites\nPASS infernal: every roster entry can be queued after its declared prerequisites\nPASS symbiotes: every roster entry can be queued after its declared prerequisites\nPASS Basic Ore-only army remains available with no rare resources or kill counters\nPASS Ranged attack has wind-up, then a traveling projectile, then damage\nPASS Biological counters exclude machines, vehicles, buildings, friendly and reconstructed kills\nPASS Concealed enemies require a detector, and ordinary weapons cannot hit air\nPASS Aircraft return to base and refuel rather than flying forever\nPASS Unknown obstacles do not preemptively block orders; known obstacles affect routes\nPASS Save/load round trip preserves economy, research and exploration\nPASS Victory requires removal of enemy HQ and production, not every housing structure\nPASS Changing deposits delivers the original cargo without converting its resource type\nTOTAL 41 tests passed\n",
+      "rechecked": "2026-11-12T11:20:20.722Z"
+    },
+    {
+      "name": "legacy-gameplay.test.cjs",
+      "ok": true,
+      "seconds": 0.439,
+      "output": "PASS Layered formations keep armor ahead of ranged units and siege at every facing\nPASS Circle nests ranged and support inside the armored perimeter and faces outward\nPASS A lone unit moves to the exact anchor and preserves Hold after repositioning\nPASS Hidden structures cannot alter either player’s route\nPASS Private fog remembers a destroyed building until a scout revisits it\nPASS A lost enemy is pursued only to its last visible location\nPASS A distant unknown destination is explored and rerouted around an obstacle\nPASS Ordinary worker traffic crosses without permanent congestion\nPASS Queue cancellation refunds unused work and releases reserved population\nPASS Control groups and Hold stance survive saved games\nPASS AI assembles before attacking and withdraws after major losses\nTOTAL 11 legacy-inspired gameplay checks passed\n",
+      "rechecked": "2026-11-12T11:20:21.164Z"
+    },
+    {
+      "name": "map-layouts.test.cjs",
+      "ok": true,
+      "seconds": 5.073,
+      "output": "PASS Layouts are seed-deterministic, seed-sensitive and geometrically distinct\n  93 terrain connectivity/base-clearance cases, including 500 by 500\nPASS Every base and every reserved movement lane remains connected at every supported size\nPASS Protected passages survive dense incidental obstacles placed off the reserved lane\nPASS Opening deposits remain clear of lane reservations\nPASS Mountain passes separate broad basins with narrow cuts through high cliffs\nPASS Steppes retain many broad plateaus, several height levels and connected one-level ramps\nPASS Labyrinth corridors contain physical dead ends and force a winding ground route\nTOTAL 7 map-layout topology checks passed\n",
+      "rechecked": "2026-11-12T11:20:26.238Z"
+    },
+    {
+      "name": "plateau-access.test.cjs",
+      "ok": true,
+      "seconds": 27.868,
+      "output": "PASS plateau access, all seven sizes plains seed 7\nPASS plateau access, all seven sizes steppes seed 7\nPASS plateau access, all seven sizes mountain-passes seed 7\nPASS plateau access, all seven sizes labyrinth seed 7\nPASS plateau access, all seven sizes narrows seed 7\nPASS plateau access, all seven sizes plains seed 42\nPASS plateau access, all seven sizes steppes seed 42\nPASS plateau access, all seven sizes mountain-passes seed 42\nPASS plateau access, all seven sizes labyrinth seed 42\nPASS plateau access, all seven sizes narrows seed 42\nPASS plateau access, all seven sizes plains seed 113\nPASS plateau access, all seven sizes steppes seed 113\nPASS plateau access, all seven sizes mountain-passes seed 113\nPASS plateau access, all seven sizes labyrinth seed 113\nPASS plateau access, all seven sizes narrows seed 113\n",
+      "rechecked": "2026-11-12T11:20:54.106Z"
+    },
+    {
+      "name": "narrows-floor-access.test.cjs",
+      "ok": true,
+      "seconds": 10.476,
+      "output": "100 0 unreachable playable floor cells 0 ramps\n200 0 unreachable playable floor cells 51 ramps\n300 0 unreachable playable floor cells 70 ramps\n400 0 unreachable playable floor cells 216 ramps\n500 0 unreachable playable floor cells 305 ramps\n600 0 unreachable playable floor cells 496 ramps\n700 0 unreachable playable floor cells 733 ramps\n100 0 unreachable playable floor cells 0 ramps\n200 0 unreachable playable floor cells 46 ramps\n300 0 unreachable playable floor cells 56 ramps\n400 0 unreachable playable floor cells 218 ramps\n500 0 unreachable playable floor cells 298 ramps\n600 0 unreachable playable floor cells 474 ramps\n700 0 unreachable playable floor cells 761 ramps\n100 0 unreachable playable floor cells 0 ramps\n200 0 unreachable playable floor cells 43 ramps\n300 0 unreachable playable floor cells 56 ramps\n400 0 unreachable playable floor cells 229 ramps\n500 0 unreachable playable floor cells 303 ramps\n600 0 unreachable playable floor cells 476 ramps\n700 0 unreachable playable floor cells 742 ramps\n",
+      "rechecked": "2026-11-12T11:21:04.582Z"
+    },
+    {
+      "name": "rivers-narrows.test.cjs",
+      "ok": true,
+      "seconds": 4.37,
+      "output": "PASS rivers 100 water cells 2575 ramps 0\nPASS rivers 200 water cells 6167 ramps 0\nPASS rivers 300 water cells 12985 ramps 0\nPASS rivers 400 water cells 19907 ramps 0\nPASS rivers 500 water cells 27859 ramps 0\nPASS rivers 600 water cells 34474 ramps 0\nPASS rivers 700 water cells 46450 ramps 0\nPASS narrows 100 water cells 2389 ramps 0\nPASS narrows 200 water cells 6219 ramps 48\nPASS narrows 300 water cells 8834 ramps 59\nPASS narrows 400 water cells 12772 ramps 225\nPASS narrows 500 water cells 18108 ramps 301\nPASS narrows 600 water cells 22697 ramps 492\nPASS narrows 700 water cells 29233 ramps 751\n",
+      "rechecked": "2026-11-12T11:21:08.952Z"
+    },
+    {
+      "name": "new-map-docks.test.cjs",
+      "ok": true,
+      "seconds": 6.369,
+      "output": "PASS accessible docks rivers 100\nPASS accessible docks rivers 200\nPASS accessible docks rivers 300\nPASS accessible docks rivers 400\nPASS accessible docks rivers 500\nPASS accessible docks rivers 600\nPASS accessible docks rivers 700\nPASS accessible docks narrows 100\nPASS accessible docks narrows 200\nPASS accessible docks narrows 300\nPASS accessible docks narrows 400\nPASS accessible docks narrows 500\nPASS accessible docks narrows 600\nPASS accessible docks narrows 700\n",
+      "rechecked": "2026-11-12T11:21:15.321Z"
+    }
+  ]
+}

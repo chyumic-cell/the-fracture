@@ -1,11 +1,43 @@
 'use strict';
 (function(root){
 const palettes={humans:['#6c8388','#b1b9ad'],reptilians:['#7f8b62','#d3b779'],machines:['#405963','#8cd3cb'],primates:['#8e6e4c','#c4ac72'],insects:['#8b834f','#cab781'],wizards:['#727e9e','#cfbd9d'],elders:['#648375','#b4b69a'],myth:['#b1a582','#cfbe88'],dragons:['#87674b','#c29c68'],night:['#525b6c','#a7a3ad'],infernal:['#694849','#c2845b'],symbiotes:['#586d63','#a7b591']};
-function unit(ctx,d,f,angle,action,frame,occupancy=0){if(root.FractureTradeArt?.unit(ctx,d,f,angle,action,frame))return true;if(!d.naval&&!d.transport&&d.role!=='merchant'&&d.id!=='primates_condor_rider')return false;
+function bomber(ctx,d,f,angle,action,frame){
+ const M=new root.FractureSpriteMesh(ctx,Math.round(angle/(Math.PI/4))*Math.PI/4,action==='dead'),[base,trim]=palettes[f.id],dark='#29363e',beam=(a,b,c=trim,w=1)=>M.seg(a,b,c,w),flap=Math.sin(frame*Math.PI/3)*4,drop=action==='attack'&&frame%4===2;
+ const bomb=(x,y,z,col=trim)=>{M.material('metal');M.orb(x,y,z,4,2.4,2.4,col);M.face([[x-4,y-3,z],[x-4,y+3,z],[x-8,y,z+2]],dark);};
+ const bay=(x,y,z)=>{M.material('metal');M.box(x,y,z,8,4,1,dark);for(const xx of [x-5,x,x+5])bomb(xx,y,z-2-(drop&&xx===x?10:0));for(const side of [-1,1])beam([x-9,y+side*4,z],[x+9,y+side*4,z],trim,.8);};
+ if(['humans','reptilians','machines'].includes(f.id)){
+  M.material('metal');const machine=f.id==='machines',reptile=f.id==='reptilians',span=machine?44:reptile?34:42;
+  M.orb(-2,0,24,29,reptile?7:5,6,base);M.orb(21,0,26,8,4,4,'#547d8a');
+  for(const side of [-1,1]){M.face([[14,side*3,24],[machine?-12:-3,side*span,23],[machine?-27:-13,side*(span-2),22],[-19,side*4,23]],base);M.face([[7,side*5,25],[-8,side*(span-5),24],[-15,side*(span-6),24],[-15,side*5,25]],trim);beam([12,side*4,24],[-4,side*span,23],trim,1);for(let j=0;j<4;j++)beam([-8-j*3,side*8,24],[-10-j*3,side*(span-4),23],dark,.4);
+   const engines=machine?[24]:reptile?[15]:[18,32];for(const y of engines){M.orb(1,side*y,22,11,3,3,base);M.cylinder(-9,side*y,21,2.5,2,dark,8);M.orb(-9,side*y,23,2,2,1,machine?'#8bcfd3':'#9fabb0');}
+   bay(-4,side*10,18);
+   if(!machine){M.face([[-22,side*2,25],[-31,side*16,26],[-35,side*15,25],[-31,side*2,24]],trim);M.face([[-26,side*3,24],[-31,side*3,36],[-36,side*3,36],[-34,side*3,24]],base);}
+  }
+  if(machine){for(const y of [-4,0,4])M.orb(26,y,27,1.5,1.3,1.3,'#dd7766');M.box(-15,0,28,9,7,3,dark);for(const y of [-5,0,5])beam([-20,y,32],[-7,y,32],trim,.7);}
+  if(reptile){M.face([[18,-6,26],[32,0,24],[18,6,26],[8,0,32]],trim);for(const x of [-20,-11,-2])M.face([[x,-2,29],[x-4,0,37],[x+4,2,29]],base);}
+ }else if(['wizards','elders','night'].includes(f.id)){
+  const night=f.id==='night',elder=f.id==='elders';M.material(night?'metal':'wood');M.box(-2,0,16,25,7,5,base);for(let x=-24;x<23;x+=5)beam([x,-7,21],[x,7,21],trim,.6);bay(4,0,12);
+  if(night){M.material('cloth');M.orb(-6,0,38,35,12,12,base);for(let x=-31;x<25;x+=7){beam([x,-10,36],[x,0,49],trim,.6);beam([x,0,49],[x,10,36],trim,.6);}for(const y of [-13,13]){M.material('metal');M.orb(-7,y,20,10,3,3,dark);beam([-5,y,24],[-7,y*.6,35],trim,1);}M.face([[-32,0,36],[-42,0,51],[-45,0,33]],trim);}
+  else if(elder){for(const side of [-1,1]){M.material('cloth');M.face([[19,side*3,26],[-8,side*44,29],[-30,side*31,23],[-21,side*5,24]],f.color);for(let j=0;j<5;j++)beam([12-j*7,side*5,25],[-8-j*5,side*(42-j*2),28],trim,.7);M.orb(-8,side*18,24,7,4,3,trim);}}
+  else{M.material('metal');for(const x of [-18,16])for(const y of [-19,19]){M.cylinder(x,y,19,8,2,trim,12);M.orb(x,y,23,4,4,7,'#aaa9d5');beam([x,y,20],[x*.6,0,20],trim,1.4);}M.face([[-26,-5,22],[-26,5,22],[-30,0,39]],f.color);M.orb(18,0,25,7,6,5,'#b8b2d7');}
+ }else{
+  const insect=f.id==='insects',sym=f.id==='symbiotes',primate=f.id==='primates',myth=f.id==='myth',dragon=f.id==='dragons',infernal=f.id==='infernal';
+  M.material(insect?'chitin':sym||primate||myth?'fur':'bone');M.orb(-4,0,27,insect?22:18,sym?13:7,sym?10:7,base);if(!sym){M.orb(17,0,30,7,5,5,trim);M.orb(22,-3,32,1,1,1,'#e4bf71');M.orb(22,3,32,1,1,1,'#e4bf71');}else{for(const y of [-7,0,7]){M.orb(14,y,31,7,3,4,base);beam([14,y,33],[23,y*.6,30],'#baaccb',.7);}M.orb(19,0,33,2,2,2,'#c6b9e1');}
+  if(primate||myth){M.material('bone');M.face([[22,-3,33],[31,0,31],[28,0,27],[22,3,33]],'#c7aa78');if(myth){for(const side of [-1,1]){beam([-8,side*5,26],[-13,side*7,17],base,2.4);beam([-13,side*7,17],[-9,side*7,15],trim,1.6);M.face([[12,side*4,34],[10,side*6,43],[17,side*4,35]],base);}beam([-20,0,27],[-31,0,23],base,2);}}
+
+  if(sym){for(let j=0;j<16;j++){const a=j*Math.PI/8,y=Math.sin(a)*15,x=-4+Math.cos(a)*20;beam([x,y,29],[x-8,y*1.6,22],trim,1);beam([x-8,y*1.6,22],[x-18,y*2,16+flap],base,.8);}for(const x of [-15,0,13])M.orb(x,0,40,7,6,4,'#aaa5c3');}
+  else for(const side of [-1,1]){const span=insect?38:primate?44:40;M.material(insect?'chitin':dragon||infernal?'cloth':'fur');M.face([[9,side*5,29],[-1,side*span,30+flap],[-24,side*(span-4),24+flap],[-17,side*5,25]],base);for(let j=0;j<7;j++){const y=side*(10+j*4);beam([8-j*3,side*5,30],[-13-j*2,y,27+flap],trim,insect?.6:1.2);if(primate||myth)M.face([[-7-j*2,y,28+flap],[-26-j,y+side*3,23+flap],[-20-j,y+side*5,25+flap]],j%2?base:trim);}if(insect){M.face([[-10,side*6,26],[-28,side*29,22-flap],[-35,side*19,21-flap]],trim);beam([20,side*3,33],[28,side*11,40],base,.8);}}
+  if(dragon||infernal){beam([-20,0,27],[-38,0,20],base,5);beam([-38,0,20],[-44,5,24],trim,2);for(const x of [-15,-5,5])M.face([[x-4,0,33],[x,0,42],[x+4,0,33]],trim);M.face([[20,-4,32],[31,0,30],[20,4,32]],base);}
+  if(primate||myth){M.material('wood');M.box(-2,0,15,18,10,2,trim);for(const x of [-17,13])for(const y of [-9,9])beam([x,y,15],[x*.6,y*.6,27],dark,1);if(primate){M.material('fur');M.orb(4,0,38,4,4,6,'#735c44');M.orb(6,0,45,3,3,3,'#bc9871');}}
+  for(const x of [-12,0,12])for(const y of [-7,7]){const z=16-(drop&&x===0?10:0);M.material(insect?'chitin':sym?'fur':'stone');M.orb(x,y,z,5,4,6,infernal?'#d39754':sym?'#b9a5c8':trim);beam([x-4,y,22],[x+4,y,22],dark,.8);}
+ }
+ M.material('paint');M.face([[-10,-5,31],[2,-5,31],[2,5,31],[-10,5,31]],f.color);M.finish();return true;
+}
+function unit(ctx,d,f,angle,action,frame,occupancy=0){if(d.bomber)return bomber(ctx,d,f,angle,action,frame);if(root.FractureTradeArt?.unit(ctx,d,f,angle,action,frame))return true;if(!d.naval&&!d.transport&&d.role!=='merchant'&&d.id!=='primates_condor_rider')return false;
 const M=new root.FractureSpriteMesh(ctx,Math.round(angle/(Math.PI/4))*Math.PI/4,action==='dead'),[base,trim]=palettes[f.id],organic=['insects','symbiotes'].includes(f.id),industrial=['humans','machines','reptilians','night'].includes(f.id),wing=Math.sin(frame*Math.PI/3)*8;
 M.material(organic?'chitin':industrial?'metal':'wood');const beam=(a,b,c=trim,w=1.5)=>M.seg(a,b,c,w);
 if(d.naval){
- const role=d.navalRole||'warship',siege=role==='siege',scout=role==='scout',escort=role==='escort',L=siege?44:scout?29:36,W=siege?15:scout?8:12,z=8,dark='#263b40',edge=root.FractureArt.tint(trim,-18),hull=root.FractureArt.tint(base,-14),team=f.color;
+ const role=d.navalRole||'warship',siege=role==='siege',scout=role==='scout',escort=role==='escort',L=role==='merchant'&&f.id==='symbiotes'?29:siege?44:scout?29:36,W=siege?15:scout?8:12,z=8,dark='#263b40',edge=root.FractureArt.tint(trim,-18),hull=root.FractureArt.tint(base,-14),team=f.color;
  const top=[[-L,-W*.8,z],[L*.65,-W,z],[L+5,0,z],[L*.65,W,z],[-L,W*.8,z]],low=top.map(([x,y])=>[x*.9,y*.65,0]);
  for(let i=0;i<5;i++){M.face([low[i],low[(i+1)%5],top[(i+1)%5],top[i]],hull);beam(top[i],top[(i+1)%5],trim,1.2);}M.face(top,base);
  for(let x=-L+4;x<L*.7;x+=4){beam([x,-W*.8,8.3],[x,W*.8,8.3],edge,.5);for(const y of [-W*.95,W*.95]){M.orb(x,y,5,.6,.5,.6,trim);if(industrial)beam([x,y,2],[x,y,7],base,.6);}}
@@ -27,7 +59,18 @@ if(d.naval){
   }
 
  }
- if(d.transport){M.box(10,0,9,14,W*.65,2,edge);for(const y of [-W*.7,W*.7])M.box(9,y,9,16,1.1,6,base);M.face([[22,-W*.65,10],[L+4,-W*.5,5],[L+4,W*.5,5],[22,W*.65,10]],trim);for(let x=24;x<L+2;x+=3)beam([x,-W*.5,9-(x-22)*.3],[x,W*.5,9-(x-22)*.3],base,.7);for(let k=0;k<Math.min(4,Math.ceil(occupancy/2.5));k++){M.orb(2+k*5,0,14,2,2,3,base);M.orb(2+k*5,0,19,2,2,2.2,trim);}}
+ if(role==='merchant'){
+  // Open cargo deck, tied freight, and handling gear replace every weapon mount.
+  const crate=(x,y,w=5,h=7)=>{M.material('wood');M.box(x,y,9,w,4,h,trim);for(const yy of [y-4,y+4]){beam([x-w,yy,10],[x+w,yy,9+h],edge,.8);beam([x-w,yy,9+h],[x+w,yy,10],edge,.8);}for(const xx of [x-w+1,x+w-1])beam([xx,y-4,9+h],[xx,y+4,9+h],edge,.8);};
+  if(f.id==='insects'){for(const x of [1,13,24])for(const y of [-5,5]){M.orb(x,y,13,5,4,7,'#c6ae71');beam([x-4,y,16],[x+4,y,16],edge,.8);}}
+  else if(f.id==='symbiotes'){for(const x of [0,12,24]){M.orb(x,0,13,7,7,9,'#858eab');for(const y of [-6,6])beam([x-6,y,10],[x+3,0,22],trim,.8);}}
+  else if(f.id==='machines'){for(const x of [-1,13]){M.material('metal');M.box(x,0,10,6,8,10,base);for(let y=-7;y<=7;y+=3)beam([x-6,y,20],[x+6,y,20],trim,.7);M.orb(x+6,0,16,1,2,1,'#8bd3d0');}}
+  else if(['myth','elders','dragons','infernal'].includes(f.id)){for(const x of [1,13,25])for(const y of [-5,5]){M.material('stone');M.orb(x,y,13,4,3.5,6,f.id==='infernal'?'#ad654c':trim);M.cylinder(x,y,18,2.2,3,edge,8);beam([x-3,y,14],[x+3,y,14],base,.6);}if(f.id==='dragons')crate(3,0,6,5);}
+  else{crate(2,-5);crate(2,5);crate(16,-5,6,8);crate(16,5,6,f.id==='night'?10:6);if(f.id==='wizards'){M.material('crystal');for(const y of [-5,5])M.orb(27,y,15,3,3,5,'#c2b4db');}}
+  if(['humans','reptilians','machines','night'].includes(f.id)){M.material('metal');beam([-4,-W+2,9],[-4,-W+2,34],trim,1.8);beam([-4,-W+2,34],[20,-W+2,29],base,2);beam([20,-W+2,29],[20,-W+2,17],trim,.5);beam([20,-W+2,17],[22,-W+2,15],edge,.7);beam([-4,-W+2,18],[17,-W+2,29],trim,.7);}
+  else{M.material('cloth');M.face([[0,-W,15],[24,-W,15],[21,W,16],[0,W,16]],f.color);for(const x of [0,21])for(const y of [-W,W])beam([x,y,9],[x,y,16],trim,.7);}
+ }
+ else if(d.transport){M.box(10,0,9,14,W*.65,2,edge);for(const y of [-W*.7,W*.7])M.box(9,y,9,16,1.1,6,base);M.face([[22,-W*.65,10],[L+4,-W*.5,5],[L+4,W*.5,5],[22,W*.65,10]],trim);for(let x=24;x<L+2;x+=3)beam([x,-W*.5,9-(x-22)*.3],[x,W*.5,9-(x-22)*.3],base,.7);for(let k=0;k<Math.min(4,Math.ceil(occupancy/2.5));k++){M.orb(2+k*5,0,14,2,2,3,base);M.orb(2+k*5,0,19,2,2,2.2,trim);}}
  else if(organic){const h=escort?27:siege?25:19;M.orb(8,0,13,10,8,9,base);beam([8,0,19],[siege?43:32,0,h],base,siege?7:4);M.orb(siege?43:32,0,h,1,3,3,dark);for(let i=0;i<3;i++)beam([7+i*5,-5,17],[12+i*5,-5,22],trim,1);if(escort)for(const y of [-6,6])beam([8,y,17],[25,y,30],trim,2);}
  else if(['primates','myth','elders'].includes(f.id)&&!escort){M.material('wood');M.box(11,0,10,siege?13:8,siege?9:6,3,edge);for(const y of [-6,6]){beam([7,y,12],[13,y,24],base,3);beam([21,y,12],[13,y,24],trim,2);}beam([5,0,13],[siege?43:32,0,siege?25:19],trim,3);M.orb(siege?43:32,0,siege?25:19,3,3,3,'#8b8e7c');}
  else{M.cylinder(9,0,9,siege?10:6,4,edge,12);M.box(9,0,13,siege?10:6,siege?8:5,6,base);const h=escort?27:siege?25:19;beam([10,0,18],[siege?43:32,0,h],trim,siege?4:scout?1.8:2.8);M.orb(siege?43:32,0,h,.5,siege?2:1.3,siege?2:1.3,dark);if(escort)for(const y of [-4,4])beam([8,y,17],[27,y,27],trim,2);if(siege){for(const y of [-8,8])M.box(-2,y,10,6,2,7,edge);beam([1,-7,21],[1,7,21],trim,1);}}

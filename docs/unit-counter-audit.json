@@ -376,7 +376,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "humans_u10",
@@ -424,7 +424,7 @@
             "multiplier": 0.65
           }
         ],
-        "help": "Flying attacker. Returns to a completed air building or headquarters when fuel runs low.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+        "help": "Flying attacker. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "humans_u11",
@@ -473,6 +473,13 @@
           }
         ],
         "help": "Concealed raider that detects other concealed units. Enemy detectors and defensive towers can reveal it.\nReduced damage against: heavy infantry, armored vehicles & constructs, warships, large armored creatures, battering rams, buildings & walls.\nThreats: Melee attackers, artillery and armored vehicles.\nCannot attack flying targets."
+      },
+      {
+        "id": "humans_merchant_ship",
+        "name": "Harbor Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "humans_transport_ship",
@@ -679,6 +686,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "humans_bomber",
+        "name": "Cargo Helicopter Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "humans_air_transport",
@@ -1212,7 +1268,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "reptilians_u12",
@@ -1265,6 +1321,13 @@
           }
         ],
         "help": "Advanced combat unit with high damage and durability. Requires advanced research.\nEffective against: light melee infantry, battering rams.\nReduced damage against: armored vehicles & constructs, warships, buildings & walls.\nThreats: Armored vehicles and massed artillery."
+      },
+      {
+        "id": "reptilians_merchant_ship",
+        "name": "Imperial Dock Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "reptilians_transport_ship",
@@ -1473,6 +1536,55 @@
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
       },
       {
+        "id": "reptilians_bomber",
+        "name": "Sky Barge Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+      },
+      {
         "id": "reptilians_air_transport",
         "name": "Sky Barge",
         "minRange": 0,
@@ -1665,7 +1777,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "machines_u6",
@@ -1811,7 +1923,7 @@
             "multiplier": 0.65
           }
         ],
-        "help": "Flying attacker. Returns to a completed air building or headquarters when fuel runs low.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+        "help": "Flying attacker. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "machines_u9",
@@ -1960,6 +2072,13 @@
           }
         ],
         "help": "Large, heavily armored combat unit with splash damage. Powerful, expensive and population intensive.\nEffective against: infantry, artillery, large armored creatures, battering rams, buildings & walls.\nThreats: Armor-piercing specialists.\nCannot attack flying targets."
+      },
+      {
+        "id": "machines_merchant_ship",
+        "name": "Naval Assembly Pier Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "machines_transport_ship",
@@ -2166,6 +2285,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "machines_bomber",
+        "name": "Lift Drone Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "machines_air_transport",
@@ -2503,7 +2671,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "insects_u8",
@@ -2551,7 +2719,7 @@
             "multiplier": 0.65
           }
         ],
-        "help": "Flying attacker. Returns to a completed air building or headquarters when fuel runs low.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+        "help": "Flying attacker. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "insects_u9",
@@ -2702,6 +2870,13 @@
           }
         ],
         "help": "Long-range bombardment against buildings and grouped infantry. Splash rewards clustered targets; fast infantry and scouts are dangerous once they close the distance.\nEffective against: infantry, battering rams, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Fast melee troops, scouts and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "insects_merchant_ship",
+        "name": "Tidal Nursery Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "insects_transport_ship",
@@ -2908,6 +3083,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "insects_bomber",
+        "name": "Brood Carrier Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "insects_air_transport",
@@ -3535,6 +3759,13 @@
         "help": "Large, heavily armored combat unit with splash damage. Powerful, expensive and population intensive.\nEffective against: infantry, battering rams, buildings & walls.\nThreats: Armor-piercing specialists.\nCannot attack flying targets."
       },
       {
+        "id": "primates_merchant_ship",
+        "name": "River Landing Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
+      },
+      {
         "id": "primates_transport_ship",
         "name": "Reed Transport",
         "minRange": 0,
@@ -3741,6 +3972,55 @@
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
       },
       {
+        "id": "primates_bomber",
+        "name": "Condor Basket Carrier Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+      },
+      {
         "id": "primates_air_transport",
         "name": "Condor Basket Carrier",
         "minRange": 0,
@@ -3797,7 +4077,7 @@
             "multiplier": 0.65
           }
         ],
-        "help": "Flying attacker. Returns to a completed air building or headquarters when fuel runs low.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors."
+        "help": "Flying attacker. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors."
       },
       {
         "id": "primates_merchant",
@@ -4188,7 +4468,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "wizards_u10",
@@ -4339,6 +4619,13 @@
           }
         ],
         "help": "Advanced combat unit with high damage and durability. Requires advanced research.\nEffective against: light melee infantry, battering rams.\nReduced damage against: armored vehicles & constructs, warships, buildings & walls.\nThreats: Armored vehicles and massed artillery."
+      },
+      {
+        "id": "wizards_merchant_ship",
+        "name": "Enchanted Quay Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "wizards_transport_ship",
@@ -4545,6 +4832,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "wizards_bomber",
+        "name": "Levitating Carriage Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "wizards_air_transport",
@@ -5170,6 +5506,13 @@
         "help": "Long-range bombardment against buildings and grouped infantry. Splash rewards clustered targets; fast infantry and scouts are dangerous once they close the distance.\nEffective against: infantry, battering rams, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Fast melee troops, scouts and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
       },
       {
+        "id": "elders_merchant_ship",
+        "name": "Guild Harbor Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
+      },
+      {
         "id": "elders_transport_ship",
         "name": "Guild Transport",
         "minRange": 0,
@@ -5374,6 +5717,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "elders_bomber",
+        "name": "Runic Skyship Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "elders_air_transport",
@@ -5764,7 +6156,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "myth_u9",
@@ -5812,7 +6204,7 @@
             "multiplier": 0.65
           }
         ],
-        "help": "Flying attacker. Returns to a completed air building or headquarters when fuel runs low.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+        "help": "Flying attacker. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "myth_u10",
@@ -5910,6 +6302,13 @@
           }
         ],
         "help": "Large, heavily armored combat unit with splash damage. Powerful, expensive and population intensive.\nEffective against: infantry, battering rams, buildings & walls.\nThreats: Armor-piercing specialists.\nCannot attack flying targets."
+      },
+      {
+        "id": "myth_merchant_ship",
+        "name": "Sacred Harbor Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "myth_transport_ship",
@@ -6116,6 +6515,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "myth_bomber",
+        "name": "Roc Carrier Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "myth_air_transport",
@@ -6454,7 +6902,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "dragons_u8",
@@ -6503,7 +6951,7 @@
             "multiplier": 0.9099999999999999
           }
         ],
-        "help": "Flying attacker. Returns to a completed air building or headquarters when fuel runs low.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+        "help": "Flying attacker. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "dragons_u9",
@@ -6616,6 +7064,13 @@
           }
         ],
         "help": "Large, heavily armored combat unit with splash damage. Powerful, expensive and population intensive. Flies and must return to refuel.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors."
+      },
+      {
+        "id": "dragons_merchant_ship",
+        "name": "Ember Anchorage Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "dragons_transport_ship",
@@ -6822,6 +7277,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "dragons_bomber",
+        "name": "Hoardwing Carrier Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "dragons_air_transport",
@@ -7264,7 +7768,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "night_u11",
@@ -7312,7 +7816,7 @@
             "multiplier": 0.65
           }
         ],
-        "help": "Flying attacker. Returns to a completed air building or headquarters when fuel runs low.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+        "help": "Flying attacker. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: warships, artillery, battering rams.\nReduced damage against: buildings & walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "night_u12",
@@ -7463,6 +7967,13 @@
           }
         ],
         "help": "Long-range bombardment against buildings and grouped infantry. Splash rewards clustered targets; fast infantry and scouts are dangerous once they close the distance.\nEffective against: infantry, battering rams, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Fast melee troops, scouts and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "night_merchant_ship",
+        "name": "Night Harbor Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "night_transport_ship",
@@ -7669,6 +8180,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "night_bomber",
+        "name": "Night Airship Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "night_air_transport",
@@ -8007,7 +8567,7 @@
             "multiplier": 1.8225000000000002
           }
         ],
-        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a completed air building or headquarters to refuel.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
+        "help": "Air-to-air interceptor. Cannot attack ground targets. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: aircraft & flying creatures.\nWeapon bonus: +35% damage against aircraft and flying creatures.\nThreats: Anti-air units and interceptors.\nAttacks flying targets only."
       },
       {
         "id": "infernal_u8",
@@ -8206,6 +8766,13 @@
           }
         ],
         "help": "Large, heavily armored combat unit with splash damage. Powerful, expensive and population intensive.\nEffective against: infantry, battering rams, buildings & walls.\nThreats: Armor-piercing specialists.\nCannot attack flying targets."
+      },
+      {
+        "id": "infernal_merchant_ship",
+        "name": "Cinder Docks Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "infernal_transport_ship",
@@ -8412,6 +8979,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "infernal_bomber",
+        "name": "Legion Sky Carrier Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "infernal_air_transport",
@@ -8937,7 +9553,7 @@
             "multiplier": 0.9099999999999999
           }
         ],
-        "help": "Flying attacker. Returns to a completed air building or headquarters when fuel runs low.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
+        "help": "Flying attacker. Returns to a functioning aviation facility within its geographic corridor when endurance expires.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "symbiotes_u11",
@@ -9039,6 +9655,13 @@
           }
         ],
         "help": "Large, heavily armored combat unit with splash damage. Powerful, expensive and population intensive.\nEffective against: infantry, battering rams, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Armor-piercing specialists.\nCannot attack flying targets."
+      },
+      {
+        "id": "symbiotes_merchant_ship",
+        "name": "Tidal Colony Merchant Ship",
+        "minRange": 0,
+        "matchups": [],
+        "help": "Unarmed merchant ship. Right-click a friendly dock to trade repeatedly with another connected dock at least eight tiles away. Completed water voyages earn Trade Credits; buy the four resources at a dock or market. Vulnerable to enemy attacks."
       },
       {
         "id": "symbiotes_transport_ship",
@@ -9245,6 +9868,55 @@
           }
         ],
         "help": "Long-range coastal bombardment against buildings and grouped ground troops. Vulnerable to aircraft and faster warships.\nEffective against: infantry, buildings & walls.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Warships and air attacks.\nMinimum firing distance: 2.5 tiles. Protect it from enemies inside that distance.\nCannot attack flying targets."
+      },
+      {
+        "id": "symbiotes_bomber",
+        "name": "Buoyant Carrier Bomber",
+        "bonus": "building",
+        "minRange": 0,
+        "matchups": [
+          {
+            "label": "Unarmored workers",
+            "multiplier": 1
+          },
+          {
+            "label": "Light melee infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Ranged infantry",
+            "multiplier": 1.1
+          },
+          {
+            "label": "Heavy infantry",
+            "multiplier": 1
+          },
+          {
+            "label": "Armored vehicles & constructs",
+            "multiplier": 0.9
+          },
+          {
+            "label": "Warships",
+            "multiplier": 1.3
+          },
+          {
+            "label": "Artillery",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Large armored creatures",
+            "multiplier": 1
+          },
+          {
+            "label": "Battering rams",
+            "multiplier": 1.4
+          },
+          {
+            "label": "Buildings & walls",
+            "multiplier": 0.9099999999999999
+          }
+        ],
+        "help": "Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.\nEffective against: warships, artillery, battering rams.\nWeapon bonus: +40% damage against buildings and walls.\nThreats: Anti-air units and interceptors.\nCannot attack flying targets."
       },
       {
         "id": "symbiotes_air_transport",

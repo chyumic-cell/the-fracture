@@ -16,6 +16,15 @@ function step(g,p,ctx){
   g.aiBuild(p,d,[w]);return false;
  }
 
+ // Expansion parties use the same physical boarding, unloading, construction,
+ // gathering and costs as the player. Only charted deposits are considered.
+ if(s.expansion){const op=s.expansion,t=g.entity(op.carrier),party=op.ids.map(id=>g.entity(id)).filter(Boolean),node=g.entity(op.node);
+  if(!t||!party.length||!node||g.time-op.started>op.budget){for(const u of party)u.aiLogistics=false;if(t&&g.transportLoad(t).length)g.order([t.id],{kind:'unload',...op.pickup});s.expansion=null;}
+  else{t.aiLogistics=true;party.forEach(u=>u.aiLogistics=true);
+   if(op.phase==='load'&&!t.returning){if(dist(t,op.pickup)>2){if(!t.order)g.order([t.id],{kind:'move',...op.pickup});}else{for(const u of party)if(!u.embarkedBy&&u.order?.kind!=='board')g.board([u.id],t.id,p.id);if(party.every(u=>u.embarkedBy===t.id)){op.phase='cross';g.order([t.id],{kind:'unload',...op.landing});}}}
+   if(op.phase==='cross'&&!t.returning){if(!g.transportLoad(t).length){const builders=party.filter(u=>g.def(u).worker),depot=D.factions[p.faction].buildings.find(b=>b.kind==='depot'||b.kind==='extractor'&&b.resource===D.resources[node.resource]);if(builders.length&&depot)g.aiBuild(p,depot,builders,node);for(const u of party){u.aiLogistics=false;if(!g.def(u).worker)g.order([u.id],{kind:'attackMove',...op.landing});else if(u.order?.kind!=='build'&&g.visible(p.id,node))g.order([u.id],{kind:'gather',target:node.id});}s.lastExpansion={x:op.landing.x,y:op.landing.y,at:g.time,naval:!!g.def(t).naval};s.expansion=null;g.order([t.id],{kind:'move',...op.pickup});}else if(!t.order)g.order([t.id],{kind:'unload',...op.landing});}
+  }
+ }
  // Scout from charted water toward the fog frontier. Unknown geography and hidden
  // enemy foundations must never influence which route the AI chooses.
  function seaGoal(ship){
@@ -29,7 +38,7 @@ function step(g,p,ctx){
  }
  // Preserve actual passengers and assigned landing troops from land combat orders.
  for(const u of own)if(u.order?.kind==='board'&&!g.entity(u.order.target)){u.aiLogistics=false;g.order([u.id],{kind:'stop'});}
- const carriers=own.filter(e=>e.kind==='unit'&&g.def(e).transport),carrier=carriers.find(e=>e.id===s.sortie?.carrier)||(s.needAirTransport?carriers.find(e=>g.def(e).air):null)||carriers.find(e=>g.def(e).naval)||carriers[0];
+ const carriers=own.filter(e=>e.kind==='unit'&&g.def(e).transport&&e.id!==s.expansion?.carrier);let carrier=carriers.find(e=>e.id===s.sortie?.carrier)||(s.needAirTransport?carriers.find(e=>g.def(e).air):null)||carriers.find(e=>g.def(e).naval)||carriers[0];
  function waterBeside(q){let best=null,value=Infinity;for(let y=Math.floor(q.y)-4;y<=q.y+4;y++)for(let x=Math.floor(q.x)-4;x<=q.x+4;x++){const t={x:x+.5,y:y+.5},i=y*g.n+x;if(x<0||y<0||x>=g.n||y>=g.n||!p.explored[i]||g.blocked(t.x,t.y,'water',p.id))continue;const score=dist(t,q);if(score<value){value=score;best=t;}}return best;}
  function pickup(t){if(!g.def(t).naval)return{x:p.home.x+3,y:p.home.y+3};const dock=ready.find(b=>g.def(b).kind==='dock');return dock?waterBeside(dock):null;}
  if(carrier){carrier.aiLogistics=true;if(!s.sortie&&carrier.order&&(carrier.stuck>2||g.def(carrier).naval&&Number.isFinite(carrier.order.x)&&g.blocked(carrier.order.x,carrier.order.y,'water',p.id)))g.order([carrier.id],{kind:'stop'});if(s.sortie){const op=s.sortie,units=op.ids.map(id=>g.entity(id)).filter(Boolean);units.forEach(u=>u.aiLogistics=op.phase==='load'||!!u.embarkedBy);if(op.phase==='cross'){op.landedIds||=[];for(const u of units)if(!u.embarkedBy&&!op.landedIds.includes(u.id)){op.landedIds.push(u.id);if(op.target.recon)u.aiReconUntil=g.time+150;g.order([u.id],{kind:'attackMove',x:op.target.x,y:op.target.y});}}if(op.phase==='load'){
@@ -44,7 +53,7 @@ function step(g,p,ctx){
   u.aiLogistics=true;if(!u.order||u.stuck>3){const A=root.FractureAI||(typeof require!=='undefined'?require('./ai.js'):null),q=A.explorationGoal(g,p,u,ctx);if(q)g.order([u.id],{kind:'attackMove',x:q.x,y:q.y});}
  }
  if(g.time<s.next)return;s.next=g.time+5;
- const maritime=['continental','small-islands','large-islands','mediterranean','coastal'].includes(g.options.layout),probe=workers[0]||ctx.military.find(u=>!g.def(u).air);
+ const maritime=['rivers','narrows','continental','small-islands','large-islands','mediterranean','coastal'].includes(g.options.layout),probe=workers[0]||ctx.military.find(u=>!g.def(u).air);
  let target=null;for(const t of [...ctx.targets].sort((a,b)=>(['hq','inf','armor','air','elite'].includes(g.def(b)?.kind)?1:0)-(['hq','inf','armor','air','elite'].includes(g.def(a)?.kind)?1:0)).slice(0,5)){if(!probe)break;const q=g.approach(probe,t,2),path=g.path(probe,q);if(dist(path.at(-1)||probe,q)>4){target=t;break;}}
  if(!target&&maritime)target=ctx.knownEnemies.find(e=>e.kind==='unit'&&!D.units[e.type]?.air&&!D.units[e.type]?.naval&&dist(e,p.home)>20);
  // A fleet cannot see a headquarters deep inside an island. Land a paid scouting
@@ -57,10 +66,20 @@ function step(g,p,ctx){
   }
   for(const q of candidates.sort((a,b)=>b.score-a.score).slice(0,8)){if(dist(g.path(probe,q).at(-1)||probe,q)<3||dist(g.path(carrier,q.water).at(-1)||carrier,q.water)>2)continue;target={...q,size:.3,recon:true};break;}
  }
+ if(target&&probe&&!s.sortie){const choice=g.transportChoices(probe,target,ctx.enemy).find(c=>c.carrier);if(choice){carrier=g.entity(choice.carrier);s.needAirTransport=choice.mode==='air';}}
  s.needsTransport=!!target||maritime&&!ctx.targets.length;
  // Fund the crossing before speculative technology. A new ship is not a failed
  // naval plan merely because the global match clock is already several minutes old.
  s.transportWanted=(target||maritime&&g.time>100)&&workers.length>=6? p.faction+(maritime&&!s.needAirTransport?'_transport_ship':'_air_transport'):null;
+ // Compare paid replacements at infrastructure that actually exists, rather
+ // than letting the map name decide between a ship and an aircraft.
+ if(target&&probe&&s.transportWanted){const plans=[];
+  for(const suffix of ['transport_ship','air_transport']){const def=D.units[p.faction+'_'+suffix],facility=ready.find(b=>b.type===def.building);if(!facility||g.missing(p.id,def,facility).length)continue;
+   const model={kind:'unit',type:def.id,owner:p.id,id:-1,hp:def.hp,x:facility.x,y:facility.y,flight:63,refuelOrigin:{x:facility.x,y:facility.y,id:facility.id}},start=g.approach(model,facility,1.7);Object.assign(model,start);
+   const pickup=def.naval?g.approach(probe,facility,1):probe,dest=g.approach(probe,target,2),choice=g.transportChoices({...probe,...pickup},dest,ctx.enemy,[model]).find(c=>c.carrier);
+   if(choice)plans.push({type:def.id,score:choice.score+def.time+def.cost.reduce((sum,v)=>sum+v,0)/8});
+  }if(plans.length)s.transportWanted=plans.sort((a,b)=>a.score-b.score)[0].type;
+ }
  if(carrier&&g.def(carrier).naval&&!ctx.targets.length){
   const explored=p.explored.reduce((n,v)=>n+(v?1:0),0);
   if(s.navalSurvey?.id!==carrier.id||explored>(s.navalSurvey?.explored||0)+12)s.navalSurvey={id:carrier.id,explored,at:g.time};
@@ -78,7 +97,7 @@ function step(g,p,ctx){
     const ax=q.x-carrier.x,ay=q.y-carrier.y,len=ax*ax+ay*ay||1,risk=ctx.enemy.filter(e=>{if(!g.def(e)?.aa&&!g.def(carrier).naval)return false;const f=Math.max(0,Math.min(1,((e.x-carrier.x)*ax+(e.y-carrier.y)*ay)/len));return dist(e,{x:carrier.x+ax*f,y:carrier.y+ay*f})<g.range(e)+3;}).length;
     candidates.push({q,water,score:dist(carrier,q)+r*.35+risk*35});
    }
-   for(const {q,water}of candidates.sort((a,b)=>a.score-b.score).slice(0,12)){if(g.def(carrier).naval&&dist(g.path(carrier,water).at(-1)||carrier,water)>2)continue;const route=g.path({...probe,...q},g.approach(probe,target,2));if(dist(route.at(-1)||q,target)<(target.size||.4)+4){landing=q;break;}}
+   for(const {q,water}of candidates.sort((a,b)=>a.score-b.score).slice(0,12)){if(g.def(carrier).naval&&dist(g.path(carrier,water).at(-1)||carrier,water)>2)continue;if(g.def(carrier).air&&((dist(carrier,embark||carrier)+dist(embark||carrier,q))/g.def(carrier).speed+8>(carrier.flight||0)||!g.eligibleAirfields({...carrier,...q}).length))continue;const route=g.path({...probe,...q},g.approach(probe,target,2));if(dist(route.at(-1)||q,target)<(target.size||.4)+4){landing=q;break;}}
    if(troops.length>=3&&!landing){s.noLandingSince??=g.time;if(g.time-s.noLandingSince>35)s.needAirTransport=true;}else s.noLandingSince=null;
    if(troops.length>=3&&landing){s.sortie={carrier:carrier.id,pickup:embark||{x:carrier.x,y:carrier.y},ids:troops.map(u=>u.id),target:{x:target.x,y:target.y,recon:!!target.recon},landing,phase:'load',started:g.time,budget:120+(dist(carrier,embark||carrier)+dist(embark||carrier,landing))*2.5/(g.def(carrier).speed||1)};troops.forEach(u=>u.aiLogistics=true);g.order([carrier.id],{kind:'move',...s.sortie.pickup});p.plan='Preparing a transport landing beyond the enemy defenses';}
   }if(!s.sortie&&!carrier.order){const goal=g.def(carrier).naval?seaGoal(carrier):(root.FractureAI||(typeof require!=='undefined'?require('./ai.js'):null)).explorationGoal(g,p,carrier,ctx);if(goal)g.order([carrier.id],{kind:'move',x:goal.x,y:goal.y});}
@@ -100,6 +119,41 @@ function step(g,p,ctx){
   else if(!s.airRaid&&!u.order&&ctx.targets.length)g.order([u.id],{kind:'move',x:p.home.x+4,y:p.home.y+4});
   else if(!s.airRaid&&!u.order&&!ctx.targets.length){const A=root.FractureAI||(typeof require!=='undefined'?require('./ai.js'):null),q=A.explorationGoal(g,p,u,ctx);if(q)g.order([u.id],{kind:'move',x:q.x,y:q.y});}
  }
+ if(!s.expansion&&!s.sortie&&g.time>(s.nextExpansion||200)&&workers.length>=8){
+  s.nextExpansion=g.time+30;const w=workers.find(u=>!u.aiLogistics&&!['extract','build','repair'].includes(u.order?.kind));
+  const nodes=Object.values(p.knowledge||{}).filter(n=>n.kind==='resource'&&n.amount>600&&!unsafe(n)&&dist(n,p.home)>20).sort((a,b)=>b.amount-a.amount).slice(0,8);
+  if(w)for(const node of nodes){const goal=g.approach(w,node,2),ground=g.path(w,goal);if(dist(ground.at(-1)||w,goal)<2)continue;
+   const docks=ready.filter(b=>g.def(b).kind==='dock'),departures=[{x:w.x,y:w.y},...docks.map(b=>g.approach(w,b,1))];let best=null;
+   for(const departure of departures){if(dist(g.path(w,departure).at(-1)||w,departure)>2)continue;for(let k=0;k<12;k++){const a=k*Math.PI/6,q={x:node.x+Math.cos(a)*4,y:node.y+Math.sin(a)*4},i=Math.floor(q.y)*g.n+Math.floor(q.x);if(!p.explored[i]||g.blocked(q.x,q.y,false,p.id)||unsafe(q))continue;
+    for(const choice of g.transportChoices({...w,...departure},q,ctx.enemy)){if(!choice.carrier)continue;const score=choice.score+dist(w,departure)/g.def(w).speed;if(!best||score<best.score)best={...choice,score,departure,landing:q};}
+   }}
+   if(!best)continue;const t=g.entity(best.carrier),party=workers.filter(u=>!u.aiLogistics&&!['extract','build','repair'].includes(u.order?.kind)&&dist(u,w)<12).slice(0,2);if(party.length<2)continue;
+   const guards=ctx.military.filter(u=>!g.def(u).air&&!g.def(u).naval&&!u.aiLogistics&&dist(u,w)<14).slice(0,2);party.push(...guards);
+   const pickup=g.def(t).naval?g.coastApproach(t,best.departure):best.departure;if(!pickup)continue;
+   s.expansion={carrier:t.id,ids:party.map(u=>u.id),node:node.id,pickup,landing:best.landing,phase:'load',started:g.time,budget:120+best.score*3};party.forEach(u=>u.aiLogistics=true);g.order([t.id],{kind:'move',...pickup});p.plan='Transporting workers and guards to an observed resource island';break;
+  }
+ }
+ if(s.lastExpansion&&g.time-s.lastExpansion.at>12&&!unsafe(s.lastExpansion)){
+  const dock=D.buildings[p.faction+'_dock'],near=workers.filter(u=>dist(u,s.lastExpansion)<18&&!['build','repair','extract'].includes(u.order?.kind));
+  if(near.length&&!own.some(b=>b.type===dock.id&&dist(b,s.lastExpansion)<24)&&dock.cost.every((v,i)=>p.stock[i]-v>=(p.aiReserve?.[i]||0))){let built=false;for(let r=3;r<19&&!built;r+=2)for(let k=0;k<16;k++){const a=k*Math.PI/8,q={x:s.lastExpansion.x+Math.cos(a)*r,y:s.lastExpansion.y+Math.sin(a)*r};if(unsafe(q)||g.placement(dock.id,p.id,q.x,q.y))continue;const spot=g.approach(near[0],{...q,size:dock.size},1);if(dist(g.path(near[0],spot).at(-1)||near[0],spot)>2)continue;built=g.build(dock.id,p.id,q.x,q.y,[near[0].id]).ok;if(built)break;}}
+ }
+ // Fortify charted narrow land approaches with ordinary paid towers. The
+ // cliff tests use remembered terrain, never hidden enemy geography.
+ if(ctx.config.level>=6&&g.time>(s.nextFortification||180)&&!unsafe(p.home)){
+  s.nextFortification=g.time+45;const tower=D.factions[p.faction].buildings.find(b=>b.kind==='defense'),w=workers.find(u=>!u.aiLogistics&&!['build','repair','extract'].includes(u.order?.kind));
+  if(tower&&w&&tower.cost.every((v,i)=>p.stock[i]-v>=(p.aiReserve?.[i]||0)+60)){
+   const closed=(x,y,h)=>{const i=Math.floor(y)*g.n+Math.floor(x);return x>=0&&y>=0&&x<g.n&&y<g.n&&p.explored[i]&&((p.knownTiles[i]&128)||Math.abs((p.knownTiles[i]&127)-h)>=2);};
+   let site=null;for(let r=12;r<=26&&!site;r+=2)for(let k=0;k<24;k++){const a=k*Math.PI/12,q={x:Math.floor(p.home.x+Math.cos(a)*r)+.5,y:Math.floor(p.home.y+Math.sin(a)*r)+.5},i=Math.floor(q.y)*g.n+Math.floor(q.x);if(!p.explored[i]||unsafe(q)||g.placement(tower.id,p.id,q.x,q.y)||own.some(b=>g.def(b)?.kind==='defense'&&dist(b,q)<14))continue;
+    const h=p.knownTiles[i]&127,narrow=closed(q.x-4,q.y,h)&&closed(q.x+4,q.y,h)||closed(q.x,q.y-4,h)&&closed(q.x,q.y+4,h);if(!narrow)continue;const dest=g.approach(w,{...q,size:tower.size},1);if(dist(g.path(w,dest).at(-1)||w,dest)<2){site=q;break;}}
+   if(site)g.build(tower.id,p.id,site.x,site.y,[w.id]);
+  }
+ }
+ // A secured expansion can support a paid forward aviation facility. It is
+ // considered only with a working economy and uses ordinary worker construction.
+ if(s.lastExpansion&&ctx.config.level>=7&&g.time-s.lastExpansion.at>30&&!unsafe(s.lastExpansion)){
+  const air=D.factions[p.faction].buildings.find(b=>b.kind==='air'),near=own.filter(u=>g.def(u)?.worker&&dist(u,s.lastExpansion)<18&&!['build','repair'].includes(u.order?.kind));
+  if(air&&near.length&&!own.some(b=>b.type===air.id&&dist(b,s.lastExpansion)<25)&&!g.missing(p.id,air).length&&air.cost.every((v,i)=>p.stock[i]-v>=(p.aiReserve?.[i]||0)+40))g.aiBuild(p,air,near,s.lastExpansion);
+ }
  // New renewable economy uses the same paid prerequisite and worker orders as players.
  if(g.time>200&&workers.length>=7&&!unsafe(p.home)){
   const exhausted=Object.values(p.knowledge||{}).filter(e=>e.kind==='resource'&&e.amount<=0&&!unsafe(e));
@@ -116,6 +170,15 @@ function step(g,p,ctx){
   }
   if(g.time>360&&p.stock[0]>300){const id=p.faction+'_market',markets=ready.filter(b=>b.type===id);if(!markets.length)ensure(id);else if(markets.length<2&&!own.some(b=>b.type===id&&b.progress<1)){const w=workers.find(w=>!['extract','build','repair'].includes(w.order?.kind));if(w)g.aiBuild(p,D.buildings[id],[w],{x:p.home.x+16,y:p.home.y});}else if(markets.length>=2){const merchants=own.filter(u=>g.def(u).role==='merchant');if(merchants.length<2&&!own.some(b=>b.queue?.some(q=>q.type===p.faction+'_merchant')))g.queue(markets[0].id,p.faction+'_merchant');for(const u of merchants)if(!u.order)g.order([u.id],{kind:'trade',target:markets[1].id});}}
   if((p.tradeCredits||0)>=20){const resource=p.stock.indexOf(Math.min(...p.stock));g.exchange(p.id,resource);}
+ }
+ if(g.time>200&&!unsafe(p.home)){
+  const docks=ready.filter(b=>g.def(b).kind==='dock'&&!unsafe(b)),type=p.faction+'_merchant_ship',ships=own.filter(u=>u.type===type);
+  for(const ship of ships){ship.aiLogistics=true;if(ship.order)continue;const destinations=docks.filter(b=>dist(ship,b)>8&&g.tradeLeg(ship,b)).sort((a,b)=>dist(ship,b)-dist(ship,a));for(const b of destinations){g.order([ship.id],{kind:'trade',target:b.id});if(ship.order)break;}}
+  if(ships.length<2&&!pending(type)&&docks.length>1){
+   const probe={...docks[0],kind:'unit',type,owner:p.id},start=g.approach(probe,docks[0],1);Object.assign(probe,start,{type,kind:'unit'});
+   const profitable=docks.slice(1).some(b=>dist(b,docks[0])>=12&&!unsafe(b)&&g.tradeLeg(probe,b));
+   const d=D.units[type],b=docks.find(b=>!b.queue.length);if(profitable&&b&&d.cost.every((v,i)=>p.stock[i]-v>=(p.aiReserve?.[i]||0)))g.queue(b.id,type);
+  }
  }
  if(maritime&&(ctx.enemy.some(e=>g.def(e)?.naval)||carrier&&g.time>220)){
   const id=p.faction+'_dock';if(ensure(id)){const b=ready.find(b=>b.type===id&&!b.queue.length),fleet=own.filter(e=>g.def(e)?.naval&&!g.def(e).transport),enemyAir=ctx.knownEnemies.some(e=>g.def(e)?.air);

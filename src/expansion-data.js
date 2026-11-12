@@ -18,6 +18,7 @@ for(const f of Object.values(D.factions)){
  building('wall',n[0],'wall',{hp:900,size:.62,time:12,cost:[30,0,0,0],armor:6});
  building('trap',n[1],'trap',{hp:80,size:.3,time:9,cost:[35,0,10,0],trapDamage:105,vision:0,concealedTrap:true});
  const dock=building('dock',n[2],'dock',{hp:900,size:1.5,cost:[170,0,0,0]});
+ unit('merchant_ship',n[2]+' Merchant Ship',dock.id,{naval:true,navalRole:'merchant',role:'navalMerchant',hp:240,armor:1,pop:2,speed:1.7,cost:[120,20,0,0],time:28,description:'Unarmed merchant vessel. Trades between connected friendly docks for Trade Credits; longer completed water routes earn more.'});
  unit('transport_ship',n[3],dock.id,{naval:true,transport:10,hp:360,speed:1.8});
  unit('warship',n[4],dock.id,{naval:true,role:'tank',hp:460,damage:38,range:7,armor:5,pop:4,speed:1.55,cost:[190,60,20,0],time:40,bonus:'building',requires:[lab.id]});
 
@@ -28,6 +29,7 @@ for(const f of Object.values(D.factions)){
  D.units[f.id+'_warship'].navalRole='warship';D.units[f.id+'_transport_ship'].navalRole='transport';
  D.units[f.id+'_warship'].description='Armored surface combatant. Attacks ships and coastal ground targets; cannot attack aircraft.';
  let air=f.buildings.find(b=>b.kind==='air');if(!air)air=building('aviary','High Aviary','air',{requires:[inf.id,lab.id],cost:[190,0,55,0],size:2.2});
+ unit('bomber',n[5]+' Bomber',air.id,{air:true,role:'gunship',bomber:true,hp:280,damage:65,range:5,splash:1.5,bonus:'building',speed:1.9,armor:2,pop:5,cooldown:3.5,cost:[230,90,60,0],time:48,requires:[lab.id,f.id+'_advanced'],description:'Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.'});
  unit('air_transport',n[5],air.id,{air:true,transport:10,hp:260,speed:2.35,cost:[160,40,45,0],requires:[lab.id],time:40});
  if(f.id==='primates')unit('condor_rider','Condor Spear Rider',air.id,{role:'gunship',air:true,hp:210,damage:21,range:4.5,aa:true,pop:3,cost:[140,0,55,0],cooldown:1.7,requires:[lab.id]});
  const disarmer=f.units.find(u=>u.role==='scout'&&!u.air&&!u.naval&&!u.armored)||f.units.find(u=>u.role==='support'&&!u.air&&!u.naval)||f.units.find(u=>u.role==='melee'&&!u.air&&!u.naval);if(disarmer)disarmer.disarmsMines=true;

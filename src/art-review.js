@@ -12,7 +12,7 @@ function card(host,title,detail,data,description=''){
 function load(){
  observer.disconnect();cards.length=0;for(const id of ['units','buildings','fortifications','extensions','projectiles'])$(id).replaceChildren();art.cache.clear();art.ruinCache?.clear();
  const f=FD.factions[$('faction').value];$('name').textContent=f.name+' / Units';
- for(const d of f.units){const s=FractureProjectiles.profile(d,f),weapon=d.worker?'Worker':d.transport?'Transport':d.role==='merchant'?'Trade':!d.damage?'Support':s.kind==='melee'?'Close combat':labels[s.kind]?.[0]||s.kind;card('units',d.name,(d.naval?'Naval / ':d.air?'Air / ':'Ground / ')+weapon,{d,f,kind:'unit'},FractureHelp.unit(d));}
+ for(const d of f.units){const s=FractureProjectiles.profile(d,f),weapon=d.worker?'Worker':d.transport?'Transport':['merchant','navalMerchant'].includes(d.role)?'Trade':!d.damage?'Support':s.kind==='melee'?'Close combat':labels[s.kind]?.[0]||s.kind;card('units',d.name,(d.naval?'Naval / ':d.air?'Air / ':'Ground / ')+weapon,{d,f,kind:'unit'},FractureHelp.unit(d));}
  for(const d of f.buildings)card('buildings',d.name,({hq:'Headquarters',inf:'Infantry production',armor:'Heavy production',air:'Flight production',deepMine:'Deep extraction',dock:'Naval production',market:'Trade & merchant recruitment',lab:'Research'})[d.kind]||d.kind,{d,f,kind:'building'},FractureHelp.building(d,f));
  for(const d of f.extensions)card('extensions',d.name,'Attaches to '+FD.buildings[d.building].name,{d,f,kind:'extension'},'A physical extension of '+FD.buildings[d.building].name+'.');
  const wall=f.buildings.find(d=>d.kind==='wall');
@@ -21,7 +21,7 @@ function load(){
  revision++;filter();
 }
 function filter(){document.querySelector('main').dataset.view=$('category').value;let count=0;const category=$('category').value,q=$('search').value.trim().toLowerCase();
- for(const card of cards){const match=category==='all'||category===card.host||category==='trade'&&(card.d?.kind==='market'||card.d?.role==='merchant')||category==='naval'&&card.kind==='unit'&&card.d.naval||category==='air'&&card.kind==='unit'&&card.d.air;card.article.hidden=!(match&&card.search.includes(q));if(!card.article.hidden)count++;}
+ for(const card of cards){const match=category==='all'||category===card.host||category==='trade'&&(card.d?.kind==='market'||['merchant','navalMerchant'].includes(card.d?.role))||category==='naval'&&card.kind==='unit'&&card.d.naval||category==='air'&&card.kind==='unit'&&card.d.air;card.article.hidden=!(match&&card.search.includes(q));if(!card.article.hidden)count++;}
  for(const s of document.querySelectorAll('[data-section]'))s.hidden=!cards.some(c=>c.host===s.dataset.section&&!c.article.hidden);
  $('summary').textContent=FD.factions[$('faction').value].name+' / '+count+' designs shown';$('empty').hidden=count>0;
 }

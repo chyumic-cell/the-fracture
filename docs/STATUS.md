@@ -1,3 +1,14 @@
+# Cargo ships, bombers and nonblocking terrain - 12 November 2026
+
+- Added code-authored cargo decks and loading equipment for all twelve merchant ships, replacing weapon mounts. Added twelve dedicated bomber silhouettes with visible payloads and release animations. Campaign illustrations are unchanged.
+- Camera movement no longer waits for terrain texture jobs. Exact-position ground geometry appears immediately, then receives detailed textures. Visible terrain is protected from eviction and the cache expands for the zoomed-out viewport and its surrounding chunks. Off-screen entities are culled before sorting; cliff projection work is cached.
+- Actual minimap-click jumps at maximum zoom-out are covered by tests/terrain-pan-browser.cjs. Timing and coverage results are in docs/terrain-pan-validation.json. Detailed textures can still arrive progressively after a distant jump; this is not a guarantee of 60 FPS on every computer.
+- The 24 merchant/bomber models pass eight-direction bounds checks, uniqueness and bomb-release animation checks. See docs/merchant-bomber-review.png. Simulation, legacy, trading and bomber gameplay checks pass.
+
+# Gameplay and terrain update - 12 November 2026
+
+See GAMEPLAY-TERRAIN-LOGISTICS.md and gameplay-current-regressions.json for the current gameplay changes, checks and limitations. New map generation requires a new match. Illustrations were left untouched in this pass.
+
 # Campaign release — 11 November 2026
 
 This release supersedes the older campaign/media work-in-progress notes below. The user resumed illustrations and campaign work. Skirmish AI balance work remains separate; previous AI tournament hashes describe commit 0bf3528, not this campaign revision.

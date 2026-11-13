@@ -1,0 +1,13 @@
+{
+  "source_files": {
+    "ai.js": "4511d53bfa103d714180830f7811dfd2616554e9d4bd8281eed088e7917fd8c0",
+    "ai-economy.js": "e515a98fc3e6027a339da947285fe57d82bc6cc24fe27880a9cf9877fd9dd968",
+    "ai-combat.js": "a152d89b73d5f0ce13d33638d2d5bce82b050e2e038a48db3dc45da933dad3ae",
+    "ai-logistics.js": "49efbbbb206949d83d65a7e41a0da74e13c937aa57e55f23e8fa10a61367f6ee",
+    "ai-domain-combat.js": "43a17b4395b65654efab40fa69170b01a910bc6a40ae93c1e74b3537755b93eb",
+    "simulation.js": "6eac656189b889a7452a581c6604b089ef4fc2b58dd1c6a73d7dd9c8e766622e"
+  },
+  "git_status": " M docs/ai-ladder-tournament.json",
+  "git_revision": "08ecc42cd2ec3c7923b29996de85baaab7280861",
+  "git_branch": "main"
+}

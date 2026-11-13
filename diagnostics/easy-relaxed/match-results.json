@@ -1,0 +1,30 @@
+[
+  {
+    "seed": 42,
+    "m1winsEasy": false,
+    "m1winsRelaxed": true,
+    "m2winsRelaxed": true,
+    "m2winsEasy": false,
+    "p0G1": 3929,
+    "p1G1": 7390,
+    "p0U1": 0,
+    "p1U1": 18,
+    "p0G2": 3929,
+    "p1G2": 7390
+  },
+  {
+    "seed": 123,
+    "m1winsEasy": true,
+    "m1winsRelaxed": false,
+    "m2winsRelaxed": false,
+    "m2winsEasy": true,
+    "p0G1": 6190,
+    "p1G1": 3439,
+    "p0U1": 18,
+    "p1U1": 1,
+    "p0G2": 3439,
+    "p1G2": 6190,
+    "p0U2": 1,
+    "p1U2": 18
+  }
+]

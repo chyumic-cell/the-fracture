@@ -75,3 +75,12 @@ Other focused checks cover production planning, island assaults, fair rates/fog,
 ## Balance status
 
 The earlier mixed-map candidate failed the requested range: Easy won 13 of 24 against Relaxed, lost five and left six unresolved. The upper-tier screen also found inversions. Those findings motivated the recovery fixes; they are not evidence that calibration is complete. Reports named `ai-relaxed-current-*` describe the subsequent candidate. The requested whole-ladder 5–10% range must not be claimed until current complete batches support it.
+
+
+## Recorded varied-condition diagnostics
+
+`ai-varied-four-player-screen.json` covers Scarce/balanced and Rich/random games without guaranteed starting deposits. `ai-varied-three-player-screen.json` covers Abundant/random starts. `ai-adjacent-varied-screen.json` preserves completed side-swapped adjacent diagnostics from the preceding candidate; its incomplete, superseded status is explicit. These runs revealed tier reversals and timeouts and are not accepted calibration results. Each report includes its own source fingerprint.
+
+The final guarded-supply revision's same-faction Human replay on a Rich, contested Natural map finished with one Easy win and one Relaxed win (`ai-current-neighbor-recheck.json`). That fails the requested ordering in this screening sample. Random nonadjacent tests also exposed Night-versus-Human island losses and multiplayer reversals; these strategy gaps remain open. No defeat was relabeled, no timeout was converted into a win, and the Relaxed anchor was not reduced.
+
+The runtime, regression fixes and varied test schedule are uploaded as a checkpoint. Finishing the competitive ladder still requires stronger decision logic and new complete mixed-map batches against the fixed Relaxed baseline; the current reports do not establish the requested 5–10% range.

@@ -1,3 +1,13 @@
+# Operational decision improvements - 15 November 2026
+
+- **The 5-10% adjacent difficulty target is still not achieved.** Do not describe the ladder as finished. Full-match screens and combat fixtures are recorded separately in AI-LADDER-CALIBRATION.md.
+- Expert and above prefer nearby reserves when responding to raids, value threatened headquarters/extraction/workers, and subtract only actually detached troops from an assault's casualty baseline. Repeated defensive reviews no longer repeatedly erase that baseline.
+- Expert and above reject unsupported pursuits that would enter observed fortification fire. In-range shots and favorable supported attacks remain available. Temporary holds preserve and resume an advance when the contact leaves; save/load retains that state.
+- Master and above periodically reassess newly fortified objectives and can redirect the same force toward a reachable, sufficiently valuable and lightly defended alternative. Review intervals, distance limits and an advantage threshold reduce target oscillation.
+- The new pursuit calculation does not inspect enemy private vision, detectors or research; hidden buildings cannot become alternative targets. Relaxed retains its original profile and recorded gameplay checkpoints. Prices, rates, unit statistics and civilization rosters are unchanged.
+- An initially broad pursuit rule was rejected after it made other tiers hesitant. An isolated Apocalypse combat score of 20/24 belonged to that rejected candidate and is **not** a result for the final implementation.
+- All 62 tactical suggestions are mapped in AI-TACTICS-COVERAGE.md, including partial behaviors and unimplemented systems. No illustrations or artwork changed.
+
 # Tactical coordination and economic planning - 15 November 2026
 
 - **The difficulty ladder is not calibrated to the requested 5-10% lower-neighbor win rate.** Completed full-match screens still contain tier reversals and island/labyrinth timeouts. Tactical fixtures are diagnostics, not substitutes for complete matches. See AI-LADDER-CALIBRATION.md and its source-fingerprinted reports.

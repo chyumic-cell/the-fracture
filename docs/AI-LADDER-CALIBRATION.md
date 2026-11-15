@@ -128,3 +128,34 @@ Revision 43 additionally addresses the reproduced Expert population-planning sta
 Validation includes simulation/legacy, strategy, sustainability, difficulty fairness, advanced tactics, six battle-planning checks, seven opening/delivery checks, operational recovery, coastal operations for all twelve civilizations, shore recovery and the complete fixed Relaxed replay. Outstanding competitive work remains: upper-tier strategy advantages are too small, map-side advantages still dominate several pairs, and some distant/island victories do not finish. Longer survival and passing regression tests are not ladder calibration.
 
 The final revision-43 side-swapped Expert/Veteran Narrows recheck is recorded in `ai-tactics-expert-recheck.json`: Expert loses the first side at 1,623 seconds and wins the second at 1,478 seconds. It still fails the target (one lower win out of two). The population fix improves the reproduced opening but does not establish an adequate skill gap.
+
+
+## Operational decisions follow-up (15 November 2026)
+
+Expert and above now prefer nearby reserves, account for the value of threatened economic assets, preserve accurate assault casualty baselines during repeated defense reviews, and avoid unsupported pursuits into observed fortification fire. Master and above can redirect an advance toward a reachable vulnerable strategic target when its original objective has become too strongly defended. The changes use private observations and normal unit rules; no difficulty profiles, prices, rates or unit statistics changed.
+
+Eight new behavioral checks cover fortification pursuit, favorable supported pursuit, resuming movement, reserve continuity, objective reassessment, hidden targets, save restoration and opponent-private-vision independence. Required simulation and legacy checks pass, as do the fixed Relaxed replay and strategic/battle-planning checks. Difficulty and advanced-tactics regressions also passed during this pass.
+
+The final equal-roster diagnostic (`ai-operational-combat-screen.json`) has 72 cases across all twelve civilizations:
+
+| Pair | Higher wins | Lower wins | Unresolved |
+| --- | ---: | ---: | ---: |
+| Expert / Veteran | 21 | 2 | 1 |
+| Nightmare / Master | 13 | 9 | 2 |
+| Apocalypse / Nightmare | 10 | 11 | 3 |
+
+These are combat fixtures, not full games or proof of the requested ladder. An initially broad pursuit rule produced 20/24 Apocalypse wins while reducing Expert and Nightmare performance. That candidate was rejected, not presented as a successful calibration. `ai-pursuit-comparison.json` retains the source hashes and comparison counts. A later alternative restricting the broad rule to Apocalypse also failed to establish the target.
+
+The 62-item tactics request is tracked honestly in `AI-TACTICS-COVERAGE.md`. Many items are partial and several still need new operational planners. A superseded four-player island diagnostic reached 1,200 simulated seconds without a completed result before being cancelled to prioritize final adjacent tests. It is not counted as a victory, timeout, completed game, or passed balance check.
+
+
+Final-source adjacent screen at upload: 8 of 8 games recorded. Any unrecorded game is pending, not a win.
+
+| Pair | Higher wins | Lower wins | Unresolved |
+| --- | ---: | ---: | ---: |
+| Expert / Veteran | 1 | 1 | 0 |
+| Master / Expert | 1 | 1 | 0 |
+| Nightmare / Master | 2 | 0 | 0 |
+| Apocalypse / Nightmare | 0 | 2 | 0 |
+
+Report: ai-operational-upper-screen.json. This small screen does not establish the 5-10% target.

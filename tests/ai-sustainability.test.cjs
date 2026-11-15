@@ -6,8 +6,8 @@ function node(g,r,x,y,amount){return g.add({kind:'resource',resource:r,x,y,hp:1,
 for(const f of Object.values(D.factions)){
  const g=arena(f.id),p=g.players[0];p.stock=[500,1000,1000,1000];for(let r=0;r<4;r++)node(g,r,28+r*3,24,300);chart(g);const plan=E.sustainability(g,p,A.context(g,p));
  assert(plan.ids.includes(f.id+'_deep_extraction'));assert(plan.ids.includes(f.id+'_advanced'));assert(plan.ids.includes(f.id+'_economy'));
- const expected=[0,0,0,0];for(const id of plan.ids)(D.buildings[id]||D.research[id]||D.units[id]).cost.forEach((v,i)=>expected[i]+=v);assert.deepEqual(plan.cost,expected);assert(plan.cost.every(v=>v>0));node(g,0,32,32,9000);chart(g);assert(E.sustainability(g,p,A.context(g,p)).ids.includes(f.id+'_deep_ore'),'discovery must not cancel a committed mine');p.stock=[...plan.cost];assert(!E.protectedSpend(p,D.units[f.id+'_siege_ship']));
- p.tech.push(f.id+'_economy');const next=E.sustainability(g,p,A.context(g,p));assert(!next.ids.includes(f.id+'_economy'));assert.equal(next.cost[0],plan.cost[0]-D.research[f.id+'_economy'].cost[0]);checks++;
+ const expected=[0,0,0,0];for(const id of plan.ids)(D.buildings[id]||D.research[id]||D.units[id]).cost.forEach((v,i)=>expected[i]+=v);if(plan.tradeRecovery)D.buildings[f.id+'_market'].cost.forEach((v,i)=>expected[i]+=v);assert.deepEqual(plan.cost,expected);assert(plan.cost.every(v=>v>0));node(g,0,32,32,9000);chart(g);assert(E.sustainability(g,p,A.context(g,p)).ids.includes(f.id+'_deep_ore'),'discovery must not cancel a committed mine');p.stock=[...plan.cost];assert(!E.protectedSpend(p,D.units[f.id+'_siege_ship']));
+ p.tech.push(f.id+'_economy');const next=E.sustainability(g,p,A.context(g,p));assert(!next.ids.includes(f.id+'_economy'));const nextExpected=next.ids.reduce((sum,id)=>sum+(D.buildings[id]||D.research[id]||D.units[id]).cost[0],0)+(next.tradeRecovery?D.buildings[f.id+'_market'].cost[0]:0);assert.equal(next.cost[0],nextExpected);checks++;
 }
 console.log('PASS complete paid prerequisite budgets for all twelve civilizations');
 {

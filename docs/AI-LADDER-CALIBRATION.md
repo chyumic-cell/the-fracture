@@ -84,3 +84,47 @@ The earlier mixed-map candidate failed the requested range: Easy won 13 of 24 ag
 The final guarded-supply revision's same-faction Human replay on a Rich, contested Natural map finished with one Easy win and one Relaxed win (`ai-current-neighbor-recheck.json`). That fails the requested ordering in this screening sample. Random nonadjacent tests also exposed Night-versus-Human island losses and multiplayer reversals; these strategy gaps remain open. No defeat was relabeled, no timeout was converted into a win, and the Relaxed anchor was not reduced.
 
 The runtime, regression fixes and varied test schedule are uploaded as a checkpoint. Finishing the competitive ladder still requires stronger decision logic and new complete mixed-map batches against the fixed Relaxed baseline; the current reports do not establish the requested 5–10% range.
+
+## Earlier operational follow-up (revision 22)
+
+The current controller retains the complete Relaxed anchor and equal game rules. New checks in `ai-operational-recovery.test.cjs` reproduce cargo redirected away from delivery, wounded fighters seeking nonexistent healing, unrelated-currency budgeting, a real cliff detour, an impossible drilling footprint and range-based cooldown movement. The mine-footprint test verifies that hidden terrain changes cannot change the plan. The original committed-shot withdrawal test now provides an actual healer; the new test separately rejects endless withdrawal without one.
+
+Resource forecasts distinguish known deposits from deposits with nearby completed collection infrastructure. Emergency recruitment cannot borrow against speculative remote deliveries. Actual collection stations join the paid survival chain, and duplicate infantry production no longer bypasses that reserve. Workers avoid remembered hostile production bases. On winding maps, the controller compares discovered outward and return routes; higher tiers search additional collection-point alternatives. This is route planning, not accelerated gathering.
+
+If known terrain makes every candidate mine footprint impossible, the stronger controller finances normal markets and merchants instead of reserving money forever for that shaft. Partly unexplored footprints remain uncertain unless already discovered cells prove they cannot fit. Workers still travel, deposits still deplete, merchants still earn Trade Credits, and all exchanges retain normal prices.
+
+Remote mine staffing no longer depends on safety at the original headquarters, and aircraft refueling cannot return out of the whole logistics update. Unsafe mines remain excluded. Wounded soldiers withdraw to actual healing support; they do not permanently disable themselves looking for a nonexistent healer. Range-aware controllers can step away from slower, shorter-ranged shooters during cooldown without skipping a ready shot.
+
+Renewable Ore is financed before additional renewable-resource mines. When the finite economy cannot pay the research chain, trade-first planning includes actual production prerequisites and population housing, rather than waiting on an impossible merchant. Trade exchanges prioritize missing ingredients of unlocked, actionable projects at normal prices. Early remote Ore collection can proceed with five workers before optional research consumes its budget. Focused tests cover these actions and all twelve civilizations' market prerequisites.
+
+Calibration remains incomplete. The earlier revision-22 AI is recorded in `ai-ladder-operational-neighbor.json`: four Easy wins and zero Relaxed wins on two Natural-map seeds, Scarce resources and random placement. This is only four diagnostic games; it does not establish either the requested minimum or maximum lower-tier win rate. `ai-ladder-operational-island.json` records one Standard win and one Easy win on Small Islands. `ai-ladder-operational-cross-tier.json` records one Nightmare win and one Easy win on the scarce, contested Steppes opening without guaranteed home deposits. The latter two screens reveal unresolved inversions. All reports retain exact source hashes; the later app.js cliff-visibility change does not alter AI decisions or simulation rules.
+
+The remaining contested-opening failure is concrete: the stronger controller pays for distant collection infrastructure, but enemy pressure drives workers from the only known Ore field before they gather enough to finance defense or fallback trade. On the opposite side, the same controller wins. A completed collector alone is not proof of a sustainable defended economy. This requires further strategic work; no free resources, artificial victories or weaker-baseline nerfs were used.
+
+The complete earlier sixteen-game varied screen is retained in `ai-ladder-operational-prior-screen.json`, explicitly marked as an earlier source revision. It covers all eight adjacent pairs, Scarce and Abundant resources selected by its seeded schedule, starting deposits on/off, and eight map/faction combinations. Its time limits and losses remain failures. A later screen was superseded after further route-planning repairs; partial games are not results. An isolated Easy production-forecast experiment failed the original troublesome side and was rejected; no live profile was changed based on it.
+
+No current complete 24-game-per-pair batch satisfies the target. Outstanding work is competitive policy improvement, especially surviving asymmetric scarce openings, converting resource access into a sustained army, finishing distant opponents, and eliminating adjacent/nonadjacent inversions. Regression passes and longer survival do not certify the requested win distribution.
+
+
+## Tactical and operational follow-up (revisions 34-43)
+
+The current implementation adds opportunistic attacks against observed vulnerable construction, tower-supported defense, quicker grouped reinforcements, resource raids, reachable coastal bombardment, better counter composition and ready-weapon fire assignment. Existing paid walls/mines and bait-and-withdraw ambushes remain active; advanced mine placement follows charted approach bends. No controller inspects the opponent's difficulty to choose its actions or uses hidden enemy positions.
+
+The fire coordination screen covers equal rosters for all twelve civilizations and both starting sides. Revision 42 records 13 higher wins, 9 lower wins and 2 unresolved cases for Nightmare/Master; Apocalypse/Nightmare records 10 higher wins, 11 lower wins and 3 unresolved cases. These isolated combat encounters have no economic production and cannot certify campaign, full-match or ladder strength. The runner records source and runner hashes. Their failures remain in `ai-tactics-combat-screen.json`.
+
+Completed full-match evidence is intentionally separated by source revision:
+
+| Report | Scope | Observed higher/lower/unresolved |
+| --- | --- | --- |
+| `ai-tactics-lower-screen.json` | Revision 34: eight varied-map games, Easy through Veteran | Easy 2/0/0; Standard 2/0/0; Challenging 2/0/0; Veteran 1/1/0 |
+| `ai-tactics-upper-screen.json` | Revision 42: eight varied-map games, Expert through Apocalypse | Each pair 1/1/0 |
+| `ai-tactics-anchor-variety-screen.json` | Revision 38: six Easy/Relaxed games, Natural/Small Islands/Labyrinth, varied deposits | 2/0/4; both Natural games finish, island/labyrinth games time out |
+| `ai-tactics-combat-screen.json` | Revision 42: 48 equal-roster combat fixtures, twelve civilizations | See above; not full matches |
+
+These are small diagnostic screens with exact per-game settings and source hashes, not one combined sample of the current revision. There is no accepted 24-game-per-pair batch. Zero lower-tier wins in two games does not establish the requested minimum of 5%, and the observed upper-tier reversals clearly fail the requested maximum of 10%.
+
+Revision 43 additionally addresses the reproduced Expert population-planning stall: it purchases ordinary housing when charted liquid supplies can finance both the house and the remaining drilling chain. The original opening had no house at 240 simulated seconds; the revised opening has one before 120 seconds. A regression checks the actual paid cost and remaining survival capital. Broader forecast-based army spending was tested and rejected because it weakened the later position.
+
+Validation includes simulation/legacy, strategy, sustainability, difficulty fairness, advanced tactics, six battle-planning checks, seven opening/delivery checks, operational recovery, coastal operations for all twelve civilizations, shore recovery and the complete fixed Relaxed replay. Outstanding competitive work remains: upper-tier strategy advantages are too small, map-side advantages still dominate several pairs, and some distant/island victories do not finish. Longer survival and passing regression tests are not ladder calibration.
+
+The final revision-43 side-swapped Expert/Veteran Narrows recheck is recorded in `ai-tactics-expert-recheck.json`: Expert loses the first side at 1,623 seconds and wins the second at 1,478 seconds. It still fails the target (one lower win out of two). The population fix improves the reproduced opening but does not establish an adequate skill gap.

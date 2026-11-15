@@ -32,3 +32,31 @@ console.log('PASS depleted-island workers prioritize urgent renewable Ore over s
  assert(mines.every(b=>b.lastExtraction>700),'Both shafts must produce through ordinary extraction');
 }
 console.log('PASS multiple renewable shafts receive balanced workforces and deliver actual Ore');
+
+for(const returning of [false,true]){
+ const g=island('apocalypse',200),p=g.players[0];g.time=650;p.stock=[200,500,900,100];p.aiLogistics={next:0,nextExpansion:10000,nextSortie:10000};
+ const mine=g.spawnBuilding('humans_deep_ore',0,15,54,true),n=g.add({kind:'resource',resource:0,x:15,y:54,hp:1,amount:0,size:.85});
+ for(const [i,w]of g.entities.filter(e=>e.owner===0&&g.def(e)?.worker).entries()){w.x=18+i*.2;w.y=55;w.order=null;}
+ g.spawnUnit('humans_u2',1,18,35);
+ if(returning){const air=g.spawnUnit('humans_air_transport',0,22,33);air.returning=true;const troops=g.entities.filter(e=>e.owner===0&&e.type==='humans_u2').slice(0,3);p.aiLogistics.sortie={carrier:air.id,ids:troops.map(u=>u.id),phase:'load',pickup:{x:24,y:33},landing:{x:64,y:32},target:{x:70,y:30},started:650,budget:200};}
+ g.rebuildNav();g.updateVision();p.knowledge[n.id]={...n};p.explored.fill(1);p.visible.fill(1);p.knownNav.set(g.nav);L.step(g,p,A.context(g,p));
+ assert.equal(g.entities.filter(u=>u.owner===0&&u.order?.kind==='extract'&&u.order.target===mine.id).length,6,'A headquarters raid or returning aircraft must not suspend safe remote mining');
+}
+console.log('PASS safe remote mining continues during headquarters raids and transport refueling');
+
+{
+ const g=island('apocalypse',1500),p=g.players[0],t=g.entities.find(e=>e.type==='humans_transport_ship'),troops=g.entities.filter(e=>e.owner===0&&e.type==='humans_u2').slice(0,4);
+ p.aiLogistics.sortie={carrier:t.id,ids:troops.map(u=>u.id),phase:'load',pickup:{x:t.x,y:t.y},landing:{x:64,y:32},target:{x:70,y:30},started:g.time,budget:200};
+ for(const u of troops){u.aiLogistics=true;g.board([u.id],t.id,0);}
+ g.spawnUnit('humans_u2',1,23,34);g.rebuildNav();g.updateVision();p.visible.fill(1);L.step(g,p,A.context(g,p));
+ assert.equal(p.aiLogistics.sortie,null,'An active worker raid must release the embarkation defenders');assert(troops.every(u=>!u.aiLogistics&&u.order?.kind!=='board'));
+}
+console.log('PASS active income raids release troops from naval boarding for local defense');
+
+{
+ const g=island('standard',1500),p=g.players[0],scout=g.spawnUnit('humans_u1',0,26,33);g.rebuildNav();g.updateVision();p.explored.fill(1);p.knownNav.set(g.nav);p.knowledge={};p.visible.fill(0);
+ for(let y=0;y<100;y++)for(let x=70;x<100;x++)p.explored[y*100+x]=0;
+ const ctx=A.context(g,p);assert.equal(ctx.targets.length,0);L.step(g,p,ctx);
+ assert(p.aiLogistics.sortie?.target.recon,'must chart an unknown foreign shore');assert.deepEqual(p.aiLogistics.sortie.ids,[scout.id],'risk one scout, not the whole army, on an unknown beach');
+}
+console.log('PASS stronger naval reconnaissance scouts the island before committing the field army');

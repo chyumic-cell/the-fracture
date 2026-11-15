@@ -1,0 +1,903 @@
+{
+  "fingerprint": "97cb512fe0a9bedf7c91b48c65c5d51cced484759e1a2ac2cd03b12918eae214",
+  "settings": {
+    "rotate": false,
+    "rounds": 12,
+    "seeds": [
+      42,
+      104771
+    ],
+    "factions": [
+      "humans"
+    ],
+    "layouts": [
+      "natural"
+    ],
+    "sizes": [
+      100
+    ],
+    "gaps": [
+      1
+    ],
+    "highs": [
+      3
+    ],
+    "limit": 2400,
+    "resourceAmount": 0.5,
+    "placement": "random",
+    "varyConditions": false,
+    "conditionSeed": 90210,
+    "interleaveEvery": 0,
+    "crossSeed": 90210
+  },
+  "sourceHashes": {
+    "ai-combat.js": "97f1e156b79978e1099043de0a48cd8f4cdea017dfe52c50a9ccc47cb150775f",
+    "ai-domain-combat.js": "43a17b4395b65654efab40fa69170b01a910bc6a40ae93c1e74b3537755b93eb",
+    "ai-economy.js": "b868a500b5a1b8e33e0dbcab3b58e291fc104715ddf7bb5b88643c56b6d3769a",
+    "ai-logistics.js": "1ed1adde4f4687b0e4e603f91d8321da0807aefa17aedd643e7a112f0323c59a",
+    "ai.js": "e7a64d42b14fbf5f3a59c35623b4d3d211e9dc894b5325836d700355c03183f6",
+    "app.js": "ee79a4be3e76b09ad374376b41996851d207ffc336be2c71489161c20ccc507e",
+    "art-review.js": "18d9a6ed96ac4b10c057647a7ea0d16775ce1ec64f1a5469d33e3330e26124d9",
+    "art.js": "902e31389b36de3e1b42f0d853d986b76f767ce13e1a329f9e20ad99f9be378c",
+    "async-art.js": "207d878cc3244264b2db684c12bcbe9f878410c5832b58062b0227b2020d5586",
+    "audio.js": "86ebcab58d5b488476d33d99e330b5367797b8ce30e23c655f09f7d2086d43c4",
+    "building-art.js": "bd442c21c6954a88a10906af1c6ab0931dc9434165f9af56ceeb2783094b9f27",
+    "campaign-landmarks.js": "a76bdf5b397aec4bcd690ac5813eefa2d98041b673cacbc86f356d44cb0e018b",
+    "campaign-missions.js": "9c24f12f9a1ef5701b3c573f07f0b26cdc27ad208b92d7e4e5db55da0c4d4c34",
+    "campaign-story.js": "d0a39578c767ca5643f70e3100ba4f6d38365af480146b42fd250dc45cea9cc3",
+    "campaign-ui.js": "4b56ed5cab22eb87efff2816ee982ab90c47b3bdc75afdbe7545182fa0e81e40",
+    "campaign.js": "7c0997dda4b772df75afb93a42b15b937251ad7a23c18593bf089ecb1f6e95a1",
+    "cinematic-player.js": "5a2016a507880e9f4ed298ad4a5540302b66e4cb5d28ab00d09932a96c72b515",
+    "combat.js": "61fd579c0c0a24ec0ced7b6e3b25723a2e4e9fee7dc06d53c6df1119bbdd3972",
+    "construction-art.js": "15c8381de07df8f1b66c26f888100ef19fb9a6778ef8f25c758c5189da94c543",
+    "data.js": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "detail-art.js": "098f71e64b43dcf025dda128c897201e24ec68635ed314901b960332e78d4cbd",
+    "environment-art.js": "4c23c3c0018632fe32e4ed07bc23a0d6a6c33e6da1dca2fbf582577635235b1f",
+    "environments.js": "59a25a0b32fa2254b3edaaaf0c5c57488882ced4e779bbc543786a61da47a1a2",
+    "expansion-art.js": "73389b15560eb124658260626c963a02871c70060be6af151c8d900e58da5c08",
+    "expansion-data.js": "365cff2af0f439b6c7617ea8834b8ed5df706d1e1292de906a80ed210737bf93",
+    "expansion-runtime.js": "0e718f25ffef3ac33ca0507ae2d45e3794bdb1776dd0fad3c23680dad2a321a4",
+    "extension-art.js": "773291f7aae79ce1d08fd24cad764763059c4541977986b92dc1d3742e3fee1b",
+    "fortification-art.js": "a7b2a1a5a715e6a90ee12f0cda00c0fad2b6d7c4e493704db511ff647ad8aac5",
+    "help.js": "3a4a0e745095d186bcd3b0a258169866b04b44f054d97bb974a4c41fe8db5eb6",
+    "identity-art.js": "2b3254fa8ad4c638c271f74260ed8cd3a35ae40ce8ecd947d13426e0d7b57713",
+    "machine-art.js": "bdc56f94554f96cc3a361ba9bd0577e3f4e10c17ecb6d8526a2ef006e84e9a26",
+    "map-layouts.js": "ac4eff9fda1ee7056c27a1d5ece8a860fb7e7c99014718d3a50be388bce21c79",
+    "march.js": "87e9dc8ff993730edab04d4d407ceb1aa8cd65d1193d69418d7545692b525530",
+    "primate-art.js": "33a484874d788b3e7a6f4ea330d348194ad9a613a264825cc172de1775e4f08b",
+    "projectiles.js": "89c46b3353e3f5858470465c2f9172cb958ee389304a9a0421862ffbdbf14575",
+    "ruins-art.js": "8300d853d0c75ea50b188c3c17de25ad4d64090caaeb45c0390d73035fba628f",
+    "save-codec.js": "2c4ab3c0e909dce2aacc6020c233541aa66f3bf9c44f2a30c0f02592e3c11ea5",
+    "simulation.js": "36dec0b214c93d9c24a3058447207fc04d72f52a6adf0381ea16549fa4417189",
+    "specialist-art.js": "a5af07012dc6e97e7595c40361d19dfc782fcdd68addc0c35b52325821def487",
+    "sprite-mesh.js": "b21cf869f6ff60e15692f2376760427c2a031da7a6d1af8002bb1b9b623447c3",
+    "sprite-worker.js": "adfe579ccbb20aaa48cb780ff1af2f827020b7cbec491fa4d5d8e390161f68e3",
+    "startup.js": "8a085430f9ef5c15b44c2fb3d22179b65c399ff775925f031891b956d93b94ad",
+    "symbiote-art.js": "0545e26e31677c7a501ad6288ca07299e59fd714a99b9855644015964a3019ce",
+    "tactics.js": "2b3a1fc328140cc911158713ebf67339cc600802b15ce920b468ec8d2dfe09ef",
+    "terrain.js": "f5b81b07cef10bb999aa2d776198efc559174c7a448f5b5600d49552762153dd",
+    "trade-art.js": "1d48b5361527cf18f901c91fdf1f57f6b06021892774458d6838daca6c69b2c3",
+    "voice-bank.js": "c186485909d7fc07f999b4814a675500a7160af79a8c23ba0c79b4281b529fd6",
+    "walls.js": "5a3a6d0c6841d161a9bafb89994180c5ef719af038486ce273557369dd33ddce"
+  },
+  "runnerHashes": {
+    "ai-ladder-calibration.cjs": "6836860911688e552dcd1d497e0921b673c3eceb7fff8deb6b175cb753853153",
+    "ai-cross-tier-schedule.cjs": "b31f9ce8e4915181835cf192cec7e874743b4ab965141696b23e6fcb59b17df0",
+    "ai-ladder-stats.cjs": "0a00c3bfadc95fe4e4e0dc44e40d8583a785cd37a4cf3ef5bdab0d855898e1c5"
+  },
+  "createdAt": "2026-11-15T13:25:09.679Z",
+  "scope": "Normal paid games with private fog. Draws/time limits remain unresolved. Per-pair 95% confidence bounds are not a universal or simultaneous guarantee.",
+  "cases": [
+    {
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 100,
+      "high": 3,
+      "low": 2,
+      "gap": 1,
+      "side": 0,
+      "key": "{\"seed\":42,\"faction\":\"humans\",\"layout\":\"natural\",\"size\":100,\"high\":3,\"low\":2,\"gap\":1,\"side\":0}",
+      "winner": "higher",
+      "winnerLevel": 3,
+      "higherTierDefeats": [],
+      "seconds": 610,
+      "wallSeconds": 52,
+      "damage": [
+        8701,
+        1157
+      ],
+      "paid": [
+        5715,
+        2790
+      ],
+      "players": [
+        {
+          "difficulty": "easy",
+          "faction": "humans",
+          "economicSilenceSeconds": 9,
+          "stock": [
+            278,
+            288,
+            48,
+            165
+          ],
+          "gathered": [
+            4613,
+            893,
+            318,
+            220
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction"
+          ],
+          "goal": null,
+          "plan": "Staging armor, ranged troops and support",
+          "units": [
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u2",
+            "humans_u0",
+            "humans_u2",
+            "humans_u0",
+            "humans_u3",
+            "humans_u2",
+            "humans_u0",
+            "humans_u3",
+            "humans_u2",
+            "humans_u6",
+            "humans_u2",
+            "humans_u1",
+            "humans_u5",
+            "humans_u8",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b0",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b3",
+              "progress": 1
+            },
+            {
+              "type": "humans_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_b4",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "relaxed",
+          "faction": "humans",
+          "economicSilenceSeconds": 15,
+          "stock": [
+            278,
+            468,
+            288,
+            20
+          ],
+          "gathered": [
+            2473,
+            528,
+            348,
+            45
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced"
+          ],
+          "goal": "build:humans_b0",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "humans_u1"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b3",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 100,
+      "high": 3,
+      "low": 2,
+      "gap": 1,
+      "side": 1,
+      "key": "{\"seed\":42,\"faction\":\"humans\",\"layout\":\"natural\",\"size\":100,\"high\":3,\"low\":2,\"gap\":1,\"side\":1}",
+      "winner": "higher",
+      "winnerLevel": 3,
+      "higherTierDefeats": [],
+      "seconds": 1920,
+      "wallSeconds": 148,
+      "damage": [
+        11279,
+        21399
+      ],
+      "paid": [
+        9290,
+        10685
+      ],
+      "players": [
+        {
+          "difficulty": "relaxed",
+          "faction": "humans",
+          "economicSilenceSeconds": 6,
+          "stock": [
+            4,
+            161,
+            229,
+            215
+          ],
+          "gathered": [
+            6209,
+            1056,
+            404,
+            220
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_b2_specialization"
+          ],
+          "goal": "build:humans_b0",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "humans_u2",
+            "humans_u5",
+            "humans_u2",
+            "humans_u2",
+            "humans_u3"
+          ],
+          "buildings": [
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b7",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "easy",
+          "faction": "humans",
+          "economicSilenceSeconds": 0,
+          "stock": [
+            261,
+            109,
+            106,
+            83
+          ],
+          "gathered": [
+            8836,
+            734,
+            306,
+            78
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_b2_specialization"
+          ],
+          "goal": null,
+          "plan": "Combined-arms assault",
+          "units": [
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u1",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u3",
+            "humans_merchant",
+            "humans_merchant",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u6",
+            "humans_u6",
+            "humans_u5",
+            "humans_u5",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u3",
+            "humans_u5",
+            "humans_u2",
+            "humans_u3"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b0",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b3",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_b4",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b7",
+              "progress": 1
+            },
+            {
+              "type": "humans_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 104771,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 100,
+      "high": 3,
+      "low": 2,
+      "gap": 1,
+      "side": 0,
+      "key": "{\"seed\":104771,\"faction\":\"humans\",\"layout\":\"natural\",\"size\":100,\"high\":3,\"low\":2,\"gap\":1,\"side\":0}",
+      "winner": "higher",
+      "winnerLevel": 3,
+      "higherTierDefeats": [],
+      "seconds": 727,
+      "wallSeconds": 30,
+      "damage": [
+        13630,
+        3687
+      ],
+      "paid": [
+        8670,
+        5255
+      ],
+      "players": [
+        {
+          "difficulty": "easy",
+          "faction": "humans",
+          "economicSilenceSeconds": 7,
+          "stock": [
+            301,
+            160,
+            75,
+            76
+          ],
+          "gathered": [
+            6776,
+            1095,
+            490,
+            111
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_b2_specialization"
+          ],
+          "goal": null,
+          "plan": "Reinforcing the assault in a protected group",
+          "units": [
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u2",
+            "humans_merchant",
+            "humans_u5",
+            "humans_u6",
+            "humans_u2",
+            "humans_u4",
+            "humans_u2",
+            "humans_u4",
+            "humans_u3",
+            "humans_u3",
+            "humans_u5",
+            "humans_u2",
+            "humans_u2",
+            "humans_u8",
+            "humans_merchant",
+            "humans_u2",
+            "humans_u2",
+            "humans_u5",
+            "humans_u2",
+            "humans_u3",
+            "humans_u1",
+            "humans_u2",
+            "humans_u2"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b0",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b3",
+              "progress": 1
+            },
+            {
+              "type": "humans_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_b4",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b7",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_b5",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_oil",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_oilwell",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "relaxed",
+          "faction": "humans",
+          "economicSilenceSeconds": 1,
+          "stock": [
+            170,
+            329,
+            267,
+            166
+          ],
+          "gathered": [
+            4180,
+            694,
+            417,
+            61
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1"
+          ],
+          "goal": "build:humans_b0",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "humans_u0",
+            "humans_u0",
+            "humans_u0"
+          ],
+          "buildings": [
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 104771,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 100,
+      "high": 3,
+      "low": 2,
+      "gap": 1,
+      "side": 1,
+      "key": "{\"seed\":104771,\"faction\":\"humans\",\"layout\":\"natural\",\"size\":100,\"high\":3,\"low\":2,\"gap\":1,\"side\":1}",
+      "winner": "higher",
+      "winnerLevel": 3,
+      "higherTierDefeats": [],
+      "seconds": 761,
+      "wallSeconds": 34,
+      "damage": [
+        2580,
+        7828
+      ],
+      "paid": [
+        4105,
+        8415
+      ],
+      "players": [
+        {
+          "difficulty": "relaxed",
+          "faction": "humans",
+          "economicSilenceSeconds": 9,
+          "stock": [
+            1,
+            440,
+            427,
+            165
+          ],
+          "gathered": [
+            3201,
+            640,
+            627,
+            220
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction"
+          ],
+          "goal": "build:humans_b2",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "humans_u0",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b3",
+              "progress": 1
+            },
+            {
+              "type": "humans_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_rift",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "easy",
+          "faction": "humans",
+          "economicSilenceSeconds": 5,
+          "stock": [
+            365,
+            90,
+            177,
+            82
+          ],
+          "gathered": [
+            6984,
+            900,
+            457,
+            37
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction"
+          ],
+          "goal": null,
+          "plan": "Reinforcing the assault in a protected group",
+          "units": [
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u2",
+            "humans_u0",
+            "humans_u2",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u3",
+            "humans_u3",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u2",
+            "humans_merchant",
+            "humans_merchant",
+            "humans_u5",
+            "humans_u5",
+            "humans_u2",
+            "humans_u6",
+            "humans_u2",
+            "humans_u4",
+            "humans_u2",
+            "humans_u6",
+            "humans_u8",
+            "humans_u2",
+            "humans_u5",
+            "humans_u6",
+            "humans_u2",
+            "humans_u1"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b0",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b3",
+              "progress": 1
+            },
+            {
+              "type": "humans_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_b4",
+              "progress": 1
+            },
+            {
+              "type": "humans_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b7",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_b4",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_aetherwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b5",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_ore",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "higher": "Easy",
+      "lower": "Relaxed",
+      "gap": 1,
+      "matches": 4,
+      "higherWins": 4,
+      "lowerWins": 0,
+      "unresolved": 0,
+      "lowerWinRate": 0,
+      "target": 0.1,
+      "minimum": 0.05,
+      "batchStatus": "screening-only",
+      "upper95": 0.5271291954984121,
+      "conservativeUpper95": 0.5271291954984121,
+      "upperLimitEvidence": "insufficient-evidence",
+      "zeroLowerWinsSampleNeeded": 29
+    }
+  ],
+  "completed": 4,
+  "planned": 4,
+  "finishedAt": "2026-11-15T13:29:35.708Z",
+  "sourceUnchanged": true
+}

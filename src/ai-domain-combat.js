@@ -8,6 +8,31 @@ function move(g,p,u,desired,enemies){const d=def(u),mode=d.naval?'water':true,a=
  for(const turn of [0,.45,-.45,.9,-.9,1.4,-1.4]){const q={x:Math.max(.6,Math.min(g.n-.6,u.x+Math.cos(a+turn)*r)),y:Math.max(.6,Math.min(g.n-.6,u.y+Math.sin(a+turn)*r))};if(!g.known(p.id,q)||g.blocked(q.x,q.y,mode,p.id))continue;if(d.naval){const route=g.path(u,q);if(distance(route.at(-1)||u,q)>1.8)continue;}const danger=enemies.reduce((n,e)=>n+(canHit(def(e),d)?Math.max(0,(def(e).range||1)+1-distance(e,q))*def(e).damage/(def(e).cooldown||1.5):0),0),score=distance(q,desired)+danger*.2;if(score<bestScore){bestScore=score;best=q;}}
  if(best&&(!u.order||u.order.kind!=='move'||distance(u.order,best)>1)){g.order([u.id],{kind:'move',...best});u.aiDomainMoveUntil=g.time+.7;return true;}return false;
 }
+// A bombardment ship needs a reachable firing position, not a standing order to
+// follow an empty transport. Plans use charted water and remembered targets only.
+function bombard(g,p,u,ctx){
+ if(!ctx.config.macroForecast||def(u).navalRole!=='siege'||u.windup)return false;
+ const old=u.aiBombardment,target=old&&ctx.targets.find(t=>t.id===old.target);
+ if(old&&target&&g.time<old.reviewAt&&u.stuck<2&&u.order)return true;
+ let best=null;const count=Math.min(8,2+ctx.config.level-4);
+ for(const t of ctx.targets.slice(0,count)){
+  const spotted=ctx.own.some(v=>v.id!==u.id&&!v.embarkedBy&&!v.insideMine&&distance(v,t)<(def(v).vision||8)-.5),radius=Math.min(g.attackReach(u,t)-.5,spotted?Infinity:(def(u).vision||8)-.75),candidates=[];
+  for(let k=0;k<16;k++)candidates.push({x:t.x+Math.cos(k*Math.PI/8)*radius,y:t.y+Math.sin(k*Math.PI/8)*radius});
+  for(const q of candidates.sort((a,b)=>distance(a,u)-distance(b,u))){
+   if(!g.known(p.id,q)||g.blocked(q.x,q.y,'water',p.id)||distance(q,t)>g.attackReach({...u,...q},t)||distance(q,t)<(def(u).minRange||0)+(t.size||.35))continue;
+   const guards=ctx.knownEnemies.filter(e=>canHit(def(e),def(u))&&g.time-(e.seenAt??g.time)<ctx.config.memory);
+   if(guards.some(e=>distance(e,q)<(def(e).range||1)+2))continue;
+   const route=g.path(u,q);if(distance(route.at(-1)||u,q)>1.5||route.some(v=>!g.known(p.id,v)))continue;
+   if(guards.some(e=>route.some(v=>distance(e,v)<(def(e).range||1)+1)))continue;
+   const score=(t.score||0)-route.length*.7;if(!best||score>best.score)best={t,q,score};break;
+  }
+ }
+ if(!best){u.aiBombardment=null;return false;}
+ u.aiBombardment={target:best.t.id,x:best.q.x,y:best.q.y,reviewAt:g.time+8};
+ if(g.visible(p.id,best.t)&&distance(u,best.t)<=g.attackReach(u,best.t))g.order([u.id],{kind:'attack',target:best.t.id});
+ else if(!u.order||u.order.kind!=='move'||distance(u.order,best.q)>1)g.order([u.id],{kind:'move',...best.q});
+ p.plan='Bombarding a charted coastal objective from reachable safe water';return true;
+}
 function step(g,p,ctx){if(!ctx.config?.domainMicro)return;const s=(p.aiState.domainCombat||={next:0,decisions:0});if(g.time<s.next)return;s.next=g.time+ctx.config.tacticalInterval;s.decisions++;const units=ctx.own.filter(u=>u.kind==='unit'&&!u.embarkedBy&&!u.insideMine&&!def(u).transport&&(def(u).air||def(u).naval)&&def(u).damage>0),enemies=ctx.enemy,committed=new Map();
  for(const shot of g.projectiles)if(shot.owner===p.id){const t=enemies.find(e=>e.id===shot.target);if(t)committed.set(t.id,(committed.get(t.id)||0)+Math.max(1,shot.damage-(def(t).armor||0)));}
  for(const u of units){const target=enemies.find(e=>e.id===u.windup?.target);if(target&&u.windup&&!u.windup.fired)committed.set(target.id,(committed.get(target.id)||0)+damage(g,u,target));}
@@ -20,5 +45,5 @@ function step(g,p,ctx){if(!ctx.config?.domainMicro)return;const s=(p.aiState.dom
   if(u.order?.kind!=='attack'||u.order.target!==target.id)g.order([u.id],{kind:'attack',target:target.id});u.aiDomainTargetUntil=g.time+ctx.config.tacticalInterval+.1;if(u.cooldown<=ctx.config.tacticalInterval+.25)committed.set(target.id,(committed.get(target.id)||0)+damage(g,u,target));
  }
 }
-root.FractureAIDomainCombat={step,damage};if(typeof module!=='undefined')module.exports=root.FractureAIDomainCombat;
+root.FractureAIDomainCombat={step,damage,bombard};if(typeof module!=='undefined')module.exports=root.FractureAIDomainCombat;
 })(globalThis);

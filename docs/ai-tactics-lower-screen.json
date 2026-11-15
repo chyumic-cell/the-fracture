@@ -1,0 +1,2006 @@
+{
+  "fingerprint": "94f013de05c6d2f089bd9b6a0f898c8c852e9a4c50fed78a1525ca977979cc8b",
+  "settings": {
+    "rotate": true,
+    "rounds": 1,
+    "seeds": [
+      42
+    ],
+    "factions": [
+      "humans",
+      "reptilians",
+      "machines",
+      "insects",
+      "primates",
+      "wizards",
+      "elders",
+      "myth",
+      "dragons",
+      "night",
+      "infernal",
+      "symbiotes"
+    ],
+    "layouts": [
+      "natural",
+      "small-islands",
+      "labyrinth",
+      "rivers",
+      "narrows",
+      "large-islands",
+      "mountain-passes",
+      "coastal",
+      "steppes",
+      "mediterranean",
+      "continental"
+    ],
+    "sizes": [
+      100
+    ],
+    "gaps": [
+      1
+    ],
+    "highs": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "limit": 2400,
+    "resourceAmount": 1,
+    "placement": "balanced",
+    "varyConditions": true,
+    "conditionSeed": 90210,
+    "interleaveEvery": 0,
+    "crossSeed": 90210
+  },
+  "sourceHashes": {
+    "ai-combat.js": "97f1e156b79978e1099043de0a48cd8f4cdea017dfe52c50a9ccc47cb150775f",
+    "ai-domain-combat.js": "6ac4c77db4be17cf1e9105a95734be2484dc412307f9ae22f4b607db0be3432f",
+    "ai-economy.js": "0b0aebdeac2d118630fecbc6ba0509acd47188eb9a22b2a4c9fed673c0f47b60",
+    "ai-logistics.js": "02ef55f61869e6113f4271e7e4a52d6b8712f5ef48ca9960a080836db7dbdf0b",
+    "ai.js": "b5b90903b9220d7b44d1098acdd7920ae6a25ff238a48a548dbdd8127b50eeaa",
+    "app.js": "aaa88e100f01b12e3ff4ae4897758cf7f2a86b2f149a5bc2d60381c7a229c0e9",
+    "art-review.js": "18d9a6ed96ac4b10c057647a7ea0d16775ce1ec64f1a5469d33e3330e26124d9",
+    "art.js": "902e31389b36de3e1b42f0d853d986b76f767ce13e1a329f9e20ad99f9be378c",
+    "async-art.js": "207d878cc3244264b2db684c12bcbe9f878410c5832b58062b0227b2020d5586",
+    "audio.js": "86ebcab58d5b488476d33d99e330b5367797b8ce30e23c655f09f7d2086d43c4",
+    "building-art.js": "bd442c21c6954a88a10906af1c6ab0931dc9434165f9af56ceeb2783094b9f27",
+    "campaign-landmarks.js": "a76bdf5b397aec4bcd690ac5813eefa2d98041b673cacbc86f356d44cb0e018b",
+    "campaign-missions.js": "9c24f12f9a1ef5701b3c573f07f0b26cdc27ad208b92d7e4e5db55da0c4d4c34",
+    "campaign-story.js": "d0a39578c767ca5643f70e3100ba4f6d38365af480146b42fd250dc45cea9cc3",
+    "campaign-ui.js": "4b56ed5cab22eb87efff2816ee982ab90c47b3bdc75afdbe7545182fa0e81e40",
+    "campaign.js": "7c0997dda4b772df75afb93a42b15b937251ad7a23c18593bf089ecb1f6e95a1",
+    "cinematic-player.js": "5a2016a507880e9f4ed298ad4a5540302b66e4cb5d28ab00d09932a96c72b515",
+    "combat.js": "61fd579c0c0a24ec0ced7b6e3b25723a2e4e9fee7dc06d53c6df1119bbdd3972",
+    "construction-art.js": "15c8381de07df8f1b66c26f888100ef19fb9a6778ef8f25c758c5189da94c543",
+    "data.js": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "detail-art.js": "098f71e64b43dcf025dda128c897201e24ec68635ed314901b960332e78d4cbd",
+    "environment-art.js": "4c23c3c0018632fe32e4ed07bc23a0d6a6c33e6da1dca2fbf582577635235b1f",
+    "environments.js": "59a25a0b32fa2254b3edaaaf0c5c57488882ced4e779bbc543786a61da47a1a2",
+    "expansion-art.js": "73389b15560eb124658260626c963a02871c70060be6af151c8d900e58da5c08",
+    "expansion-data.js": "365cff2af0f439b6c7617ea8834b8ed5df706d1e1292de906a80ed210737bf93",
+    "expansion-runtime.js": "6f677dd100e253fc3c4f8dc9d213116e2950551ab29fc857f76fa38cabbca56a",
+    "extension-art.js": "773291f7aae79ce1d08fd24cad764763059c4541977986b92dc1d3742e3fee1b",
+    "fortification-art.js": "a7b2a1a5a715e6a90ee12f0cda00c0fad2b6d7c4e493704db511ff647ad8aac5",
+    "help.js": "3a4a0e745095d186bcd3b0a258169866b04b44f054d97bb974a4c41fe8db5eb6",
+    "identity-art.js": "2b3254fa8ad4c638c271f74260ed8cd3a35ae40ce8ecd947d13426e0d7b57713",
+    "machine-art.js": "bdc56f94554f96cc3a361ba9bd0577e3f4e10c17ecb6d8526a2ef006e84e9a26",
+    "map-layouts.js": "ac4eff9fda1ee7056c27a1d5ece8a860fb7e7c99014718d3a50be388bce21c79",
+    "march.js": "87e9dc8ff993730edab04d4d407ceb1aa8cd65d1193d69418d7545692b525530",
+    "primate-art.js": "33a484874d788b3e7a6f4ea330d348194ad9a613a264825cc172de1775e4f08b",
+    "projectiles.js": "89c46b3353e3f5858470465c2f9172cb958ee389304a9a0421862ffbdbf14575",
+    "ruins-art.js": "8300d853d0c75ea50b188c3c17de25ad4d64090caaeb45c0390d73035fba628f",
+    "save-codec.js": "2c4ab3c0e909dce2aacc6020c233541aa66f3bf9c44f2a30c0f02592e3c11ea5",
+    "simulation.js": "c170783ce43cbd92b929766d47199a9d31b5201ffd5eb218bbc1630a9607737b",
+    "specialist-art.js": "a5af07012dc6e97e7595c40361d19dfc782fcdd68addc0c35b52325821def487",
+    "sprite-mesh.js": "b21cf869f6ff60e15692f2376760427c2a031da7a6d1af8002bb1b9b623447c3",
+    "sprite-worker.js": "adfe579ccbb20aaa48cb780ff1af2f827020b7cbec491fa4d5d8e390161f68e3",
+    "startup.js": "8a085430f9ef5c15b44c2fb3d22179b65c399ff775925f031891b956d93b94ad",
+    "symbiote-art.js": "0545e26e31677c7a501ad6288ca07299e59fd714a99b9855644015964a3019ce",
+    "tactics.js": "2b3a1fc328140cc911158713ebf67339cc600802b15ce920b468ec8d2dfe09ef",
+    "terrain.js": "f5b81b07cef10bb999aa2d776198efc559174c7a448f5b5600d49552762153dd",
+    "trade-art.js": "1d48b5361527cf18f901c91fdf1f57f6b06021892774458d6838daca6c69b2c3",
+    "voice-bank.js": "c186485909d7fc07f999b4814a675500a7160af79a8c23ba0c79b4281b529fd6",
+    "walls.js": "5a3a6d0c6841d161a9bafb89994180c5ef719af038486ce273557369dd33ddce"
+  },
+  "runnerHashes": {
+    "ai-ladder-calibration.cjs": "6836860911688e552dcd1d497e0921b673c3eceb7fff8deb6b175cb753853153",
+    "ai-cross-tier-schedule.cjs": "b31f9ce8e4915181835cf192cec7e874743b4ab965141696b23e6fcb59b17df0",
+    "ai-ladder-stats.cjs": "0a00c3bfadc95fe4e4e0dc44e40d8583a785cd37a4cf3ef5bdab0d855898e1c5"
+  },
+  "createdAt": "2026-11-15T15:10:46.977Z",
+  "scope": "Normal paid games with private fog. Draws/time limits remain unresolved. Per-pair 95% confidence bounds are not a universal or simultaneous guarantee.",
+  "cases": [
+    {
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 100,
+      "high": 3,
+      "low": 2,
+      "gap": 1,
+      "side": 0,
+      "resourceAmount": 0.5,
+      "placement": "random",
+      "startingResources": true,
+      "key": "{\"seed\":42,\"faction\":\"humans\",\"layout\":\"natural\",\"size\":100,\"high\":3,\"low\":2,\"gap\":1,\"side\":0,\"resourceAmount\":0.5,\"placement\":\"random\",\"startingResources\":true}",
+      "winner": "higher",
+      "winnerLevel": 3,
+      "higherTierDefeats": [],
+      "seconds": 610,
+      "wallSeconds": 29,
+      "damage": [
+        8701,
+        1157
+      ],
+      "paid": [
+        5715,
+        2790
+      ],
+      "players": [
+        {
+          "difficulty": "easy",
+          "faction": "humans",
+          "economicSilenceSeconds": 9,
+          "stock": [
+            328,
+            288,
+            48,
+            165
+          ],
+          "gathered": [
+            4663,
+            893,
+            318,
+            220
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction"
+          ],
+          "goal": null,
+          "plan": "Staging armor, ranged troops and support",
+          "units": [
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u2",
+            "humans_u0",
+            "humans_u2",
+            "humans_u0",
+            "humans_u3",
+            "humans_u2",
+            "humans_u0",
+            "humans_u3",
+            "humans_u2",
+            "humans_u6",
+            "humans_u2",
+            "humans_u1",
+            "humans_u5",
+            "humans_u8",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b0",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b3",
+              "progress": 1
+            },
+            {
+              "type": "humans_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_b4",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "relaxed",
+          "faction": "humans",
+          "economicSilenceSeconds": 15,
+          "stock": [
+            278,
+            468,
+            288,
+            20
+          ],
+          "gathered": [
+            2473,
+            528,
+            348,
+            45
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced"
+          ],
+          "goal": "build:humans_b0",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "humans_u1"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b3",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "humans",
+      "layout": "natural",
+      "size": 100,
+      "high": 3,
+      "low": 2,
+      "gap": 1,
+      "side": 1,
+      "resourceAmount": 0.5,
+      "placement": "random",
+      "startingResources": true,
+      "key": "{\"seed\":42,\"faction\":\"humans\",\"layout\":\"natural\",\"size\":100,\"high\":3,\"low\":2,\"gap\":1,\"side\":1,\"resourceAmount\":0.5,\"placement\":\"random\",\"startingResources\":true}",
+      "winner": "higher",
+      "winnerLevel": 3,
+      "higherTierDefeats": [],
+      "seconds": 1360,
+      "wallSeconds": 98,
+      "damage": [
+        6164,
+        18012
+      ],
+      "paid": [
+        7430,
+        10320
+      ],
+      "players": [
+        {
+          "difficulty": "relaxed",
+          "faction": "humans",
+          "economicSilenceSeconds": 14,
+          "stock": [
+            44,
+            290,
+            238,
+            205
+          ],
+          "gathered": [
+            5349,
+            900,
+            408,
+            220
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1"
+          ],
+          "goal": "build:humans_b0",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [],
+          "buildings": [
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "easy",
+          "faction": "humans",
+          "economicSilenceSeconds": 4,
+          "stock": [
+            95,
+            48,
+            66,
+            63
+          ],
+          "gathered": [
+            8265,
+            593,
+            306,
+            78
+          ],
+          "tech": [
+            "humans_economy",
+            "humans_advanced",
+            "humans_deep_extraction",
+            "humans_weapons1",
+            "humans_armor1",
+            "humans_b2_specialization"
+          ],
+          "goal": null,
+          "plan": "Staging armor, ranged troops and support",
+          "units": [
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u3",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_u0",
+            "humans_merchant",
+            "humans_merchant",
+            "humans_u5",
+            "humans_u1",
+            "humans_u2",
+            "humans_u5",
+            "humans_u6",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u2",
+            "humans_u6",
+            "humans_u5",
+            "humans_u2",
+            "humans_u3",
+            "humans_u3",
+            "humans_u6",
+            "humans_u5",
+            "humans_u2"
+          ],
+          "buildings": [
+            {
+              "type": "humans_b0",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_b3",
+              "progress": 1
+            },
+            {
+              "type": "humans_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_b4",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_market",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "humans_b2",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_b7",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 1
+            },
+            {
+              "type": "humans_orewell",
+              "progress": 1
+            },
+            {
+              "type": "humans_deep_oil",
+              "progress": 1
+            },
+            {
+              "type": "humans_b1",
+              "progress": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "reptilians",
+      "layout": "small-islands",
+      "size": 100,
+      "high": 4,
+      "low": 3,
+      "gap": 1,
+      "side": 0,
+      "resourceAmount": 4,
+      "placement": "balanced",
+      "startingResources": false,
+      "key": "{\"seed\":42,\"faction\":\"reptilians\",\"layout\":\"small-islands\",\"size\":100,\"high\":4,\"low\":3,\"gap\":1,\"side\":0,\"resourceAmount\":4,\"placement\":\"balanced\",\"startingResources\":false}",
+      "winner": "higher",
+      "winnerLevel": 4,
+      "higherTierDefeats": [],
+      "seconds": 1941,
+      "wallSeconds": 257,
+      "damage": [
+        37349,
+        10957
+      ],
+      "paid": [
+        17275,
+        14515
+      ],
+      "players": [
+        {
+          "difficulty": "standard",
+          "faction": "reptilians",
+          "economicSilenceSeconds": 7,
+          "stock": [
+            335,
+            943,
+            195,
+            195
+          ],
+          "gathered": [
+            12300,
+            3123,
+            0,
+            0
+          ],
+          "tech": [
+            "reptilians_economy",
+            "reptilians_weapons1",
+            "reptilians_advanced",
+            "reptilians_deep_extraction",
+            "reptilians_armor1",
+            "reptilians_weapons2",
+            "reptilians_b2_specialization",
+            "reptilians_b7_specialization",
+            "reptilians_armor2"
+          ],
+          "goal": "build:reptilians_b5",
+          "plan": "Preparing a transport landing beyond the enemy defenses",
+          "units": [
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_transport_ship",
+            "reptilians_u1",
+            "reptilians_bomber",
+            "reptilians_warship",
+            "reptilians_bomber",
+            "reptilians_escort_ship",
+            "reptilians_u10",
+            "reptilians_u7",
+            "reptilians_air_transport",
+            "reptilians_u3",
+            "reptilians_u7",
+            "reptilians_bomber",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_merchant",
+            "reptilians_merchant",
+            "reptilians_u3",
+            "reptilians_u2",
+            "reptilians_u3",
+            "reptilians_u2",
+            "reptilians_u3",
+            "reptilians_u3",
+            "reptilians_u10",
+            "reptilians_u5",
+            "reptilians_bomber",
+            "reptilians_bomber",
+            "reptilians_bomber",
+            "reptilians_u3",
+            "reptilians_u6",
+            "reptilians_u3",
+            "reptilians_u6",
+            "reptilians_u5"
+          ],
+          "buildings": [
+            {
+              "type": "reptilians_b0",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_orewell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b2",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b3",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_market",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_market",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_orewell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_orewell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b9",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b2",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_dock",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b7",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b6",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b4",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "easy",
+          "faction": "reptilians",
+          "economicSilenceSeconds": 8,
+          "stock": [
+            484,
+            976,
+            145,
+            115
+          ],
+          "gathered": [
+            11743,
+            1801,
+            0,
+            0
+          ],
+          "tech": [
+            "reptilians_economy",
+            "reptilians_weapons1",
+            "reptilians_advanced",
+            "reptilians_deep_extraction",
+            "reptilians_armor1",
+            "reptilians_b2_specialization"
+          ],
+          "goal": null,
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u1",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u3",
+            "reptilians_u0",
+            "reptilians_u3",
+            "reptilians_merchant_ship",
+            "reptilians_u7",
+            "reptilians_u6"
+          ],
+          "buildings": [
+            {
+              "type": "reptilians_orewell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_dock",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_dock",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_deep_ore",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "reptilians",
+      "layout": "small-islands",
+      "size": 100,
+      "high": 4,
+      "low": 3,
+      "gap": 1,
+      "side": 1,
+      "resourceAmount": 4,
+      "placement": "balanced",
+      "startingResources": false,
+      "key": "{\"seed\":42,\"faction\":\"reptilians\",\"layout\":\"small-islands\",\"size\":100,\"high\":4,\"low\":3,\"gap\":1,\"side\":1,\"resourceAmount\":4,\"placement\":\"balanced\",\"startingResources\":false}",
+      "winner": "higher",
+      "winnerLevel": 4,
+      "higherTierDefeats": [],
+      "seconds": 1665,
+      "wallSeconds": 278,
+      "damage": [
+        16361,
+        32574
+      ],
+      "paid": [
+        11580,
+        16640
+      ],
+      "players": [
+        {
+          "difficulty": "easy",
+          "faction": "reptilians",
+          "economicSilenceSeconds": 44,
+          "stock": [
+            87,
+            1288,
+            95,
+            85
+          ],
+          "gathered": [
+            8352,
+            2473,
+            0,
+            0
+          ],
+          "tech": [
+            "reptilians_economy",
+            "reptilians_weapons1",
+            "reptilians_advanced",
+            "reptilians_deep_extraction",
+            "reptilians_armor1",
+            "reptilians_b2_specialization",
+            "reptilians_weapons2",
+            "reptilians_armor2"
+          ],
+          "goal": null,
+          "plan": "Intercepting threats with a local defense group",
+          "units": [],
+          "buildings": [
+            {
+              "type": "reptilians_dock",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "standard",
+          "faction": "reptilians",
+          "economicSilenceSeconds": 1,
+          "stock": [
+            416,
+            82,
+            55,
+            75
+          ],
+          "gathered": [
+            13246,
+            1242,
+            0,
+            0
+          ],
+          "tech": [
+            "reptilians_economy",
+            "reptilians_weapons1",
+            "reptilians_advanced",
+            "reptilians_deep_extraction",
+            "reptilians_armor1",
+            "reptilians_b2_specialization",
+            "reptilians_weapons2",
+            "reptilians_armor2"
+          ],
+          "goal": "house",
+          "plan": "Bombarding a charted coastal objective from reachable safe water",
+          "units": [
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u1",
+            "reptilians_merchant",
+            "reptilians_merchant",
+            "reptilians_u3",
+            "reptilians_transport_ship",
+            "reptilians_u3",
+            "reptilians_u3",
+            "reptilians_u3",
+            "reptilians_u3",
+            "reptilians_u3",
+            "reptilians_siege_ship",
+            "reptilians_escort_ship",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u3",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_air_transport",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_u0",
+            "reptilians_warship",
+            "reptilians_u7",
+            "reptilians_u7",
+            "reptilians_u3",
+            "reptilians_u2",
+            "reptilians_bomber",
+            "reptilians_u7",
+            "reptilians_u3",
+            "reptilians_u6",
+            "reptilians_u7",
+            "reptilians_u5",
+            "reptilians_u2",
+            "reptilians_u2",
+            "reptilians_u3",
+            "reptilians_u6",
+            "reptilians_u7",
+            "reptilians_u5",
+            "reptilians_u3",
+            "reptilians_bomber"
+          ],
+          "buildings": [
+            {
+              "type": "reptilians_b0",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b2",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_market",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_market",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b3",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_orewell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_orewell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_orewell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_orewell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b2",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b4",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b4",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_dock",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b9",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b7",
+              "progress": 1
+            },
+            {
+              "type": "reptilians_b1",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "machines",
+      "layout": "labyrinth",
+      "size": 100,
+      "high": 5,
+      "low": 4,
+      "gap": 1,
+      "side": 0,
+      "resourceAmount": 0.5,
+      "placement": "contested",
+      "startingResources": false,
+      "key": "{\"seed\":42,\"faction\":\"machines\",\"layout\":\"labyrinth\",\"size\":100,\"high\":5,\"low\":4,\"gap\":1,\"side\":0,\"resourceAmount\":0.5,\"placement\":\"contested\",\"startingResources\":false}",
+      "winner": "higher",
+      "winnerLevel": 5,
+      "higherTierDefeats": [],
+      "seconds": 1923,
+      "wallSeconds": 109,
+      "damage": [
+        2760,
+        884
+      ],
+      "paid": [
+        3230,
+        0
+      ],
+      "players": [
+        {
+          "difficulty": "challenging",
+          "faction": "machines",
+          "economicSilenceSeconds": 0,
+          "stock": [
+            1,
+            60,
+            531,
+            352
+          ],
+          "gathered": [
+            1200,
+            0,
+            571,
+            312
+          ],
+          "tech": [
+            "machines_weapons1"
+          ],
+          "goal": null,
+          "plan": "Combined-arms assault",
+          "units": [
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_merchant",
+            "machines_merchant",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u3",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u3",
+            "machines_u4",
+            "machines_u3",
+            "machines_u3",
+            "machines_u3",
+            "machines_u4",
+            "machines_u0",
+            "machines_u2",
+            "machines_u3",
+            "machines_u2",
+            "machines_u2",
+            "machines_u3"
+          ],
+          "buildings": [
+            {
+              "type": "machines_b0",
+              "progress": 1
+            },
+            {
+              "type": "machines_orewell",
+              "progress": 1
+            },
+            {
+              "type": "machines_b3",
+              "progress": 1
+            },
+            {
+              "type": "machines_market",
+              "progress": 1
+            },
+            {
+              "type": "machines_market",
+              "progress": 1
+            },
+            {
+              "type": "machines_b4",
+              "progress": 1
+            },
+            {
+              "type": "machines_b3",
+              "progress": 1
+            },
+            {
+              "type": "machines_b1",
+              "progress": 1
+            },
+            {
+              "type": "machines_b1",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "standard",
+          "faction": "machines",
+          "economicSilenceSeconds": 875,
+          "stock": [
+            314,
+            60,
+            60,
+            298
+          ],
+          "gathered": [
+            0,
+            0,
+            0,
+            288
+          ],
+          "tech": [],
+          "goal": null,
+          "plan": "Establishing economy",
+          "units": [],
+          "buildings": []
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "machines",
+      "layout": "labyrinth",
+      "size": 100,
+      "high": 5,
+      "low": 4,
+      "gap": 1,
+      "side": 1,
+      "resourceAmount": 0.5,
+      "placement": "contested",
+      "startingResources": false,
+      "key": "{\"seed\":42,\"faction\":\"machines\",\"layout\":\"labyrinth\",\"size\":100,\"high\":5,\"low\":4,\"gap\":1,\"side\":1,\"resourceAmount\":0.5,\"placement\":\"contested\",\"startingResources\":false}",
+      "winner": "higher",
+      "winnerLevel": 5,
+      "higherTierDefeats": [],
+      "seconds": 2392,
+      "wallSeconds": 207,
+      "damage": [
+        1694,
+        7344
+      ],
+      "paid": [
+        1265,
+        4025
+      ],
+      "players": [
+        {
+          "difficulty": "standard",
+          "faction": "machines",
+          "economicSilenceSeconds": 567,
+          "stock": [
+            130,
+            50,
+            603,
+            254
+          ],
+          "gathered": [
+            562,
+            0,
+            553,
+            214
+          ],
+          "tech": [
+            "machines_economy"
+          ],
+          "goal": "build:machines_b3",
+          "plan": "Establishing economy",
+          "units": [],
+          "buildings": [
+            {
+              "type": "machines_b4",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "challenging",
+          "faction": "machines",
+          "economicSilenceSeconds": 5,
+          "stock": [
+            234,
+            934,
+            316,
+            195
+          ],
+          "gathered": [
+            638,
+            1144,
+            516,
+            220
+          ],
+          "tech": [
+            "machines_economy",
+            "machines_advanced",
+            "machines_deep_extraction",
+            "machines_weapons1",
+            "machines_armor1"
+          ],
+          "goal": null,
+          "plan": "Combined-arms assault",
+          "units": [
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_merchant",
+            "machines_u3",
+            "machines_merchant",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u0",
+            "machines_u3",
+            "machines_u3",
+            "machines_u2",
+            "machines_u4",
+            "machines_u3",
+            "machines_u2",
+            "machines_u0",
+            "machines_u0",
+            "machines_u3",
+            "machines_u3",
+            "machines_u2",
+            "machines_u3",
+            "machines_u0",
+            "machines_u4"
+          ],
+          "buildings": [
+            {
+              "type": "machines_b0",
+              "progress": 1
+            },
+            {
+              "type": "machines_orewell",
+              "progress": 1
+            },
+            {
+              "type": "machines_b3",
+              "progress": 1
+            },
+            {
+              "type": "machines_market",
+              "progress": 1
+            },
+            {
+              "type": "machines_market",
+              "progress": 1
+            },
+            {
+              "type": "machines_b4",
+              "progress": 1
+            },
+            {
+              "type": "machines_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "machines_b1",
+              "progress": 1
+            },
+            {
+              "type": "machines_b1",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "insects",
+      "layout": "rivers",
+      "size": 100,
+      "high": 6,
+      "low": 5,
+      "gap": 1,
+      "side": 0,
+      "resourceAmount": 0.5,
+      "placement": "random",
+      "startingResources": false,
+      "key": "{\"seed\":42,\"faction\":\"insects\",\"layout\":\"rivers\",\"size\":100,\"high\":6,\"low\":5,\"gap\":1,\"side\":0,\"resourceAmount\":0.5,\"placement\":\"random\",\"startingResources\":false}",
+      "winner": "higher",
+      "winnerLevel": 6,
+      "higherTierDefeats": [],
+      "seconds": 1541,
+      "wallSeconds": 777,
+      "damage": [
+        16846,
+        2061
+      ],
+      "paid": [
+        14565,
+        5300
+      ],
+      "players": [
+        {
+          "difficulty": "veteran",
+          "faction": "insects",
+          "economicSilenceSeconds": 8,
+          "stock": [
+            639,
+            77,
+            85,
+            105
+          ],
+          "gathered": [
+            11124,
+            1452,
+            25,
+            0
+          ],
+          "tech": [
+            "insects_economy",
+            "insects_armor1",
+            "insects_advanced",
+            "insects_deep_extraction",
+            "insects_weapons1",
+            "insects_armor2",
+            "insects_weapons2",
+            "insects_b3_specialization",
+            "insects_b4_specialization",
+            "insects_b8_specialization",
+            "insects_b7_specialization"
+          ],
+          "goal": null,
+          "plan": "Coordinated assault with a separate flank",
+          "units": [
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_merchant",
+            "insects_u0",
+            "insects_u0",
+            "insects_u3",
+            "insects_u1",
+            "insects_u3",
+            "insects_u0",
+            "insects_u3",
+            "insects_u2",
+            "insects_merchant",
+            "insects_transport_ship",
+            "insects_u0",
+            "insects_u0",
+            "insects_u5",
+            "insects_u5",
+            "insects_scout_boat",
+            "insects_escort_ship",
+            "insects_u0",
+            "insects_u3",
+            "insects_u0",
+            "insects_u3",
+            "insects_warship",
+            "insects_air_transport",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u3",
+            "insects_siege_ship",
+            "insects_u4",
+            "insects_u4",
+            "insects_u11",
+            "insects_u11",
+            "insects_u8",
+            "insects_u2",
+            "insects_u6",
+            "insects_u8",
+            "insects_bomber",
+            "insects_u3",
+            "insects_u8",
+            "insects_bomber",
+            "insects_u2",
+            "insects_u2",
+            "insects_u1",
+            "insects_u8",
+            "insects_u3",
+            "insects_u6",
+            "insects_u11",
+            "insects_u4"
+          ],
+          "buildings": [
+            {
+              "type": "insects_b0",
+              "progress": 1
+            },
+            {
+              "type": "insects_orewell",
+              "progress": 1
+            },
+            {
+              "type": "insects_b3",
+              "progress": 1
+            },
+            {
+              "type": "insects_market",
+              "progress": 1
+            },
+            {
+              "type": "insects_market",
+              "progress": 1
+            },
+            {
+              "type": "insects_dock",
+              "progress": 1
+            },
+            {
+              "type": "insects_b5",
+              "progress": 1
+            },
+            {
+              "type": "insects_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "insects_b4",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b4",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_orewell",
+              "progress": 1
+            },
+            {
+              "type": "insects_b10",
+              "progress": 1
+            },
+            {
+              "type": "insects_b8",
+              "progress": 1
+            },
+            {
+              "type": "insects_trap",
+              "progress": 1
+            },
+            {
+              "type": "insects_wall",
+              "progress": 1
+            },
+            {
+              "type": "insects_b7",
+              "progress": 1
+            },
+            {
+              "type": "insects_wall",
+              "progress": 1
+            },
+            {
+              "type": "insects_wall",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_wall",
+              "progress": 1
+            },
+            {
+              "type": "insects_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b3",
+              "progress": 1
+            },
+            {
+              "type": "insects_b7",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "insects_b8",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "challenging",
+          "faction": "insects",
+          "economicSilenceSeconds": 8,
+          "stock": [
+            47,
+            2075,
+            3971,
+            473
+          ],
+          "gathered": [
+            3612,
+            2400,
+            4126,
+            528
+          ],
+          "tech": [
+            "insects_economy",
+            "insects_armor1",
+            "insects_advanced",
+            "insects_deep_extraction"
+          ],
+          "goal": "build:insects_b3",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0"
+          ],
+          "buildings": [
+            {
+              "type": "insects_orewell",
+              "progress": 1
+            },
+            {
+              "type": "insects_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "insects_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "insects_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "insects",
+      "layout": "rivers",
+      "size": 100,
+      "high": 6,
+      "low": 5,
+      "gap": 1,
+      "side": 1,
+      "resourceAmount": 0.5,
+      "placement": "random",
+      "startingResources": false,
+      "key": "{\"seed\":42,\"faction\":\"insects\",\"layout\":\"rivers\",\"size\":100,\"high\":6,\"low\":5,\"gap\":1,\"side\":1,\"resourceAmount\":0.5,\"placement\":\"random\",\"startingResources\":false}",
+      "winner": "lower",
+      "winnerLevel": 5,
+      "higherTierDefeats": [
+        {
+          "player": 1,
+          "difficulty": "veteran",
+          "faction": "insects"
+        }
+      ],
+      "seconds": 1373,
+      "wallSeconds": 332,
+      "damage": [
+        18922,
+        1822
+      ],
+      "paid": [
+        13050,
+        6880
+      ],
+      "players": [
+        {
+          "difficulty": "challenging",
+          "faction": "insects",
+          "economicSilenceSeconds": 1,
+          "stock": [
+            488,
+            53,
+            72,
+            95
+          ],
+          "gathered": [
+            10048,
+            1303,
+            37,
+            0
+          ],
+          "tech": [
+            "insects_economy",
+            "insects_armor1",
+            "insects_advanced",
+            "insects_deep_extraction",
+            "insects_weapons1",
+            "insects_armor2",
+            "insects_weapons2",
+            "insects_b3_specialization",
+            "insects_b4_specialization",
+            "insects_b8_specialization"
+          ],
+          "goal": null,
+          "plan": "Preparing a transport landing beyond the enemy defenses",
+          "units": [
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_merchant",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u1",
+            "insects_u0",
+            "insects_u0",
+            "insects_merchant",
+            "insects_u0",
+            "insects_transport_ship",
+            "insects_u0",
+            "insects_u0",
+            "insects_scout_boat",
+            "insects_u0",
+            "insects_u0",
+            "insects_escort_ship",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_warship",
+            "insects_air_transport",
+            "insects_u8",
+            "insects_u8",
+            "insects_u2",
+            "insects_u2",
+            "insects_u3",
+            "insects_u4",
+            "insects_u3",
+            "insects_u2",
+            "insects_u3",
+            "insects_u2",
+            "insects_u3",
+            "insects_u5",
+            "insects_u5",
+            "insects_u3",
+            "insects_u3",
+            "insects_u3",
+            "insects_u3",
+            "insects_u4",
+            "insects_u2",
+            "insects_u3",
+            "insects_u11",
+            "insects_u8",
+            "insects_u3",
+            "insects_siege_ship",
+            "insects_u4",
+            "insects_u8",
+            "insects_u3",
+            "insects_u3",
+            "insects_u8",
+            "insects_u8"
+          ],
+          "buildings": [
+            {
+              "type": "insects_b0",
+              "progress": 1
+            },
+            {
+              "type": "insects_orewell",
+              "progress": 1
+            },
+            {
+              "type": "insects_b3",
+              "progress": 1
+            },
+            {
+              "type": "insects_market",
+              "progress": 1
+            },
+            {
+              "type": "insects_market",
+              "progress": 1
+            },
+            {
+              "type": "insects_dock",
+              "progress": 1
+            },
+            {
+              "type": "insects_b5",
+              "progress": 1
+            },
+            {
+              "type": "insects_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b8",
+              "progress": 1
+            },
+            {
+              "type": "insects_orewell",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b8",
+              "progress": 1
+            },
+            {
+              "type": "insects_b4",
+              "progress": 1
+            },
+            {
+              "type": "insects_b4",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b3",
+              "progress": 1
+            },
+            {
+              "type": "insects_b7",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b10",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b1",
+              "progress": 1
+            },
+            {
+              "type": "insects_b9",
+              "progress": 1
+            },
+            {
+              "type": "insects_aetherwell",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "veteran",
+          "faction": "insects",
+          "economicSilenceSeconds": 1,
+          "stock": [
+            30,
+            1188,
+            366,
+            475
+          ],
+          "gathered": [
+            5952,
+            1463,
+            551,
+            530
+          ],
+          "tech": [
+            "insects_economy",
+            "insects_armor1",
+            "insects_advanced",
+            "insects_deep_extraction"
+          ],
+          "goal": "build:insects_b3",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0",
+            "insects_u3",
+            "insects_u0",
+            "insects_u0",
+            "insects_u0"
+          ],
+          "buildings": [
+            {
+              "type": "insects_orewell",
+              "progress": 1
+            },
+            {
+              "type": "insects_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "insects_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "insects_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "insects_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "insects_dock",
+              "progress": 1
+            },
+            {
+              "type": "insects_b0",
+              "progress": 0
+            },
+            {
+              "type": "insects_b1",
+              "progress": 0.7714285714285708
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "higher": "Easy",
+      "lower": "Relaxed",
+      "gap": 1,
+      "matches": 2,
+      "higherWins": 2,
+      "lowerWins": 0,
+      "unresolved": 0,
+      "lowerWinRate": 0,
+      "target": 0.1,
+      "minimum": 0.05,
+      "batchStatus": "screening-only",
+      "upper95": 0.7763932022500211,
+      "conservativeUpper95": 0.7763932022500211,
+      "upperLimitEvidence": "insufficient-evidence",
+      "zeroLowerWinsSampleNeeded": 29
+    },
+    {
+      "higher": "Standard",
+      "lower": "Easy",
+      "gap": 1,
+      "matches": 2,
+      "higherWins": 2,
+      "lowerWins": 0,
+      "unresolved": 0,
+      "lowerWinRate": 0,
+      "target": 0.1,
+      "minimum": 0.05,
+      "batchStatus": "screening-only",
+      "upper95": 0.7763932022500211,
+      "conservativeUpper95": 0.7763932022500211,
+      "upperLimitEvidence": "insufficient-evidence",
+      "zeroLowerWinsSampleNeeded": 29
+    },
+    {
+      "higher": "Challenging",
+      "lower": "Standard",
+      "gap": 1,
+      "matches": 2,
+      "higherWins": 2,
+      "lowerWins": 0,
+      "unresolved": 0,
+      "lowerWinRate": 0,
+      "target": 0.1,
+      "minimum": 0.05,
+      "batchStatus": "screening-only",
+      "upper95": 0.7763932022500211,
+      "conservativeUpper95": 0.7763932022500211,
+      "upperLimitEvidence": "insufficient-evidence",
+      "zeroLowerWinsSampleNeeded": 29
+    },
+    {
+      "higher": "Veteran",
+      "lower": "Challenging",
+      "gap": 1,
+      "matches": 2,
+      "higherWins": 1,
+      "lowerWins": 1,
+      "unresolved": 0,
+      "lowerWinRate": 0.5,
+      "target": 0.1,
+      "minimum": 0.05,
+      "batchStatus": "screening-only",
+      "upper95": 0.9746794344808964,
+      "conservativeUpper95": 0.9746794344808964,
+      "upperLimitEvidence": "target-missed",
+      "zeroLowerWinsSampleNeeded": 29
+    }
+  ],
+  "completed": 8,
+  "planned": 8,
+  "finishedAt": "2026-11-15T15:45:38.281Z",
+  "sourceUnchanged": true
+}

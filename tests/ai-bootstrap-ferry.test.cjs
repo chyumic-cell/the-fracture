@@ -7,6 +7,15 @@ let ferry=false,landed=false,carried=false;for(let i=0;i<12000&&p.gathered[0]<30
 assert(ferry,'plan an affordable cargo ferry instead of requiring an unaffordable depot');assert(landed);assert(carried,'carried Ore physically crossed the sea');assert(p.gathered[0]>=30,'ferried cargo was delivered through normal collection rules');assert(node.amount<2500);assert(p.stock[0]<=20+p.gathered[0]);
 console.log('PASS actual workers ferry finite Ore home across water before an outpost is affordable');
 for(const faction of Object.keys(require('../src/data').factions)){
- const h=new Game({size:100,seed:1,layout:'small-islands',startingResources:false,difficulty:'apocalypse',factions:[faction,faction]}),q=h.players[0];h.entities=h.entities.filter(e=>e.kind!=='resource');q.knowledge={};q.explored.fill(0);h.updateVision();const plan=E.sustainability(h,q,A.context(h,q));assert(plan.bootstrap);assert.equal(plan.cost[0],300);assert(!E.protectedSpend(q,require('../src/data').factions[faction].buildings.find(b=>b.kind==='inf')));
+ const h=new Game({size:100,seed:1,layout:'small-islands',startingResources:false,difficulty:'apocalypse',factions:[faction,faction]}),q=h.players[0];h.entities=h.entities.filter(e=>e.kind!=='resource');q.knowledge={};q.explored.fill(0);h.updateVision();h.time=61;const plan=E.sustainability(h,q,A.context(h,q));assert(plan.bootstrap);assert.equal(plan.cost[0],300);assert(!E.protectedSpend(q,require('../src/data').factions[faction].buildings.find(b=>b.kind==='inf')));
 }
 console.log('PASS all twelve civilizations preserve a normal-priced dock and transport opening on resource-free islands');
+
+{
+ const party=g.entities.filter(u=>u.owner===0&&g.def(u)?.worker).slice(0,2),ship=g.entities.find(u=>u.type==='humans_transport_ship');
+ for(const [i,w]of party.entries()){w.x=63.5;w.y=32+i*.4;w.carry=12;w.carryType=0;w.order=null;w.path=[];w.aiLogistics=false;delete w.embarkedBy;}
+ ship.x=60.5;ship.y=32.5;ship.order=null;ship.path=[];p.stock=[20,25,60,10];p.aiLogistics={next:0,nextExpansion:100000,nextSortie:100000};p.aiSustainability={cost:[65,0,0,0],ids:['humans_orewell'],remaining:[2000,0,0,0],relocation:false};g.rebuildNav();g.updateVision();p.explored.fill(1);p.knownNav.set(g.nav);const before=p.gathered[0];let rescue=false,aboard=false;
+ for(let i=0;i<5000&&p.gathered[0]<before+24;i++){if(i%10===0)L.step(g,p,A.context(g,p));rescue||=!!p.aiLogistics.expansion?.rescue;g.tick(.1);aboard||=party.some(w=>w.embarkedBy);}
+ assert(rescue,'expired ferry crew must be recovered');assert(aboard,'recovery must physically board a transport');assert(p.gathered[0]>=before+24,'cargo must be banked at a real collection point');assert(p.stock[0]<=20+p.gathered[0]-before);
+}
+console.log('PASS an expired ferry recovers stranded workers and physically banks existing cargo');

@@ -195,14 +195,21 @@ class Game{
  }
  approach(u,target,range=1){const r=(target.size||.4)+range;let best=null,bestD=Infinity;for(let i=0;i<16;i++){let a=i*Math.PI/8,p={x:Math.floor(target.x+Math.cos(a)*r)+.5,y:Math.floor(target.y+Math.sin(a)*r)+.5};if(!this.blocked(p.x,p.y,this.movementMode(u),u.owner)&&dist(u,p)<bestD){best=p;bestD=dist(u,p);}}return best||{x:target.x,y:target.y};}
  // Choose a reachable cell immediately at the deposit edge, not a building-sized work radius.
- gatherSpot(u,t){const cached=u.gatherPosition;if(cached&&cached.target===t.id&&cached.nav===this.navVersion&&this.time<cached.until&&!this.blocked(cached.x,cached.y,false,u.owner))return cached;let best=null,score=Infinity;const radius=t.size+.95;
+ gatherSpot(u,t){const cached=u.gatherPosition;if(cached&&cached.target===t.id&&cached.nav===this.navVersion&&this.time<cached.until&&!this.blocked(cached.x,cached.y,false,u.owner))return cached;let best=null,score=Infinity;const candidates=[];const radius=t.size+.95;
  for(let y=Math.floor(t.y-radius);y<=Math.floor(t.y+radius);y++)for(let x=Math.floor(t.x-radius);x<=Math.floor(t.x+radius);x++){
  const p={x:x+.5,y:y+.5},centerDistance=dist(p,t);if(centerDistance>radius+.3||this.blocked(p.x,p.y,false,u.owner))continue;
  // Move within the walkable edge cell so small deposits do not require a distant full-cell gap.
  const inset=Math.min(.3,Math.max(0,centerDistance-t.size-.55));p.x+=(t.x-p.x)/centerDistance*inset;p.y+=(t.y-p.y)/centerDistance*inset;const edge=dist(p,t);if(edge>radius-.14||this.blocked(p.x,p.y,false,u.owner))continue;
  const occupied=this.entitiesByKind('unit').some(v=>v!==u&&v.kind==='unit'&&v.hp>0&&dist(v,p)<.5);
- const cost=dist(u,p)+edge*.5+(occupied?1.5:0);if(cost<score){best=p;score=cost;}}
- return best;}
+ const cost=dist(u,p)+edge*.5+(occupied?1.5:0);candidates.push({point:p,cost});if(cost<score){best=p;score=cost;}}
+ // Dense deposits can make the nearest working edge unreachable. Choose a
+ // reachable edge instead of repeatedly walking toward a sealed pocket.
+ for(const {point}of candidates.sort((a,b)=>a.cost-b.cost)){
+  if(this.cliffBetween(point.x,point.y,t.x,t.y))continue;
+  const route=this.path(u,point),end=route.at(-1)||u;
+  if(Math.floor(end.x)===Math.floor(point.x)&&Math.floor(end.y)===Math.floor(point.y))return point;
+ }
+ return null;}
  order(ids,order){const list=ids.map(id=>this.entity(id)).filter(e=>e?.kind==='unit');const facing=order.face??(list.length?Math.atan2((order.y??list[0].y)-list[0].y,(order.x??list[0].x)-list[0].x):0),slots=['move','attackMove','patrol'].includes(order.kind)?this.formationLayout(list,order.formation||'line',order,facing):[];const target=order.target?this.entity(order.target):null;
  list.forEach((u,i)=>{const d=this.def(u);if(['build','gather','repair','returnCargo'].includes(order.kind)&&!d.worker)return;if(order.kind==='gather'&&(!target||target.kind!=='resource'||!this.visible(u.owner,target)))return;if(order.kind==='attack'&&(!target||!this.visible(u.owner,target)||!this.hostile(u.owner,target.owner)))return;
  const continuingStrike=u.windup&&(['attackMove','patrol','hold'].includes(order.kind)||order.kind==='attack'&&order.target===u.windup.target)?u.windup:null;
@@ -239,10 +246,10 @@ class Game{
  for(const b of drops){const q=this.approach(u,b,1),route=this.path(u,q);if(dist(route.at(-1)||u,b)<b.size+1.8){u.collectionRoute={id:b.id,until:this.time+8,revision};return b;}}
  u.collectionRoute=null;return null;
  }
- tickWorker(u,dt){const p=this.players[u.owner],o=u.order,d=this.def(u);if(!o)return false;let t=this.entity(o.target);if(o.kind==='returnCargo'){if(!u.carry){u.order=null;return true;}const drop=this.collectionPoint(u);if(!drop){u.blockReason='A reachable collection point is needed.';return true;}if(dist(u,drop)<drop.size+1.8){p.stock[u.carryType]+=u.carry;p.gathered[u.carryType]+=u.carry;u.carry=0;u.path=[];u.destination=null;u.order=null;}else this.go(u,this.approach(u,drop,1),dt);return true;}if(o.kind==='gather'){
+ tickWorker(u,dt){const p=this.players[u.owner],o=u.order,d=this.def(u);if(!o)return false;let t=this.entity(o.target);if(o.kind==='returnCargo'){if(!u.carry){u.order=null;return true;}const drop=this.collectionPoint(u);if(!drop){u.blockReason='A reachable collection point is needed.';return true;}if(dist(u,drop)<drop.size+1.8){p.stock[u.carryType]+=u.carry;p.gathered[u.carryType]+=u.carry;u.carry=0;u.path=[];u.destination=null;u.order=null;}else this.go(u,this.approach(u,drop,1),dt,.05);return true;}if(o.kind==='gather'){
  if(!t||t.amount<=0){const resource=t?.resource??u.carryType;const next=this.entities.filter(e=>e.kind==='resource'&&e.resource===resource&&e.amount>0&&this.visible(u.owner,e)).sort((a,b)=>dist(u,a)-dist(u,b)).find(n=>{const q=this.approach(u,n,.7);return dist(this.path(u,q).at(-1)||u,q)<2;});if(next){o.target=next.id;t=next;}else if(!u.carry){u.order=null;return true;}}
  const drop=this.collectionPoint(u);
- if(u.carry>=12*Math.max(1,this.aiEconomicRate(u.owner,'gather'))||!t||t.amount<=0||u.carry>0&&t.resource!==u.carryType){if(!drop){u.action='idle';return true;}if(dist(u,drop)<drop.size+1.8){p.stock[u.carryType]+=u.carry;p.gathered[u.carryType]+=u.carry;u.carry=0;u.destination=null;u.path=[];}else this.go(u,this.approach(u,drop,1),dt);return true;}
+ if(u.carry>=12*Math.max(1,this.aiEconomicRate(u.owner,'gather'))||!t||t.amount<=0||u.carry>0&&t.resource!==u.carryType){if(!drop){u.action='idle';return true;}if(dist(u,drop)<drop.size+1.8){p.stock[u.carryType]+=u.carry;p.gathered[u.carryType]+=u.carry;u.carry=0;u.destination=null;u.path=[];}else this.go(u,this.approach(u,drop,1),dt,.05);return true;}
  if(t.resource===1&&!this.entitiesByKind('building').some(e=>e.kind==='building'&&e.owner===u.owner&&e.progress>=1&&this.def(e).resource==='oil'&&dist(e,t)<6)){u.action='idle';u.blockReason='An extraction well must be completed beside this oil deposit.';return true;}u.blockReason=null;
  if(dist(u,t)<t.size+.95&&!this.cliffBetween(u.x,u.y,t.x,t.y)){u.action='gather';u.face=Math.atan2(t.y-u.y,t.x-u.x);u.phase+=dt*5;const amount=Math.min(t.amount,dt*1.5*this.aiEconomicRate(u.owner,'gather')*(p.tech.includes(p.faction+'_economy')?1.3:1));u.carry+=amount;u.carryType=t.resource;t.amount-=amount;if(t.amount<=0){t.amount=0;t.exhausted=true;this.rebuildNav();}}else {const spot=this.gatherSpot(u,t);if(spot)this.go(u,spot,dt,.15);else{u.action='idle';u.blockReason='No accessible working edge on this deposit.';}}return true;
  }
@@ -273,7 +280,7 @@ class Game{
  if(this.campaign)campaignAPI().update(this,dt);
  else if(this.time>3){const alive=new Set(this.entities.filter(e=>e.kind==='building'&&!e.pendingSite&&['hq','inf','armor','air','elite','counter'].includes(this.def(e).kind)).map(e=>this.players[e.owner].team));if(alive.size<=1){this.winner=alive.size?[...alive][0]:-1;this.say('Match concluded.');}}
  }
- aiBuild(p,bdef,workers,near=null){if(!bdef||this.missing(p.id,bdef).length||!this.affordable(p.id,bdef.cost))return false;const base=near||p.home;for(let i=0;i<32;i++){const a=this.rng.next()*Math.PI*2,r=near?this.rng.between(2.8,4.2):this.rng.between(4,10);const x=base.x+Math.cos(a)*r,y=base.y+Math.sin(a)*r;if(Object.values(p.knowledge||{}).some(n=>n.kind==='resource'&&n.resource<2&&n.amount<=0&&dist(n,{x,y})<bdef.size+1.8))continue;const w=workers.find(w=>w.order?.kind!=='build');if(w&&this.build(bdef.id,p.id,x,y,[w.id]).ok)return true;}return false;}
+ aiBuild(p,bdef,workers,near=null,maxRadius=4.2){if(!bdef||this.missing(p.id,bdef).length||!this.affordable(p.id,bdef.cost))return false;const base=near||p.home;for(let i=0;i<32;i++){const a=this.rng.next()*Math.PI*2,r=near?this.rng.between(2.8,maxRadius):this.rng.between(4,10);const x=base.x+Math.cos(a)*r,y=base.y+Math.sin(a)*r;if(Object.values(p.knowledge||{}).some(n=>n.kind==='resource'&&n.resource<2&&n.amount<=0&&dist(n,{x,y})<bdef.size+1.8))continue;const w=workers.find(w=>w.order?.kind!=='build');if(w&&this.build(bdef.id,p.id,x,y,[w.id]).ok)return true;}return false;}
  armyPower(units){return units.reduce((n,u)=>n+(u.hp/u.maxHp)*Math.sqrt(u.maxHp)*Math.max(4,this.def(u).damage)/(this.def(u).cooldown||1),0);}
  operationStep(p,enemies){const A=root.FractureAICombat||(typeof require!=='undefined'?require('./ai-combat.js'):null);return A.operationStep(this,p,enemies);}
  ai(p){const A=root.FractureAI||(typeof require!=='undefined'?require('./ai.js'):null);return A.step(this,p);}

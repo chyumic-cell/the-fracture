@@ -1,0 +1,22 @@
+"use strict";
+const assert=require('node:assert/strict'),S=require('./ai-ladder-stats.cjs');
+assert.equal(S.target(1),.1);assert.equal(S.target(3),.001);assert.equal(S.target(9),1e-9);
+assert.equal(S.requiredZeroWins(1),29);assert.equal(S.requiredZeroWins(2),299);assert.equal(S.requiredZeroWins(3),2995);
+assert(Math.abs(S.upperBound(0,10)-.258865550893)<1e-10);
+assert(Math.abs(S.upperBound(1,10)-.394163302437)<1e-10);
+assert.equal(S.upperBound(0,0),1);assert.equal(S.upperBound(10,10),1);
+const rows=(n,winner)=>Array.from({length:n},()=>({winner}));
+assert.equal(S.summarize(rows(2,'higher'),1).upperLimitEvidence,'insufficient-evidence');
+assert.equal(S.summarize(rows(29,'higher'),1).upperLimitEvidence,'supported-in-this-sample');
+assert.equal(S.summarize(rows(29,'higher'),2).upperLimitEvidence,'insufficient-evidence');
+assert.equal(S.summarize([...rows(29,'higher'),...rows(20,'time-limit')],1).upperLimitEvidence,'insufficient-evidence');
+assert.equal(S.summarize([...rows(8,'higher'),...rows(2,'lower')],1).upperLimitEvidence,'target-missed');
+console.log('PASS gap targets, exact confidence bounds, unresolved games, and insufficient-evidence reporting');
+
+assert.equal(S.batchRange(0,2),'screening-only');
+assert.equal(S.batchRange(0,20),'lower-tier-too-weak');
+assert.equal(S.batchRange(1,20),'within-5-to-10-percent');
+assert.equal(S.batchRange(2,20),'within-5-to-10-percent');
+assert.equal(S.batchRange(3,20),'lower-tier-too-strong');
+assert.equal(S.batchRange(1,20,1),'unresolved');
+console.log('PASS a 20-game batch needs exactly one or two lower-tier wins, with no unresolved matches');

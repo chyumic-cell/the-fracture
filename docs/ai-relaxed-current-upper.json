@@ -1,0 +1,2090 @@
+{
+  "fingerprint": "6a237ebffd648b62c15945fde793de8092b50500cef3709af4d4855bac3a87f1",
+  "settings": {
+    "rotate": true,
+    "rounds": 1,
+    "seeds": [
+      42
+    ],
+    "factions": [
+      "humans",
+      "reptilians",
+      "machines",
+      "insects",
+      "primates",
+      "wizards",
+      "elders",
+      "myth",
+      "dragons",
+      "night",
+      "infernal",
+      "symbiotes"
+    ],
+    "layouts": [
+      "natural",
+      "small-islands",
+      "labyrinth",
+      "rivers",
+      "narrows",
+      "large-islands",
+      "mountain-passes",
+      "coastal",
+      "steppes",
+      "mediterranean",
+      "continental"
+    ],
+    "sizes": [
+      100
+    ],
+    "gaps": [
+      1
+    ],
+    "highs": [
+      8,
+      9,
+      10
+    ],
+    "limit": 1800,
+    "resourceAmount": 1,
+    "placement": "balanced"
+  },
+  "sourceHashes": {
+    "ai-combat.js": "8d4e872e2d51774f1f83a9a93a8c5c332f6ab82b959d854b32b8dd74d4347fae",
+    "ai-domain-combat.js": "43a17b4395b65654efab40fa69170b01a910bc6a40ae93c1e74b3537755b93eb",
+    "ai-economy.js": "7aafba5d431d38c787ad1b157e3cca647885da75ad2f4c25b074a9386a71d194",
+    "ai-logistics.js": "9246b90eaf60960d2e09727c6f877d193b194461b9b16d3afdae8cf7accd2b6e",
+    "ai.js": "43ab45784e4a185680abf6f8538b08b88ebada5e7d3564ada3d618b5b1556342",
+    "app.js": "ee79a4be3e76b09ad374376b41996851d207ffc336be2c71489161c20ccc507e",
+    "art-review.js": "18d9a6ed96ac4b10c057647a7ea0d16775ce1ec64f1a5469d33e3330e26124d9",
+    "art.js": "902e31389b36de3e1b42f0d853d986b76f767ce13e1a329f9e20ad99f9be378c",
+    "async-art.js": "207d878cc3244264b2db684c12bcbe9f878410c5832b58062b0227b2020d5586",
+    "audio.js": "86ebcab58d5b488476d33d99e330b5367797b8ce30e23c655f09f7d2086d43c4",
+    "building-art.js": "bd442c21c6954a88a10906af1c6ab0931dc9434165f9af56ceeb2783094b9f27",
+    "campaign-landmarks.js": "a76bdf5b397aec4bcd690ac5813eefa2d98041b673cacbc86f356d44cb0e018b",
+    "campaign-missions.js": "9c24f12f9a1ef5701b3c573f07f0b26cdc27ad208b92d7e4e5db55da0c4d4c34",
+    "campaign-story.js": "d0a39578c767ca5643f70e3100ba4f6d38365af480146b42fd250dc45cea9cc3",
+    "campaign-ui.js": "4b56ed5cab22eb87efff2816ee982ab90c47b3bdc75afdbe7545182fa0e81e40",
+    "campaign.js": "7c0997dda4b772df75afb93a42b15b937251ad7a23c18593bf089ecb1f6e95a1",
+    "cinematic-player.js": "5a2016a507880e9f4ed298ad4a5540302b66e4cb5d28ab00d09932a96c72b515",
+    "combat.js": "61fd579c0c0a24ec0ced7b6e3b25723a2e4e9fee7dc06d53c6df1119bbdd3972",
+    "construction-art.js": "15c8381de07df8f1b66c26f888100ef19fb9a6778ef8f25c758c5189da94c543",
+    "data.js": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "detail-art.js": "098f71e64b43dcf025dda128c897201e24ec68635ed314901b960332e78d4cbd",
+    "environment-art.js": "4c23c3c0018632fe32e4ed07bc23a0d6a6c33e6da1dca2fbf582577635235b1f",
+    "environments.js": "59a25a0b32fa2254b3edaaaf0c5c57488882ced4e779bbc543786a61da47a1a2",
+    "expansion-art.js": "73389b15560eb124658260626c963a02871c70060be6af151c8d900e58da5c08",
+    "expansion-data.js": "365cff2af0f439b6c7617ea8834b8ed5df706d1e1292de906a80ed210737bf93",
+    "expansion-runtime.js": "ee6bd4d8871501dbb95bad3181a8425a4458fe555153ac705f94464f1d8952c8",
+    "extension-art.js": "773291f7aae79ce1d08fd24cad764763059c4541977986b92dc1d3742e3fee1b",
+    "fortification-art.js": "a7b2a1a5a715e6a90ee12f0cda00c0fad2b6d7c4e493704db511ff647ad8aac5",
+    "help.js": "3a4a0e745095d186bcd3b0a258169866b04b44f054d97bb974a4c41fe8db5eb6",
+    "identity-art.js": "2b3254fa8ad4c638c271f74260ed8cd3a35ae40ce8ecd947d13426e0d7b57713",
+    "machine-art.js": "bdc56f94554f96cc3a361ba9bd0577e3f4e10c17ecb6d8526a2ef006e84e9a26",
+    "map-layouts.js": "ac4eff9fda1ee7056c27a1d5ece8a860fb7e7c99014718d3a50be388bce21c79",
+    "march.js": "46ac19c89897e9e036b74e3ffe5c9596aac29567746e194944c8fdbb72b38212",
+    "primate-art.js": "33a484874d788b3e7a6f4ea330d348194ad9a613a264825cc172de1775e4f08b",
+    "projectiles.js": "89c46b3353e3f5858470465c2f9172cb958ee389304a9a0421862ffbdbf14575",
+    "ruins-art.js": "8300d853d0c75ea50b188c3c17de25ad4d64090caaeb45c0390d73035fba628f",
+    "save-codec.js": "2c4ab3c0e909dce2aacc6020c233541aa66f3bf9c44f2a30c0f02592e3c11ea5",
+    "simulation.js": "6eac656189b889a7452a581c6604b089ef4fc2b58dd1c6a73d7dd9c8e766622e",
+    "specialist-art.js": "a5af07012dc6e97e7595c40361d19dfc782fcdd68addc0c35b52325821def487",
+    "sprite-mesh.js": "b21cf869f6ff60e15692f2376760427c2a031da7a6d1af8002bb1b9b623447c3",
+    "sprite-worker.js": "adfe579ccbb20aaa48cb780ff1af2f827020b7cbec491fa4d5d8e390161f68e3",
+    "startup.js": "8a085430f9ef5c15b44c2fb3d22179b65c399ff775925f031891b956d93b94ad",
+    "symbiote-art.js": "0545e26e31677c7a501ad6288ca07299e59fd714a99b9855644015964a3019ce",
+    "tactics.js": "2b3a1fc328140cc911158713ebf67339cc600802b15ce920b468ec8d2dfe09ef",
+    "terrain.js": "f5b81b07cef10bb999aa2d776198efc559174c7a448f5b5600d49552762153dd",
+    "trade-art.js": "1d48b5361527cf18f901c91fdf1f57f6b06021892774458d6838daca6c69b2c3",
+    "voice-bank.js": "c186485909d7fc07f999b4814a675500a7160af79a8c23ba0c79b4281b529fd6",
+    "walls.js": "5a3a6d0c6841d161a9bafb89994180c5ef719af038486ce273557369dd33ddce"
+  },
+  "createdAt": "2026-11-15T10:02:22.079Z",
+  "scope": "Normal paid games with private fog. Draws/time limits remain unresolved. Per-pair 95% confidence bounds are not a universal or simultaneous guarantee.",
+  "cases": [
+    {
+      "seed": 42,
+      "faction": "wizards",
+      "layout": "large-islands",
+      "size": 100,
+      "high": 8,
+      "low": 7,
+      "gap": 1,
+      "side": 0,
+      "key": "{\"seed\":42,\"faction\":\"wizards\",\"layout\":\"large-islands\",\"size\":100,\"high\":8,\"low\":7,\"gap\":1,\"side\":0}",
+      "winner": "time-limit",
+      "seconds": 1800,
+      "wallSeconds": 269,
+      "damage": [
+        14862,
+        1715
+      ],
+      "paid": [
+        16300,
+        6300
+      ],
+      "players": [
+        {
+          "difficulty": "master",
+          "stock": [
+            290,
+            309,
+            2203,
+            424
+          ],
+          "gathered": [
+            14790,
+            900,
+            2587,
+            479
+          ],
+          "tech": [
+            "wizards_economy",
+            "wizards_weapons1",
+            "wizards_advanced",
+            "wizards_deep_extraction",
+            "wizards_armor1",
+            "wizards_b2_specialization",
+            "wizards_weapons2",
+            "wizards_armor2"
+          ],
+          "goal": null,
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u3",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u3",
+            "wizards_u0",
+            "wizards_u3",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u3",
+            "wizards_u0",
+            "wizards_u3",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u3",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u5",
+            "wizards_u0",
+            "wizards_u3",
+            "wizards_u3",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u5",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_transport_ship",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u5",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_scout_boat",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u5",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u5",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_merchant_ship",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u5",
+            "wizards_escort_ship"
+          ],
+          "buildings": [
+            {
+              "type": "wizards_b0",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b2",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b3",
+              "progress": 1
+            },
+            {
+              "type": "wizards_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b2",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b2",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_orewell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_orewell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_dock",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b9",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_orewell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_dock",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_dock",
+              "progress": 1
+            },
+            {
+              "type": "wizards_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_oilwell",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "expert",
+          "stock": [
+            59,
+            435,
+            761,
+            400
+          ],
+          "gathered": [
+            5159,
+            900,
+            1006,
+            455
+          ],
+          "tech": [
+            "wizards_economy",
+            "wizards_weapons1",
+            "wizards_advanced",
+            "wizards_deep_extraction"
+          ],
+          "goal": null,
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_transport_ship",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0"
+          ],
+          "buildings": [
+            {
+              "type": "wizards_b0",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b2",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_orewell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "wizards_dock",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b3",
+              "progress": 1
+            },
+            {
+              "type": "wizards_deep_oil",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "wizards",
+      "layout": "large-islands",
+      "size": 100,
+      "high": 8,
+      "low": 7,
+      "gap": 1,
+      "side": 1,
+      "key": "{\"seed\":42,\"faction\":\"wizards\",\"layout\":\"large-islands\",\"size\":100,\"high\":8,\"low\":7,\"gap\":1,\"side\":1}",
+      "winner": "lower",
+      "seconds": 1364,
+      "wallSeconds": 154,
+      "damage": [
+        14733,
+        306
+      ],
+      "paid": [
+        9890,
+        5010
+      ],
+      "players": [
+        {
+          "difficulty": "expert",
+          "stock": [
+            2160,
+            107,
+            4998,
+            401
+          ],
+          "gathered": [
+            10050,
+            900,
+            5700,
+            456
+          ],
+          "tech": [
+            "wizards_economy",
+            "wizards_weapons1",
+            "wizards_advanced",
+            "wizards_deep_extraction",
+            "wizards_armor1",
+            "wizards_b2_specialization",
+            "wizards_weapons2",
+            "wizards_armor2"
+          ],
+          "goal": null,
+          "plan": "Preparing a transport landing beyond the enemy defenses",
+          "units": [
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u3",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u3",
+            "wizards_u2",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u3",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_transport_ship",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u6",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u5",
+            "wizards_u0",
+            "wizards_u2",
+            "wizards_u5",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_scout_boat",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_u6",
+            "wizards_u5",
+            "wizards_u3",
+            "wizards_u0",
+            "wizards_u4",
+            "wizards_u4",
+            "wizards_u3",
+            "wizards_u2",
+            "wizards_u4",
+            "wizards_u0",
+            "wizards_u3",
+            "wizards_u2",
+            "wizards_u0",
+            "wizards_u0",
+            "wizards_escort_ship",
+            "wizards_u0",
+            "wizards_air_transport",
+            "wizards_warship",
+            "wizards_bomber"
+          ],
+          "buildings": [
+            {
+              "type": "wizards_b0",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b2",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b3",
+              "progress": 1
+            },
+            {
+              "type": "wizards_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b2",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_dock",
+              "progress": 1
+            },
+            {
+              "type": "wizards_orewell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_orewell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b9",
+              "progress": 1
+            },
+            {
+              "type": "wizards_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b3",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b4",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_aetherwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_aetherwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_aetherwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b4",
+              "progress": 1
+            },
+            {
+              "type": "wizards_market",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b7",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_deep_aether",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "master",
+          "stock": [
+            55,
+            478,
+            1426,
+            436
+          ],
+          "gathered": [
+            3840,
+            893,
+            1666,
+            491
+          ],
+          "tech": [
+            "wizards_economy",
+            "wizards_weapons1",
+            "wizards_advanced",
+            "wizards_deep_extraction"
+          ],
+          "goal": "build:wizards_b2",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "wizards_u0",
+            "wizards_u0"
+          ],
+          "buildings": [
+            {
+              "type": "wizards_b3",
+              "progress": 1
+            },
+            {
+              "type": "wizards_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "wizards_b1",
+              "progress": 1
+            },
+            {
+              "type": "wizards_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "wizards_deep_oil",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "elders",
+      "layout": "mountain-passes",
+      "size": 100,
+      "high": 9,
+      "low": 8,
+      "gap": 1,
+      "side": 0,
+      "key": "{\"seed\":42,\"faction\":\"elders\",\"layout\":\"mountain-passes\",\"size\":100,\"high\":9,\"low\":8,\"gap\":1,\"side\":0}",
+      "winner": "higher",
+      "seconds": 1253,
+      "wallSeconds": 334,
+      "damage": [
+        16941,
+        4663
+      ],
+      "paid": [
+        11725,
+        6400
+      ],
+      "players": [
+        {
+          "difficulty": "nightmare",
+          "stock": [
+            395,
+            159,
+            135,
+            6
+          ],
+          "gathered": [
+            11025,
+            480,
+            404,
+            61
+          ],
+          "tech": [
+            "elders_economy",
+            "elders_armor1",
+            "elders_advanced",
+            "elders_deep_extraction",
+            "elders_weapons1",
+            "elders_b3_specialization"
+          ],
+          "goal": null,
+          "plan": "Staging armor, ranged troops and support",
+          "units": [
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u4",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u3",
+            "elders_u3",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u1",
+            "elders_u3",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u0",
+            "elders_u3",
+            "elders_u0",
+            "elders_u3",
+            "elders_u3",
+            "elders_u0",
+            "elders_u3",
+            "elders_u3",
+            "elders_u0",
+            "elders_u1",
+            "elders_u0",
+            "elders_u3",
+            "elders_u3",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u6",
+            "elders_u0",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u1",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u4",
+            "elders_u5",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u6",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3",
+            "elders_u3"
+          ],
+          "buildings": [
+            {
+              "type": "elders_b0",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b5",
+              "progress": 1
+            },
+            {
+              "type": "elders_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "elders_b4",
+              "progress": 1
+            },
+            {
+              "type": "elders_b6",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b6",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            },
+            {
+              "type": "elders_orewell",
+              "progress": 1
+            },
+            {
+              "type": "elders_b11",
+              "progress": 1
+            },
+            {
+              "type": "elders_b7",
+              "progress": 1
+            },
+            {
+              "type": "elders_orewell",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            },
+            {
+              "type": "elders_trap",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            },
+            {
+              "type": "elders_trap",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            },
+            {
+              "type": "elders_wall",
+              "progress": 1
+            },
+            {
+              "type": "elders_wall",
+              "progress": 0
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            },
+            {
+              "type": "elders_orewell",
+              "progress": 1
+            },
+            {
+              "type": "elders_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "elders_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "elders_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "elders_b6",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            },
+            {
+              "type": "elders_b5",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "master",
+          "stock": [
+            33,
+            225,
+            133,
+            19
+          ],
+          "gathered": [
+            5458,
+            430,
+            318,
+            74
+          ],
+          "tech": [
+            "elders_economy",
+            "elders_armor1",
+            "elders_advanced",
+            "elders_deep_extraction"
+          ],
+          "goal": "build:elders_b3",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [],
+          "buildings": [
+            {
+              "type": "elders_b4",
+              "progress": 1
+            },
+            {
+              "type": "elders_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "elders_b1",
+              "progress": 1
+            },
+            {
+              "type": "elders_b11",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "elders",
+      "layout": "mountain-passes",
+      "size": 100,
+      "high": 9,
+      "low": 8,
+      "gap": 1,
+      "side": 1,
+      "key": "{\"seed\":42,\"faction\":\"elders\",\"layout\":\"mountain-passes\",\"size\":100,\"high\":9,\"low\":8,\"gap\":1,\"side\":1}",
+      "winner": "time-limit",
+      "seconds": 1800,
+      "wallSeconds": 416,
+      "damage": [
+        8591,
+        7818
+      ],
+      "paid": [
+        7325,
+        7005
+      ],
+      "players": [
+        {
+          "difficulty": "master",
+          "stock": [
+            1053,
+            333,
+            255,
+            24
+          ],
+          "gathered": [
+            7743,
+            418,
+            330,
+            49
+          ],
+          "tech": [
+            "elders_economy",
+            "elders_armor1",
+            "elders_advanced"
+          ],
+          "goal": "research:elders_deep_extraction",
+          "plan": "Combined-arms assault",
+          "units": [
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u1",
+            "elders_u4",
+            "elders_u3",
+            "elders_u4",
+            "elders_u4"
+          ],
+          "buildings": [
+            {
+              "type": "elders_b0",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b5",
+              "progress": 1
+            },
+            {
+              "type": "elders_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "elders_b4",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b6",
+              "progress": 1
+            },
+            {
+              "type": "elders_b6",
+              "progress": 1
+            },
+            {
+              "type": "elders_b6",
+              "progress": 1
+            },
+            {
+              "type": "elders_b5",
+              "progress": 1
+            },
+            {
+              "type": "elders_b5",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "nightmare",
+          "stock": [
+            35,
+            320,
+            342,
+            36
+          ],
+          "gathered": [
+            6325,
+            405,
+            417,
+            61
+          ],
+          "tech": [
+            "elders_economy",
+            "elders_armor1",
+            "elders_advanced"
+          ],
+          "goal": "research:elders_deep_extraction",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0",
+            "elders_u0"
+          ],
+          "buildings": [
+            {
+              "type": "elders_b0",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b5",
+              "progress": 1
+            },
+            {
+              "type": "elders_b4",
+              "progress": 1
+            },
+            {
+              "type": "elders_b5",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b6",
+              "progress": 1
+            },
+            {
+              "type": "elders_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "elders_b3",
+              "progress": 1
+            },
+            {
+              "type": "elders_b6",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "myth",
+      "layout": "coastal",
+      "size": 100,
+      "high": 10,
+      "low": 9,
+      "gap": 1,
+      "side": 0,
+      "key": "{\"seed\":42,\"faction\":\"myth\",\"layout\":\"coastal\",\"size\":100,\"high\":10,\"low\":9,\"gap\":1,\"side\":0}",
+      "winner": "higher",
+      "seconds": 1572,
+      "wallSeconds": 148,
+      "damage": [
+        29263,
+        10221
+      ],
+      "paid": [
+        18370,
+        10985
+      ],
+      "players": [
+        {
+          "difficulty": "apocalypse",
+          "stock": [
+            228,
+            383,
+            36,
+            68
+          ],
+          "gathered": [
+            17254,
+            900,
+            379,
+            123
+          ],
+          "tech": [
+            "myth_economy",
+            "myth_armor1",
+            "myth_advanced",
+            "myth_deep_extraction",
+            "myth_weapons1",
+            "myth_b3_specialization"
+          ],
+          "goal": null,
+          "plan": "Reinforcing the assault in a protected group",
+          "units": [
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u3",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u3",
+            "myth_u0",
+            "myth_u6",
+            "myth_u0",
+            "myth_u0",
+            "myth_escort_ship",
+            "myth_u0",
+            "myth_u3",
+            "myth_u0",
+            "myth_u3",
+            "myth_u0",
+            "myth_u3",
+            "myth_u0",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u0",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u6",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_transport_ship",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3"
+          ],
+          "buildings": [
+            {
+              "type": "myth_b0",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_b5",
+              "progress": 1
+            },
+            {
+              "type": "myth_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "myth_deep_oil",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_dock",
+              "progress": 1
+            },
+            {
+              "type": "myth_b11",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "nightmare",
+          "stock": [
+            51,
+            396,
+            517,
+            311
+          ],
+          "gathered": [
+            9646,
+            900,
+            898,
+            366
+          ],
+          "tech": [
+            "myth_economy",
+            "myth_armor1",
+            "myth_advanced",
+            "myth_deep_extraction",
+            "myth_weapons1",
+            "myth_b3_specialization"
+          ],
+          "goal": "build:myth_b0",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0"
+          ],
+          "buildings": [
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "myth_riftwell",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 42,
+      "faction": "myth",
+      "layout": "coastal",
+      "size": 100,
+      "high": 10,
+      "low": 9,
+      "gap": 1,
+      "side": 1,
+      "key": "{\"seed\":42,\"faction\":\"myth\",\"layout\":\"coastal\",\"size\":100,\"high\":10,\"low\":9,\"gap\":1,\"side\":1}",
+      "winner": "lower",
+      "seconds": 1328,
+      "wallSeconds": 115,
+      "damage": [
+        25673,
+        7830
+      ],
+      "paid": [
+        17305,
+        9865
+      ],
+      "players": [
+        {
+          "difficulty": "nightmare",
+          "stock": [
+            210,
+            70,
+            51,
+            8
+          ],
+          "gathered": [
+            16235,
+            516,
+            380,
+            63
+          ],
+          "tech": [
+            "myth_economy",
+            "myth_armor1",
+            "myth_advanced",
+            "myth_deep_extraction",
+            "myth_weapons1"
+          ],
+          "goal": null,
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u6",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u1",
+            "myth_u0",
+            "myth_u3",
+            "myth_u0",
+            "myth_u0",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_transport_ship",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u2",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u6",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u1",
+            "myth_u1",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u6",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3",
+            "myth_u3"
+          ],
+          "buildings": [
+            {
+              "type": "myth_b0",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_b5",
+              "progress": 1
+            },
+            {
+              "type": "myth_oilwell",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_deep_ore",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b3",
+              "progress": 1
+            },
+            {
+              "type": "myth_b11",
+              "progress": 1
+            },
+            {
+              "type": "myth_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "myth_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_dock",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_deep_oil",
+              "progress": 1
+            }
+          ]
+        },
+        {
+          "difficulty": "apocalypse",
+          "stock": [
+            1,
+            574,
+            503,
+            559
+          ],
+          "gathered": [
+            8894,
+            883,
+            749,
+            614
+          ],
+          "tech": [
+            "myth_economy",
+            "myth_armor1",
+            "myth_advanced",
+            "myth_deep_extraction",
+            "myth_weapons1"
+          ],
+          "goal": "build:myth_b0",
+          "plan": "Intercepting threats with a local defense group",
+          "units": [
+            "myth_u0",
+            "myth_transport_ship",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0",
+            "myth_u0"
+          ],
+          "buildings": [
+            {
+              "type": "myth_dock",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_orewell",
+              "progress": 1
+            },
+            {
+              "type": "myth_b1",
+              "progress": 1
+            },
+            {
+              "type": "myth_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "myth_riftwell",
+              "progress": 1
+            },
+            {
+              "type": "myth_trap",
+              "progress": 1
+            },
+            {
+              "type": "myth_wall",
+              "progress": 1
+            },
+            {
+              "type": "myth_wall",
+              "progress": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": [
+    {
+      "higher": "Master",
+      "lower": "Expert",
+      "gap": 1,
+      "matches": 2,
+      "higherWins": 0,
+      "lowerWins": 1,
+      "unresolved": 1,
+      "lowerWinRate": 0.5,
+      "target": 0.1,
+      "minimum": 0.05,
+      "batchStatus": "unresolved",
+      "upper95": 0.9746794344808964,
+      "conservativeUpper95": 1,
+      "upperLimitEvidence": "target-missed",
+      "zeroLowerWinsSampleNeeded": 29
+    },
+    {
+      "higher": "Nightmare",
+      "lower": "Master",
+      "gap": 1,
+      "matches": 2,
+      "higherWins": 1,
+      "lowerWins": 0,
+      "unresolved": 1,
+      "lowerWinRate": 0,
+      "target": 0.1,
+      "minimum": 0.05,
+      "batchStatus": "unresolved",
+      "upper95": 0.7763932022500211,
+      "conservativeUpper95": 0.9746794344808964,
+      "upperLimitEvidence": "insufficient-evidence",
+      "zeroLowerWinsSampleNeeded": 29
+    },
+    {
+      "higher": "Apocalypse",
+      "lower": "Nightmare",
+      "gap": 1,
+      "matches": 2,
+      "higherWins": 1,
+      "lowerWins": 1,
+      "unresolved": 0,
+      "lowerWinRate": 0.5,
+      "target": 0.1,
+      "minimum": 0.05,
+      "batchStatus": "screening-only",
+      "upper95": 0.9746794344808964,
+      "conservativeUpper95": 0.9746794344808964,
+      "upperLimitEvidence": "target-missed",
+      "zeroLowerWinsSampleNeeded": 29
+    }
+  ],
+  "completed": 6,
+  "planned": 6,
+  "finishedAt": "2026-11-15T10:26:18.188Z",
+  "sourceUnchanged": true
+}

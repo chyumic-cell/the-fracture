@@ -23,6 +23,11 @@ function step(g,p,ctx){
   if(!t||!party.length||!node||g.time-op.started>op.budget){for(const u of party)u.aiLogistics=false;if(t&&g.transportLoad(t).length)g.order([t.id],{kind:'unload',...op.pickup});s.expansion=null;}
   else{t.aiLogistics=true;party.forEach(u=>u.aiLogistics=true);
    if(op.phase==='load'&&!t.returning){if(dist(t,op.pickup)>2){if(!t.order)g.order([t.id],{kind:'move',...op.pickup});}else{for(const u of party)if(!u.embarkedBy&&u.order?.kind!=='board')g.board([u.id],t.id,p.id);if(party.every(u=>u.embarkedBy===t.id)){op.phase='cross';g.order([t.id],{kind:'unload',...op.landing});}}}
+   if(op.ferry&&op.phase==='cross'&&!t.returning&&!g.transportLoad(t).length){op.phase='gather';op.phaseAt=g.time;g.order([t.id],{kind:'hold'});for(const u of party)g.order([u.id],{kind:'gather',target:node.id});}
+   if(op.ferry&&op.phase==='gather'&&(party.every(u=>u.carry>=12)||node.amount<=0||g.time-op.phaseAt>90&&party.some(u=>u.carry>0))){op.phase='collect';for(const u of party)g.board([u.id],t.id,p.id);}
+   if(op.ferry&&op.phase==='collect'){for(const u of party)if(!u.embarkedBy&&u.order?.kind!=='board')g.board([u.id],t.id,p.id);if(party.every(u=>u.embarkedBy===t.id)){op.phase='return';g.order([t.id],{kind:'unload',...op.returnLanding});}}
+   if(op.ferry&&op.phase==='return'&&!t.returning){if(!g.transportLoad(t).length){op.phase='deliver';for(const u of party)g.order([u.id],{kind:'returnCargo'});}else if(!t.order)g.order([t.id],{kind:'unload',...op.returnLanding});}
+   if(op.ferry&&op.phase==='deliver'&&party.every(u=>!u.carry)){for(const u of party){u.aiLogistics=false;g.order([u.id],{kind:'stop'});}s.expansion=null;s.nextExpansion=g.time+2;}
    if(op.phase==='cross'&&!t.returning){if(!g.transportLoad(t).length){const builders=party.filter(u=>g.def(u).worker),depot=D.factions[p.faction].buildings.find(b=>b.kind==='depot'||b.kind==='extractor'&&b.resource===D.resources[node.resource]);if(builders.length&&depot&&canBuy(depot))g.aiBuild(p,depot,builders,node);for(const u of party){u.aiLogistics=false;if(!g.def(u).worker)g.order([u.id],{kind:'attackMove',...op.landing});else if(u.order?.kind!=='build'&&g.visible(p.id,node))g.order([u.id],{kind:'gather',target:node.id});}s.lastExpansion={x:op.landing.x,y:op.landing.y,node:op.node,depot:op.depot,at:g.time,naval:!!g.def(t).naval};s.expansion=null;g.order([t.id],{kind:'move',...op.pickup});}else if(!t.order)g.order([t.id],{kind:'unload',...op.landing});}
   }
  }
@@ -86,7 +91,13 @@ function step(g,p,ctx){
   if(s.navalSurvey?.id!==carrier.id||explored>(s.navalSurvey?.explored||0)+12)s.navalSurvey={id:carrier.id,explored,at:g.time};
   if(g.time-s.navalSurvey.at>120)s.needAirTransport=true;
  }
- if(!s.expansion&&!s.sortie&&g.time>(s.nextExpansion||100)&&workers.length>=(p.aiSustainability?.relocation?4:8)){
+ // Once a real reserve is funded, an exhausted home island must not block military voyages forever.
+ const recoveryEnabled=ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled;
+ // Actual recent extraction, not merely an owned mine, proves that home income survives.
+ const renewableOre=ready.some(b=>b.type===p.faction+'_deep_ore'&&b.lastExtraction>g.time-30);
+ const urgentRelocation=p.aiSustainability?.relocation&&(!recoveryEnabled||!renewableOre&&p.stock[0]<(p.aiSustainability.cost[0]||0)+600);
+ const assaultReady=target&&ctx.military.filter(u=>!g.def(u).air&&!g.def(u).naval&&g.def(u).damage>0&&!u.embarkedBy).length>=6;
+ if(!s.expansion&&!s.sortie&&(!(ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)||urgentRelocation||!assaultReady)&&g.time>(s.nextExpansion||100)&&workers.length>=(p.aiSustainability?.relocation?4:8)){
   s.nextExpansion=g.time+30;const w=workers.find(u=>!u.aiLogistics&&!['extract','build','repair'].includes(u.order?.kind));
   const nodes=Object.values(p.knowledge||{}).filter(n=>n.kind==='resource'&&n.amount>180&&!unsafe(n)&&dist(n,p.home)>20).sort((a,b)=>(p.aiSustainability?.relocation?Number(b.resource===0)-Number(a.resource===0):0)||(p.stock[a.resource]-(p.aiSustainability?.cost[a.resource]||0))-(p.stock[b.resource]-(p.aiSustainability?.cost[b.resource]||0))||b.amount-a.amount).slice(0,8);
   if(w)for(const node of nodes){const goal=g.approach(w,node,2),ground=g.path(w,goal);if(dist(ground.at(-1)||w,goal)<2)continue;
@@ -94,13 +105,13 @@ function step(g,p,ctx){
    for(const departure of departures){if(dist(g.path(w,departure).at(-1)||w,departure)>2)continue;for(let k=0;k<12;k++){const a=k*Math.PI/6,q={x:node.x+Math.cos(a)*4,y:node.y+Math.sin(a)*4},i=Math.floor(q.y)*g.n+Math.floor(q.x);if(!p.explored[i]||g.blocked(q.x,q.y,false,p.id)||unsafe(q))continue;
     for(const choice of g.transportChoices({...w,...departure},q,ctx.enemy)){if(!choice.carrier||choice.carrier===s.sortie?.carrier)continue;const score=choice.score+dist(w,departure)/g.def(w).speed;if(!best||score<best.score)best={...choice,score,departure,landing:q};}
    }}
-   if(!best)continue;const t=g.entity(best.carrier),depot=D.factions[p.faction].buildings.find(b=>b.kind==='depot'||b.kind==='extractor'&&b.resource===D.resources[node.resource]);if(!depot||!g.affordable(p.id,depot.cost))continue;const party=workers.filter(u=>!u.aiLogistics&&!['extract','build','repair'].includes(u.order?.kind)&&dist(u,w)<12).slice(0,2);if(party.length<2)continue;
-   const guards=ctx.military.filter(u=>!g.def(u).air&&!g.def(u).naval&&!u.aiLogistics&&dist(u,w)<14).slice(0,2);party.push(...guards);
+   if(!best)continue;const t=g.entity(best.carrier),depot=D.factions[p.faction].buildings.find(b=>b.kind==='depot'||b.kind==='extractor'&&b.resource===D.resources[node.resource]);const ferry=!!(recoveryEnabled&&node.resource===0&&!g.affordable(p.id,depot?.cost||[Infinity,0,0,0]));if(!depot||!ferry&&!g.affordable(p.id,depot.cost))continue;const party=workers.filter(u=>!u.aiLogistics&&!['extract','build','repair'].includes(u.order?.kind)&&dist(u,w)<12).slice(0,ferry?3:2);if(party.length<2)continue;
+   const guards=ctx.military.filter(u=>!g.def(u).air&&!g.def(u).naval&&!u.aiLogistics&&dist(u,w)<14).slice(0,2);if(!ferry)party.push(...guards);
    const pickup=g.def(t).naval?g.coastApproach(t,best.departure):best.departure;if(!pickup)continue;
-   s.expansion={depot:depot.id,carrier:t.id,ids:party.map(u=>u.id),node:node.id,pickup,landing:best.landing,phase:'load',started:g.time,budget:120+best.score*3};party.forEach(u=>u.aiLogistics=true);g.order([t.id],{kind:'move',...pickup});p.plan='Transporting workers and guards to an observed resource island';break;
+   s.expansion={depot:depot.id,carrier:t.id,ids:party.map(u=>u.id),node:node.id,pickup,landing:best.landing,phase:'load',started:g.time,budget:(ferry?240:120)+best.score*(ferry?7:3),...(ferry?{ferry:true,returnLanding:best.departure}:{})};party.forEach(u=>u.aiLogistics=true);g.order([t.id],{kind:'move',...pickup});p.plan='Transporting workers and guards to an observed resource island';break;
   }
  }
- if(carrier&&!s.sortie&&!s.expansion&&!p.aiSustainability?.relocation&&g.time>(s.nextSortie||0)&&!carrier.returning){
+ if(carrier&&!s.sortie&&!s.expansion&&!urgentRelocation&&g.time>(s.nextSortie||0)&&!carrier.returning){
   if(target){const available=ctx.military.filter(u=>!g.def(u).air&&!g.def(u).naval&&g.def(u).damage>0&&!u.embarkedBy&&u.hp>u.maxHp*.65);let embark=pickup(carrier),group=available;
    // Collect stranded forward armies as well as fresh units at the home dock.
    const anchor=[...available].sort((a,b)=>available.filter(u=>dist(u,b)<8).length-available.filter(u=>dist(u,a)<8).length||dist(a,target)-dist(b,target))[0];
@@ -176,26 +187,42 @@ function step(g,p,ctx){
   const air=D.factions[p.faction].buildings.find(b=>b.kind==='air'),near=own.filter(u=>g.def(u)?.worker&&dist(u,s.lastExpansion)<18&&!['build','repair'].includes(u.order?.kind));
   if(air&&near.length&&!own.some(b=>b.type===air.id&&dist(b,s.lastExpansion)<25)&&!g.missing(p.id,air).length&&air.cost.every((v,i)=>p.stock[i]-v>=(p.aiReserve?.[i]||0)+40))g.aiBuild(p,air,near,s.lastExpansion);
  }
+ // A rally move is not a trade route. Reassign only genuinely stalled merchants,
+ // preserving cargo and progress while a long voyage is moving normally.
+ function merchantNeedsRoute(u){
+  if(!(ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled))return !u.order;
+  const old=u.aiTradeProgress,earned=u.tradeEarned||0;
+  if(!old||dist(old,u)>.6||old.earned!==earned)u.aiTradeProgress={x:u.x,y:u.y,earned,at:g.time};
+  const stalled=g.time-(u.aiTradeProgress?.at||g.time)>35;
+  if(stalled)u.aiTradeProgress.at=g.time;
+  return !u.order||u.order.kind!=='trade'||stalled;
+ }
  // New renewable economy uses the same paid prerequisite and worker orders as players.
  if(workers.length>=1&&!unsafe(p.home)){
   const exhausted=Object.values(p.knowledge||{}).filter(e=>e.kind==='resource'&&e.amount<=0&&!unsafe(e));
   for(const r of [0,1,2,3]){const rich=Object.values(p.knowledge||{}).some(e=>e.kind==='resource'&&e.resource===r&&e.amount>120&&dist(e,p.home)<18);if(!exhausted.some(e=>e.resource===r))continue;
-   const id=p.faction+'_deep_'+D.resources[r],b=ready.find(b=>b.type===id);if(!b)continue;
+   const id=p.faction+'_deep_'+D.resources[r],mines=ready.filter(b=>b.type===id);for(const [mineIndex,b]of mines.entries()){
    const assigned=workers.filter(w=>w.order?.kind==='extract'&&w.order.target===b.id);
    // Count miners inside the shaft too. Renewable extraction is slower than a
    // reachable surface deposit, so keep it as a reserve while useful ore remains.
    const surface=Object.values(p.knowledge||{}).filter(n=>n.kind==='resource'&&n.resource===r&&n.amount>120&&!unsafe(n)&&dist(n,p.home)<35);
    const probe=workers.find(w=>!w.insideMine),usable=probe&&surface.some(n=>{const q=g.approach(probe,n,.7),route=g.path(probe,q);return dist(route.at(-1)||probe,q)<2;});
-   const needed=r===0?usable?Math.min(4,Math.floor(workers.length*.15)):Math.min(16,Math.max(4,Math.floor(workers.length*.55))):p.stock[r]<160?4:0;
+   const urgentOre=recoveryEnabled&&r===0&&!usable&&p.stock[0]<(p.aiSustainability?.cost[0]||0)+300;
+   // Protect builders and genuinely scarce materials; do not leave workers on
+   // surplus Aetherite while the only Ore source is understaffed.
+   const protectedCrew=workers.filter(w=>w.aiLogistics||['build','repair'].includes(w.order?.kind)||w.order?.kind==='gather'&&(()=>{const n=g.entity(w.order.target)||p.knowledge?.[w.order.target];return n?.resource>0&&p.stock[n.resource]<(p.aiSustainability?.cost[n.resource]||0)+80;})()).length;
+   const workforceCap=recoveryEnabled?16*mines.length:16;const neededTotal=r===0?usable?Math.min(4,Math.floor(workers.length*.15)):urgentOre?Math.min(workforceCap,Math.max(0,workers.length-Math.max(2,protectedCrew))):Math.min(workforceCap,Math.max(4,Math.floor(workers.length*.55))):p.stock[r]<160?4:0;const needed=Math.floor(neededTotal/mines.length)+(mineIndex<neededTotal%mines.length?1:0);
    for(const w of assigned.slice(needed))if(!w.carry)g.order([w.id],{kind:'stop'});
-   for(const w of workers.filter(w=>!['extract','build','repair'].includes(w.order?.kind)&&!w.aiLogistics).sort((a,c)=>dist(a,b)-dist(c,b)).filter(w=>{const q=g.approach(w,b,1);return dist(g.path(w,q).at(-1)||w,q)<2;}).slice(0,Math.max(0,needed-assigned.length)))g.order([w.id],{kind:'extract',target:b.id});
+   for(const w of workers.filter(w=>!['extract','build','repair'].includes(w.order?.kind)&&!w.aiLogistics&&!(urgentOre&&w.order?.kind==='gather'&&(()=>{const n=g.entity(w.order.target)||p.knowledge?.[w.order.target];return n?.resource>0&&p.stock[n.resource]<(p.aiSustainability?.cost[n.resource]||0)+80;})())).sort((a,c)=>dist(a,b)-dist(c,b)).filter(w=>{const q=g.approach(w,b,1);return dist(g.path(w,q).at(-1)||w,q)<2;}).slice(0,Math.max(0,needed-assigned.length)))g.order([w.id],{kind:'extract',target:b.id});
   }
-  if(g.time>360&&p.stock[0]>300){const id=p.faction+'_market',markets=ready.filter(b=>b.type===id);if(!markets.length)ensure(id);else if(markets.length<2&&!own.some(b=>b.type===id&&b.progress<1)){const w=workers.find(w=>!['extract','build','repair'].includes(w.order?.kind));if(w&&canBuy(D.buildings[id]))g.aiBuild(p,D.buildings[id],[w],{x:p.home.x+16,y:p.home.y});}else if(markets.length>=2){const merchants=own.filter(u=>g.def(u).role==='merchant');if(canBuy(D.units[p.faction+'_merchant'])&&merchants.length<2&&!own.some(b=>b.queue?.some(q=>q.type===p.faction+'_merchant')))g.queue(markets[0].id,p.faction+'_merchant');for(const u of merchants)if(!u.order)g.order([u.id],{kind:'trade',target:markets[1].id});}}
+  }
+  if(g.time>360&&p.stock[0]>300||p.aiSustainability?.tradeRecovery||(ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)&&own.some(e=>g.def(e)?.kind==='market')){const id=p.faction+'_market',markets=ready.filter(b=>b.type===id);if(!markets.length)ensure(id);else if(markets.length<2&&!own.some(b=>b.type===id&&b.progress<1)){const w=workers.find(w=>!['extract','build','repair'].includes(w.order?.kind));if(w&&canBuy(D.buildings[id])){if((ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)){const d=D.buildings[id],first=markets[0],merchant={kind:'unit',type:p.faction+'_merchant',owner:p.id,...g.approach(w,first,1)};let built=false;for(const radius of [10,14,18,24,30,38]){for(let k=0;k<16;k++){const q={x:first.x+Math.cos(k*Math.PI/8)*radius,y:first.y+Math.sin(k*Math.PI/8)*radius};if(!g.known(p.id,q)||unsafe(q)||g.placement(id,p.id,q.x,q.y)||Object.values(p.knowledge||{}).some(n=>n.kind==='resource'&&n.resource<2&&n.amount<=0&&dist(n,q)<d.size+1.8))continue;const port={kind:'building',type:id,owner:p.id,size:d.size,...q},approach=g.approach(w,port,1),route=g.path(w,approach);if(dist(route.at(-1)||w,approach)>1.5||!g.tradeLeg(merchant,port))continue;if(g.build(id,p.id,q.x,q.y,[w.id]).ok){built=true;break;}}if(built)break;}}else g.aiBuild(p,D.buildings[id],[w],{x:p.home.x+16,y:p.home.y});}}else if(markets.length>=2){const merchants=own.filter(u=>g.def(u).role==='merchant');if(canBuy(D.units[p.faction+'_merchant'])&&merchants.length<2&&!own.some(b=>b.queue?.some(q=>q.type===p.faction+'_merchant')))g.queue(markets[0].id,p.faction+'_merchant');for(const u of merchants)if(merchantNeedsRoute(u))g.order([u.id],{kind:'trade',target:markets[1].id});}}
   if((p.tradeCredits||0)>=20){const resource=p.stock.map((v,i)=>v-(p.aiSustainability?.cost[i]||0)).reduce((best,v,i,a)=>v<a[best]?i:best,0);g.exchange(p.id,resource);}
  }
+ if((ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)&&unsafe(p.home)&&(p.tradeCredits||0)>=20){const resource=p.stock.map((v,i)=>v-(p.aiSustainability?.cost[i]||0)).reduce((best,v,i,a)=>v<a[best]?i:best,0);g.exchange(p.id,resource);}
  if(g.time>200&&!unsafe(p.home)){
   const docks=ready.filter(b=>g.def(b).kind==='dock'&&!unsafe(b)),type=p.faction+'_merchant_ship',ships=own.filter(u=>u.type===type);
-  for(const ship of ships){ship.aiLogistics=true;if(ship.order)continue;const destinations=docks.filter(b=>dist(ship,b)>8&&g.tradeLeg(ship,b)).sort((a,b)=>dist(ship,b)-dist(ship,a));for(const b of destinations){g.order([ship.id],{kind:'trade',target:b.id});if(ship.order)break;}}
+  for(const ship of ships){ship.aiLogistics=true;if(!merchantNeedsRoute(ship))continue;const destinations=docks.filter(b=>dist(ship,b)>8&&g.tradeLeg(ship,b)).sort((a,b)=>dist(ship,b)-dist(ship,a));for(const b of destinations){g.order([ship.id],{kind:'trade',target:b.id});if(ship.order)break;}}
   if(ships.length<2&&!pending(type)&&docks.length>1){
    const probe={...docks[0],kind:'unit',type,owner:p.id},start=g.approach(probe,docks[0],1);Object.assign(probe,start,{type,kind:'unit'});
    const profitable=docks.slice(1).some(b=>dist(b,docks[0])>=12&&!unsafe(b)&&g.tradeLeg(probe,b));

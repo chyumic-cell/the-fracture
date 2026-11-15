@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),A=require('../src/ai'),D=require('../src/data'),{Game}=require('../src/simulation');
-const baseline=['standard','Standard',1.6,14,56,8,1.15,85,1,1,2];
-assert.deepEqual(['id','name','think','workerTarget','maxMilitary','minAttack','attackRatio','memory','scouts','techPace','productionLimit'].map(k=>A.configs.standard[k]),baseline);
-console.log('PASS preserved Standard baseline');
+const baseline=['relaxed','Relaxed',3.2,9,24,11,1.6,40,1,1.5,1];
+assert.deepEqual(['id','name','think','workerTarget','maxMilitary','minAttack','attackRatio','memory','scouts','techPace','productionLimit'].map(k=>A.configs.relaxed[k]),baseline);
+console.log('PASS preserved Relaxed baseline');
 for(const c of A.levels){
  const g=new Game({size:48,seed:42,factions:['humans','humans'],difficulty:c.id});g.entities=[];g.map.forEach(t=>{t.water=true;t.height=0;});g.rebuildNav();
  const p=g.players[1];p.ai=true;p.explored.fill(0);p.visible.fill(0);p.knownTiles.fill(0);p.knownNav.fill(0);p.navigationRevision=0;

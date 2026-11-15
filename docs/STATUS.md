@@ -1,3 +1,22 @@
+# Varied AI screening and recovery follow-up - 15 November 2026
+
+- Difficulty testing now varies resource abundance, balanced/random/contested placement, starting deposits, factions and maps. Adjacent tiers use side-swapped duels; random nonadjacent stress games also vary two-to-four player counts. These changes are to the testing schedule, not the user's selected game setup.
+- Spending forecasts now exclude currently observed or recently observed enemy-controlled deposits. Hidden enemy movement cannot alter these forecasts.
+- Added paid multi-mine expansion/staffing, physical worker Ore ferrying before an island outpost is affordable, feasible upgrade savings, observed-air counter construction, safe construction away from a raided headquarters, and protected siege positioning.
+- Fixed a real four-player formation movement crash at the map edge; invalid paths no longer crash or reveal a wrapped fog cell. Required simulation/legacy regressions, the fixed Relaxed replay, focused economic/tactical checks and browser/offline gameplay pass.
+- The requested 5–10% lower-neighbor win rate is NOT established. Current varied tests still expose tier inversions and unresolved games. No bonuses or scripted outcomes were added, and Relaxed was not weakened. See AI-LADDER-CALIBRATION.md for reproduction and limits.
+- No illustrations or artwork changed.
+
+# Fixed Relaxed baseline and AI economic recovery - 15 November 2026
+
+- Relaxed (second easiest) is the preserved baseline from 08ecc42. Gentle is a forgiving learning setting. Easy through Apocalypse receive progressively broader/faster planning and paid workforce/army goals; no resource, training, combat or fog bonuses were introduced.
+- Shared emergency recovery also covers Gentle and Relaxed while keeping their tuning unchanged. Economic recovery now budgets a real trading fallback for missing drilling prerequisites, resumes interrupted merchants, retries stalled work and avoids sealing known corridors with new foundations. A population-blocked transport no longer prevents housing or drilling. Failed affordable actions yield to other useful actions instead of monopolizing the planner.
+- A captured Machine island AI stuck on an unaffordable-by-population transport recovered using ordinary research and construction: it unlocked deep extraction and earned another 918 Ore over 400 simulated seconds. See ai-stalled-save-recovery.json.
+- Three allied Apocalypse economies passed the 1,200-second Small Islands depletion test: all researched drilling and continued extracting Ore after their surface supplies were exhausted. This scenario continues after victory over a passive player to inspect economic survival; it does not certify competitive strength. See ai-economy-endurance.json.
+- Validation: 41 simulation, 11 legacy, 17 strategy, 14 advanced-tactics, 15 sustainability and 9 difficulty regression groups pass. Focused recovery checks cover all twelve civilizations, real trade income, stalled orders, save restoration, population deadlocks and private corridor planning. Naval trade, worker transport, fair prices/fog and the original Relaxed gameplay checkpoints (excluding new recovery-monitor bookkeeping) also pass.
+- Competitive calibration is not complete. The requested lower-neighbor win rate of 5–10% has not been established across the eight relevant pairs. Current mixed-map screening records actual wins and unresolved matches, including failures; it does not manufacture outcomes. Details: AI-LADDER-CALIBRATION.md.
+- No illustrations, artwork, terrain, campaign or interface files changed in this pass. Refresh the game to load the AI fixes. Existing saves receive no free replacement resources.
+
 # AI economic survival and terrain-matched ramps - 12 November 2026
 
 - Full four-resource budgets protect the remaining drilling prerequisite chain and mine cost. Committed mines stay funded after new resource discoveries; optional naval, market and defense purchases cannot consume that reserve. Known supplies require charted routes. No AI gathering, cost, combat or fog bonuses were added.

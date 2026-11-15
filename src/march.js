@@ -34,7 +34,7 @@ function install(Game,D){
    if(blocked)g.clearSince=null;else g.clearSince??=this.time;
    g.narrow=blocked||g.narrow&&this.time-g.clearSince<1.8;
    const sorted=[...us].sort((a,b)=>g.trailOrder?g.trailOrder.indexOf(a.id)-g.trailOrder.indexOf(b.id):this.formationRank(a)-this.formationRank(b)||a.id-b.id);
-   for(const [i,u]of sorted.entries()){const slot=g.narrow?trail(g,i*.78):slots.find(s=>s.unit.id===u.id);const blend=Math.min(1,(g.travelled||0)/(g.blendDistance||1)),initial=g.initial?.[u.id],x=initial?g.anchor.x+initial.x+(slot.x-g.anchor.x-initial.x)*blend:slot.x,y=initial?g.anchor.y+initial.y+(slot.y-g.anchor.y-initial.y)*blend:slot.y;u.order={...u.march.final,x,y,face};u.march.speed=g.speed;u.march.narrow=g.narrow;}
+   for(const [i,u]of sorted.entries()){const slot=g.narrow?trail(g,i*.78):slots.find(s=>s.unit.id===u.id);const blend=Math.min(1,(g.travelled||0)/(g.blendDistance||1)),initial=g.initial?.[u.id],x=initial?g.anchor.x+initial.x+(slot.x-g.anchor.x-initial.x)*blend:slot.x,y=initial?g.anchor.y+initial.y+(slot.y-g.anchor.y-initial.y)*blend:slot.y;u.order={...u.march.final,x:Math.max(.5,Math.min(this.n-.5,x)),y:Math.max(.5,Math.min(this.n-.5,y)),face};u.march.speed=g.speed;u.march.narrow=g.narrow;}
    keep.push(g);
   }this.marches=keep;
  };

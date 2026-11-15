@@ -4,7 +4,7 @@ function arena(f='humans'){const g=new Game({size:100,seed:42,factions:[f,'human
 function chart(g){g.rebuildNav();g.updateVision();for(const p of g.players){p.explored.fill(1);p.visible.fill(1);p.knownNav.set(g.nav);p.knownTiles.set(g.map.map(t=>(t.water?128:0)|t.height));p.navigationRevision++;}for(const n of g.entities.filter(e=>e.kind==='resource'))g.players[0].knowledge[n.id]={...n};}
 function node(g,r,x,y,amount){return g.add({kind:'resource',resource:r,x,y,hp:1,amount,maxAmount:amount,size:.85});}
 for(const f of Object.values(D.factions)){
- const g=arena(f.id),p=g.players[0];for(let r=0;r<4;r++)node(g,r,28+r*3,24,300);chart(g);const plan=E.sustainability(g,p,A.context(g,p));
+ const g=arena(f.id),p=g.players[0];p.stock=[500,1000,1000,1000];for(let r=0;r<4;r++)node(g,r,28+r*3,24,300);chart(g);const plan=E.sustainability(g,p,A.context(g,p));
  assert(plan.ids.includes(f.id+'_deep_extraction'));assert(plan.ids.includes(f.id+'_advanced'));assert(plan.ids.includes(f.id+'_economy'));
  const expected=[0,0,0,0];for(const id of plan.ids)(D.buildings[id]||D.research[id]||D.units[id]).cost.forEach((v,i)=>expected[i]+=v);assert.deepEqual(plan.cost,expected);assert(plan.cost.every(v=>v>0));node(g,0,32,32,9000);chart(g);assert(E.sustainability(g,p,A.context(g,p)).ids.includes(f.id+'_deep_ore'),'discovery must not cancel a committed mine');p.stock=[...plan.cost];assert(!E.protectedSpend(p,D.units[f.id+'_siege_ship']));
  p.tech.push(f.id+'_economy');const next=E.sustainability(g,p,A.context(g,p));assert(!next.ids.includes(f.id+'_economy'));assert.equal(next.cost[0],plan.cost[0]-D.research[f.id+'_economy'].cost[0]);checks++;
@@ -22,3 +22,11 @@ console.log('PASS complete paid prerequisite budgets for all twelve civilization
  const g=arena(),p=g.players[0],tower=g.spawnBuilding('humans_b7',0,30,30,true);g.spawnBuilding('humans_trap',0,34,30,true);for(let i=0;i<8;i++)g.spawnUnit('humans_u2',0,29+i*.2,32);const scout=D.factions.humans.units.find(u=>u.role==='scout');g.spawnUnit(scout.id,0,32,31);const enemy=g.spawnUnit('humans_u2',1,43,30);g.time=250;chart(g);C.ambush(g,p,A.context(g,p));assert(p.aiAmbush,'sets up a real bait maneuver');const bait=g.entity(p.aiAmbush.bait);g.time+=6;C.ambush(g,p,A.context(g,p));assert.equal(p.aiAmbush.phase,'withdraw');assert.equal(bait.order.kind,'move');enemy.x=35;chart(g);C.ambush(g,p,A.context(g,p));assert.equal(p.aiAmbush,null,'pursuer entering defense range releases counterattack');checks++;
 }
 console.log('PASS '+checks+' sustainability, reachable island work, paid defenses and ambush groups');
+
+{
+ const g=arena(),p=g.players[0];node(g,0,27,25,100);node(g,0,45,35,5000);const guard=g.spawnUnit('humans_u5',1,46,35);chart(g);
+ const plan=E.sustainability(g,p,A.context(g,p));assert.equal(plan.remaining[0],100,'Enemy-controlled deposits cannot finance optional spending');assert(plan.ids.includes('humans_deep_ore'));
+ p.visible.fill(0);guard.x=80;guard.y=80;g.time+=5;assert.equal(E.sustainability(g,p,A.context(g,p)).remaining[0],100,'A hidden relocation cannot erase the last observed threat');
+ g.time+=20;assert.equal(E.sustainability(g,p,A.context(g,p)).remaining[0],5100,'Stale threat exclusions must expire rather than permanently block exploration');
+}
+console.log('PASS observed resource threats constrain budgets without reading hidden enemy movements');

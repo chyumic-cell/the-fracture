@@ -1,0 +1,83 @@
+{
+  "anchor": "relaxed",
+  "profile": {
+    "id": "relaxed",
+    "name": "Relaxed",
+    "level": 2,
+    "think": 3.2,
+    "workerTarget": 9,
+    "maxMilitary": 24,
+    "minAttack": 11,
+    "attackRatio": 1.6,
+    "memory": 40,
+    "scouts": 1,
+    "techPace": 1.5,
+    "productionLimit": 1,
+    "economyRates": {
+      "gather": 1,
+      "production": 1
+    },
+    "adaptiveEconomy": false,
+    "forecastFire": false,
+    "screenArtillery": false,
+    "domainMicro": false,
+    "investmentBuffer": 0,
+    "tacticalInterval": 3.0999999999999996,
+    "counterWeight": 0,
+    "constructionCrew": 1,
+    "focusFire": false,
+    "kite": false,
+    "abilities": false,
+    "flank": false,
+    "splashFocus": false,
+    "retreatRatio": 1.55,
+    "withdrawHealth": 0.24,
+    "regroupDelay": 30,
+    "attackDelay": 40,
+    "assembleTime": 20,
+    "reinforceDelay": 18,
+    "reinforceMinimum": 5,
+    "reinforceReserve": 2,
+    "flankFraction": 0.25,
+    "flankLimit": 5
+  },
+  "cases": [
+    {
+      "faction": "humans",
+      "layout": "natural",
+      "seed": 42,
+      "seconds": 300,
+      "checkpoints": [
+        "a466c72a3c0ada1b541cf9cfd61fd2c54bede4f7b871ea7d1fbb4581b57bf28b",
+        "75932fb9dd1de1224c49889a1c4510345d39c9a90657a426d7fdd87f4e0b8843",
+        "547d804159cbfd17c98d08ca37890aea2e3df499ebf7c5d947fb1c6ea9464977",
+        "2a6f8bbc26c7ef349a07e1b743f5ff4aa7be0ec531bce9a7c45379dbdb60760c",
+        "fd1d972d6b41f55fc652a77a3011781f978228de2839f657cca6300c3d209119"
+      ]
+    },
+    {
+      "faction": "primates",
+      "layout": "small-islands",
+      "seed": 213301,
+      "seconds": 300,
+      "checkpoints": [
+        "6fb2458420519bfffcd804f670ed67e37b202286d5c6f5750cb48b2f479d2f1d",
+        "aa6a024fc5ba8c2fbec6d4775cbfd1ae325cc0565a6239c4e5ac729e017011f8",
+        "c76b2aaa68a0ae66f475b50c93e90a9ba7c08bc403015b63e9bfcd326341fe2f",
+        "dca0119fae3fa206bc32dfc8b8dba9fe1707aa36f0e14dde85f1aab00a707587",
+        "17940a5a91e5d428c22b59fa2392c7e562abf4f4ead88ac02023b9bad2d42892"
+      ]
+    },
+    {
+      "faction": "machines",
+      "layout": "narrows",
+      "seed": 836651,
+      "seconds": 180,
+      "checkpoints": [
+        "022a87771f116e97617e7c58669bcf26947132edbebab47b2b7912e7ad4dfa9e",
+        "2beff0ec868c2e705d085d13cf9e8687bd418925193bdf511d2a9e244da03459",
+        "2ffcaa0767bd70d8293c6bb1b95d2e0bd35b0c6667382b8684669bfcdf46fe4a"
+      ]
+    }
+  ]
+}

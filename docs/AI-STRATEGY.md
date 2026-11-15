@@ -1,3 +1,7 @@
+# Current baseline - 15 November 2026
+
+Relaxed (second easiest) is now the fixed baseline. Gentle is a forgiving learning mode; stronger settings are being tuned upward through normal paid decisions. The previous Standard anchor below is superseded. See AI-LADDER-CALIBRATION.md for recovery changes, replay checks and the still-unverified 5-10% adjacent win-rate target.
+
 # AI strategy — current fair-rate build, 10 November 2026
 
 All ten AI difficulties use the player's gathering, carrying, construction, training, research and deep-extraction rates. They pay normal prices and use the same finite resources, upgrades, population limits, unit statistics and private navigation knowledge. Previous reports using economic difficulty modifiers are superseded; their wins do not establish the current AI's strength.

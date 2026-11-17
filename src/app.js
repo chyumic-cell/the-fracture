@@ -310,7 +310,11 @@ async function launchMatch(create){if(loading)return;loading=true;$('loading').h
 const rememberedEnvironments={Kareth:'varied',Elyndra:'varied',Morvane:'hell'};
 $('theme').onchange=()=>{const theme=$('theme').value;$('environment').replaceChildren(...FractureEnvironments.choices(theme).map(e=>new Option(e.name,e.id)));$('environment').value=rememberedEnvironments[theme];};
 $('environment').onchange=()=>{rememberedEnvironments[$('theme').value]=$('environment').value;};
-$('start').onclick=()=>{const ids=Object.keys(D.factions),n=$('players').value==='team'?4:Number($('players').value),fs=[$('faction').value,$('opponent').value];while(fs.length<n)fs.push(ids[(fs.length*3+Math.floor(Math.random()*ids.length))%ids.length]);launchMatch(()=>new Game({factions:fs,size:Number($('size').value),theme:$('theme').value,environment:$('environment').value,layout:$('layout').value,resourceAmount:Number($('resourceAmount').value),resourcePlacement:$('resourcePlacement').value,startingResources:$('startingResources').checked,neutralSettlements:$('neutralSettlements').checked,seed:Number($('seed').value)||Math.floor(Math.random()*999999),difficulty:$('difficulty').value,teams:$('players').value==='team'?[0,1,0,1]:fs.map((_,i)=>i),spectate:$('spectate').checked}));};
+$('start').onclick=()=>{const ids=Object.keys(D.factions),n=$('players').value==='team'?4:Number($('players').value),fs=[$('faction').value,$('opponent').value];
+for (let i = 2; i < n; i++) {
+  fs.push($('opponent' + i).value);
+}
+launchMatch(()=>new Game({factions:fs,size:Number($('size').value),theme:$('theme').value,environment:$('environment').value,layout:$('layout').value,resourceAmount:Number($('resourceAmount').value),resourcePlacement:$('resourcePlacement').value,startingResources:$('startingResources').checked,neutralSettlements:$('neutralSettlements').checked,seed:Number($('seed').value)||Math.floor(Math.random()*999999),difficulty:$('difficulty').value,teams:$('players').value==='team'?[0,1,0,1]:fs.map((_,i)=>i),spectate:$('spectate').checked}));};
 
 function save(){if(game.campaign)return window.FractureCampaignUI?.save();try{localStorage.setItem('the-fracture-save-v1',game.serialize());toast('Match saved on this computer.');}catch(e){toast('Local save failed. Use Export Save File instead.');}}
 

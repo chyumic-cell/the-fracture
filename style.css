@@ -86,3 +86,22 @@
     margin: 6px 0 3px;
   }
 }
+
+
+/* Additional AI civilization selectors */
+#extraOpponents {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#extraOpponents[hidden],
+#extraOpponents label[hidden] {
+  display: none;
+}
+
+#extraOpponents select {
+  width: 100%;
+}
+

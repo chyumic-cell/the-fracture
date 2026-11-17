@@ -245,7 +245,7 @@ function updateUI(){if(!playing)return;const p=game.players[0],f=D.factions[p.fa
 
 function setupPreview(){const f=D.factions[$('faction').value];$('universe').textContent=f.universe;$('factionName').textContent=f.name;$('factionDescription').textContent=f.description;const c=$('factionArt').getContext('2d');c.clearRect(0,0,230,180);c.imageSmoothingEnabled=false;c.drawImage(art.building(f.buildings[0],f),0,-20,230,210);}
 
-for(const f of Object.values(D.factions)){for(const id of ['faction','opponent']){const o=document.createElement('option');o.value=f.id;o.textContent=f.name+' â€” '+f.universe;$(id).appendChild(o);}}$('opponent').value='reptilians';$('faction').onchange=setupPreview;setupPreview();$('randomFaction').onclick=()=>{const ids=Object.keys(D.factions);$('faction').value=ids[Math.floor(Math.random()*ids.length)];setupPreview();};
+for(const f of Object.values(D.factions)){for(const id of ['faction','opponent']){const o=document.createElement('option');o.value=f.id;o.textContent = f.name + ' \u2014 ' + f.universe;$(id).appendChild(o);}}$('opponent').value='reptilians';$('faction').onchange=setupPreview;setupPreview();$('randomFaction').onclick=()=>{const ids=Object.keys(D.factions);$('faction').value=ids[Math.floor(Math.random()*ids.length)];setupPreview();};
 
 
  

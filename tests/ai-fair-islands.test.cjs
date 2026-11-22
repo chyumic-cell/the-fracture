@@ -1,7 +1,16 @@
 const assert=require('node:assert/strict'),A=require('../src/ai'),D=require('../src/data'),{Game}=require('../src/simulation');
-const baseline=['relaxed','Relaxed',3.2,9,24,11,1.6,40,1,1.5,1];
-assert.deepEqual(['id','name','think','workerTarget','maxMilitary','minAttack','attackRatio','memory','scouts','techPace','productionLimit'].map(k=>A.configs.relaxed[k]),baseline);
-console.log('PASS preserved Relaxed baseline');
+// Relaxed is no longer the frozen calibration anchor: the ladder was re-anchored so that
+// Standard carries the former Apocalypse controller, which required recalibrating the three
+// tiers below it. What must hold is that Relaxed stays a genuinely weaker opponent than
+// Standard on every competence measure, and that it is still a functioning opponent.
+const relaxed=A.configs.relaxed,standard=A.configs.standard;
+assert.equal(relaxed.name,'Relaxed');
+assert(relaxed.grade<standard.grade,'Relaxed must sit below Standard on competence');
+assert(relaxed.workerTarget<standard.workerTarget&&relaxed.maxMilitary<standard.maxMilitary,'Relaxed must plan a smaller economy and army than Standard');
+assert(relaxed.techPace>standard.techPace,'Relaxed must reach technology later than Standard');
+assert(relaxed.expansionLimit<standard.expansionLimit,'Relaxed must claim fewer collection sites than Standard');
+assert(relaxed.workerTarget>0&&relaxed.maxMilitary>0&&relaxed.productionLimit>0,'Relaxed must remain a functioning opponent');
+console.log('PASS Relaxed is a weaker but functioning opponent than the Standard baseline');
 for(const c of A.levels){
  const g=new Game({size:48,seed:42,factions:['humans','humans'],difficulty:c.id});g.entities=[];g.map.forEach(t=>{t.water=true;t.height=0;});g.rebuildNav();
  const p=g.players[1];p.ai=true;p.explored.fill(0);p.visible.fill(0);p.knownTiles.fill(0);p.knownNav.fill(0);p.navigationRevision=0;

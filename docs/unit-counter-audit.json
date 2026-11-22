@@ -689,7 +689,7 @@
       },
       {
         "id": "humans_bomber",
-        "name": "Cargo Helicopter Bomber",
+        "name": "Bomber",
         "bonus": "building",
         "minRange": 0,
         "matchups": [

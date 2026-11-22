@@ -1,0 +1,175 @@
+{
+  "scope": "Replay from a recorded deadlock, not a fresh calibration match",
+  "start": 1500.0000000001792,
+  "seconds": 378,
+  "winner": 1,
+  "rows": [
+    {
+      "time": 1500.0000000001792,
+      "players": [
+        {
+          "tier": "easy",
+          "stock": [
+            118,
+            474,
+            10,
+            65
+          ],
+          "gathered": [
+            11178,
+            949,
+            0,
+            0
+          ],
+          "stalled": false,
+          "units": {
+            "reptilians_u0": 13,
+            "reptilians_u1": 1,
+            "reptilians_u3": 8,
+            "reptilians_u2": 1,
+            "reptilians_u7": 3,
+            "reptilians_u6": 2
+          },
+          "markets": 2
+        },
+        {
+          "tier": "standard",
+          "stock": [
+            7505,
+            1480,
+            726,
+            10
+          ],
+          "gathered": [
+            15600,
+            1880,
+            866,
+            0
+          ],
+          "stalled": true,
+          "units": {
+            "reptilians_u0": 35,
+            "reptilians_transport_ship": 1,
+            "reptilians_scout_boat": 1,
+            "reptilians_escort_ship": 1,
+            "reptilians_warship": 1
+          },
+          "markets": 1
+        }
+      ]
+    },
+    {
+      "time": 1650,
+      "players": [
+        {
+          "tier": "easy",
+          "stock": [
+            292,
+            339,
+            70,
+            75
+          ],
+          "gathered": [
+            12941,
+            974,
+            0,
+            0
+          ],
+          "stalled": false,
+          "units": {
+            "reptilians_u0": 6,
+            "reptilians_merchant": 2,
+            "reptilians_escort_ship": 1,
+            "reptilians_u7": 1,
+            "reptilians_u1": 1,
+            "reptilians_transport_ship": 1
+          },
+          "markets": 2
+        },
+        {
+          "tier": "standard",
+          "stock": [
+            5680,
+            1455,
+            726,
+            10
+          ],
+          "gathered": [
+            15600,
+            1880,
+            866,
+            0
+          ],
+          "stalled": false,
+          "units": {
+            "reptilians_u0": 40,
+            "reptilians_transport_ship": 1,
+            "reptilians_scout_boat": 1,
+            "reptilians_escort_ship": 1,
+            "reptilians_warship": 1,
+            "reptilians_u3": 7,
+            "reptilians_u7": 7,
+            "reptilians_u2": 6,
+            "reptilians_u1": 1,
+            "reptilians_u6": 2,
+            "reptilians_u4": 1
+          },
+          "markets": 1
+        }
+      ]
+    },
+    {
+      "time": 1800,
+      "players": [
+        {
+          "tier": "easy",
+          "stock": [
+            80,
+            279,
+            60,
+            75
+          ],
+          "gathered": [
+            13039,
+            974,
+            0,
+            0
+          ],
+          "stalled": false,
+          "units": {},
+          "markets": 1
+        },
+        {
+          "tier": "standard",
+          "stock": [
+            4935,
+            1455,
+            726,
+            10
+          ],
+          "gathered": [
+            15600,
+            1880,
+            866,
+            0
+          ],
+          "stalled": false,
+          "units": {
+            "reptilians_u0": 40,
+            "reptilians_transport_ship": 1,
+            "reptilians_scout_boat": 1,
+            "reptilians_escort_ship": 1,
+            "reptilians_warship": 1,
+            "reptilians_u3": 8,
+            "reptilians_u1": 1,
+            "reptilians_u2": 3,
+            "reptilians_u4": 1,
+            "reptilians_u7": 9,
+            "reptilians_u6": 1
+          },
+          "markets": 1
+        }
+      ]
+    }
+  ]
+}

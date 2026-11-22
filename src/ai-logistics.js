@@ -138,7 +138,7 @@ function step(g,p,ctx){
   const nodes=Object.values(p.knowledge||{}).filter(n=>n.kind==='resource'&&n.amount>180&&!unsafe(n)&&dist(n,p.home)>20&&(!ctx.config.macroForecast||n.resource===0||p.stock[n.resource]<(p.aiSustainability?.cost[n.resource]||0)+80)).sort((a,b)=>(p.aiSustainability?.relocation?Number(b.resource===0)-Number(a.resource===0):0)||(p.stock[a.resource]-(p.aiSustainability?.cost[a.resource]||0))-(p.stock[b.resource]-(p.aiSustainability?.cost[b.resource]||0))||b.amount-a.amount).slice(0,8);
   if(w)for(const node of nodes){const goal=g.approach(w,node,2),ground=g.path(w,goal);if(dist(ground.at(-1)||w,goal)<2)continue;
    const docks=ready.filter(b=>g.def(b).kind==='dock'),departures=[{x:w.x,y:w.y},...docks.map(b=>g.approach(w,b,1))];let best=null;
-   for(const departure of departures){if(dist(g.path(w,departure).at(-1)||w,departure)>2)continue;for(const radius of (ctx.config.macroForecast?[4,8,12,16].slice(0,2+Math.floor((ctx.config.level-4)/3)):[4]))for(let k=0;k<12;k++){const a=k*Math.PI/6,q={x:node.x+Math.cos(a)*radius,y:node.y+Math.sin(a)*radius},i=Math.floor(q.y)*g.n+Math.floor(q.x);if(!p.explored[i]||g.blocked(q.x,q.y,false,p.id)||unsafe(q))continue;
+   for(const departure of departures){if(dist(g.path(w,departure).at(-1)||w,departure)>2)continue;for(const radius of (ctx.config.macroForecast?[4,8,12,16].slice(0,2+Math.floor((ctx.config.grade-4)/3)):[4]))for(let k=0;k<12;k++){const a=k*Math.PI/6,q={x:node.x+Math.cos(a)*radius,y:node.y+Math.sin(a)*radius},i=Math.floor(q.y)*g.n+Math.floor(q.x);if(!p.explored[i]||g.blocked(q.x,q.y,false,p.id)||unsafe(q))continue;
     if(ctx.config.macroForecast){const landed={...w,...q,gatherPosition:null},access=g.gatherSpot(landed,node);if(!access)continue;const route=g.path(landed,access);if(dist(route.at(-1)||landed,access)>.75||route.some(v=>!g.known(p.id,v)))continue;}
     for(const choice of g.transportChoices({...w,...departure},q,ctx.enemy)){if(!choice.carrier||choice.carrier===s.sortie?.carrier)continue;if(ctx.config.macroForecast){const ship=g.entity(choice.carrier),water=g.def(ship).naval?g.coastApproach(ship,q):q,cells=[];if(g.def(ship).naval){const pickup=g.coastApproach(ship,departure),first=g.path(ship,pickup,true),second=g.path({...ship,...pickup},water,true);if(dist(first.at(-1)||ship,pickup)>1||dist(second.at(-1)||pickup,water)>1)continue;}for(let yy=Math.floor(q.y)-3;yy<=q.y+3;yy++)for(let xx=Math.floor(q.x)-3;xx<=q.x+3;xx++){const cell={x:xx+.5,y:yy+.5};if(dist(cell,water)<=3.6&&g.known(p.id,cell)&&!g.blocked(cell.x,cell.y,false,p.id)&&Math.abs(g.height(cell.x,cell.y)-g.height(q.x,q.y))<1)cells.push(cell);}cells.sort((a,b)=>dist(a,q)-dist(b,q));if(cells.length<2||cells.slice(0,2).some(cell=>!g.gatherSpot({...w,...cell,gatherPosition:null},node)))continue;}const score=choice.score+dist(w,departure)/g.def(w).speed;if(!best||score<best.score)best={...choice,score,departure,landing:q};}
    }}
@@ -194,7 +194,7 @@ function step(g,p,ctx){
  }
  // Fortify charted narrow land approaches with ordinary paid towers. The
  // cliff tests use remembered terrain, never hidden enemy geography.
- if(ctx.config.level>=6&&g.time>(s.nextFortification||180)&&!unsafe(p.home)){
+ if(ctx.config.grade>=6&&g.time>(s.nextFortification||180)&&!unsafe(p.home)){
   s.nextFortification=g.time+45;const tower=D.factions[p.faction].buildings.find(b=>b.kind==='defense'),w=workers.find(u=>!u.aiLogistics&&!['build','repair','extract'].includes(u.order?.kind));
   if(tower&&w&&tower.cost.every((v,i)=>!v||p.stock[i]-v>=(p.aiReserve?.[i]||0)+(i===0?60:0))){
    const closed=(x,y,h)=>{const i=Math.floor(y)*g.n+Math.floor(x);return x>=0&&y>=0&&x<g.n&&y<g.n&&p.explored[i]&&((p.knownTiles[i]&128)||Math.abs((p.knownTiles[i]&127)-h)>=2);};
@@ -205,7 +205,7 @@ function step(g,p,ctx){
  }
  // A small paid defensive position leaves a broad escape lane. Walls protect
  // the tower flanks; concealed mines cover the approach, not our collection paths.
- if(ctx.config.level>=6&&g.time>(s.nextTraps||160)){
+ if(ctx.config.grade>=6&&g.time>(s.nextTraps||160)){
   s.nextTraps=g.time+12;
   const towers=ready.filter(b=>g.def(b).kind==='defense'&&!unsafe(b)),w=workers.find(u=>!u.aiLogistics&&!['build','repair','extract'].includes(u.order?.kind));
   if(w)for(const tower of towers){
@@ -213,7 +213,7 @@ function step(g,p,ctx){
    const sites=[['trap',4,0],['trap',6,1.8],['wall',1.5,-3.5],['wall',1.5,3.5],['wall',2.7,-3.5],['wall',2.7,3.5]];
    // Follow a charted approach around bends instead of placing mines along a
    // straight bearing that may point into a cliff. Walls keep their fixed flanks.
-   let approach=[];if(ctx.config.level>=8&&contact){const start=g.approach(w,tower,1.3),probe={...w,...start},route=g.path(probe,contact,true);if(route.length&&dist(route.at(-1),contact)<3)approach=route.filter(q=>dist(q,tower)>=4&&dist(q,tower)<=8);}
+   let approach=[];if(ctx.config.grade>=8&&contact){const start=g.approach(w,tower,1.3),probe={...w,...start},route=g.path(probe,contact,true);if(route.length&&dist(route.at(-1),contact)<3)approach=route.filter(q=>dist(q,tower)>=4&&dist(q,tower)<=8);}
    let built=false;for(const [kind,forward,side]of sites){const d=D.buildings[p.faction+'_'+kind],routed=kind==='trap'&&approach.length?approach.reduce((best,q)=>Math.abs(dist(q,tower)-forward)<Math.abs(dist(best,tower)-forward)?q:best):null,q=routed?{x:Math.floor(routed.x)+.5,y:Math.floor(routed.y)+.5}:{x:Math.floor(tower.x+dx*forward-dy*side)+.5,y:Math.floor(tower.y+dy*forward+dx*side)+.5};
     if(!canBuy(d)||!g.affordable(p.id,d.cost)||own.some(b=>g.def(b).kind===kind&&dist(b,q)<1.3)||unsafe(q)||g.placement(d.id,p.id,q.x,q.y))continue;
     if(own.some(u=>u.kind==='unit'&&dist(u,q)<d.size+1)||Object.values(p.knowledge||{}).some(n=>n.kind==='resource'&&dist(n,q)<4))continue;
@@ -224,7 +224,7 @@ function step(g,p,ctx){
  }
  // A secured expansion can support a paid forward aviation facility. It is
  // considered only with a working economy and uses ordinary worker construction.
- if(s.lastExpansion&&ctx.config.level>=7&&g.time-s.lastExpansion.at>30&&!unsafe(s.lastExpansion)){
+ if(s.lastExpansion&&ctx.config.grade>=7&&g.time-s.lastExpansion.at>30&&!unsafe(s.lastExpansion)){
   const air=D.factions[p.faction].buildings.find(b=>b.kind==='air'),near=own.filter(u=>g.def(u)?.worker&&dist(u,s.lastExpansion)<18&&!['build','repair'].includes(u.order?.kind));
   if(air&&near.length&&!own.some(b=>b.type===air.id&&dist(b,s.lastExpansion)<25)&&!g.missing(p.id,air).length&&air.cost.every((v,i)=>p.stock[i]-v>=(p.aiReserve?.[i]||0)+40))g.aiBuild(p,air,near,s.lastExpansion);
  }
@@ -268,7 +268,7 @@ function step(g,p,ctx){
    for(const w of workers.filter(w=>!['extract','build','repair'].includes(w.order?.kind)&&!w.aiLogistics&&!(urgentOre&&w.order?.kind==='gather'&&(()=>{const n=g.entity(w.order.target)||p.knowledge?.[w.order.target];return n?.resource>0&&p.stock[n.resource]<(p.aiSustainability?.cost[n.resource]||0)+80;})())).sort((a,c)=>dist(a,b)-dist(c,b)).filter(w=>{const q=g.approach(w,b,1);return dist(g.path(w,q).at(-1)||w,q)<2;}).slice(0,Math.max(0,needed-assigned.length)))g.order([w.id],{kind:'extract',target:b.id});
   }
   }
-  if(!unsafe(p.home)&&(g.time>360&&p.stock[0]>300||p.aiSustainability?.tradeRecovery||(ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)&&own.some(e=>g.def(e)?.kind==='market'))){const id=p.faction+'_market',markets=ready.filter(b=>b.type===id);if(!markets.length)ensure(id);else if(markets.length<2&&!own.some(b=>b.type===id&&b.progress<1)){const w=workers.find(w=>!['extract','build','repair'].includes(w.order?.kind));if(w&&canBuy(D.buildings[id])){if((ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)){const d=D.buildings[id],first=markets[0],merchant={kind:'unit',type:p.faction+'_merchant',owner:p.id,...g.approach(w,first,1)};let built=false;for(const radius of [10,14,18,24,30,38]){for(let k=0;k<16;k++){const q={x:first.x+Math.cos(k*Math.PI/8)*radius,y:first.y+Math.sin(k*Math.PI/8)*radius};if(!g.known(p.id,q)||unsafe(q)||g.placement(id,p.id,q.x,q.y)||Object.values(p.knowledge||{}).some(n=>n.kind==='resource'&&n.resource<2&&n.amount<=0&&dist(n,q)<d.size+1.8))continue;const port={kind:'building',type:id,owner:p.id,size:d.size,...q},approach=g.approach(w,port,1),route=g.path(w,approach);if(dist(route.at(-1)||w,approach)>1.5||!g.tradeLeg(merchant,port))continue;if(g.build(id,p.id,q.x,q.y,[w.id]).ok){built=true;break;}}if(built)break;}}else g.aiBuild(p,D.buildings[id],[w],{x:p.home.x+16,y:p.home.y});}}else if(markets.length>=2){const merchants=own.filter(u=>g.def(u).role==='merchant');if(canBuy(D.units[p.faction+'_merchant'])&&merchants.length<2&&!own.some(b=>b.queue?.some(q=>q.type===p.faction+'_merchant')))g.queue(markets[0].id,p.faction+'_merchant');for(const u of merchants)if(merchantNeedsRoute(u))g.order([u.id],{kind:'trade',target:markets[1].id});}}
+  if(!unsafe(p.home)&&(g.time>360&&p.stock[0]>300||p.aiSustainability?.tradeRecovery||(ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)&&own.some(e=>g.def(e)?.kind==='market'))){const id=p.faction+'_market',markets=ready.filter(b=>b.type===id);if(!markets.length)ensure(id);else if(markets.length<2&&!own.some(b=>b.type===id&&b.progress<1)){const w=workers.find(w=>!['extract','build','repair'].includes(w.order?.kind));if(w&&canBuy(D.buildings[id])){if((ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)){const d=D.buildings[id],first=markets[0],merchant={kind:'unit',type:p.faction+'_merchant',owner:p.id,...g.approach(w,first,1)};let built=false;for(const radius of [8,10,12,14,18,24,30,38]){for(let k=0;k<32;k++){const q={x:first.x+Math.cos(k*Math.PI/16)*radius,y:first.y+Math.sin(k*Math.PI/16)*radius};if(!g.known(p.id,q)||unsafe(q)||g.placement(id,p.id,q.x,q.y)||Object.values(p.knowledge||{}).some(n=>n.kind==='resource'&&n.resource<2&&n.amount<=0&&dist(n,q)<d.size+1.8))continue;const port={kind:'building',type:id,owner:p.id,size:d.size,...q},approach=g.approach(w,port,1),route=g.path(w,approach);if(dist(route.at(-1)||w,approach)>1.5||!g.tradeLeg(merchant,port))continue;if(g.build(id,p.id,q.x,q.y,[w.id]).ok){built=true;break;}}if(built)break;}}else g.aiBuild(p,D.buildings[id],[w],{x:p.home.x+16,y:p.home.y});}}else if(markets.length>=2){const merchants=own.filter(u=>g.def(u).role==='merchant');if(canBuy(D.units[p.faction+'_merchant'])&&merchants.length<2&&!own.some(b=>b.queue?.some(q=>q.type===p.faction+'_merchant')))g.queue(markets[0].id,p.faction+'_merchant');for(const u of merchants)if(merchantNeedsRoute(u))g.order([u.id],{kind:'trade',target:markets[1].id});}}
   if(!unsafe(p.home)&&(p.tradeCredits||0)>=20){g.exchange(p.id,tradeResource());}
  }
  if((ctx.config.recoveryCoordination||p.aiState?.recovery?.stalled)&&unsafe(p.home)&&(p.tradeCredits||0)>=20){g.exchange(p.id,tradeResource());}
@@ -284,7 +284,7 @@ function step(g,p,ctx){
  if(maritime&&(ctx.enemy.some(e=>g.def(e)?.naval)||carrier&&g.time>220)){
   const id=p.faction+'_dock';if(ensure(id)){const b=ready.find(b=>b.type===id&&!b.queue.length),fleet=own.filter(e=>g.def(e)?.naval&&!g.def(e).transport),enemyAir=ctx.knownEnemies.some(e=>g.def(e)?.air);
    // Size the paid fleet to observed opposition; aircraft call for escorts, not more cannons.
-   const contacts=ctx.knownEnemies.filter(e=>g.def(e)?.naval&&!g.def(e).transport),adapt=ctx.config.domainMicro,limit=Math.min(8,2+Math.floor((ctx.config.level-5)*1.2));
+   const contacts=ctx.knownEnemies.filter(e=>g.def(e)?.naval&&!g.def(e).transport),adapt=ctx.config.domainMicro,limit=Math.min(8,2+Math.floor((ctx.config.grade-5)*1.2));
    const warships=adapt?Math.min(limit,Math.max(2,contacts.length+1)):2;
    const escorts=adapt?Math.min(4,Math.max(enemyAir?2:1,Math.ceil(ctx.knownEnemies.filter(e=>g.def(e)?.air).length/2))):enemyAir?2:g.time>330?1:0;
    const wanted=[['scout_boat',!ctx.targets.length?1:0],['escort_ship',escorts],['warship',warships],['siege_ship',g.time>360?(adapt&&ctx.targets.length>2?2:1):0]];

@@ -29,7 +29,7 @@ for(const f of Object.values(D.factions)){
  D.units[f.id+'_warship'].navalRole='warship';D.units[f.id+'_transport_ship'].navalRole='transport';
  D.units[f.id+'_warship'].description='Armored surface combatant. Attacks ships and coastal ground targets; cannot attack aircraft.';
  let air=f.buildings.find(b=>b.kind==='air');if(!air)air=building('aviary','High Aviary','air',{requires:[inf.id,lab.id],cost:[190,0,55,0],size:2.2});
- unit('bomber',n[5]+' Bomber',air.id,{air:true,role:'gunship',bomber:true,hp:280,damage:65,range:5,splash:1.5,bonus:'building',speed:1.9,armor:2,pop:5,cooldown:3.5,cost:[230,90,60,0],time:48,requires:[lab.id,f.id+'_advanced'],description:'Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.'});
+ unit('bomber',f.id==='humans'?'Bomber':n[5]+' Bomber',air.id,{air:true,role:'gunship',bomber:true,hp:280,damage:65,range:5,splash:1.5,bonus:'building',speed:1.9,armor:2,pop:5,cooldown:3.5,cost:[230,90,60,0],time:48,requires:[lab.id,f.id+'_advanced'],description:'Ground-attack bomber with two salvos. Automatically returns to an eligible aviation facility to refuel and rearm.'});
  unit('air_transport',n[5],air.id,{air:true,transport:10,hp:260,speed:2.35,cost:[160,40,45,0],requires:[lab.id],time:40});
  if(f.id==='primates')unit('condor_rider','Condor Spear Rider',air.id,{role:'gunship',air:true,hp:210,damage:21,range:4.5,aa:true,pop:3,cost:[140,0,55,0],cooldown:1.7,requires:[lab.id]});
  const disarmer=f.units.find(u=>u.role==='scout'&&!u.air&&!u.naval&&!u.armored)||f.units.find(u=>u.role==='support'&&!u.air&&!u.naval)||f.units.find(u=>u.role==='melee'&&!u.air&&!u.naval);if(disarmer)disarmer.disarmsMines=true;

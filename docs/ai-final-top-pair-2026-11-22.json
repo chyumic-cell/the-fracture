@@ -1,0 +1,231 @@
+{
+  "fingerprint": "a254842de3a20990a21249533fe2044d3e7b01b5f64a2cd5f5c1f3fb0c140f78",
+  "settings": {
+    "matches": 2,
+    "limit": 1500,
+    "layouts": [
+      "natural"
+    ],
+    "factions": [
+      "humans"
+    ],
+    "sizes": [
+      96
+    ],
+    "seed0": 4242,
+    "pairs": [
+      [
+        10,
+        9
+      ]
+    ]
+  },
+  "hashes": {
+    "ai-combat.js": "4fe35bdf58f890ec68fed1020794de37be3d0b630dfabc237dfba71ecaef1cb8",
+    "ai-domain-combat.js": "239b2b710d36c090594bbb804c4897e4d19a32208fde67eebe021f1bee54d7a5",
+    "ai-economy.js": "ca6f38ddb610d9cb89c764bbfee4addeb285e3bc472d26d17e81557cc211059e",
+    "ai-logistics.js": "91f9925f0ac13a8052cd164af5f676f10a3354ed0e67abbe7b7a933a1eb5ac83",
+    "ai.js": "24d82c9d065d332a2f9001c0a06c9195e9ff5d617200eeff6f729ab7f56ef928",
+    "app.js": "62e6227ffaa2af9cdbafdad9058445e73a0bd31816e0c03a05e165db9a242e32",
+    "art-review.js": "2c6b45c86545edcc797d0292a9fa9d31e5d6460de9f9a3f344f38a9fc129f937",
+    "art.js": "35e76e5d989a18c0ad7adfddb7b3e4f41d1788053d254f85ad08f2a8371ed69d",
+    "async-art.js": "207d878cc3244264b2db684c12bcbe9f878410c5832b58062b0227b2020d5586",
+    "audio.js": "1cd09416e9dfac544cba3216bd72abd838402fa9a8764b2b8884186a93484cc3",
+    "building-art.js": "650ba247d6082a9e69c6c4b9a108194a5ba131d7c93a98d50886b3c453cff863",
+    "campaign-landmarks.js": "a76bdf5b397aec4bcd690ac5813eefa2d98041b673cacbc86f356d44cb0e018b",
+    "campaign-missions.js": "9c24f12f9a1ef5701b3c573f07f0b26cdc27ad208b92d7e4e5db55da0c4d4c34",
+    "campaign-story.js": "d0a39578c767ca5643f70e3100ba4f6d38365af480146b42fd250dc45cea9cc3",
+    "campaign-ui.js": "4b56ed5cab22eb87efff2816ee982ab90c47b3bdc75afdbe7545182fa0e81e40",
+    "campaign.js": "7c0997dda4b772df75afb93a42b15b937251ad7a23c18593bf089ecb1f6e95a1",
+    "cinematic-player.js": "5a2016a507880e9f4ed298ad4a5540302b66e4cb5d28ab00d09932a96c72b515",
+    "combat.js": "61fd579c0c0a24ec0ced7b6e3b25723a2e4e9fee7dc06d53c6df1119bbdd3972",
+    "construction-art.js": "15c8381de07df8f1b66c26f888100ef19fb9a6778ef8f25c758c5189da94c543",
+    "data.js": "a758f633a64e9c57ef18103886c04dc2f36fc4bd82219bff085eb7d54c82dcd9",
+    "detail-art.js": "8cb8330a6c2085f6bf987d405af91969691bc3f09f4d509b1e5a50aa6ef6e30f",
+    "environment-art.js": "911cfac9fa954de9aacbe4eb55d973ec2bc7c7d4972e8ea1d9b5ae27e30b60bd",
+    "environments.js": "e890ad1ab0c0fa7c2c90b896753893f3c94ee51527e25cbbeeabec17613a6553",
+    "expansion-art.js": "e6c631cac350c9c1bb6183eda5e93891929e91b548851fbde263635ff2be46d7",
+    "expansion-data.js": "599bff5258087e73e1ddf2fe55a16bc4fc7a96a373df9f44713717b5de273b83",
+    "expansion-runtime.js": "6f677dd100e253fc3c4f8dc9d213116e2950551ab29fc857f76fa38cabbca56a",
+    "extension-art.js": "773291f7aae79ce1d08fd24cad764763059c4541977986b92dc1d3742e3fee1b",
+    "fortification-art.js": "a7b2a1a5a715e6a90ee12f0cda00c0fad2b6d7c4e493704db511ff647ad8aac5",
+    "help.js": "3a4a0e745095d186bcd3b0a258169866b04b44f054d97bb974a4c41fe8db5eb6",
+    "identity-art.js": "dfe2459cfe2dc17d7dc53edb1fef2ef8b16fd75f2280a0f5fc98ddca08520496",
+    "machine-art.js": "988260291a44f4015ff40124e68d629879a7cf94b4f4735f54f9905872258acc",
+    "map-layouts.js": "405e1115d70f3fa1389572fa09d2a6f3375ec0ceb87108819dc7ced6f0f40be2",
+    "march.js": "87e9dc8ff993730edab04d4d407ceb1aa8cd65d1193d69418d7545692b525530",
+    "primate-art.js": "33a484874d788b3e7a6f4ea330d348194ad9a613a264825cc172de1775e4f08b",
+    "projectiles.js": "fe5f58ebd0a690c91e93d91133a2c82384d9d784b92629d88c255109e5691284",
+    "ruins-art.js": "8300d853d0c75ea50b188c3c17de25ad4d64090caaeb45c0390d73035fba628f",
+    "save-codec.js": "2c4ab3c0e909dce2aacc6020c233541aa66f3bf9c44f2a30c0f02592e3c11ea5",
+    "simulation.js": "fb9f34fa426424bbc05ec838575daf8000d90e11838b65da0fe679789e8bbed6",
+    "specialist-art.js": "8b8fc38da5df759f0100d22b9b0bc62ab865f4544a10f254d7b1a98fa066180d",
+    "sprite-mesh.js": "99d109470229d5de639311cf5d8a88d35912ec5c5bb9029c23645c9ff3232415",
+    "sprite-worker.js": "adfe579ccbb20aaa48cb780ff1af2f827020b7cbec491fa4d5d8e390161f68e3",
+    "startup.js": "8a085430f9ef5c15b44c2fb3d22179b65c399ff775925f031891b956d93b94ad",
+    "symbiote-art.js": "b6ff68e4d63cd8c13a1b7dab249253e7cda86b6778c79db3d6ec6710c968ae28",
+    "tactics.js": "2b3a1fc328140cc911158713ebf67339cc600802b15ce920b468ec8d2dfe09ef",
+    "terrain.js": "f5b81b07cef10bb999aa2d776198efc559174c7a448f5b5600d49552762153dd",
+    "trade-art.js": "a0e10b5c81ba8428088e833cd0d6760a8246e2ac1f3219edb33f26418005e9b8",
+    "voice-bank.js": "c186485909d7fc07f999b4814a675500a7160af79a8c23ba0c79b4281b529fd6",
+    "walls.js": "5a3a6d0c6841d161a9bafb89994180c5ef719af038486ce273557369dd33ddce"
+  },
+  "runnerHash": "4bac0dcd9b3bc243657720347d8c7c52c8bb01f86eef4e51483e335aae31009d",
+  "createdAt": "2026-11-22T17:53:41.860Z",
+  "cases": [
+    {
+      "high": 10,
+      "low": 9,
+      "side": 0,
+      "match": 0,
+      "seed": 5552,
+      "layout": "natural",
+      "faction": "humans",
+      "size": 96,
+      "key": "{\"high\":10,\"low\":9,\"side\":0,\"match\":0,\"seed\":5552,\"layout\":\"natural\",\"faction\":\"humans\",\"size\":96}",
+      "winner": "lower",
+      "seconds": 1016,
+      "wallSeconds": 209,
+      "score": {
+        "higher": {
+          "gathered": 10967,
+          "gatheredByResource": [
+            9261,
+            479,
+            822,
+            405
+          ],
+          "spent": 10245,
+          "kills": 46,
+          "lost": 110,
+          "damage": 7826,
+          "militarySurviving": 0,
+          "workersSurviving": 0,
+          "militaryProduced": 89,
+          "militaryLost": 89,
+          "buildings": 1,
+          "tech": 4,
+          "difficulty": "apocalypse"
+        },
+        "lower": {
+          "gathered": 15623,
+          "gatheredByResource": [
+            13340,
+            940,
+            1073,
+            270
+          ],
+          "spent": 15760,
+          "kills": 110,
+          "lost": 46,
+          "damage": 30559,
+          "militarySurviving": 22,
+          "workersSurviving": 47,
+          "militaryProduced": 63,
+          "militaryLost": 41,
+          "buildings": 39,
+          "tech": 8,
+          "difficulty": "nightmare"
+        }
+      }
+    },
+    {
+      "high": 10,
+      "low": 9,
+      "side": 1,
+      "match": 1,
+      "seed": 5552,
+      "layout": "natural",
+      "faction": "humans",
+      "size": 96,
+      "key": "{\"high\":10,\"low\":9,\"side\":1,\"match\":1,\"seed\":5552,\"layout\":\"natural\",\"faction\":\"humans\",\"size\":96}",
+      "winner": "higher",
+      "seconds": 833,
+      "wallSeconds": 78,
+      "score": {
+        "higher": {
+          "gathered": 15067,
+          "gatheredByResource": [
+            13294,
+            1254,
+            457,
+            61
+          ],
+          "spent": 15600,
+          "kills": 84,
+          "lost": 29,
+          "damage": 19779,
+          "militarySurviving": 37,
+          "workersSurviving": 43,
+          "militaryProduced": 66,
+          "militaryLost": 29,
+          "buildings": 36,
+          "tech": 8,
+          "difficulty": "apocalypse"
+        },
+        "lower": {
+          "gathered": 7130,
+          "gatheredByResource": [
+            6442,
+            268,
+            284,
+            135
+          ],
+          "spent": 7205,
+          "kills": 29,
+          "lost": 84,
+          "damage": 3434,
+          "militarySurviving": 0,
+          "workersSurviving": 0,
+          "militaryProduced": 69,
+          "militaryLost": 69,
+          "buildings": 1,
+          "tech": 3,
+          "difficulty": "nightmare"
+        }
+      }
+    }
+  ],
+  "summary": [
+    {
+      "higherTier": "Apocalypse",
+      "lowerTier": "Nightmare",
+      "completed": 2,
+      "higherWins": 1,
+      "lowerWins": 1,
+      "higherWinRateOfCompleted": 0.5,
+      "lowerWinRateOfCompleted": 0.5,
+      "observedInBand": false,
+      "batchStatus": "screening-only",
+      "inTargetBand": false,
+      "lowerWinRateOfAll": 0.5,
+      "lowerWinRateUpper95": 0.9746794344808964,
+      "unresolved": 0,
+      "timeouts": 0,
+      "draws": 0,
+      "errors": 0,
+      "avgMatchSeconds": 925,
+      "higherStats": {
+        "gathered": 13017,
+        "spent": 12923,
+        "produced": 78,
+        "surviving": 19,
+        "kills": 65,
+        "lost": 59,
+        "damage": 13803
+      },
+      "lowerStats": {
+        "gathered": 11377,
+        "spent": 11483,
+        "produced": 66,
+        "surviving": 11,
+        "kills": 70,
+        "lost": 55,
+        "damage": 16997
+      }
+    }
+  ],
+  "completed": 2,
+  "planned": 2,
+  "finishedAt": "2026-11-22T17:58:28.788Z"
+}

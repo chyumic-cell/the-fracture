@@ -7,12 +7,12 @@ if(root.FractureFortificationArt?.render(ctx,d,f))return true;
 if(root.FracturePrimateArt?.render(ctx,d,f)||root.FractureSymbioteArt?.renderBuilding(ctx,d,f))return true;
 const M=new root.FractureSpriteMesh(ctx,0,false,{originX:120,originY:181,logicalWidth:240}),tint=root.FractureArt.tint,style=f.style,kind=d.kind,idx=f.buildings.filter(b=>b.kind===kind).findIndex(b=>b.id===d.id),team=f.color,organic=style==='insect'||style==='fungal',industrial=['industrial','machine'].includes(style);
 const palettes={industrial:['#84989a','#344a55','#b5c2b8','#b9a06a'],machine:['#5c737e','#23323e','#b6ccce','#7bddd4'],reptile:['#aa9e77','#4d6b4c','#d1bd80','#a5bd67'],ape:['#9b7951','#746645','#c9a06a','#687950'],wizard:['#b2ada3','#535f91','#d2bd87','#a89bc5'],elder:['#a2a58b','#41685c','#cdbb8c','#729a72'],myth:['#c6b99b','#6a776a','#e5cf9d','#a39b77'],dragon:['#957b63','#4d5144','#cdb483','#ae6b42'],night:['#92919e','#343f56','#b5b0af','#92719b'],demon:['#655c61','#392f35','#aa936d','#c77c4e'],insect:['#a9874d','#5b4634','#d3b477','#b1b85d'],fungal:['#809d8b','#3c574b','#bfc5a0','#a8c8aa']};
-const sourcePalette=palettes[style],livery=root.FractureArt.buildingLivery(d,f),base=root.FractureArt.mixColor(sourcePalette[0],livery.primary,organic?.4:.13),roofColor=root.FractureArt.mixColor(sourcePalette[1],livery.primary,.7),trim=sourcePalette[2],accent=root.FractureArt.mixColor(sourcePalette[3],livery.primary,.5),wallMat=industrial?'metal':style==='ape'?'wood':'stone';
+const sourcePalette=palettes[style],livery=root.FractureArt.buildingLivery(d,f),base=root.FractureArt.mixColor(sourcePalette[0],livery.primary,organic?.4:.13),roofColor=root.FractureArt.mixColor(sourcePalette[1],livery.primary,.7),trim=sourcePalette[2],accent=root.FractureArt.mixColor(sourcePalette[3],livery.primary,.5),wallMat=style==='industrial'?(kind==='inf'||kind==='house'?'cinderblock':'concrete'):style==='machine'?'metal':style==='night'?'brick':style==='demon'?'rock':style==='ape'?'wood':'stone';
 const mat=s=>M.material(s),box=(x,y,z,w,l,h,c=base,m=wallMat)=>{mat(m);M.box(x,y,z,w,l,h,c);
  if(industrial&&w>15&&l>12&&h>14){for(let yy=y-l+5;yy<y+l-3;yy+=10){mat('metal');M.face([[x+w+.05,yy-3,z+5],[x+w+.05,yy+3,z+5],[x+w+.05,yy+3,z+h-4],[x+w+.05,yy-3,z+h-4]],tint(c,-7));M.seg([x+w+.25,yy-3,z+5],[x+w+.25,yy-3,z+h-4],tint(c,23),.55);for(const zz of [z+6,z+h-5])M.orb(x+w+.35,yy-2,zz,.35,.4,.4,trim);}M.seg([x+w+.2,y-l+1,z+h-3],[x+w+.2,y+l-1,z+h-3],team,1.6);}
  },orb=(x,y,z,rx,ry,rz,c=base,m='chitin')=>{mat(m);M.orb(x,y,z,rx,ry,rz,c);},face=(v,c=base,m=wallMat)=>{mat(m);M.face(v,c);},beam=(a,b,c=trim,w=2,m='metal')=>{mat(m);M.seg(a,b,c,w);},tube=(x,y,z,r,h,c=base,m=wallMat,rt=r)=>{mat(m);M.cylinder(x,y,z,r,h,c,16,rt);};
 const ring=(x,y,z,r,thick=1,c=trim)=>{for(let i=0;i<20;i++){const a=i*Math.PI/10,b=(i+1)*Math.PI/10;beam([x+Math.cos(a)*r,y+Math.sin(a)*r,z],[x+Math.cos(b)*r,y+Math.sin(b)*r,z],c,thick);}};
-const plate=(x,y,z,w,l,h,c=base)=>{const v=[[-w,-l,0],[w,-l,0],[w,l,0],[-w,l,0],[-w*.75,-l*.8,h],[w*.75,-l*.8,h],[w*.75,l*.8,h],[-w*.75,l*.8,h]].map(v=>[v[0]+x,v[1]+y,v[2]+z]);for(const q of [[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7],[4,5,6,7]])face(q.map(i=>v[i]),c,industrial?'metal':wallMat);};
+const plate=(x,y,z,w,l,h,c=base)=>{const v=[[-w,-l,0],[w,-l,0],[w,l,0],[-w,l,0],[-w*.75,-l*.8,h],[w*.75,-l*.8,h],[w*.75,l*.8,h],[-w*.75,l*.8,h]].map(v=>[v[0]+x,v[1]+y,v[2]+z]);for(const q of [[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7],[4,5,6,7]])face(q.map(i=>v[i]),c,style==='machine'?'metal':wallMat);};
 const window=(x,y,z,w=4,h=8,c='#4a8f99')=>{box(x,y,z,w+1,1.2,h+1,trim,'metal');face([[x-w,y+1.3,z+1],[x+w,y+1.3,z+1],[x+w,y+1.3,z+h],[x-w,y+1.3,z+h]],c,'glass');beam([x-w,y+1.5,z+h],[x+w,y+1.5,z+h],'#c4d6cc',.5);beam([x,y+1.5,z],[x,y+1.5,z+h],roofColor,.8);};
 const vent=(x,y,z,w=8,l=9)=>{box(x,y,z,w,l,2,roofColor,'metal');for(let j=-l+1;j<l;j+=2.5)beam([x-w+1,y+j,z+2.3],[x+w-1,y+j,z+2.3],trim,.85);};
 const door=(x,y,z,w=9,h=20)=>{box(x,y,z,w+2,1,h+2,trim);face([[x-w,y+1.3,z],[x+w,y+1.3,z],[x+w,y+1.3,z+h],[x-w,y+1.3,z+h]],'#1d2c32','cloth');for(let zz=3;zz<h;zz+=3.7)beam([x-w+.5,y+1.6,z+zz],[x+w-.5,y+1.6,z+zz],tint(roofColor,9),.7);for(const s of [-1,1]){box(x+s*(w+3),y,z,1.4,2,h,base);if(industrial)for(let zz=2;zz<h;zz+=6)face([[x+s*(w+2),y+2.1,z+zz],[x+s*(w+4),y+2.1,z+zz+2],[x+s*(w+4),y+2.1,z+zz+4],[x+s*(w+2),y+2.1,z+zz+2]],'#d2af5c','paint');}};
@@ -27,7 +27,7 @@ const buttress=(x,y,z,h=27)=>{plate(x,y,z,4,7,h,base);box(x,y,z+h,4.5,7.5,2,trim
 const spire=(x,y,z,r=10,h=36)=>{tube(x,y,z,r,h,base,'stone');tube(x,y,z+h-2,r+1.5,3,trim,'stone');tube(x,y,z+h+1,r+3,20,roofColor,'metal',0);beam([x,y,z+h+20],[x,y,z+h+27],trim,1);for(const s of [-1,1])window(x+s*r*.45,y+r*.84,z+h*.4,2,10);};
 const banner=(x,y,z,c=team)=>{beam([x,y,z-20],[x,y,z+5],trim,.85);for(let j=0;j<4;j++){const y1=y+Math.sin(j)*1.1;face([[x+j*2,y1,z],[x+(j+1)*2,y+Math.sin(j+1)*1.1,z-1],[x+(j+1)*2,y+Math.sin(j+1)*1.1,z-13],[x+j*2,y1,z-12]],j%2?tint(c,-9):c,'cloth');}};
 const w=kind==='defense'?22:kind==='extractor'?30:44,l=kind==='defense'?20:kind==='extractor'?25:33;
-if(!organic){box(0,0,0,w+3,l+3,3,tint(base,-22));for(let j=-w+6;j<w;j+=13)beam([j,-l,3.1],[j,l,3.1],tint(base,-39),.5,'stone');for(let j=-l+5;j<l;j+=11)beam([-w,j,3.1],[w,j,3.1],tint(base,-40),.5,'stone');stairs(0,l+2,0,11,3);}
+if(!organic){box(0,0,0,w+3,l+3,3,tint(base,-22),industrial?'concrete':'stone');for(let j=-w+6;j<w;j+=13)beam([j,-l,3.1],[j,l,3.1],tint(base,-39),.5,'stone');for(let j=-l+5;j<l;j+=11)beam([-w,j,3.1],[w,j,3.1],tint(base,-40),.5,'stone');stairs(0,l+2,0,11,3);}
 else{orb(0,0,1,w,l,4,roofColor);for(let j=0;j<9;j++){const a=j*Math.PI*2/9,x=Math.cos(a)*w,y=Math.sin(a)*l;beam([x*.45,y*.45,9],[x,y,2],base,3,'chitin');beam([x,y,2],[x*1.12,y*1.1,.8],trim,1,'chitin');}}
 // Shared resource functions are expressed in the civilization's construction material.
 if(kind==='extractor'){
@@ -50,11 +50,28 @@ if(kind==='extractor'){
  else{shell(0,-7,18,34,25,18);mouth(0,23,8,20,8);for(let j=-1;j<=1;j++)orb(j*22,-7,30,10,11,15,accent);}
  if(kind==='counter'){orb(0,24,12,25,10,9,roofColor);for(let j=-3;j<=3;j++){beam([j*7,25,8],[j*6,26,26-Math.abs(j)*2],trim,2,'bone');}for(const side of [-1,1])tendril(side*34,14,49);}
  if(fungal){for(let j=0;j<5;j++){const x=(j%3-1)*24,y=Math.floor(j/3)*23-13,h=kind==='air'?64:kind==='hq'||kind==='elite'?61:kind==='defense'?43:38;beam([x,y,12],[x-3,y,h],base,4,'chitin');orb(x-3,y,h,13,11,4,j%2?accent:trim);for(let q=-1;q<=1;q++)orb(x-3+q*6,y+4,h+2,1.2,1.4,1,'#e2d7ae');}for(let j=0;j<7;j++)orb(-31+j*10,27,7,3,4,7,accent);}
+}else if(style==='machine'){
+ const dark='#192c36',alloy='#bccbd0',sensor='#dc7257';
+ const cell=(x,y,z,r,h)=>{tube(x,y,z,r,h,dark,'metal',r*.85);for(let j=0;j<6;j++){const a=j*Math.PI/3;plate(x+Math.cos(a)*r*.66,y+Math.sin(a)*r*.66,z+2,r*.32,r*.32,h-4,base);}ring(x,y,z+h,r*.88,1.5,alloy);};
+ const arm=(x,y,z,tx,ty,tz)=>{tube(x,y,z,3,4,dark,'metal');beam([x,y,z+3],[x-7,y,z+18],alloy,3.5);orb(x-7,y,z+18,3,3,3,roofColor,'metal');beam([x-7,y,z+18],[tx,ty,tz],base,2.7);for(const q of [-1,1])beam([tx,ty,tz],[tx+q*3,ty,tz-4],alloy,1);};
+ const coil=(x,y,z,r,h)=>{tube(x,y,z,r,h,dark,'metal');for(let zz=2;zz<h;zz+=4)ring(x,y,z+zz,r+.7,1.1,alloy);lamp(x,y,z+h,sensor);};
+ if(kind==='hq'){cell(0,-5,3,23,52);cell(-31,8,3,12,26);cell(31,8,3,12,26);for(let j=0;j<3;j++){ring(0,-5,37+j*10,28-j*3,2,alloy);}orb(0,-5,63,9,9,9,accent,'glass');for(const side of [-1,1]){beam([side*12,-5,31],[side*31,8,20],base,5);face([[side*5,19,13],[side*17,13,18],[side*14,13,38],[side*5,19,42]],team,'paint');}for(let j=-1;j<=1;j++)orb(j*4,17,48,1.8,1,1.4,sensor,'glow');}
+ else if(kind==='house'){for(const x of [-26,0,26]){cell(x,0,3,11,22+(x===0?15:0));for(let z=8;z<24;z+=6)box(x,11,z,7,1,2,accent,'glass');}for(const x of [-13,13])beam([x-4,0,13],[x+4,0,13],alloy,3);}
+ else if(kind==='inf'){for(const x of [-26,0,26]){cell(x,-9,3,10,36);face([[x-6,1,8],[x+6,1,8],[x+6,1,30],[x-6,1,30]],dark);box(x,3,3,8,19,2,alloy);for(let yy=7;yy<23;yy+=5)beam([x-6,yy,6],[x+6,yy,6],base,1.2);arm(x+7,-14,38,x,0,27);lamp(x,1,36);}coil(0,-27,7,6,41);}
+ else if(kind==='armor'){box(0,0,3,37,27,5,dark);for(const x of [-29,29]){box(x,-10,8,6,20,32,base);vent(x,-10,41,5,16);}beam([-29,-19,42],[29,-19,42],alloy,5);for(const x of [-23,23])arm(x,12,8,x*.45,2,27);plate(0,0,9,16,22,11,base);for(const y of [-15,15])beam([-13,y,10],[13,y,10],alloy,2);for(let y=-17;y<29;y+=6)beam([-17,y,8.1],[17,y,8.1],trim,1);coil(32,-20,43,4,17);}
+ else if(kind==='air'){cell(-12,-3,3,20,44);for(const z of [12,28,44]){ring(-12,-3,z,23,2,alloy);for(const a of [0,Math.PI*.5,Math.PI]){const x=-12+Math.cos(a)*21,y=-3+Math.sin(a)*21;box(x,y,z,4,5,3,dark);lamp(x,y,z+3);}}plate(27,4,3,15,24,5,base);for(const y of [-8,17])coil(27,y,9,7,9);antenna(-13,-12,49);}
+ else if(kind==='defense'){cell(0,0,3,14,26);for(const side of [-1,1]){plate(side*8,0,28,6,10,8,base);beam([side*8,0,35],[side*8,27,35],alloy,3);orb(side*8,28,35,2,1,2,dark);}orb(0,3,39,3,3,3,sensor,'glow');}
+ else if(kind==='depot'){for(let row=0;row<2;row++)for(let col=0;col<3;col++){const x=-25+col*25,y=-12+row*25;plate(x,y,3,10,10,13+row*8,base);for(let z=6;z<15;z+=5)beam([x-8,y+10,z],[x+8,y+10,z],alloy,1);}arm(-34,-24,6,0,0,36);}
+ else{const height=kind==='elite'?65:44;cell(0,-4,3,19,height);for(const x of [-31,31])coil(x,3,3,9,kind==='lab'?40:25);for(const z of [18,31,height+3])ring(0,-4,z,23,1.8,alloy);for(let j=-1;j<=1;j++)face([[j*8-2,16,10],[j*8+2,16,10],[j*8+2,16,35],[j*8-2,16,35]],accent,'glass');if(kind==='elite')orb(0,-4,height+10,8,8,8,sensor,'glass');}
 }else if(industrial){
- const machine=style==='machine';
+ const machine=false;
  if(kind==='hq'){plate(0,0,3,39,29,16);box(-5,-5,19,27,20,20,base);plate(-5,-5,39,29,22,8,trim);for(const s of [-1,1]){plate(s*36,0,4,8,23,28,roofColor);box(s*36,0,32,8,23,3,trim);vent(s*36,-4,35,5,15);beam([s*27,13,26],[s*34,28,7],trim,3);lamp(s*35,24,34);}door(3,29,3,11,16);for(let j=-2;j<=2;j++)window(-5+j*9,15,27,3,8);box(-14,-3,48,13,11,4,roofColor);for(const s of [-1,1])tube(-14+s*8,-3,52,3,4,trim,'metal');antenna(-23,-12,51);tube(14,-5,47,7,4,roofColor,'metal');face([[5,-8,54],[7,-8,66],[23,-8,64],[23,-8,54]],trim,'metal');beam([14,-5,49],[14,-8,60],roofColor,2);}
  else if(kind==='house'){for(let j=0;j<3;j++){const x=-25+j*24;box(x,0,3,10,24,25+(j%2)*11,base);plate(x,0,28+(j%2)*11,11,25,4,trim);for(const z of [10,21])for(const y of [25])window(x,y,z,6,6);vent(x,-10,33+(j%2)*11,6,9);}stairs(0,26,3,7,4);}
- else if(kind==='armor'||kind==='inf'){const h=kind==='armor'?34:24;box(0,-2,3,38,28,h,roofColor);plate(0,-2,h+3,40,30,8,base);for(let j=-2;j<=2;j++){box(j*16,-2,h+11,1.3,28,1.7,trim);for(const s of [-1,1])plate(j*16,s*27,3,2.5,5,h,base);}door(-13,27,3,17,26);door(27,27,3,6,17);box(-13,30,29,19,3,3,trim);for(const s of [-1,1]){lamp(-13+s*19,28,30);vent(s*20,-5,h+12,10,17);}tube(30,-17,h+11,5,22,roofColor,'metal');tube(30,-17,h+31,6,3,trim,'metal');box(23,20,3,11,8,8,base);if(kind==='armor'){beam([-34,22,4],[-34,22,52],trim,3);beam([-34,22,52],[-3,22,52],trim,3);beam([-6,22,52],[-6,22,24],roofColor,.7);beam([-6,22,24],[-2,22,20],trim,1.4);box(0,-13,h+11,9,7,7,roofColor);window(0,-5,h+12,6,4);}else{antenna(30,-12,h+14);banner(36,31,29);for(let j=0;j<3;j++)box(-30+j*9,35,3,3,3,5,accent);}}
+ else if(kind==='inf'){
+ for(const x of [-25,25]){box(x,-4,3,13,25,19,base);roof(x,-4,22,15,27,7,roofColor);door(x,22,3,5,14);for(const y of [-20,-8,4]){face([[x+13.2,y,12],[x+13.2,y+6,12],[x+13.2,y+6,18],[x+13.2,y,18]],'#497382','glass');}vent(x,-12,29,5,8);}
+ box(0,-23,3,11,7,24,base);door(0,-15,3,5,17);antenna(1,-24,31);for(const x of [-7,7]){beam([x,19,4],[x,19,16],trim,1.1);orb(x,19,16,3,1.3,4,roofColor,'wood');}banner(37,25,32);for(let j=0;j<3;j++)box(-9+j*8,30,3,3,2,3,'#9d9470','cloth');
+ }
+ else if(kind==='armor'){const h=34;box(0,-2,3,38,28,h,roofColor);plate(0,-2,h+3,40,30,8,base);for(let j=-2;j<=2;j++){box(j*16,-2,h+11,1.3,28,1.7,trim);for(const s of [-1,1])plate(j*16,s*27,3,2.5,5,h,base);}door(-13,27,3,17,26);door(27,27,3,6,17);box(-13,30,29,19,3,3,trim);for(const s of [-1,1]){lamp(-13+s*19,28,30);vent(s*20,-5,h+12,10,17);}tube(30,-17,h+11,5,22,roofColor,'metal');tube(30,-17,h+31,6,3,trim,'metal');box(23,20,3,11,8,8,base);if(kind==='armor'){beam([-34,22,4],[-34,22,52],trim,3);beam([-34,22,52],[-3,22,52],trim,3);beam([-6,22,52],[-6,22,24],roofColor,.7);beam([-6,22,24],[-2,22,20],trim,1.4);box(0,-13,h+11,9,7,7,roofColor);window(0,-5,h+12,6,4);}else{antenna(30,-12,h+14);banner(36,31,29);for(let j=0;j<3;j++)box(-30+j*9,35,3,3,3,5,accent);}}
  else if(kind==='air'){box(-20,-4,3,20,25,27,base);plate(-20,-4,30,23,28,9,trim);door(-20,22,3,15,24);vent(-20,-5,40,14,16);plate(25,4,3,19,29,4,roofColor);for(const y of [-12,20])for(const x of [13,37])lamp(x,y,7,'#b5cdb9');beam([18,-9,8],[18,19,8],trim,1.4);beam([32,-9,8],[32,19,8],trim,1.4);beam([18,5,8],[32,5,8],trim,1.4);antenna(-31,-16,40);}
  else if(kind==='defense'){plate(0,0,3,20,17,15,base);tube(0,0,18,12,6,roofColor,'metal');plate(0,0,24,14,11,12,base);for(const s of [-1,1]){beam([7,s*5,31],[34,s*5,32],trim,4);orb(34,s*5,32,.8,2.2,2.2,'#233237','metal');}vent(-5,0,37,7,7);lamp(-8,-7,38);}
  else if(kind==='depot'){box(-12,-6,3,27,23,23,base);plate(-12,-6,26,29,25,6,trim);door(-12,18,3,18,21);for(let j=0;j<5;j++){const x=13+j%2*18,y=-7+Math.floor(j/2)*15;box(x,y,3,7,6,8+j%2*5,accent);for(const s of [-1,1])beam([x+s*5,y-6,4],[x+s*5,y-6,10],trim,1);}}
@@ -75,13 +92,94 @@ if(kind==='extractor'){
  else{cave(0,-6,3,30,46);if(/Vault/.test(d.name)){door(0,14,3,14,28);for(const s of [-1,1])tusk(s*23,20,3,35,s);}else{crystal(0,-5,50,8,24,'#c68b56');for(const s of [-1,1])tusk(s*31,20,3,40,s);}}
 }else{
  const timber=style==='ape',classical=style==='myth',gothic=style==='night',arcane=style==='wizard',dragon=style==='dragon',demon=style==='demon',reptile=style==='reptile';
- const hall=(x,y,z,ww,ll,h)=>{box(x,y,z,ww,ll,h,base);box(x,y,z+h-1,ww+1,ll+1,3,trim);roof(x,y,z+h+2,ww+3,ll+3,timber?16:gothic?25:arcane?20:classical?8:12);arch(x,y+ll+.5,z,Math.min(ww*.5,9),Math.min(h-3,24));for(const s of [-1,1]){if(ww>16)window(x+s*(ww-7),y+ll+.5,z+9,2.5,9,gothic?'#bc9f73':'#63968d');buttress(x+s*(ww-2),y+ll,z,h-2);}if(timber)for(let xx=x-ww+6;xx<x+ww;xx+=9)beam([xx,y+ll+2,z],[xx,y+ll+2,z+h],trim,1.8,'wood');};
+ // hall() is faction-aware: each civilization builds in its own architectural language.
+ const hall=(x,y,z,ww,ll,h)=>{
+  if(reptile){
+   // Reptile: stepped ziggurats with sloped walls and carved reliefs.
+   for(let j=0;j<3;j++){const shrink=j*4;box(x,y,z+j*(h/3),ww-shrink,ll-shrink,h/3+1,j%2?tint(base,8):base);}
+   box(x,y,z+h-1,ww-7,ll-7,3,trim);for(const s of [-1,1]){buttress(x+s*(ww-3),y+ll,z,h*.7);window(x+s*(ww-10),y+ll+.5,z+h*.5,2,7,'#89a56b');}
+   arch(x,y+ll+.5,z,Math.min(ww*.45,8),Math.min(h-5,20));
+  }else if(demon){
+   // Demon: jagged, asymmetric towers with thorny protrusions.
+   box(x-3,y,z,ww+2,ll,h,base);box(x+4,y-3,z,ww-5,ll-3,h+8,tint(base,-8));
+   box(x,y,z+h-1,ww+1,ll+1,3,trim);
+   for(const s of [-1,1]){beam([x+s*(ww-2),y+ll,z],[x+s*(ww+3),y+ll,z+h*.4],trim,2,'bone');beam([x+s*(ww+3),y+ll,z+h*.4],[x+s*(ww-1),y+ll,z+h*.8],trim,1,'bone');}
+   arch(x,y+ll+.5,z,Math.min(ww*.5,9),Math.min(h-3,22));
+   roof(x+4,y-3,z+h+9,ww-2,ll,15);
+  }else if(gothic){
+   // Night: tall Gothic arches, pointed everything, flying buttresses.
+   box(x,y,z,ww,ll,h,base);box(x,y,z+h-1,ww+1,ll+1,3,trim);
+   roof(x,y,z+h+2,ww+3,ll+3,25);
+   arch(x,y+ll+.5,z,Math.min(ww*.5,9),Math.min(h-3,24));
+   for(const s of [-1,1]){window(x+s*(ww-7),y+ll+.5,z+9,2.5,12,'#bc9f73');
+    // Flying buttresses on sides.
+    buttress(x+s*(ww+4),y+ll*.3,z,h*.5);beam([x+s*(ww+4),y+ll*.3,z+h*.5],[x+s*(ww-1),y+ll*.3,z+h*.8],trim,2);
+    // Pinnacles at top.
+    tube(x+s*(ww-2),y-ll+4,z+h+2,2,8,base,'slate',0);}
+  }else if(arcane){
+   // Wizard: round towers, domed roofs, crystal-capped spires.
+   tube(x,y,z,Math.min(ww,ll),h,base,'stone');
+   box(x,y,z+h-2,ww+1,ll+1,3,trim);
+   // Dome instead of pitched roof.
+   orb(x,y,z+h+2,ww+2,ll+2,ww*.6,roofColor,'slate');
+   arch(x,y+ll+.5,z,Math.min(ww*.5,9),Math.min(h-3,24));
+   for(const s of [-1,1]){window(x+s*(ww-7),y+ll+.5,z+9,2.5,9,'#63968d');buttress(x+s*(ww-2),y+ll,z,h-2);}
+  }else if(style==='elder'){
+   box(x,y,z,ww,ll,h*.72,base,'stone');arch(x,y+ll+.5,z,Math.min(ww*.44,8),Math.min(h*.65,20));
+   for(const side of [-1,1]){for(let j=0;j<4;j++){const yy=y-ll+j*ll*.66;beam([x+side*ww,yy,z],[x+side*(ww+3),yy,z+h*.64],roofColor,3,'wood');beam([x+side*(ww+3),yy,z+h*.64],[x+side*ww*.35,yy,z+h+9],trim,2,'wood');}
+    face([[x+side*(ww+5),y-ll-3,z+h*.63],[x+side*(ww+5),y+ll+3,z+h*.63],[x,y+ll,z+h+12],[x,y-ll,z+h+12]],roofColor,'wood');
+    for(let j=0;j<4;j++){const yy=y-ll+j*ll*.66;beam([x,yy,z+h+12],[x+side*(ww+5),yy,z+h*.63],trim,.8,'wood');}}
+   beam([x,y-ll,z+h+12],[x,y+ll,z+h+12],trim,2,'wood');
+  }else if(classical){
+   // Myth: colonnaded facades, low-pitched roofs, classical proportions.
+   box(x,y,z,ww,ll,h*.7,base);box(x,y,z+h*.7-1,ww+2,ll+2,3,trim);
+   roof(x,y,z+h*.7+2,ww+4,ll+4,8);
+   arch(x,y+ll+.5,z,Math.min(ww*.5,9),Math.min(h-5,20));
+   // Front colonnade.
+   for(let xx=x-ww+8;xx<=x+ww-8;xx+=9)pillar(xx,y+ll+2,z,h*.7-3,2);
+   for(const s of [-1,1])buttress(x+s*(ww-2),y+ll,z,h*.5);
+  }else{
+   // Ape/elder/default: half-timbered, stockade style.
+   box(x,y,z,ww,ll,h,base);box(x,y,z+h-1,ww+1,ll+1,3,trim);
+   roof(x,y,z+h+2,ww+3,ll+3,timber?16:12);
+   arch(x,y+ll+.5,z,Math.min(ww*.5,9),Math.min(h-3,24));
+   for(const s of [-1,1]){if(ww>16)window(x+s*(ww-7),y+ll+.5,z+9,2.5,9,'#63968d');buttress(x+s*(ww-2),y+ll,z,h-2);}
+   if(timber)for(let xx=x-ww+6;xx<x+ww;xx+=9)beam([xx,y+ll+2,z],[xx,y+ll+2,z+h],trim,1.8,'wood');
+  }};
  if(kind==='hq'||kind==='elite'){if(style==='elder'){tube(0,-6,3,26,30,base,'stone');tube(0,-6,33,29,5,trim,'stone');tube(0,-6,38,32,18,roofColor,'slate',10);tube(0,-6,56,11,6,trim,'stone');orb(0,-6,63,11,11,7,roofColor,'slate');arch(0,21,3,10,25);for(const side of [-1,1]){hall(side*32,2,3,12,19,24);pillar(side*21,24,3,31,3);banner(side*32,22,35);}stairs(0,25,3,12,5);if(kind==='elite')for(const s of [-1,1]){tube(s*32,-14,3,8,53,base,'stone');crystal(s*32,-14,58,5,18,team);}}else if(reptile||demon){for(let j=0;j<3;j++)box(0,0,3+j*10,42-j*8,31-j*6,10,base);hall(0,-7,33,22,17,23);stairs(0,22,3,13,12);for(const s of [-1,1]){buttress(s*36,0,3,37);banner(s*35,17,48);if(demon){beam([s*31,-9,20],[s*38,-9,69],trim,6,'bone');beam([s*38,-9,69],[s*28,-9,83],trim,2,'bone');}}if(kind==='elite')crystal(0,-7,72,9,20,accent);}else{hall(0,-7,3,25,24,41);hall(-34,4,3,11,22,24);hall(34,4,3,11,22,24);stairs(0,26,3,12,6);if(classical){for(const x of [-23,-11,11,23])pillar(x,24,3,36,2.5);roof(0,24,41,29,11,14);}else if(timber){for(const s of [-1,1]){beam([s*27,10,5],[s*27,10,65],roofColor,6,'wood');banner(s*27,10,71);}}else{spire(-27,-8,22,9,gothic?39:31);spire(28,-11,19,8,arcane?42:28);if(kind==='elite')crystal(0,-5,60,8,24,accent);}}}
  else if(kind==='house'){hall(-17,-5,3,17,23,25);hall(22,9,3,16,20,20);if(classical){for(const x of [-27,-16,-5])pillar(x,19,3,23,2);roof(-16,18,28,22,10,9);}else if(arcane||gothic)spire(-27,-13,20,6,arcane?27:18);box(9,32,3,5,3,5,roofColor,'wood');}
- else if(kind==='inf'){hall(0,-15,3,39,17,25);box(0,18,3,34,15,2,tint(base,-16));for(const s of [-1,1]){banner(s*31,27,32);box(s*31,28,3,4,4,5,trim);}for(let j=-1;j<=1;j++){beam([j*15,23,5],[j*15,23,21],trim,1.5,'wood');orb(j*15,23,21,4,1.8,5,roofColor,'wood');orb(j*15,25,21,1.2,.7,1.5,accent,'paint');}if(/Orc|Lycan|Legion/.test(d.name))for(const s of [-1,1]){beam([s*23,4,3],[s*30,4,39],trim,4,'bone');beam([s*30,4,39],[s*20,4,47],trim,2,'bone');}if(/Elven/.test(d.name))for(const s of [-1,1]){beam([s*35,0,3],[s*32,-3,56],base,5,'wood');for(let j=-1;j<=1;j++)orb(s*32+j*5,-3,56+j*3,9,9,5,roofColor,'fur');}}
- else if(kind==='armor'){hall(-3,-7,3,36,26,30);door(-4,20,3,17,25);for(const s of [-1,1])beam([s*30,25,3],[s*30,25,48],trim,4,timber?'wood':'metal');beam([-30,25,48],[30,25,48],trim,4);beam([14,25,48],[14,25,23],roofColor,.8);box(14,25,18,5,4,5,trim,'metal');if(/Kennel|Beast|Labyrinth|Troll|Creatures/.test(d.name))for(let x=-20;x<=20;x+=5)beam([x,23,4],[x,23,25],trim,1.5);else{tube(27,-12,34,6,31,roofColor,'stone');tube(27,-12,65,7,3,trim,'stone');for(const y of [13,24]){orb(32,y,9,5,1.7,6,roofColor,'wood');orb(32,y+1.5,9,2,1.8,2,trim,'metal');}}}
+ else if(kind==='inf'){if(idx%2){hall(-21,-8,3,17,24,32);hall(21,-14,3,15,17,22);}else hall(0,-15,3,39,17,25);box(0,18,3,34,15,2,tint(base,-16));for(const s of [-1,1]){banner(s*31,27,32);box(s*31,28,3,4,4,5,trim);}for(let j=-1;j<=1;j++){beam([j*15,23,5],[j*15,23,21],trim,1.5,'wood');orb(j*15,23,21,4,1.8,5,roofColor,'wood');orb(j*15,25,21,1.2,.7,1.5,accent,'paint');}if(/Orc|Lycan|Legion/.test(d.name))for(const s of [-1,1]){beam([s*23,4,3],[s*30,4,39],trim,4,'bone');beam([s*30,4,39],[s*20,4,47],trim,2,'bone');}if(/Elven/.test(d.name))for(const s of [-1,1]){beam([s*35,0,3],[s*32,-3,56],base,5,'wood');for(let j=-1;j<=1;j++)orb(s*32+j*5,-3,56+j*3,9,9,5,roofColor,'fur');}}
+ else if(kind==='armor'){
+  const beasts=/Kennel|Creatures|Troll Hall|Beast Sanctuary/.test(d.name),summon=/Summoning|Transfiguration/.test(d.name),quarry=/Quarry/.test(d.name),maze=/Labyrinth/.test(d.name);
+  if(summon){
+   tube(0,0,3,30,4,base,'stone');for(const r of [18,27])ring(0,0,8,r,1.1,trim);for(let j=0;j<6;j++){const a=j*Math.PI/3,x=Math.cos(a)*31,y=Math.sin(a)*26;pillar(x,y,3,arcane?29:18,3);if(arcane)crystal(x,y,34,3,9,accent);else{beam([x,y,23],[x*.8,y*.8,43],trim,3,'bone');lamp(x,y,23,'#d88751');}beam([Math.cos(a)*19,Math.sin(a)*19,8],[Math.cos(a+Math.PI*2/3)*19,Math.sin(a+Math.PI*2/3)*19,8],accent,.8);}
+   if(arcane){hall(-25,-15,3,12,13,22);orb(0,0,23,7,7,7,accent,'glass');}else{tube(0,0,8,11,3,roofColor,'stone');for(let j=0;j<5;j++)crystal((j-2)*4,-2,12,2,14-j%2*6,accent);}
+  }else if(maze){
+   for(const x of [-34,-12,12,34]){box(x,-5,3,3,25,22,base);box(x,-5,25,3.5,25.5,2,trim);}for(const y of [-28,0,23])for(const x of [-23,23]){box(x,y,3,10,3,22,base);box(x,y,25,10,3.5,2,trim);}arch(0,30,3,8,23);for(const x of [-12,12])pillar(x,29,3,25,3);beam([-15,29,29],[15,29,29],trim,3);
+  }else if(quarry){
+   for(let j=0;j<4;j++){const x=-27+j*17;box(x,-13,3,9,13,12+j%2*12,base);box(x,-13,15+j%2*12,8,12,2,trim);}for(const x of [-31,31])beam([x,17,3],[x,17,48],roofColor,4,'wood');beam([-31,17,48],[31,17,48],trim,4,'wood');beam([5,17,48],[5,17,15],trim,.8,'cloth');box(5,17,6,9,9,9,base);for(let j=0;j<3;j++)box(-25+j*13,30,3,5,5,5,trim);
+  }else if(beasts){
+   const monster=/Troll/.test(d.name);hall(-14,-14,3,monster?28:25,18,monster?38:24);
+   for(const x of [-35,0,35]){beam([x,10,3],[x,10,29],trim,3,'wood');beam([x,30,3],[x,30,26],trim,3,'wood');}for(const y of [10,30])for(const z of [10,21])beam([-35,y,z],[35,y,z],trim,2,'wood');for(let x=-30;x<=30;x+=6)beam([x,30,3],[x,30,25],roofColor,1.5,'metal');
+   for(const x of [-18,18]){tube(x,21,3,7,3,roofColor,'stone');for(let j=0;j<5;j++)beam([x-5+j*2,21,6],[x+3,17+j,6],trim,.7,'wood');}if(reptile)for(const side of [-1,1]){face([[side*29,-22,29],[side*39,-22,47],[side*36,-22,26]],trim,'bone');}if(demon)for(const side of [-1,1]){beam([side*29,8,5],[side*34,8,37],trim,4,'bone');lamp(side*31,15,28,'#d58b50');}
+  }else if(gothic&&/Laboratory/.test(d.name)){
+   hall(-21,-8,3,17,20,32);for(const x of [7,27]){tube(x,1,3,8,29,roofColor,'metal');tube(x,1,9,6.5,19,'#8699a0','glass');for(const z of [7,29])ring(x,1,z,8.5,1.4,trim);}spire(-29,-14,29,5,32);beam([-5,2,29],[26,2,29],trim,2);box(13,25,3,18,7,6,base);
+  }else{
+   hall(-14,-9,3,24,23,24);arch(-14,15,3,12,20);tube(27,-15,3,7,49,tint(base,-7),'brick');tube(27,-15,52,9,3,trim);arch(27,-6,5,5,13);face([[23,-3,7],[31,-3,7],[31,-3,16],[23,-3,16]],'#dba260','glow');
+   for(const x of [-32,13])beam([x,27,3],[x,27,39],trim,3,'wood');beam([-32,27,39],[13,27,39],trim,3,'wood');beam([7,27,39],[7,27,19],roofColor,.8);box(7,27,13,6,5,6,trim,'metal');for(const y of [11,24]){orb(33,y,8,5,2,5,roofColor,'wood');orb(33,y+2,8,1.5,1,1.5,trim,'metal');}
+  }
+ }
+
  else if(kind==='depot'||kind==='counter'){for(const x of [-30,30])for(const y of [-19,19])pillar(x,y,3,31,3);roof(0,-3,36,39,27,18);for(let j=0;j<7;j++)box(-25+j%4*16,-12+Math.floor(j/4)*17,3,6,6,9+j%2*5,tint(base,j%3*9-12),timber?'wood':'stone');if(kind==='counter')for(let x=-32;x<=32;x+=5)beam([x,24,3],[x,24,31],trim,1.2);}
- else if(kind==='air'){for(const s of [-1,1]){tube(s*28,-10,3,9,41,base);box(s*28,-10,44,10,10,3,trim);}box(0,4,35,29,23,5,base);stairs(0,25,3,13,15);if(arcane||gothic){roof(0,-5,52,38,22,18);for(const x of [-25,25])pillar(x,12,40,12,2);}else{ring(0,2,42,17,3,trim);for(let j=0;j<10;j++){const a=j*Math.PI/5;beam([Math.cos(a)*19,Math.sin(a)*15,42],[Math.cos(a+.3)*13,Math.sin(a+.3)*11,43],roofColor,1.5,'wood');}}}
+ else if(kind==='air'){
+  if(arcane){hall(-25,-12,3,14,16,28);tube(20,0,3,20,8,base);for(const r of [12,20])ring(20,0,12,r,1.5,trim);for(let j=0;j<4;j++){const x=-2+j*11;beam([x,22,3],[x,22,28],trim,1.3,'wood');beam([x-3,22,9],[x+3,22,13],roofColor,3,'wood');}spire(-27,-13,30,7,22);}
+  else if(style==='elder'){for(const side of [-1,1]){pillar(side*28,0,3,46,4);beam([side*28,0,49],[side*15,0,64],trim,3,'wood');beam([side*15,0,64],[0,0,68],trim,2,'wood');}tube(0,0,3,23,5,base);for(const r of [14,21])ring(0,0,9,r,1.2,accent);crystal(0,0,17,6,26,accent);for(const y of [-18,18])box(0,y,3,12,3,4,trim);}
+  else if(gothic){spire(-23,-7,3,13,50);spire(23,-7,3,9,32);for(const side of [-1,1]){beam([side*23,-7,38],[0,5,47],trim,2);beam([side*23,-7,25],[0,5,23],trim,2);}orb(0,5,35,10,10,15,'#9ca4b8','glass');ring(0,5,28,12,1.2,trim);ring(0,5,43,12,1.2,trim);}
+  else if(demon){for(const side of [-1,1]){plate(side*22,-4,3,13,19,43,base);beam([side*22,-4,46],[side*35,-4,69],trim,5,'bone');beam([side*35,-4,69],[side*22,-4,77],trim,2,'bone');box(side*22,12,39,16,13,3,trim);orb(side*22,6,45,5,5,3,roofColor,'stone');}tube(0,16,3,11,5,roofColor);lamp(0,16,9,'#d49c55');}
+  else if(reptile){for(let j=0;j<4;j++)plate(0,-j*3,3+j*11,34-j*5,26-j*3,11,base);tube(0,-9,47,16,4,roofColor);ring(0,-9,51,17,2,trim);for(const side of [-1,1]){beam([side*23,-10,25],[side*27,-10,63],trim,3);face([[side*27,-10,63],[side*8,-10,57],[side*27,13,47]],roofColor,'cloth');}}
+  else{for(const x of [-25,0,25]){pillar(x,-6,3,x===0?49:34,5);tube(x,-6,x===0?52:37,11,4,base);ring(x,-6,x===0?57:42,10,2,roofColor);for(let j=0;j<8;j++){const a=j*Math.PI/4;beam([x+Math.cos(a)*10,-6+Math.sin(a)*10,x===0?57:42],[x+Math.cos(a+.4)*7,-6+Math.sin(a+.4)*7,x===0?58:43],trim,1,'wood');}}stairs(0,17,3,13,5);}
+ }
+
  else if(kind==='defense'){tube(0,0,3,15,49,base);tube(0,0,49,18,6,trim);for(let j=0;j<8;j++){const a=j*Math.PI/4;box(Math.cos(a)*16,Math.sin(a)*16,55,3,3,6,base);}arch(0,15.5,4,5,16);for(const z of [26,39])window(0,15.5,z,2,8);if(arcane||reptile||demon)crystal(0,0,58,8,25,accent);else{for(const s of [-1,1])pillar(s*13,0,55,17,2);roof(0,0,75,21,20,15);banner(0,18,57);}}
  else{hall(0,-7,3,30,25,31);if(/Forge|Foundry|Tool|Stoneworks|Powder|Armory/.test(d.name)){tube(27,-15,3,9,62,base);tube(27,-15,65,10,4,trim);arch(27,-4,7,6,15);face([[23,-1,10],[31,-1,10],[31,-1,18],[23,-1,18]],'#d39959','glow');box(-22,27,3,9,7,7,base);box(-22,27,10,13,5,4,trim,'metal');}else if(classical){for(const x of [-24,-12,12,24])pillar(x,21,3,29,2.4);roof(0,21,36,32,11,13);tube(0,-12,47,12,9,trim,'stone');crystal(0,-12,57,6,19,accent);}else{spire(-28,-11,3,10,48+idx*3);spire(29,-7,3,7,29);crystal(0,-4,49,6,20,accent);}if(kind==='support')for(const x of [-15,15]){tube(x,22,7,5,16,roofColor,'metal');orb(x,22,25,6,5,8,accent,'glass');beam([x,22,31],[x,22,39],trim,1.5);}}
  if(dragon){for(const s of [-1,1]){beam([s*27,22,4],[s*34,22,36],trim,5,'bone');beam([s*34,22,36],[s*23,22,49],trim,2,'bone');}for(let j=0;j<8;j++){const a=j*Math.PI/4;orb(Math.cos(a)*38,Math.sin(a)*25,5,7,6,6,tint(base,j%3*9-16),'stone');}if(kind==='hq'||kind==='elite')for(let j=0;j<16;j++)orb(-16+j%8*4,28+Math.floor(j/8)*4,4,2,2,.8,'#ccb06a','metal');}

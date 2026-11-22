@@ -101,7 +101,7 @@ class Art{
  extension(d,f){const key='extension4_'+d.id;if(this.cache.has(key))return this.cache.get(key);const c=canvas(320,280);root.FractureExtensionArt.render(c.getContext('2d'),d,f);this.cache.set(key,c);return c;}
  ruin(d,f,variant=0){this.ruinCache??=new Map();const key=d.id+'_'+f.id+'_'+variant; if(this.ruinCache.has(key))return this.ruinCache.get(key);if(this.liveRendering&&this.deferRuin?.(key,d,f,variant))return this.emptyRuin??=(canvas(1,1));const c=canvas(320,294);root.FractureRuinsArt.render(c.getContext('2d'),d,f,variant);this.ruinCache.set(key,c);while(this.ruinCache.size>64)this.ruinCache.delete(this.ruinCache.keys().next().value);return c;}
  gatePortrait(d,f,angle=0,color='#6eb8c6'){const key=['gatePortrait',d.id,angle,color].join(':');if(this.cache.has(key))return this.cache.get(key);const c=canvas(480,440),ctx=c.getContext('2d'),unit=30/(d.size*.53),scale=.65;ctx.imageSmoothingEnabled=false;for(const role of [-1,0,1]){const im=paintOwner(this.building(d,f,{mask:17,gate:{angle,role,open:true}}),color),dx=role*(Math.cos(angle)-Math.sin(angle))*unit*.8*2,dy=role*(Math.cos(angle)+Math.sin(angle))*unit*.4*2;ctx.drawImage(im,84+dx*scale,77+dy*scale,480*scale,440*scale);}this.cache.set(key,c);return c;}
- building(d,f,wallMask=null){if(d.kind==='wall')d={...d,wallMask:wallMask?.mask??wallMask??17,wallArms:wallMask?.arms,wallGate:wallMask?.gate};const key='architecture6_'+d.id+(d.kind==='wall'?'_'+d.wallMask+'_'+JSON.stringify(d.wallArms||[])+'_'+JSON.stringify(d.wallGate||null):'');if(this.cache.has(key))return this.cache.get(key);
+ building(d,f,wallMask=null){if(d.kind==='wall')d={...d,wallMask:wallMask?.mask??wallMask??17,wallArms:wallMask?.arms,wallGate:wallMask?.gate};const key='architecture7_'+d.id+(d.kind==='wall'?'_'+d.wallMask+'_'+JSON.stringify(d.wallArms||[])+'_'+JSON.stringify(d.wallGate||null):'');if(this.cache.has(key))return this.cache.get(key);
  if(root.FractureBuildingArt){const c=canvas(480,440);root.FractureBuildingArt.render(c.getContext('2d'),d,f);this.cache.set(key,c);return c;}
  const c=canvas(240,220),ctx=c.getContext('2d'),p=(x,y,z=0)=>[120+(x-y)*.8,181+(x+y)*.4-z],col=f.color,style=f.style,kind=d.kind;
  const technical=['industrial','machine','reptile','night'].includes(style),organic=['insect','fungal'].includes(style);
@@ -271,55 +271,1281 @@ class Art{
  restoreUnit(key){const a=this.unitArchive?.get(key);if(!a)return null;this.unitArchive.delete(key);this.unitArchive.set(key,a);const c=canvas(336,336),ctx=c.getContext('2d');ctx.putImageData(a.pixels,a.x,a.y);if(a.owner){const p=a.owner;c.ownerPaint={x:p.x,y:p.y,data:ctx.getImageData(p.x,p.y,p.w,p.h),indices:p.indices,light:p.light,color:p.color};}if(a.weaponMuzzle)c.weaponMuzzle=a.weaponMuzzle;return this.keepUnit(key,c);}
  keepUnit(key,c){while(this.unitArchiveBytes>64*1024*1024){const k=this.unitArchive.keys().next().value;this.unitArchiveBytes-=this.unitArchive.get(k).pixels.data.byteLength;this.unitArchive.delete(k);}this.unitKeys??=new Set();if(!this.cache.has(key))this.archiveUnit(key,c);this.unitKeys.delete(key);this.unitKeys.add(key);this.cache.set(key,c);while(this.unitKeys.size>160){const oldest=this.unitKeys.values().next().value;this.unitKeys.delete(oldest);this.cache.delete(oldest);}return c;}
 
- unit(d,f,angle,action,frame,occupancy=0){if(['attack','gather','build','heal'].includes(action))frame%=4;if(action==='dead'||action==='idle'&&!d.air)frame=0;const dir=((Math.round(angle/(Math.PI/4))%8)+8)%8,key=['u',d.id,dir,action,frame,Math.ceil(occupancy/3.4)].join();if(this.cache.has(key))return this.keepUnit(key,this.cache.get(key));const archived=this.restoreUnit(key);if(archived)return archived;if(this.liveRendering&&this.deferUnit){const pending=this.deferUnit(key,d,f,dir*Math.PI/4,action,frame,occupancy);if(pending)return pending;}const c=canvas(336,336),ctx=c.getContext('2d'),a=dir*Math.PI/4,ca=Math.cos(a),sa=Math.sin(a),walk=action==='walk'?Math.sin(frame/6*Math.PI*2):0,attack=action==='attack',working=['gather','build'].includes(action),lift=attack?[3,18,12,2][frame%4]:working?[3,17,23,8][frame%4]:0,dead=action==='dead';
+ unit(d,f,angle,action,frame,occupancy=0){
+ if(['attack','gather','build','heal','scratch','yawn'].includes(action))frame%=4;
+ if(action==='dead'||action==='ready'||action==='idle'&&!d.air&&d.faction!=='symbiotes')frame=0;
+ // Legacy fallback drawing below is retained for offline compatibility. Actual
+ // units use the mesh renderers above it, including their modeled gestures.
+ if(action==='idle'&&d.faction==='symbiotes')frame=((frame%6)+6)%6;
+ const idleFrame=0;
+ const dir=((Math.round(angle/(Math.PI/4))%8)+8)%8,key=['u',d.id,dir,action,frame,Math.ceil(occupancy/3.4)].join();if(this.cache.has(key))return this.keepUnit(key,this.cache.get(key));const archived=this.restoreUnit(key);if(archived)return archived;if(this.liveRendering&&this.deferUnit){const pending=this.deferUnit(key,d,f,dir*Math.PI/4,action,frame,occupancy);if(pending)return pending;}const c=canvas(336,336),ctx=c.getContext('2d'),a=dir*Math.PI/4,ca=Math.cos(a),sa=Math.sin(a),walk=action==='walk'?Math.sin(frame/6*Math.PI*2):0,attack=action==='attack',working=['gather','build'].includes(action),dead=action==='dead';
+ const meleeSwing=attack?[0,.85,1,.4][frame%4]:working?[0,.7,1,.35][frame%4]:0;
+ const lift=attack?[3,18,12,2][frame%4]:working?[3,17,23,8][frame%4]:0;
+ const idlePhase=idleFrame/48;
+ const idleBob=idleFrame>8&&idleFrame<16?Math.sin((idleFrame-8)*Math.PI/8)*1.5:0;
+ const idleLean=idleFrame>20&&idleFrame<30?Math.sin((idleFrame-20)*Math.PI/10)*2:0;
+ const idleScratch=idleFrame>32&&idleFrame<40;
+ const idleYawn=idleFrame>40&&idleFrame<46;
  if(root.FractureExpansionArt?.unit(ctx,d,f,angle,action,frame,occupancy))return this.keepUnit(key,c);
  if(root.FractureIdentity?.render(ctx,d,f,angle,action,frame))return this.keepUnit(key,c);
  ctx.scale(3,3);
  const p=(x,y,z)=>{let xx=x*ca-y*sa,yy=x*sa+y*ca;return[56+(xx-yy)*.8,87+(xx+yy)*.4-(dead?z*.2:z)];};
+ // Enhanced rendering primitives — denser shading for AoE-quality detail.
  const segment=(from,to,color,width)=>{let v=p(...from),w=p(...to);ctx.strokeStyle='#1c2424';ctx.lineWidth=width+1.5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(...v);ctx.lineTo(...w);ctx.stroke();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(v[0]-.4,v[1]-.6);ctx.lineTo(w[0]-.4,w[1]-.6);ctx.stroke();};
  const ball=(x,y,z,rx,ry,color)=>{const q=p(x,y,z);ellipse(ctx,q[0],q[1],rx,ry,tint(color,-30));ellipse(ctx,q[0]-.35,q[1]-.6,rx*.87,ry*.86,color);ellipse(ctx,q[0]-rx*.25,q[1]-ry*.34,rx*.51,ry*.33,tint(color,30));};
+ // Metal ball with strong specular highlight for armor plates.
+ const metalBall=(x,y,z,rx,ry,color)=>{const q=p(x,y,z);ellipse(ctx,q[0],q[1],rx+.5,ry+.5,'#111817');ellipse(ctx,q[0],q[1],rx,ry,tint(color,-35));ellipse(ctx,q[0]-.3,q[1]-.5,rx*.9,ry*.9,color);ellipse(ctx,q[0]-rx*.3,q[1]-ry*.4,rx*.45,ry*.3,tint(color,42));ellipse(ctx,q[0]-rx*.15,q[1]-ry*.25,rx*.2,ry*.12,tint(color,65));};
  const box=(x,y,w,l,h,z,color)=>{poly(ctx,[p(x-w,y-l,z),p(x+w,y-l,z),p(x+w,y-l,z+h),p(x-w,y-l,z+h)],tint(color,-20),'#1c2222');poly(ctx,[p(x-w,y+l,z),p(x+w,y+l,z),p(x+w,y+l,z+h),p(x-w,y+l,z+h)],tint(color,-6),'#1c2222');poly(ctx,[p(x+w,y-l,z),p(x+w,y+l,z),p(x+w,y+l,z+h),p(x+w,y-l,z+h)],tint(color,-31),'#1c2222');poly(ctx,[p(x-w,y-l,z+h),p(x+w,y-l,z+h),p(x+w,y+l,z+h),p(x-w,y+l,z+h)],tint(color,17),'#b6b7a179');};
+ // Plate: armor piece with beveled edge highlights.
+ const plate=(x,y,w,l,h,z,color)=>{poly(ctx,[p(x-w,y-l,z),p(x+w,y-l,z),p(x+w,y-l,z+h),p(x-w,y-l,z+h)],tint(color,-22),'#111817');poly(ctx,[p(x+w,y-l,z),p(x+w,y+l,z),p(x+w,y+l,z+h),p(x+w,y-l,z+h)],tint(color,-35),'#111817');poly(ctx,[p(x-w,y-l,z+h),p(x+w,y-l,z+h),p(x+w,y+l,z+h),p(x-w,y+l,z+h)],tint(color,20),'#111817');
+  // Top face edge highlight.
+  const e0=p(x-w,y-l,z+h),e1=p(x+w,y-l,z+h),e2=p(x+w,y+l,z+h);ctx.strokeStyle=tint(color,48);ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(...e0);ctx.lineTo(...e1);ctx.lineTo(...e2);ctx.stroke();};
+ // Limb with muscle shape: thicker in middle, tapered at joints.
+ const limb=(from,to,color,width,highlight=true)=>{const v=p(...from),w=p(...to);const mx=(v[0]+w[0])*.5,my=(v[1]+w[1])*.5;ctx.strokeStyle='#111817';ctx.lineWidth=width+2;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(...v);ctx.quadraticCurveTo(mx-.8,my-1.2,...w);ctx.stroke();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(v[0]-.3,v[1]-.5);ctx.quadraticCurveTo(mx-1,my-1.5,w[0]-.3,w[1]-.5);ctx.stroke();if(highlight&&width>2){ctx.strokeStyle=tint(color,35);ctx.lineWidth=width*.35;ctx.beginPath();ctx.moveTo(v[0]-.6,v[1]-.9);ctx.quadraticCurveTo(mx-1.3,my-1.9,w[0]-.6,w[1]-.9);ctx.stroke();}};
+ // Rivet: tiny raised dot on armor surface.
+ const rivet=(x,y,z)=>{const q=p(x,y,z);ctx.fillStyle='#5a6560';ctx.fillRect(q[0]-.5,q[1]-.5,1,1);ctx.fillStyle='#c0bda0';ctx.fillRect(q[0]-.5,q[1]-1,1,1);};
  const style=f.style,color=f.color,mech=style==='machine',bug=style==='insect',fungal=style==='fungal',vehicle=(['tank','siege','gunship','fighter'].includes(d.role)&&['industrial','machine','night','reptile'].includes(style))||/Ram|Catapult|Siege Engine|Dwarven Artillery/.test(d.name),large=['tank','giant'].includes(d.role),scale=large?1.4:d.role==='heavy'?1.15:1,roleIndex=Object.keys(D.units).filter(id=>D.units[id].faction===d.faction&&D.units[id].role===d.role).indexOf(d.id);
- if(vehicle){const chassis=d.role==='tank'&&roleIndex===0?23:d.role==='siege'?21:18;const base=style==='night'?'#626270':style==='reptile'?'#747c5d':'#77827b';if(d.air){box(0,0,18,5,6,9,base);poly(ctx,[p(8,0,12),p(-10,-22,10),p(-16,-23,10),p(-5,0,12),p(-16,23,10),p(-10,22,10)],tint(base,-3),'#adb3a0');ball(11,0,16,5,3,'#6d999e');if(d.role==='gunship'){const r=frame*Math.PI/3;segment([-Math.cos(r)*24,-Math.sin(r)*24,30],[Math.cos(r)*24,Math.sin(r)*24,30],'#b5b8a4',1);segment([Math.sin(r)*24,-Math.cos(r)*24,30],[-Math.sin(r)*24,Math.cos(r)*24,30],'#8a9083',1);}}
- else{box(0,-10,17,4,6,1,'#333d3c');box(0,10,17,4,6,1,'#333d3c');for(let i=-12;i<=12;i+=6){ball(i,-13,4,3,3,'#72786a');ball(i,13,4,3,3,'#72786a');for(const side of [-1,1]){const r=action==='walk'?frame*.9:0;segment([i-Math.cos(r)*2,side*13,4-Math.sin(r)*2],[i+Math.cos(r)*2,side*13,4+Math.sin(r)*2],'#b3b49e',.8);}}box(0,0,chassis,9,7,5,base);box(1,0,d.role==='tank'&&roleIndex===0?12:9,7,d.role==='tank'&&roleIndex===0?4:6,12,tint(base,8));if(roleIndex>0){box(-8,0,6,5,2,13,tint(base,-18));for(const side of [-1,1])box(0,side*10,14,2,3,8,tint(base,-8));}segment([4,0,18],[d.role==='siege'?34:28,0,attack?18-frame%4:18],tint(base,20),4);ball(3,0,20,4,2,'#3c4640');for(const side of [-1,1]){segment([-14,side*9,13],[13,side*9,13],tint(base,24),1);box(-4,side*6,4,1,1,19,tint(color,-14));}segment([6,0,21],[9,0,21],'#b8c4b1',1);for(let j=-1;j<=1;j++)box(-10,j*5,3,1,1,13,'#45514a');}segment([-12,-6,15],[-12,-6,28],'#4d5551',1);ball(-12,-6,28,1.5,1.5,color);}
+ if(vehicle){
+ // === VEHICLE RENDERER — AoE-quality detail ===
+ const chassis=d.role==='tank'&&roleIndex===0?23:d.role==='siege'?21:18;
+ const base=style==='night'?'#626270':style==='reptile'?'#747c5d':'#77827b';
+ const baseHi=tint(base,20),baseLo=tint(base,-18),baseMetal=tint(base,35);
+ if(d.air){
+  // === AIRCRAFT ===
+  // Fuselage — multi-panel with belly.
+  plate(0,0,18,5,6,9,base);
+  // Fuselage belly panel.
+  plate(0,0,16,4,2,7,tint(base,-10));
+  // Panel line seams.
+  segment([12,0,15],[-12,0,15],tint(base,-15),.4);
+  for(let j=-1;j<=1;j++)segment([j*8,-5,12],[j*8,5,12],baseLo,.3);
+  // Rivets along fuselage.
+  for(let j=-2;j<=2;j++){rivet(j*5,-4,15);rivet(j*5,4,15);}
+  // Swept wings with ailerons.
+  poly(ctx,[p(8,0,12),p(-10,-22,10),p(-16,-23,10),p(-5,0,12),p(-16,23,10),p(-10,22,10)],tint(base,-3),'#adb3a0');
+  // Wing panel lines.
+  for(const s of [-1,1]){
+   segment([2,s*2,12],[-12,s*18,10],baseLo,.4);
+   // Aileron hinge line.
+   segment([-10,s*16,10],[-15,s*21,10],tint(base,15),.5);
+  }
+  // Wing hardpoints with ordnance.
+  for(const s of [-1,1]){
+   metalBall(-6,s*14,10,2.5,2,tint(base,-15));
+   segment([-6,s*14,10],[-6,s*14,7],tint(base,-22),1.2);
+   // Pylon.
+   plate(-6,s*14,1.5,.8,1.5,8,tint(base,-20));
+  }
+  // Cockpit glass — layered.
+  ball(11,0,16,6,3.5,'#4a7a80');
+  ball(12,0,16,5,3,'#6d999e');
+  ball(13,0,15.5,3.5,2,'#8cc5ca');
+  // Canopy frame.
+  segment([8,0,16],[14,0,15],tint(base,-10),.6);
+  segment([11,-3,15],[11,3,15],tint(base,-10),.5);
+  // Tail section.
+  // Vertical stabilizer.
+  poly(ctx,[p(-14,0,12),p(-16,0,12),p(-18,0,22),p(-15,0,22)],tint(base,-5),'#8a9088');
+  // Rudder.
+  segment([-17,0,14],[-18,0,20],baseMetal,.7);
+  // Horizontal stabilizers.
+  for(const s of [-1,1])poly(ctx,[p(-14,s,12),p(-16,s*6,11),p(-18,s*6,11),p(-16,s,12)],tint(base,-8),'#8a9088');
+  // Engine intakes.
+  for(const s of [-1,1])ball(-8,s*3,10,2.5,2,tint(base,-12));
+  // Engine exhaust glow.
+  if(action==='walk'){ball(-16,0,11,4,3,'#c7a84e');ball(-17,0,11,2,1.5,'#f0d870');}
+  // Navigation lights.
+  for(const s of [-1,1]){const lp=p(-10,s*20,10);ctx.fillStyle=s>0?'#40c040':'#c04040';ctx.fillRect(lp[0]-.5,lp[1]-.5,1,1);}
+  // Gunship rotor.
+  if(d.role==='gunship'){
+   const r=frame*Math.PI/3;
+   segment([-Math.cos(r)*24,-Math.sin(r)*24,30],[Math.cos(r)*24,Math.sin(r)*24,30],'#b5b8a480',1.2);
+   segment([Math.sin(r)*24,-Math.cos(r)*24,30],[-Math.sin(r)*24,Math.cos(r)*24,30],'#8a908380',1.2);
+   // Rotor hub.
+   metalBall(0,0,30,3,2,tint(base,10));
+  }
+ }else{
+  // === GROUND VEHICLE — TANK / SIEGE ===
+  // Track assemblies — detailed road wheels, sprockets, links.
+  for(const side of [-1,1]){
+   // Track housing.
+   plate(0,side*10,18,4.5,7,0,'#2a3433');
+   // Individual road wheels.
+   for(let i=-12;i<=12;i+=4){
+    // Wheel hub.
+    ball(i,side*13,4,2.8,2.8,'#5a635e');
+    // Tire/rim.
+    ball(i,side*13,4,2,2,'#72786a');
+    // Hub bolt.
+    ball(i,side*13,4.3,.7,.7,'#8a908a');
+    // Track link segments with rotation.
+    const r=action==='walk'?frame*.9+i*.15:0;
+    segment([i-Math.cos(r)*2,side*13,4-Math.sin(r)*2],[i+Math.cos(r)*2,side*13,4+Math.sin(r)*2],'#b3b49e',.9);
+    // Track pad grouser.
+    segment([i-1.5,side*12,3],[i+1.5,side*12,3],baseLo,.6);
+    segment([i,side*12.5,2.5],[i,side*12.5,4.5],tint(base,-30),.3);
+   }
+   // Drive sprocket (front).
+   metalBall(14,side*13,4,3,3,tint(base,-5));
+   // Idler wheel (rear).
+   metalBall(-14,side*13,4,2.5,2.5,tint(base,-8));
+   // Track return rollers (top).
+   for(let i=-6;i<=6;i+=6)ball(i,side*12,8,1.5,1.5,tint(base,-12));
+   // Side skirt armor.
+   plate(0,side*9,15,1,5,7,tint(base,10));
+   // ERA blocks on side skirt.
+   for(let j=-1;j<=1;j++)plate(j*7,side*9,3,1,2.5,8,tint(base,15));
+  }
+  // Hull with sloped front armor — detailed.
+  plate(0,0,chassis,9,8,5,base);
+  // Glacis plate (sloped front).
+  poly(ctx,[p(chassis-2,-9,5),p(chassis+6,-7,5),p(chassis+6,-7,13),p(chassis-2,-9,13)],tint(base,5),'#2a3230');
+  poly(ctx,[p(chassis-2,9,5),p(chassis+6,7,5),p(chassis+6,7,13),p(chassis-2,9,13)],tint(base,3),'#2a3230');
+  // Hull weld seam lines.
+  segment([-14,0,12],[chassis-2,0,12],baseLo,.4);
+  segment([0,-9,12],[0,9,12],baseLo,.3);
+  // Hull bolts.
+  for(let j=-2;j<=2;j++){rivet(j*5,-8,12);rivet(j*5,8,12);}
+  // Driver viewport.
+  plate(chassis-1,-5,2,1.5,.8,12,tint(base,-25));
+  // Hull glacis detail — applique armor.
+  plate(chassis+1,0,5,6,2,8,tint(base,8));
+
+  // Turret — multi-layer.
+  const tw=d.role==='tank'&&roleIndex===0?12:9;
+  const th=d.role==='tank'&&roleIndex===0?4:6;
+  plate(1,0,tw,7.5,th,12,tint(base,8));
+  // Turret top.
+  plate(1,0,tw-1,6,1,12+th,tint(base,15));
+  // Turret weld seams.
+  segment([1-tw,-7,14],[1+tw,-7,14],baseLo,.3);
+  segment([1-tw,7,14],[1+tw,7,14],baseLo,.3);
+  // Commander cupola hatch.
+  metalBall(-2,0,12+th+1,3.5,3,tint(base,18));
+  // Hatch handle.
+  segment([-3,-1.5,12+th+2],[-1,1.5,12+th+2],baseMetal,.5);
+  // Loader's hatch.
+  ball(-5,3,12+th+1,2,1.5,tint(base,12));
+  // Turret side ERA/stowage.
+  if(roleIndex>0){
+   plate(-8,0,6,5,2,13,tint(base,-18));
+   for(const side of [-1,1])plate(0,side*10,2.5,3.5,3,8,tint(base,-8));
+  }
+  // Smoke grenade launchers.
+  for(const side of [-1,1])for(let j=0;j<3;j++){
+   segment([tw-3,side*7,13+j*1.5],[tw+1,side*8,14+j*1.5],tint(base,-12),.8);
+   ball(tw+1,side*8,14+j*1.5,.6,.6,'#3a4440');
+  }
+
+  // Main gun with recoil and mantlet.
+  const gunRecoil=attack&&frame===2?-4:0;
+  const gunLen=d.role==='siege'?34:28;
+  // Gun mantlet.
+  metalBall(tw-2,0,15,3.5,4,tint(base,5));
+  // Gun barrel — with thermal shroud.
+  segment([tw-2,0,15],[gunLen+gunRecoil,0,attack?15-frame%4*.3:15],tint(base,22),4.5);
+  // Thermal shroud bands.
+  for(let j=0;j<4;j++){const gx=tw+2+j*4+gunRecoil*(j/4);const gp=p(gx,0,15);ctx.strokeStyle=baseLo;ctx.lineWidth=.4;ctx.beginPath();ctx.ellipse(gp[0],gp[1],2.5,1.5,0,0,Math.PI*2);ctx.stroke();}
+  // Muzzle brake — multi-port.
+  metalBall(gunLen+gunRecoil,0,15,2.5,3.5,tint(base,-10));
+  // Muzzle brake ports.
+  for(const s of [-1,1]){const mp=p(gunLen+gunRecoil-1,s*2,15);ctx.fillStyle='#1a2220';ctx.fillRect(mp[0]-.5,mp[1]-.3,1,.6);}
+  // Muzzle flash.
+  if(attack&&frame===2){
+   ball(gunLen+2+gunRecoil,0,15,5,4,'#f2d896');
+   ball(gunLen+3+gunRecoil,0,15.5,3,2,'#fff8e0');
+  }
+  // Coax machine gun.
+  segment([tw-1,2,14],[tw+4,2,14],tint(base,25),1);
+  // Commander's MG mount.
+  ball(3,0,12+th+2,2,1.5,'#3c4640');
+  segment([3,0,12+th+2],[6,0,12+th+2],'#b8c4b1',1.2);
+  // Turret side view ports.
+  for(const side of [-1,1]){
+   const vp=p(-2,side*7,14);ctx.fillStyle='#3a5555';ctx.fillRect(vp[0]-.8,vp[1]-.4,1.6,.8);
+   ctx.fillStyle='#5a8888';ctx.fillRect(vp[0]-.5,vp[1]-.2,1,.4);
+  }
+  // Tool stowage — varied boxes and jerry can.
+  for(let j=-1;j<=1;j++)plate(-10,j*5,3,1.2,1.5,12.5,'#45514a');
+  // Jerry can.
+  plate(-12,4,1.5,1,2,12.5,'#5a6450');
+  // Tow cables coiled on rear.
+  ball(-14,0,12,2,3,'#55604a');
+  // Exhaust pipes with heat shimmer.
+  for(const side of [-1,1]){
+   segment([-14,side*7,13],[-16,side*7,16],tint(base,-20),1.5);
+   ball(-16,side*7,16,1.2,1.2,tint(base,-15));
+   if(action==='walk'){const ep=p(-17,side*7,17);ctx.fillStyle='#80808020';ctx.fillRect(ep[0]-.5,ep[1]-1,1,2);}
+  }
+ }
+ // Antenna with faction flag and comm whip.
+ segment([-12,-6,15],[-12,-6,30],'#4d5551',1);
+ ball(-12,-6,30,1.8,1.8,color);
+ // Second whip antenna.
+ segment([-8,-5,15],[-8,-5,25],'#5a6058',.6);
+ // Commander pennant.
+ if(roleIndex===0){
+  poly(ctx,[p(-12,-6,30),p(-12,-6,27),p(-12,-10,28.5)],color,'#0000');
+  // Pennant detail.
+  segment([-12,-8,29],[-12,-10,28.5],tint(color,20),.4);
+ }
+ // Unit number marking on hull.
+ const np=p(-5,8,12);ctx.fillStyle=color;ctx.fillRect(np[0]-1.5,np[1]-1,3,2);
+ }
  else if(mech||bug||fungal){
+ // === BUG / MECH / FUNGAL RENDERER — AoE-quality detail ===
  const role=d.role,termite=/Termite|Bombardier/.test(d.name),col=mech?'#708387':fungal?'#8b9a77':termite?'#ad9870':'#8d704a';
+ const chitinHi=tint(col,28),chitinLo=tint(col,-22),chitinSpec=tint(col,50);
+ const mechPlate=tint(col,-9),mechHi=tint(col,18),mechRivet='#4a5550';
  const mass=role==='giant'?1.9:['tank','siege','heavy'].includes(role)?1.4:role==='scout'?.7:role==='worker'?.9:1;
  const segments=mech?role==='tank'?4:2:3;
- for(let j=0;j<segments;j++)for(const side of [-1,1]){const x=(j-(segments-1)/2)*7*mass,step=walk*(j%2?1:-1)*4;segment([x,side*4,12],[x+step,side*12*mass,7],tint(col,-12),2);segment([x+step,side*12*mass,7],[x+step+3,side*18*mass,1],col,2);}
- ball(-9*mass,0,12,9*mass,6*mass,tint(col,-20));ball(0,0,15,6*mass,6*mass,col);ball(9,0,17,role==='melee'?7:5,role==='melee'?5:4,tint(col,6));
- if(mech){box(-7,0,7*mass,5*mass,5,14,tint(col,-9));segment([-8,0,20],[-8,0,27],color,1);ball(-8,0,27,1.5,1.5,'#a9d9d0');}
- if(d.air){for(const side of [-1,1]){poly(ctx,[p(0,side*3,20),p(-8,side*(role==='fighter'?32:24),27+walk*6),p(-19,side*19,15),p(-7,side*3,16)],mech?'#839a9b':'#a5b09c','#d0c9a0');segment([0,side*3,20],[-8,side*28,25+walk*6],tint(col,29),1);}}
- if(role==='worker'){for(const side of [-1,1]){segment([10,side*3,17],[17+lift*.15,side*7,12+lift*.4],tint(col,27),2);segment([17,side*7,13],[21,side*4,13],tint(col,40),1.5);}ball(-12,0,14,6,5,tint(col,15));}
- else if(role==='scout'){for(const side of [-1,1]){segment([11,side*2,19],[18,side*9,29],tint(col,23),1);ball(18,side*9,29,1.3,1.3,color);}}
- else if(role==='melee'){for(const side of [-1,1]){segment([10,side*3,19],[23-lift*.2,side*9,15+lift*.5],tint(col,35),3);segment([23-lift*.2,side*9,15+lift*.5],[24,side*2,13+lift*.5],'#d1bb8d',2);}}
- else if(role==='heavy'||role==='tank'){for(let j=0;j<4;j++){ball(-11+j*5,0,19,6*mass,5*mass,tint(col,j%2?12:-9));segment([-12+j*5,-7*mass,19],[-12+j*5,7*mass,19],tint(col,-27),.8);}for(const side of [-1,1])segment([9,side*5,20],[18,side*8,27],tint(col,35),3);}
- else if(role==='siege'){const mortar=roleIndex>0;ball(-8,0,20,13,10,tint(col,9));for(const side of mortar?[-1,1]:[0]){segment([-3,side*4,24],[mortar?4:18,side*4,mortar?38:26],tint(col,20),mortar?6:5);ball(mortar?4:18,side*4,mortar?38:26,2.5,2.5,'#293d32');}}
- else if(role==='aa'){segment([4,0,20],[27,0,32+lift*.2],tint(col,35),3);for(const side of [-1,1])segment([8,side*4,23],[17,side*11,32],color,2);}
- else if(role==='elite'){for(let j=-1;j<=1;j++)segment([0,j*5,20],[-6,j*8,34],tint(col,38),2);for(const side of [-1,1])segment([8,side*5,22],[23,side*7,23+lift*.2],color,3);}
- else if(role==='stealth'){ball(-9,0,18,12,5,tint(col,-18));for(const side of [-1,1])ball(-12,side*7,14,4,5,'#b89b62');segment([7,0,19],[16,0,17+lift*.3],col,2);}
- else{segment([6,0,19],[19,0,19+lift*.1],mech?'#8a9da0':color,3);ball(-8,0,20,6,5,role==='support'?'#a7c6aa':tint(col,16));}
- if(fungal)for(let j=0;j<3;j++){segment([-7+j*4,0,18],[-9+j*5,3,27+j%2*4],col,2);ball(-9+j*5,3,27+j%2*4,4,2,tint(col,24));}
- if(roleIndex>0)for(let j=0;j<roleIndex;j++)segment([-8-j*4,0,22],[-11-j*4,0,31+j*2],tint(col,30),2);
- if(!mech){for(const side of [-1,1]){ball(12,side*3,19,1.8,1.4,'#343b29');ball(12.5,side*3,19.6,.7,.6,'#dfcd92');segment([12,side*2,17],[17,side*4,14],tint(col,26),1.2);segment([17,side*4,14],[19,side*1,14],'#d7c294',1);}
- for(let j=0;j<4;j++)segment([-15+j*3,-4,15],[-15+j*3,4,15],tint(col,-24),.65);
- if(fungal){for(let j=0;j<6;j++){const x=-12+j*4;ball(x,j%2?4:-4,21+j%3,1.8,1.6,j%2?'#c4c498':'#5e715b');}}
- if(d.name==='Acid Spitter'||d.name==='Spitter'){ball(-10,0,23,7,5,'#a5ad68');for(let j=-1;j<=1;j++)segment([-10,j*3,24],[-4,j*3,21],'#d2cc90',.7);}
- }ball(11,-2,18,1.4,1.4,mech?'#82e3e3':'#c8bd7d');}
+
+ // === LEGS with joints, claws/feet, muscle detail ===
+ for(let j=0;j<segments;j++)for(const side of [-1,1]){
+  const x=(j-(segments-1)/2)*7*mass,step=walk*(j%2?1:-1)*4;
+  const hip=[x,side*4,12],knee=[x+step*.3,side*(4+(12*mass-4)*.5),9.5],foot=[x+step+3,side*18*mass,1];
+  // Coxa (hip joint).
+  ball(hip[0],hip[1],hip[2],2.5*mass,2*mass,tint(col,-10));
+  // Femur (upper leg) — tapered muscle shape for bugs, piston for mechs.
+  if(mech){
+   segment(hip,knee,tint(col,-15),3);
+   // Hydraulic piston detail.
+   const mx=(hip[0]+knee[0])*.5,my=(hip[1]+knee[1])*.5,mz=(hip[2]+knee[2])*.5;
+   segment([mx-.5,my,mz],[mx+.5,my,mz],mechHi,1.2);
+  }else{
+   limb(hip,knee,tint(col,-12),2.8);
+   // Chitin highlight on femur.
+   const hpj=p(...hip),kpj=p(...knee);ctx.strokeStyle=chitinSpec;ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(hpj[0]-.3,hpj[1]-.6);ctx.lineTo(kpj[0]-.3,kpj[1]-.6);ctx.stroke();
+  }
+  // Tibia (lower leg).
+  if(mech){
+   segment(knee,foot,col,2.5);
+   // Lower piston.
+   const lmx=(knee[0]+foot[0])*.5,lmy=(knee[1]+foot[1])*.5,lmz=(knee[2]+foot[2])*.5;
+   segment([lmx,lmy,lmz-.5],[lmx,lmy,lmz+.5],mechHi,.8);
+  }else{
+   limb(knee,foot,col,2.2);
+  }
+  // Knee joint ball with highlight.
+  if(mech){
+   metalBall(knee[0],knee[1],knee[2],2.2,2,tint(col,5));
+   rivet(knee[0]+.5,knee[1],knee[2]+1);
+  }else{
+   ball(knee[0],knee[1],knee[2],2,1.8,tint(col,15));
+   ball(knee[0]-.3,knee[1]-.3,knee[2]+.3,1,1,chitinSpec);
+  }
+  // Foot / claw.
+  if(!mech){
+   // Three-toed claw.
+   for(let t=-1;t<=1;t++){
+    segment([foot[0],foot[1],foot[2]],[foot[0]+2+t*.5,foot[1]+t*1.5,foot[2]-1],tint(col,25),1.2);
+    ball(foot[0]+2+t*.5,foot[1]+t*1.5,foot[2]-1,.8,.6,'#c5b880');
+   }
+   // Foot pad.
+   ball(foot[0]+1,foot[1],foot[2],2.5,1.5,chitinHi);
+  }else{
+   // Mech foot pad — flat plate.
+   plate(foot[0],foot[1],3,2,1,foot[2],'#4a5558');
+   ball(foot[0],foot[1],foot[2]+1,2,1.2,'#555f60');
+  }
+ }
+
+ // === BODY SEGMENTS — abdomen, thorax, head section ===
+ // Abdomen (rear) with chitin plates or mech hull.
+ if(!mech){
+  ball(-9*mass,0,12,10*mass,7*mass,tint(col,-20));
+  // Chitin plate bands on abdomen.
+  for(let j=0;j<4;j++){
+   const x=-12*mass+j*5*mass;
+   segment([x,-6*mass,13],[x,6*mass,13],chitinLo,.8);
+   // Highlight between plates.
+   segment([x+1,-5*mass,13.5],[x+1,5*mass,13.5],tint(col,8),.3);
+  }
+  // Dorsal ridge / spine row with spiky detail.
+  for(let j=0;j<5;j++){
+   const x=-8+j*3.5;
+   ball(x,0,17+j*.3,1.5,2.2,chitinHi);
+   // Spine tip highlight.
+   ball(x-.2,0,18+j*.3,.6,1,chitinSpec);
+  }
+  // Lateral breathing spiracles.
+  for(const s of [-1,1])for(let j=0;j<2;j++){
+   const sp=p(-6+j*5,s*5*mass,13);
+   ctx.fillStyle=tint(col,-30);ctx.fillRect(sp[0]-.4,sp[1]-.3,.8,.6);
+  }
+ }else{
+  // Mech hull — armored box with panel lines and rivets.
+  plate(-7,0,8*mass,6*mass,6,13,mechPlate);
+  // Panel lines grid.
+  for(let j=-1;j<=1;j+=2){
+   segment([-7+j*5,-6*mass,16],[-7+j*5,6*mass,16],tint(col,-20),.6);
+   segment([-7+j*5,-6*mass,14],[-7+j*5,6*mass,14],tint(col,-20),.4);
+  }
+  for(let j=-1;j<=1;j++)segment([-12,-4*mass+j*3*mass,15],[2,-4*mass+j*3*mass,15],tint(col,-18),.4);
+  // Corner rivets.
+  rivet(-12,-5*mass,16);rivet(-12,5*mass,16);rivet(2,-5*mass,16);rivet(2,5*mass,16);
+  // Hull number/marking.
+  const mp=p(-3,0,19);ctx.fillStyle=color;ctx.fillRect(mp[0]-1.5,mp[1]-1,3,2);
+ }
+ // Thorax (middle segment).
+ ball(0,0,15,7*mass,6.5*mass,col);
+ if(!mech){
+  // Thorax chitin highlight.
+  ball(0,0,16.5,5*mass,4*mass,tint(col,12));
+  ball(-.3,0,17,3*mass,2.5*mass,chitinSpec);
+ }
+ // Head/prothorax (front).
+ ball(9,0,17,role==='melee'?8:6,role==='melee'?5.5:4.5,tint(col,6));
+ if(!mech){
+  ball(9,0,18,role==='melee'?5:4,role==='melee'?3.5:3,tint(col,18));
+ }
+
+ // === MECH-SPECIFIC HULL DETAILS ===
+ if(mech){
+  // Sensor mast with scanning dish.
+  segment([-8,0,20],[-8,0,28],tint(col,10),1.2);
+  metalBall(-8,0,28,2,2,'#82ccc8');
+  ball(-8.3,0,28.5,1,1,'#a9e9e0');
+  // Rotating radar dish.
+  const rr=frame*.5;
+  segment([-8-Math.cos(rr)*3,Math.sin(rr)*3,28],[-8+Math.cos(rr)*3,-Math.sin(rr)*3,28],tint(col,30),.7);
+  // Exhaust vents with heat glow.
+  for(let j=0;j<3;j++){
+   plate(-13-j*2.5,0,2,2,1.5,13+j*1.5,tint(col,-28));
+   if(action==='walk'){const ep=p(-14-j*2.5,0,14+j*1.5);ctx.fillStyle='#c0702040';ctx.fillRect(ep[0]-1,ep[1]-.5,2,1);}
+  }
+  // Armor skirts along lower hull.
+  for(const s of [-1,1])plate(-5,s*5*mass,6*mass,1,3,13,tint(col,-15));
+ }
+
+ // === WINGS ===
+ if(d.air){for(const side of [-1,1]){
+  if(mech){
+   // Mech wings — metal struts with plating.
+   poly(ctx,[p(0,side*3,20),p(-8,side*(role==='fighter'?32:24),27+walk*6),p(-19,side*19,15),p(-7,side*3,16)],'#839a9b','#d0c9a0');
+   // Wing strut.
+   segment([0,side*3,20],[-8,side*28,25+walk*6],tint(col,20),1.5);
+   // Aileron panel.
+   segment([-12,side*15,18],[-17,side*18,16],tint(col,-10),.8);
+   rivet(-5,side*10,21);rivet(-12,side*16,18);
+  }else{
+   // Bug wings — translucent with vein network.
+   const wingSpan=role==='fighter'?32:24;
+   poly(ctx,[p(0,side*3,20),p(-8,side*wingSpan,27+walk*6),p(-19,side*(wingSpan-5),15),p(-7,side*3,16)],'#a5b09c50','#c8c09040');
+   // Primary vein (costa).
+   segment([0,side*3,20],[-8,side*wingSpan,25+walk*6],tint(col,32),1);
+   // Secondary veins branching.
+   segment([-2,side*4,20],[-10,side*(wingSpan*.7),21+walk*4],tint(col,38),.6);
+   segment([-4,side*5,19],[-14,side*(wingSpan*.55),18+walk*3],tint(col,34),.5);
+   segment([-6,side*4,18],[-17,side*(wingSpan*.45),16+walk*2],tint(col,30),.4);
+   // Cross veins.
+   segment([-5,side*(wingSpan*.3),22+walk*2],[-8,side*(wingSpan*.5),20+walk*3],tint(col,28),.3);
+   segment([-10,side*(wingSpan*.4),19+walk*2],[-14,side*(wingSpan*.6),18+walk*3],tint(col,25),.3);
+   // Wing cell iridescence spots.
+   const wp=p(-6,side*(wingSpan*.4),22+walk*3);ctx.fillStyle='#b8c8d050';ctx.fillRect(wp[0]-2,wp[1]-1.5,4,3);
+  }
+ }}
+
+ // === ROLE-SPECIFIC APPENDAGES ===
+ if(role==='worker'){
+  for(const side of [-1,1]){
+   const workArc=working?Math.sin(frame*Math.PI/3)*.4:0;
+   // Worker mandible-arms with tool tips.
+   limb([10,side*3,17],[14+lift*.1+workArc*4,side*6,14+lift*.3],tint(col,20),2.5);
+   limb([14+lift*.1,side*6,14],[19+workArc*3,side*4,12],tint(col,35),1.8);
+   // Tool tip — mandible claw.
+   ball(19+workArc*3,side*4,12,1.5,1,'#c5b880');
+  }
+  // Pollen/resource basket on abdomen.
+  ball(-12,0,14,7,6,tint(col,15));
+  ball(-12,0,15,5,4,tint(col,25));
+  // Carrying texture dots.
+  for(let j=0;j<4;j++){const cp=p(-13+j*2,j%2?2:-2,16);ctx.fillStyle=tint(col,10+j*5);ctx.fillRect(cp[0]-.5,cp[1]-.5,1,1);}
+ }
+ else if(role==='scout'){
+  for(const side of [-1,1]){
+   // Long sensory palps.
+   limb([11,side*2,19],[15,side*6,25],tint(col,23),1.2);
+   limb([15,side*6,25],[18,side*9,29],tint(col,30),.8);
+   ball(18,side*9,29,1.5,1.5,color);
+   // Sensory whiskers — longer, more prominent.
+   segment([13,side*2,19],[20,side*3,23],tint(col,40),.4);
+   segment([12,side*1,20],[19,side*5,22],tint(col,42),.3);
+  }
+  // Speed stripes on thorax.
+  for(let j=0;j<2;j++)segment([2+j*3,0,17],[8+j*2,0,18],tint(col,35),.5);
+ }
+ else if(role==='melee'){
+  for(const side of [-1,1]){
+   const clawSwing=meleeSwing*Math.PI*.6;
+   const cx=attack?10+Math.cos(clawSwing)*13:10,cz=attack?19-Math.sin(clawSwing)*6:19;
+   // Enlarged pincers with serrated inner edge.
+   limb([10,side*3,19],[cx*.7+3,side*6,cz*.8+4],tint(col,25),3.5);
+   limb([cx*.7+3,side*6,cz*.8+4],[cx,side*9,cz],tint(col,35),2.8);
+   // Pincer tip — curved blade.
+   segment([cx,side*9,cz],[cx+3,side*5,cz-2],'#d1bb8d',2.5);
+   segment([cx+3,side*5,cz-2],[cx+4,side*2,cz-3],'#e0d0a0',1.5);
+   // Serration teeth on inner edge.
+   for(let t=0;t<3;t++){
+    const tx=cx-t*2,tz=cz-t*.5;
+    ball(tx,side*8-t,tz,.8,.6,'#c8b880');
+   }
+  }
+ }
+ else if(role==='heavy'||role==='tank'){
+  // Extra thoracic armor plates.
+  for(let j=0;j<4;j++){
+   ball(-11+j*5,0,19,7*mass,5.5*mass,tint(col,j%2?12:-9));
+   // Plate edge lines.
+   segment([-12+j*5,-7*mass,19],[-12+j*5,7*mass,19],chitinLo,.9);
+   // Highlight on each plate.
+   ball(-10+j*5,0,20,3*mass,2*mass,j%2?chitinSpec:tint(col,20));
+  }
+  for(const side of [-1,1]){
+   limb([9,side*5,20],[14,side*7,24],tint(col,30),3.5);
+   limb([14,side*7,24],[19,side*8,27],tint(col,35),2.5);
+   ball(19,side*8,27,2,1.5,color);
+  }
+  // Lateral armor scutes.
+  if(!mech)for(const side of [-1,1]){
+   ball(-3,side*7,18,9,3.5,tint(col,-14));
+   ball(-3,side*7,19,6,2,tint(col,8));
+  }
+ }
+ else if(role==='siege'){
+  const mortar=roleIndex>0;
+  // Bloated bombardier abdomen — multi-layered.
+  ball(-8,0,19,14,11,tint(col,5));
+  ball(-8,0,21,12,9,tint(col,12));
+  if(!mech){
+   ball(-8,0,23,10,7,tint(col,20));
+   // Pulsating sac segments.
+   for(let j=0;j<4;j++){
+    segment([-14+j*4,-9,20],[-14+j*4,9,20],chitinLo,.8);
+    // Bioluminescent glow between segments.
+    const gp=p(-13+j*4,0,21);ctx.fillStyle='#a0b06030';ctx.fillRect(gp[0]-.5,gp[1]-2,1,4);
+   }
+  }
+  // Mortar tubes / spray nozzles.
+  for(const side of mortar?[-1,1]:[0]){
+   segment([-3,side*4,24],[mortar?4:15,side*4,mortar?36:28],tint(col,20),mortar?5:4.5);
+   // Barrel rifling rings.
+   for(let j=0;j<3;j++){const rp=p(-1+j*(mortar?2:5),side*4,25+j*(mortar?4:1));ctx.strokeStyle=tint(col,-15);ctx.lineWidth=.4;ctx.beginPath();ctx.ellipse(rp[0],rp[1],2.5,1.5,0,0,Math.PI*2);ctx.stroke();}
+   ball(mortar?4:15,side*4,mortar?36:28,3,3,'#293d32');
+   // Muzzle interior.
+   ball(mortar?4.5:15.5,side*4,mortar?36:28,1.5,1.5,'#1a2a1e');
+  }
+ }
+ else if(role==='aa'){
+  // Anti-air launcher array.
+  limb([4,0,20],[18,0,28+lift*.15],tint(col,30),3.5);
+  segment([18,0,28],[27,0,32+lift*.2],tint(col,35),2.5);
+  // Multiple barrel cluster.
+  for(const s of [-1,0,1]){
+   segment([20,s*2,30],[28,s*2,33+lift*.2],tint(col,20),1.2);
+   ball(28,s*2,33+lift*.2,1,1,'#3a4a40');
+  }
+  for(const side of [-1,1])limb([8,side*4,23],[14,side*8,28],color,2.2);
+  // Targeting array.
+  ball(27,0,34,1.5,1.5,'#c0303060');
+ }
+ else if(role==='elite'){
+  // Royal guard crest spines.
+  for(let j=-1;j<=1;j++){
+   limb([0,j*5,20],[-4,j*7,30],tint(col,35),2.2);
+   limb([-4,j*7,30],[-6,j*8,34],tint(col,40),1.5);
+   ball(-6,j*8,34,1.2,1.2,chitinSpec);
+  }
+  for(const side of [-1,1]){
+   limb([8,side*5,22],[16,side*6,22+lift*.15],color,3.2);
+   limb([16,side*6,22],[23,side*7,23+lift*.2],tint(color,15),2.5);
+   ball(23,side*7,23+lift*.2,2,1.5,tint(color,30));
+  }
+  // Elite crown/crest on head.
+  if(!mech)for(let j=-1;j<=1;j++){
+   segment([11,j*2,20],[13,j*2.5,24],tint(col,35),1.8);
+   ball(13,j*2.5,24,1,1.5,chitinSpec);
+  }
+ }
+ else if(role==='stealth'){
+  // Flattened camouflage body profile.
+  ball(-9,0,17,13,6,tint(col,-18));
+  ball(-9,0,18,10,4,tint(col,-8));
+  // Mottled camo pattern dots.
+  for(let j=0;j<8;j++){const cp=p(-14+j*3,(j%3-1)*4,18);ctx.fillStyle=j%2?tint(col,15):tint(col,-25);ctx.fillRect(cp[0]-.8,cp[1]-.8,1.6,1.6);}
+  for(const side of [-1,1])ball(-12,side*7,14,5,5.5,'#b89b62');
+  segment([7,0,19],[14,0,17+lift*.3],col,2.2);
+  ball(14,0,17+lift*.3,1.5,1,tint(col,20));
+ }
+ else{
+  segment([6,0,19],[16,0,19+lift*.1],mech?'#8a9da0':color,3.2);
+  ball(16,0,19+lift*.1,2,1.5,mech?tint(col,20):tint(color,15));
+  ball(-8,0,20,7,5.5,role==='support'?'#a7c6aa':tint(col,16));
+  if(role==='support'){
+   // Healing gland pulsing glow.
+   ball(-8,0,21,5,3.5,'#b8d8b8');
+   if(frame%2===0){const hp=p(-8,0,22);ctx.fillStyle='#d0f0d040';ctx.fillRect(hp[0]-2,hp[1]-1.5,4,3);}
+  }
+ }
+
+ // === FUNGAL GROWTHS ===
+ if(fungal){
+  // Mushroom caps — larger, more varied.
+  for(let j=0;j<4;j++){
+   const fx=-8+j*4.5,fz=19+j%2*3;
+   segment([fx,0,fz],[fx-1+j%2*2,2+j%2,fz+8+j%3*3],tint(col,-5),2.2);
+   // Cap with gill detail underneath.
+   ball(fx-1+j%2*2,2+j%2,fz+8+j%3*3,4.5+j%2,2.5,tint(col,20+j*5));
+   ball(fx-1+j%2*2,2+j%2,fz+9+j%3*3,3+j%2,1.5,tint(col,35));
+   // Gill lines on underside.
+   const gp=p(fx-1+j%2*2,2+j%2,fz+7+j%3*3);
+   for(let g=-1;g<=1;g++){ctx.strokeStyle=tint(col,-15);ctx.lineWidth=.3;ctx.beginPath();ctx.moveTo(gp[0]+g*1.5,gp[1]-1);ctx.lineTo(gp[0]+g*1.5,gp[1]+1);ctx.stroke();}
+  }
+  // Spore pods along sides.
+  for(const side of [-1,1])for(let j=0;j<3;j++){
+   ball(-6+j*5,side*5,19+j*.5,2.5,2,tint(col,j%2?22:-5));
+   // Spore release particles.
+   if(frame%3===j%3){const sp=p(-6+j*5,side*6,21+j);ctx.fillStyle='#c8c89860';ctx.fillRect(sp[0]-.3,sp[1]-.3,.6,.6);}
+  }
+ }
+ // Variant rank spines.
+ if(roleIndex>0)for(let j=0;j<roleIndex;j++){
+  limb([-8-j*4,0,22],[-11-j*4,0,29+j*2],tint(col,30),2.2);
+  ball(-11-j*4,0,29+j*2,1.5,2,chitinSpec);
+ }
+
+ // === BUG HEAD — compound eyes, mandibles, palps, antennae ===
+ if(!mech){
+  for(const side of [-1,1]){
+   // Compound eyes — multi-faceted dome.
+   ball(12,side*3.5,19,3,2.5,'#2a3225');
+   // Facet highlights on eye dome.
+   ball(12.5,side*3.2,19.5,2,1.8,'#3a4530');
+   ball(13,side*2.8,19.8,1.2,1,'#4a5a3a');
+   // Eye glint.
+   ball(13.2,side*2.5,20,.5,.4,'#dfcd92');
+   // Maxillary palps.
+   segment([11,side*2,17],[13,side*3,15],tint(col,15),.8);
+   ball(13,side*3,15,.6,.5,tint(col,25));
+   // Mandibles — articulated with serrated inner edge.
+   const mandOpen=attack?1+Math.sin(frame*Math.PI/2)*.8:0;
+   limb([12,side*2,17],[15+mandOpen*side*.5,side*(3.5+mandOpen),15],tint(col,22),1.8,false);
+   limb([15+mandOpen*side*.5,side*(3.5+mandOpen),15],[18+mandOpen*side,side*(4.5+mandOpen),13],tint(col,30),1.4,false);
+   // Mandible tip — sharp curve.
+   segment([18+mandOpen*side,side*(4.5+mandOpen),13],[19.5,side*2,13],'#d7c294',1.3);
+   ball(19.5,side*2,13,.8,.6,'#e0d8b0');
+   // Serration bumps.
+   for(let t=0;t<2;t++){
+    const tx=15+t*2+mandOpen*side*.3,ty=side*(3.5+mandOpen+t*.3);
+    ball(tx,ty,14.5,.5,.4,tint(col,35));
+   }
+  }
+  // Antennae — segmented with sensory bulbs.
+  for(const side of [-1,1]){
+   const antWave=Math.sin(frame*.3+side)*1.5;
+   segment([13,side*1,20],[16,side*2,23],tint(col,32),.7);
+   segment([16,side*2,23],[18,side*(3+antWave),25],tint(col,38),.5);
+   segment([18,side*(3+antWave),25],[19.5,side*(3.5+antWave*1.2),26],tint(col,42),.4);
+   // Antenna tip bulb.
+   ball(19.5,side*(3.5+antWave*1.2),26,1,1,tint(col,48));
+  }
+  // Labrum (upper lip plate).
+  ball(13,0,16.5,2.5,1.5,tint(col,10));
+
+  // Abdominal segment lines — more pronounced.
+  for(let j=0;j<5;j++){
+   segment([-16+j*3,-5*mass,14],[-16+j*3,5*mass,14],chitinLo,.7);
+   // Intersegmental membrane highlight.
+   segment([-15.5+j*3,-4*mass,14.3],[-15.5+j*3,4*mass,14.3],tint(col,5),.3);
+  }
+
+  // Fungal pustules — more organic and varied.
+  if(fungal){for(let j=0;j<8;j++){
+   const x=-14+j*3.5,ys=(j%3-1)*4;
+   ball(x,ys,20+j%3*1.5,2,1.8,j%2?'#c4c498':'#5e715b');
+   // Pustule highlight.
+   ball(x-.2,ys-.2,20.5+j%3*1.5,1,1,j%2?'#d8d8b0':'#7a8a6a');
+  }}
+  // Acid Spitter sac.
+  if(d.name==='Acid Spitter'||d.name==='Spitter'){
+   ball(-10,0,22,8,6,'#8a9a55');
+   ball(-10,0,23,6,4.5,'#a5ad68');
+   ball(-10,0,24,4,3,'#c0c880');
+   // Acid drip veins.
+   for(let j=-1;j<=1;j++){
+    segment([-10,j*3,24],[-5,j*2.5,21],'#d2cc90',.8);
+    segment([-5,j*2.5,21],[-2,j*2,20],'#b8b870',.5);
+   }
+  }
+ }
+ // === MECH SENSOR HEAD ===
+ // Primary targeting eye.
+ metalBall(11,-2,18,2,2,mech?'#3a6565':'#4a4530');
+ ball(11.3,-2,18.3,1.2,1.2,mech?'#82e3e3':'#c8bd7d');
+ ball(11.5,-1.8,18.5,.5,.5,mech?'#b0ffff':'#e8e0a0');
+ if(mech){
+  // Secondary sensor.
+  metalBall(11,2,18,1.5,1.5,'#553030');
+  ball(11.2,2,18.2,.8,.8,'#e08080');
+  // Antenna array.
+  segment([10,0,20],[10,0,24],tint(col,15),.6);
+  segment([10,-1,24],[10,1,24],tint(col,20),.5);
+ }
+ }
 
  else if(large||/Drake|Wyvern|Dragon Whelp|Harpy|Chimera|Hellhound/.test(d.name)||d.air&&style==='dragon'){
- if(roleIndex>0)for(let j=0;j<roleIndex+2;j++){segment([-12+j*7,0,22],[-15+j*7,0,35+roleIndex*3],tint(color,26),3);}const col=style==='dragon'?'#9a7d5a':style==='ape'?'#796759':style==='demon'?'#865b4c':color;for(const side of [-1,1])for(const x of [-8,9]){segment([x,side*5,13],[x+walk*(x>0?4:-4),side*8,2],tint(col,-15),4);}ball(-1,0,17,large?17:12,large?12:8,col);segment([-12,0,15],[-28,3+walk*2,6],tint(col,-9),4);segment([11,0,20],[17,0,28],col,6);ball(19,0,29,7,5,tint(col,9));segment([22,0,29],[28,0,25],tint(col,-7),4);for(const s of [-1,1])segment([15,s*3,32],[13,s*7,40],tint(col,29),2);if(d.air){for(const s of [-1,1]){poly(ctx,[p(0,s*5,23),p(-2,s*31,30+walk*8),p(-23,s*22,17),p(-12,s*5,19)],tint(col,-15),'#b2a17e');segment([0,s*5,23],[-2,s*31,30+walk*8],tint(col,20),2);}}}
- else{let skin=style==='reptile'?'#8c9a68':style==='ape'?'#81715c':style==='demon'?'#a77f65':style==='dragon'?'#aa9271':'#c0b39a';let cloth=d.worker?'#a49870':style==='wizard'?'#696982':style==='night'?'#555663':tint(color,-22);const hh=style==='ape'?21:24,wide=style==='ape'?6:d.role==='heavy'?5:3.5;const coat=['wizard','night'].includes(style)||/Spell|Mage|Wizard|Seer/.test(d.name);if(coat)poly(ctx,[p(0,-5,hh-7),p(0,5,hh-7),p(-2,7,4),p(-2,-7,4)],cloth,'#2d3336');
- for(const side of [-1,1]){const stride=walk*side*5;segment([0,side*3,12],[-stride*.5,side*3,6],tint(cloth,-14),3);segment([-stride*.5,side*3,6],[stride,side*3,1],tint(cloth,-5),3);segment([stride,side*3,1],[stride+3,side*3,1],'#393d37',3);}
- ball(0,0,hh-6,wide*1.4,7,cloth);segment([1,-3,hh-2],[1,3,hh-13],d.worker?'#685e48':'#455650',1);segment([2,-3,hh-12],[2,3,hh-12],'#393e36',1.5);for(const side of [-1,1])box(1,side*3,1.4,1.1,2,hh-13,d.worker?'#b2a27c':tint(cloth,15));if(!d.worker&&!coat){segment([2,-2,hh-3],[2,2,hh-3],tint(cloth,43),1);}if(d.role==='heavy')for(const side of [-1,1])ball(0,side*5,hh-3,4,3,tint(color,8));if(d.worker)box(-3,0,3,3,8,hh-11,'#8e8263');else if(d.role==='aa'){box(-4,0,3,5,10,hh-14,'#58675c');segment([-5,-5,hh-10],[-5,-5,hh+7],'#a8b49b',3);}else if(d.role==='support'){box(-4,0,3,4,7,hh-12,'#c5c5aa');segment([-5,-3,hh-7],[-5,3,hh-7],color,2);}else if(d.role==='scout'){segment([-3,0,hh-4],[-3,0,hh+10],'#9eae95',1);box(-3,0,3,3,6,hh-10,'#647267');}else if(d.role==='elite'){for(const side of [-1,1])box(0,side*5,3,2,4,hh-4,tint(color,23));}else if(d.role==='stealth'){poly(ctx,[p(-2,-5,hh-1),p(-2,5,hh-1),p(-5,6,5),p(-5,-6,5)],tint(cloth,-17),'#303a39');}if(roleIndex>0){segment([-2,0,hh+5],[-3,0,hh+11+roleIndex*2],tint(color,25),2);box(-3,0,2+roleIndex,4,6,hh-10,tint(cloth,-10));}if(style==='reptile'||style==='dragon')segment([-2,0,9],[-14,walk,2],skin,3);
- for(const side of [-1,1]){const swinging=working||attack,handX=swinging?7+frame%2*3:-walk*side*3,handZ=swinging?hh-12+lift:hh-15;segment([0,side*5,hh-5],[3,side*6,hh-11],cloth,2.5);segment([3,side*6,hh-11],[handX,side*4,handZ],skin,2);}
- ball(1,0,hh+2,3.5,4.2,skin);const head=p(1,0,hh+5);if(['industrial','reptile','elder','night'].includes(style)&&!d.worker){ellipse(ctx,head[0],head[1],4.2,2.2,tint(cloth,20));}if(d.worker&&style==='industrial'){ellipse(ctx,head[0],head[1],4.2,2.4,'#c5ae58');}if(style==='wizard'){poly(ctx,[p(-3,-3,hh+3),p(-3,3,hh+3),p(0,0,hh+15)],tint(cloth,-2),'#a2a6ad');}if(style==='demon'){segment([0,-2,hh+5],[-2,-4,hh+11],'#c0b08a',1);segment([0,2,hh+5],[-2,4,hh+11],'#c0b08a',1);}const face=p(4,0,hh+2);ellipse(ctx,face[0],face[1],1.3,1.2,'#292d27');
- const hand=[working||attack?9:3,4,working||attack?hh-12+lift:hh-14];
- if(d.worker){if(working){segment(hand,[hand[0]+5,4,hand[2]+9],'#9b8b60',1.5);segment([hand[0]+1,4,hand[2]+9],[hand[0]+11,4,hand[2]+9],'#abb1a4',2);}else segment([1,4,8],[6,4,16],'#827758',1.5);}
- else if(/Archer/.test(d.name)){const bx=attack?12:4,z=attack?19:9;let top=p(bx,0,z+7),bottom=p(bx,0,z-7),mid=p(bx+3,0,z);ctx.strokeStyle='#b8a273';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(...top);ctx.quadraticCurveTo(mid[0]+3,mid[1],...bottom);ctx.stroke();const draw=p(bx-(attack&&frame<2?6:0),0,z);ctx.strokeStyle='#c6bd9e';ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(...top);ctx.lineTo(...draw);ctx.lineTo(...bottom);ctx.stroke();}
- else if(d.range<1.2){const tip=attack?[hand[0]+14-lift*.5,4,hand[2]+10]:[4,4,4];segment(hand,tip,'#c5c5ac',2);segment([hand[0]-2,2,hand[2]],[hand[0]+2,6,hand[2]],'#88785a',2);if(d.role==='melee'&&d.variant%2)ball(0,-7,14,4.5,6,tint(cloth,-8));}
- else if(d.heal||['wizard','myth','elder'].includes(style)&&/Spell|Seer|Hexer|Mage|Wizard/.test(d.name)){segment([4,5,4],[8,5,hh+10],'#9b9677',1.5);ball(8,5,hh+11,2.4,2.4,'#a9d3c1');}
- else{const z=attack?20:11,xx=attack?9:3;segment([xx-4,4,z],[xx+10,4,z+(attack?0:-6)],'#6d7772',d.role==='aa'?3:2);box(xx,4,3,1.5,2,z-1,'#434f4c');if(attack&&frame===2)ball(xx+12,4,z,3,2,'#f2d896');}
+ // === LARGE CREATURE RENDERER — AoE-quality detail ===
+ if(roleIndex>0)for(let j=0;j<roleIndex+2;j++){
+  limb([-12+j*7,0,22],[-15+j*7,0,33+roleIndex*3],tint(color,26),3);
+  ball(-15+j*7,0,33+roleIndex*3,1.5,2,tint(color,38));
+ }
+ const col=style==='dragon'?'#9a7d5a':style==='ape'?'#796759':style==='demon'?'#865b4c':color;
+ const scaleHi=tint(col,25),scaleLo=tint(col,-20),belly=tint(col,15);
+ const sz=large?1:0.75;
+
+ // === TAIL with segments and spikes ===
+ const tailSway=Math.sin(frame*.4)*2;
+ // Tail base — thick, muscular.
+ limb([-12,0,15],[-18,tailSway*.5,11],tint(col,-5),5*sz);
+ // Mid tail.
+ limb([-18,tailSway*.5,11],[-24,tailSway,7],tint(col,-9),4*sz);
+ // Tail tip.
+ limb([-24,tailSway,7],[-30,tailSway+walk*2,4],tint(col,-14),2.5*sz);
+ ball(-30,tailSway+walk*2,4,2*sz,1.5*sz,tint(col,-18));
+ // Tail dorsal ridges.
+ for(let j=0;j<4;j++){
+  const tx=-14-j*4,ty=tailSway*(j+1)/4,tz=13-j*2;
+  ball(tx,ty,tz+2,1.2*sz,2*sz,scaleHi);
+ }
+ // Tail spikes for dragons/demons.
+ if(style==='dragon'||style==='demon')for(let j=0;j<4;j++){
+  const tx=-16-j*3.5,ty=tailSway*(j+1)/4;
+  segment([tx,ty,13-j*2],[tx-1,ty,16-j*1.5],scaleHi,1.5);
+  ball(tx-1,ty,16-j*1.5,.8,1.5,tint(col,35));
+ }
+ // Tail underside scales.
+ for(let j=0;j<3;j++){
+  const tx=-16-j*5,ty=tailSway*(j+1)/3;
+  const tp=p(tx,ty,10-j*2);ctx.fillStyle=belly;ctx.fillRect(tp[0]-1,tp[1]-.5,2,1);
+ }
+
+ // === LEGS with knees, ankles, clawed feet ===
+ for(const side of [-1,1])for(const x of [-8,9]){
+  const stride=walk*(x>0?4:-4);
+  const hip=[x,side*5,13],knee=[x+stride*.4,side*6.5,8],ankle=[x+stride*.7,side*7.5,3],foot=[x+stride,side*8,1];
+  // Upper leg — muscular thigh.
+  limb(hip,knee,tint(col,-12),5.5*sz);
+  // Thigh muscle highlight.
+  const hp=p(...hip),kp=p(...knee);
+  ctx.strokeStyle=tint(col,10);ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(hp[0]-1,hp[1]-1);ctx.lineTo(kp[0]-1,kp[1]-1);ctx.stroke();
+  // Lower leg — shin.
+  limb(knee,ankle,tint(col,-8),4*sz);
+  // Ankle to foot.
+  limb(ankle,foot,tint(col,-5),3*sz);
+  // Knee joint.
+  ball(knee[0],knee[1],knee[2],2.5*sz,2.5*sz,tint(col,8));
+  ball(knee[0]-.3,knee[1]-.3,knee[2]+.3,1.5*sz,1.5*sz,tint(col,20));
+  // Ankle joint.
+  ball(ankle[0],ankle[1],ankle[2],2*sz,1.5*sz,tint(col,5));
+  // Clawed toes — three with sharp tips.
+  for(let t=-1;t<=1;t++){
+   const toeEnd=[foot[0]+3,side*(8+t*2.5),0];
+   limb(foot,toeEnd,tint(col,15),1.5);
+   // Claw nail.
+   segment(toeEnd,[toeEnd[0]+1.5,toeEnd[1]+t*.5,toeEnd[2]-1],style==='ape'?'#4a4a3a':'#c5b880',1);
+   ball(toeEnd[0]+1.5,toeEnd[1]+t*.5,toeEnd[2]-1,.6,.4,style==='ape'?'#5a5a4a':'#ddd0a0');
+  }
+  // Foot pad.
+  ball(foot[0]+1,side*8,1,3*sz,2*sz,tint(col,-10));
+ }
+
+ // === BODY — muscular torso with scale/hide texture ===
+ const bodyW=large?18:13,bodyH=large?13:9;
+ // Belly underside.
+ ball(-1,0,14,bodyW*.8,bodyH*.9,belly);
+ // Main body mass.
+ ball(-1,0,17,bodyW,bodyH,col);
+ // Upper body highlight.
+ ball(-1,0,18.5,bodyW*.7,bodyH*.65,tint(col,8));
+ // Scale/hide texture pattern.
+ if(style==='dragon'||style==='reptile'){
+  // Overlapping scale rows.
+  for(let j=0;j<4;j++)for(let k=-1;k<=1;k++){
+   const sx=-8+j*5,sy=k*5;
+   const sp=p(sx,sy,18+j*.2);
+   ctx.strokeStyle=scaleLo;ctx.lineWidth=.4;ctx.beginPath();
+   ctx.ellipse(sp[0],sp[1],2,1.2,0,0,Math.PI);ctx.stroke();
+  }
+ }
+ // Rib/muscle lines.
+ for(let j=0;j<4;j++){
+  const x=-10+j*5;
+  for(const s of [-1,1]){
+   const v=p(x,s*3,19),w=p(x,s*(bodyH-2),14);
+   ctx.strokeStyle=tint(col,-18);ctx.lineWidth=.6;ctx.beginPath();
+   ctx.moveTo(v[0],v[1]);ctx.quadraticCurveTo(v[0]+(w[0]-v[0])*.5,v[1]+(w[1]-v[1])*.5-1,w[0],w[1]);ctx.stroke();
+  }
+ }
+ // Belly scales — lighter underbelly.
+ for(let j=0;j<3;j++){
+  const bp=p(-5+j*4,0,14);
+  ctx.fillStyle=tint(belly,10);ctx.fillRect(bp[0]-1.5,bp[1]-1,3,2);
+ }
+ // Spine ridge — prominent dorsal plates.
+ for(let j=0;j<6;j++){
+  const x=-11+j*4.5;
+  ball(x,0,18+j*.25,1.5*sz,2.5*sz,scaleHi);
+  // Spine plate tip highlight.
+  ball(x-.2,0,19+j*.25,.7*sz,1.2*sz,tint(col,40));
+ }
+
+ // === NECK — muscular, curved ===
+ // Neck base.
+ limb([9,0,19],[13,0,23],col,6.5*sz);
+ // Mid neck.
+ limb([13,0,23],[17,0,27],tint(col,3),5.5*sz);
+ // Upper neck.
+ limb([17,0,27],[19,0,29],tint(col,6),4.5*sz);
+ // Neck muscle highlight.
+ const n0=p(10,0,20),n1=p(18,0,28);
+ ctx.strokeStyle=tint(col,15);ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(n0[0]-.5,n0[1]-1);ctx.lineTo(n1[0]-.5,n1[1]-1);ctx.stroke();
+ // Throat/dewlap for dragons.
+ if(style==='dragon'){
+  const dp=p(14,0,22);
+  ctx.strokeStyle=tint(col,-15);ctx.lineWidth=.5;ctx.beginPath();
+  ctx.moveTo(dp[0]+2,dp[1]+1);ctx.quadraticCurveTo(dp[0]+4,dp[1]+3,dp[0]+6,dp[1]+1);ctx.stroke();
+ }
+
+ // === HEAD with snout, jaws, teeth, eyes, horns ===
+ // Skull.
+ ball(19,0,29,8*sz,6*sz,tint(col,9));
+ // Brow ridge.
+ ball(20,0,31,6*sz,5*sz,tint(col,5));
+ // Snout.
+ limb([22,0,29],[27,0,26],tint(col,-3),4.5*sz,false);
+ ball(28,0,25,3.5*sz,3*sz,tint(col,-10));
+ // Nostrils — deeper.
+ for(const s of [-1,1]){
+  ball(28.5,s*1.5,25.8,1*sz,1*sz,'#1a2018');
+  // Nostril rim.
+  const np=p(28.5,s*1.5,25.8);ctx.strokeStyle=tint(col,-20);ctx.lineWidth=.4;ctx.beginPath();ctx.ellipse(np[0],np[1],1,1,0,0,Math.PI*2);ctx.stroke();
+  // Steam/breath hint.
+  if(style==='dragon'&&action==='idle'&&frame%4===0){const bp=p(29,s,26);ctx.fillStyle='#ffffff20';ctx.fillRect(bp[0],bp[1]-.5,2,1);}
+ }
+ // Eyes — slitted pupils for reptiles, round for apes.
+ for(const s of [-1,1]){
+  // Eye socket.
+  ball(21,s*4.5,31,2.2*sz,1.8*sz,'#2a3025');
+  // Iris.
+  const irisCol=style==='demon'?'#c83020':style==='dragon'?'#c8a020':'#e8d44a';
+  ball(21.5,s*4.2,31.3,1.5*sz,1.2*sz,irisCol);
+  // Pupil — slit for reptile/dragon, round for ape.
+  const ep=p(21.8,s*4,31.4);
+  ctx.fillStyle='#111';
+  if(style==='ape'){ctx.fillRect(ep[0]-.3,ep[1]-.3,.6,.6);}
+  else{ctx.fillRect(ep[0]-.15,ep[1]-.6,.3,1.2);}
+  // Eye glint.
+  ctx.fillStyle='#ffffff80';ctx.fillRect(ep[0]-.5,ep[1]-.4,.3,.3);
+  // Brow scale/ridge.
+  ball(20,s*4,32,2*sz,1.2*sz,tint(col,10));
+ }
+ // Horns/ears with curvature.
+ for(const s of [-1,1]){
+  if(style==='ape'){
+   // Rounded ears.
+   ball(16,s*5,32,2*sz,3*sz,tint(col,-5));
+   ball(16.2,s*5,32.3,1.2*sz,2*sz,tint(col,15));
+  }else{
+   // Horns — curved back.
+   limb([16,s*3,32],[14,s*5.5,37],tint(col,25),2.2,false);
+   limb([14,s*5.5,37],[12,s*7,40],tint(col,32),1.5,false);
+   ball(12,s*7,40,.8*sz,1*sz,tint(col,45));
+  }
+ }
+ // Mouth/jaw line.
+ const mouthP=p(25,0,27);
+ ctx.strokeStyle=tint(col,-25);ctx.lineWidth=.5;ctx.beginPath();
+ ctx.moveTo(mouthP[0]-3,mouthP[1]);ctx.lineTo(mouthP[0]+3,mouthP[1]+.5);ctx.stroke();
+ // Jaws open during attack — with teeth.
+ if(attack){
+  // Lower jaw drops.
+  limb([23,0,27],[29,0,22],tint(col,-5),3.5,false);
+  // Upper teeth.
+  for(let t=-1;t<=1;t++){
+   segment([25+t,t*1.2,27],[26+t,t*.8,24],'#d8d0b0',1);
+  }
+  // Lower teeth.
+  for(let t=-1;t<=1;t++){
+   segment([27+t,t*1.2,22],[26+t,t*.8,25],'#c8c0a0',.8);
+  }
+  // Tongue.
+  ball(26,0,23,2,1.5,'#a05050');
+  // Fire/acid breath on hit frame.
+  if(frame===2){
+   ball(30,0,24,5*sz,3*sz,style==='dragon'?'#f2a844':'#c8c040');
+   ball(32,0,24.5,3*sz,2*sz,style==='dragon'?'#f8d870':'#e0e060');
+  }
+ }
+
+ // === WINGS with bone structure and membrane ===
+ if(d.air){for(const s of [-1,1]){
+  // Wing membrane — translucent with vein pattern.
+  poly(ctx,[p(0,s*5,23),p(-2,s*32,30+walk*8),p(-24,s*23,17),p(-13,s*5,19)],tint(col,-15)+'90','#b2a17e');
+  // Primary wing bone (humerus).
+  limb([0,s*5,23],[-2,s*16,27+walk*4],tint(col,15),2.5);
+  // Elbow joint.
+  ball(-2,s*16,27+walk*4,2*sz,2*sz,tint(col,20));
+  // Forearm (radius).
+  limb([-2,s*16,27+walk*4],[-2,s*32,30+walk*8],tint(col,18),2);
+  // Wing finger struts with membrane tension.
+  limb([-2,s*16,27+walk*4],[-12,s*26,22+walk*6],tint(col,10),1.2);
+  limb([-2,s*16,27+walk*4],[-18,s*22,19+walk*4],tint(col,8),1);
+  limb([-2,s*16,27+walk*4],[-22,s*18,17+walk*2],tint(col,5),.8);
+  // Wing tip claw.
+  ball(-2,s*32,30+walk*8,1.5*sz,1*sz,tint(col,30));
+  // Membrane vein texture.
+  for(let j=0;j<3;j++){
+   const vx=-5-j*5,vy=s*(10+j*5),vz=22+walk*(3+j)-j;
+   const vp=p(vx,vy,vz);ctx.strokeStyle=tint(col,-5);ctx.lineWidth=.3;ctx.beginPath();ctx.moveTo(vp[0],vp[1]);ctx.lineTo(vp[0]-3,vp[1]+s*2);ctx.stroke();
+  }
+ }}}
+ else{
+ // === HUMANOID RENDERER — AoE-quality detail density ===
+ let skin=style==='reptile'?'#8c9a68':style==='ape'?'#81715c':style==='demon'?'#a77f65':style==='dragon'?'#aa9271':'#c0b39a';
+ let cloth=d.worker?'#a49870':style==='wizard'?'#696982':style==='night'?'#555663':tint(color,-22);
+ const armor=style==='industrial'?'#8a9494':style==='elder'?'#9a9a82':style==='night'?'#55586a':tint(color,-10);
+ const leather=style==='ape'?'#6a5a42':style==='reptile'?'#6b7352':'#5e5444';
+ const hh=style==='ape'?21:24,wide=style==='ape'?6:d.role==='heavy'?5:3.5;
+ const coat=['wizard','night'].includes(style)||/Spell|Mage|Wizard|Seer/.test(d.name);
+ const armored=!d.worker&&!coat&&['melee','heavy','elite','tank','giant'].includes(d.role);
+ const bodyBob=action==='idle'?idleBob:0,bodyLean=action==='idle'?idleLean:0;
+ const bx=bodyLean*.4,bz=bodyBob;
+
+ // === CLOAK / TABARD (behind body) ===
+ if(coat){
+  // Long flowing robe with draping folds.
+  poly(ctx,[p(bx,-6,hh-5),p(bx,6,hh-5),p(-3+bx*.2,8,2),p(-3+bx*.2,-8,2)],cloth,'#2d3336');
+  // Cloth fold lines for depth.
+  for(let j=-2;j<=2;j++){const fx=bx*.3+j*.3;segment([fx,j*2.2,hh-6],[fx-2,j*2.5,4],tint(cloth,j%2?-12:12),.5);}
+  // Hem edge detail.
+  segment([-3+bx*.2,-7,3],[-3+bx*.2,7,3],tint(cloth,25),.7);
+ }
+ // Cape / back cloak for elite and heavy.
+ if(!coat&&(d.role==='elite'||d.role==='heavy')&&!d.worker){
+  poly(ctx,[p(bx*.2,-4,hh-3+bz),p(bx*.2,4,hh-3+bz),p(-6,5+walk,3),p(-6,-5+walk,3)],tint(color,-28),'#222a28');
+  segment([-6,-5+walk,3],[-6,5+walk,3],tint(color,-15),.6);
+ }
+
+ // === FACTION TAIL ===
+ if(style==='reptile'||style==='dragon'){
+  limb([-2,0,9],[-9,walk*.5,5],skin,3);
+  limb([-9,walk*.5,5],[-16,walk,2],tint(skin,-10),2.5);
+  ball(-16,walk,2,1.5,1,tint(skin,15));
+ }
+
+ // === LEGS with boots, greaves, knee guards ===
+ for(const side of [-1,1]){
+  const stride=walk*side*5,idleShift=action==='idle'&&side===1?bz*.4:0;
+  const hip=[bx*.3,side*3,12],knee=[-stride*.5+idleShift,side*3,6],foot=[stride+idleShift,side*3,1];
+  // Upper leg — cloth or leather.
+  limb(hip,knee,tint(cloth,-14),3.2);
+  // Lower leg — greave/boot.
+  if(armored){
+   limb(knee,foot,tint(armor,-8),3.4);
+   // Greave highlight strip.
+   const kp=p(...knee),fp=p(...foot);ctx.strokeStyle=tint(armor,35);ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(kp[0]-.5,kp[1]-.8);ctx.lineTo(fp[0]-.5,fp[1]-.8);ctx.stroke();
+   // Knee guard plate.
+   metalBall(knee[0],knee[1],knee[2]+1,2.5,2,armor);
+  }else{
+   limb(knee,foot,tint(cloth,-5),3);
+   ball(knee[0],knee[1],knee[2],1.5,1.5,tint(cloth,10));
+  }
+  // Boot with sole and toe cap.
+  const bp=p(foot[0]+1,side*3,1);
+  ellipse(ctx,bp[0],bp[1],3.5,2,armored?'#393d37':'#4a4538');
+  ellipse(ctx,bp[0]+1,bp[1]-.3,2.2,1.3,armored?'#4a504a':'#58524a');
+  // Boot buckle.
+  if(armored){const kk=p(foot[0]+.5,side*3,3);ctx.fillStyle='#b0a870';ctx.fillRect(kk[0]-.5,kk[1]-.5,1,1);}
+ }
+
+ // === TORSO — layered: undertunic, chainmail/cloth, armor plates ===
+ // Base torso shape.
+ ball(bx,0,hh-6+bz,wide*1.5,7.5,tint(cloth,-8));
+ // Chainmail texture for armored units.
+ if(armored){
+  const tp=p(bx,0,hh-5+bz);
+  // Chainmail base layer.
+  ellipse(ctx,tp[0],tp[1],wide*1.3,6.5,tint(armor,-15));
+  // Chainmail dot pattern.
+  for(let iy=-2;iy<=2;iy++)for(let ix=-1;ix<=1;ix++){
+   const cp=p(bx+ix*2.5,iy*2.5,hh-6+bz+ix*.3);
+   ctx.fillStyle=tint(armor,(ix+iy)%2?15:-15);ctx.fillRect(cp[0]-.4,cp[1]-.4,.8,.8);
+  }
+ }
+ // Cloth tunic overlay.
+ if(!armored&&!coat){
+  ball(bx,0,hh-6+bz,wide*1.3,7,cloth);
+  // Tunic center seam.
+  segment([bx+1,0,hh-2+bz],[bx,0,hh-13+bz],tint(cloth,-18),.5);
+ }
+
+ // === BREASTPLATE / CUIRASS for armored units ===
+ if(armored){
+  // Front chest plate.
+  plate(bx+1,0,wide*.9,5,4,hh-9+bz,armor);
+  // Chest plate center ridge.
+  segment([bx+2,0,hh-5+bz],[bx+1,0,hh-10+bz],tint(armor,45),.7);
+  // Abs / lower plate.
+  plate(bx+.5,0,wide*.7,4,3,hh-13+bz,tint(armor,-8));
+  // Rivets on breastplate.
+  rivet(bx+1,-3,hh-7+bz);rivet(bx+1,3,hh-7+bz);
+  rivet(bx+.5,-2,hh-11+bz);rivet(bx+.5,2,hh-11+bz);
+ }
+
+ // === BELT with buckle and pouches ===
+ const beltZ=hh-13+bz;
+ segment([bx+1,-4,beltZ],[bx+1,4,beltZ],d.worker?'#685e48':leather,1.8);
+ // Belt buckle — metal rectangle.
+ const buckP=p(bx+1.5,0,beltZ);
+ ctx.fillStyle='#1a1f1a';ctx.fillRect(buckP[0]-1.5,buckP[1]-1.2,3,2.4);
+ ctx.fillStyle=armored?'#c5b870':'#8a7d60';ctx.fillRect(buckP[0]-1,buckP[1]-.8,2,1.6);
+ ctx.fillStyle=tint(armored?'#c5b870':'#8a7d60',30);ctx.fillRect(buckP[0]-.3,buckP[1]-.4,.6,.8);
+ // Belt pouches / loops.
+ for(const side of [-1,1]){
+  box(bx+.5,side*3,1.4,1.2,2,beltZ-1,d.worker?'#b2a27c':tint(leather,10));
+  // Pouch flap.
+  const pp=p(bx+.5,side*3,beltZ+1);ctx.fillStyle=tint(leather,20);ctx.fillRect(pp[0]-.8,pp[1]-.6,1.6,.6);
+ }
+ if(d.worker){
+  // Worker tool belt extras.
+  segment([bx+.5,-4,beltZ-1],[bx+.5,-4,beltZ-4],'#7a6e4a',1);
+  ball(bx+.5,-4,beltZ-4,1.2,1,leather);
+ }
+
+ // === SHOULDER PAULDRONS ===
+ for(const side of [-1,1]){
+  if(armored){
+   // Layered plate pauldrons.
+   metalBall(bx,side*5.5,hh-3+bz,4.5,3.5,armor);
+   // Pauldron edge rim.
+   const sp=p(bx,side*5.5,hh-3+bz);
+   ctx.strokeStyle=tint(armor,40);ctx.lineWidth=.5;ctx.beginPath();
+   ctx.ellipse(sp[0],sp[1]+1.5,4.5,1.8,0,0,Math.PI);ctx.stroke();
+   // Second layer underneath.
+   metalBall(bx-.5,side*5,hh-5+bz,3.5,2.5,tint(armor,-12));
+   // Rivet on pauldron.
+   rivet(bx+1,side*5,hh-2+bz);
+  }else if(d.role==='heavy'){
+   metalBall(bx,side*5,hh-3+bz,4,3,tint(color,8));
+  }else if(!d.worker){
+   // Simple cloth/leather shoulder pad.
+   ball(bx-.3,side*5,hh-4+bz,3,2.5,tint(cloth,8));
+  }
+ }
+
+ // === COLLAR / GORGET ===
+ if(armored){
+  // Neck gorget — protective collar.
+  const gp=p(bx+1,0,hh-2+bz);
+  ellipse(ctx,gp[0],gp[1],3.5,4,tint(armor,10));
+  ellipse(ctx,gp[0]-.3,gp[1]-.4,2.5,3,tint(armor,30));
+ }else if(!coat&&!d.worker){
+  segment([bx+1.5,-2,hh-3+bz],[bx+1.5,2,hh-3+bz],tint(cloth,43),.8);
+ }
+
+ // === ROLE-SPECIFIC TORSO GEAR ===
+ if(d.worker){box(-3+bx,0,3,3,8,hh-11,'#8e8263');segment([-3+bx,-2,hh-5],[-3+bx,2,hh-5],'#726648',.7);}
+ else if(d.role==='aa'){
+  box(-4,0,3,5,10,hh-14,'#58675c');
+  segment([-5,-5,hh-10],[-5,-5,hh+7],'#a8b49b',3);
+  // AA barrel cluster.
+  for(const s of [-1,0,1])segment([-5,-5+s,hh+5],[-5,-5+s,hh+10],tint(armor,15),1);
+ }
+ else if(d.role==='support'){
+  box(-4,0,3,4,7,hh-12,'#c5c5aa');
+  // Medical/support cross symbol.
+  const sp=p(-3,0,hh-9);ctx.fillStyle=color;ctx.fillRect(sp[0]-1,sp[1]-3,2,6);ctx.fillRect(sp[0]-3,sp[1]-1,6,2);
+ }
+ else if(d.role==='scout'){
+  segment([-3,0,hh-4],[-3,0,hh+10],'#9eae95',1);
+  box(-3,0,3,3,6,hh-10,'#647267');
+  // Scout binoculars/scope.
+  ball(-3,2,hh+10,1.5,1,'#4a5550');ball(-3,-1,hh+10,1.5,1,'#4a5550');
+ }
+ else if(d.role==='elite'){
+  for(const side of [-1,1]){
+   plate(bx,side*5,3,2,4,hh-4+bz,tint(color,23));
+   rivet(bx+1,side*5,hh-2+bz);
+  }
+  // Elite insignia.
+  const ep=p(bx+2,0,hh-7+bz);ctx.fillStyle=tint(color,40);ctx.fillRect(ep[0]-.8,ep[1]-.8,1.6,1.6);
+ }
+ else if(d.role==='stealth'){
+  poly(ctx,[p(-2+bx,-5,hh-1+bz),p(-2+bx,5,hh-1+bz),p(-5,6,5),p(-5,-6,5)],tint(cloth,-17),'#303a39');
+  // Stealth cowl shadow.
+  for(let j=-2;j<=2;j++)segment([-3+bx,j*2,hh-1+bz],[-5,j*2.5,5],tint(cloth,-25),.4);
+ }
+ // Variant badge / rank marker.
+ if(roleIndex>0){
+  segment([-2,0,hh+5],[-3,0,hh+11+roleIndex*2],tint(color,25),2);
+  box(-3,0,2+roleIndex,4,6,hh-10,tint(cloth,-10));
+  // Rank chevrons.
+  for(let j=0;j<Math.min(roleIndex,3);j++){
+   const rp=p(-3,0,hh-8+j*2);
+   ctx.strokeStyle=tint(color,40);ctx.lineWidth=.5;ctx.beginPath();
+   ctx.moveTo(rp[0]-2,rp[1]);ctx.lineTo(rp[0],rp[1]-1);ctx.lineTo(rp[0]+2,rp[1]);ctx.stroke();
+  }
+ }
+
+ // === ARMS with gauntlets, vambraces, hands ===
+ for(const side of [-1,1]){const swinging=working||attack;
+  let handX,handZ;
+  if(swinging){handX=7+frame%2*3;handZ=hh-12+lift;}
+  else if(idleScratch&&side===1){handX=2+Math.sin((idleFrame-32)*Math.PI/8)*3;handZ=hh+2+Math.sin((idleFrame-32)*Math.PI/8)*4;}
+  else if(idleYawn&&side===-1){handX=5;handZ=hh+1;}
+  else{handX=-walk*side*3;handZ=hh-15;}
+  const shoulder=[bx,side*5.5,hh-5+bz],elbow=[2+bx*.2,side*6,hh-11],hand=[handX,side*4,handZ];
+  // Upper arm.
+  limb(shoulder,elbow,cloth,2.8);
+  // Vambrace / forearm armor.
+  if(armored){
+   limb(elbow,hand,tint(armor,-5),2.6);
+   // Vambrace highlight.
+   const ep=p(...elbow),hp=p(...hand);
+   ctx.strokeStyle=tint(armor,30);ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(ep[0]-.3,ep[1]-.5);ctx.lineTo(hp[0]-.3,hp[1]-.5);ctx.stroke();
+   // Elbow cop (guard).
+   metalBall(elbow[0],elbow[1],elbow[2],2,1.5,tint(armor,5));
+  }else{
+   limb(elbow,hand,skin,2.2);
+   ball(elbow[0],elbow[1],elbow[2],1.5,1.3,tint(cloth,8));
+  }
+  // Hand / gauntlet.
+  if(armored){
+   metalBall(handX,side*4,handZ,2,1.5,tint(armor,5));
+   // Gauntlet knuckle ridge.
+   const gp=p(handX+.5,side*4,handZ+.5);ctx.fillStyle=tint(armor,35);ctx.fillRect(gp[0]-.8,gp[1]-.3,1.6,.6);
+  }else{
+   ball(handX,side*4,handZ,1.8,1.3,skin);
+  }
+ }
+
+ // === HEAD with facial features, helmet, hair ===
+ const headX=1+bodyLean*.5,headZ=hh+2+bz;
+ // Neck.
+ segment([bx+.5,0,hh-1+bz],[headX,0,headZ-2],skin,2.5);
+ // Head base.
+ ball(headX,0,headZ,3.8,4.5,skin);
+ const head=p(headX,0,hh+5+bz);
+
+ // === EYES ===
+ for(const side of [-1,1]){
+  const eyeP=p(headX+2,side*1.5,headZ+1);
+  // Eye socket shadow.
+  ellipse(ctx,eyeP[0],eyeP[1],1.3,.9,tint(skin,-25));
+  // Eye white.
+  ellipse(ctx,eyeP[0]+.2,eyeP[1]-.1,1,.6,'#d8d5c8');
+  // Iris.
+  const irisColor=style==='demon'?'#c44030':style==='reptile'?'#8aaa40':style==='night'?'#8888bb':'#4a5540';
+  ellipse(ctx,eyeP[0]+.3,eyeP[1]-.1,.5,.5,irisColor);
+  // Pupil.
+  ctx.fillStyle='#111';const pp=p(headX+2.3,side*1.5,headZ+1.1);ctx.fillRect(pp[0]-.2,pp[1]-.2,.4,.4);
+ }
+ // Nose.
+ const noseP=p(headX+3,0,headZ);
+ ctx.fillStyle=tint(skin,-12);ctx.fillRect(noseP[0]-.3,noseP[1]-.4,.6,.8);
+ ctx.fillStyle=tint(skin,8);ctx.fillRect(noseP[0]-.2,noseP[1]-.3,.3,.3);
+ // Mouth.
+ const faceP=p(headX+2.5,0,headZ-.8);
+ if(idleYawn){
+  ellipse(ctx,faceP[0],faceP[1],1.6,1.8,'#292d27');
+  // Teeth during yawn.
+  ctx.fillStyle='#c8c4b0';ctx.fillRect(faceP[0]-.8,faceP[1]-.3,1.6,.3);
+ }else{
+  ctx.strokeStyle='#3a2e28';ctx.lineWidth=.5;ctx.beginPath();
+  ctx.moveTo(faceP[0]-1,faceP[1]);ctx.lineTo(faceP[0]+1,faceP[1]);ctx.stroke();
+ }
+ // Ears.
+ for(const side of [-1,1]){
+  const earP=p(headX-.5,side*4,headZ+.5);
+  ellipse(ctx,earP[0],earP[1],1,1.5,tint(skin,-8));
+  ellipse(ctx,earP[0]+.2,earP[1]-.2,.5,.8,tint(skin,10));
+ }
+ // Eyebrows.
+ for(const side of [-1,1]){
+  const browP=p(headX+1.5,side*1.5,headZ+2.2);
+  ctx.strokeStyle=tint(skin,-30);ctx.lineWidth=.6;ctx.beginPath();
+  ctx.moveTo(browP[0]-1,browP[1]);ctx.lineTo(browP[0]+1,browP[1]-.3);ctx.stroke();
+ }
+
+ // === HELMETS / HEADGEAR ===
+ if(armored&&['industrial','reptile','elder','night'].includes(style)){
+  // Full helm with visor slit.
+  ellipse(ctx,head[0],head[1],4.8,2.5,tint(armor,15));
+  // Helm top ridge / crest.
+  segment([headX-2,0,headZ+4],[headX+2,0,headZ+4],tint(armor,30),.8);
+  // Visor slit.
+  const visorP=p(headX+2,0,headZ+1.5);
+  ctx.fillStyle='#111817';ctx.fillRect(visorP[0]-2,visorP[1]-.3,4,.6);
+  // Cheek guards.
+  for(const side of [-1,1]){
+   const chP=p(headX+1,side*3.5,headZ-.5);
+   ellipse(ctx,chP[0],chP[1],1.5,2,tint(armor,5));
+  }
+  // Nasal guard.
+  segment([headX+3,0,headZ+3],[headX+3,0,headZ-1],tint(armor,25),.7);
+ }else if(!armored&&['industrial','reptile','elder','night'].includes(style)&&!d.worker){
+  ellipse(ctx,head[0],head[1],4.2,2.2,tint(cloth,20));
+ }
+ if(d.worker&&style==='industrial'){
+  // Hard hat with brim.
+  ellipse(ctx,head[0],head[1]+.5,5,2.5,'#c5ae58');
+  ellipse(ctx,head[0]-.2,head[1]-.5,4,1.8,tint('#c5ae58',20));
+ }
+ if(style==='wizard'){
+  // Pointed wizard hat with band.
+  poly(ctx,[p(-3+bx*.3,-3.5,hh+3+bz),p(-3+bx*.3,3.5,hh+3+bz),p(bx*.3,0,hh+16+bz)],tint(cloth,-2),'#a2a6ad');
+  // Hat band.
+  segment([-3+bx*.3,-3,hh+4+bz],[-3+bx*.3,3,hh+4+bz],tint(color,15),1);
+  // Hat buckle/gem.
+  const hatP=p(-2+bx*.3,0,hh+4.5+bz);ctx.fillStyle='#c5a830';ctx.fillRect(hatP[0]-.6,hatP[1]-.6,1.2,1.2);
+ }
+ // Demon horns — curved.
+ if(style==='demon'){
+  for(const side of [-1,1]){
+   limb([bx*.4,side*2,hh+5+bz],[-2+bx*.3,side*4.5,hh+11+bz],'#c0b08a',1.5,false);
+   ball(-2+bx*.3,side*4.5,hh+11+bz,.8,.8,tint('#c0b08a',20));
+  }
+ }
+ // Ape/reptile hair/crest.
+ if(style==='ape'){
+  for(let j=-1;j<=1;j++)segment([headX+j,0,headZ+3],[headX+j-.5,0,headZ+6],tint(skin,-20),1);
+ }
+ if(style==='reptile'){
+  for(let j=0;j<3;j++)ball(headX-1+j,0,headZ+3.5+j*.3,1,1.5,tint(skin,20+j*5));
+ }
+
+ // === WEAPON IN HAND ===
+ const hand=[working||attack?9:idleScratch?2:3,4,working||attack?hh-12+lift:idleScratch?hh+2:hh-14];
+ if(d.worker){
+  if(working){
+   // Pickaxe / hammer with handle and head.
+   segment(hand,[hand[0]+3,4,hand[2]+10],'#9b8b60',1.8);
+   // Tool head.
+   segment([hand[0]+1,4,hand[2]+10],[hand[0]+8,4,hand[2]+10],'#abb1a4',2.5);
+   segment([hand[0]+8,4,hand[2]+10],[hand[0]+10,4,hand[2]+8],'#abb1a4',1.5);
+   // Handle wrap.
+   for(let j=0;j<3;j++){const hz=hand[2]+2+j*3;const hp=p(hand[0]+1,4,hz);ctx.fillStyle='#7a6e4a';ctx.fillRect(hp[0]-.3,hp[1]-.3,.6,.6);}
+  }else{
+   segment([1,4,8],[6,4,16],'#827758',1.5);
+   ball(6,4,16,1,1,'#9a8e70');
+  }
+ }
+ else if(/Archer/.test(d.name)){
+  // Bow with limb curvature and string.
+  const bxx=attack?12:4,z=attack?19:9;
+  let top=p(bxx,0,z+8),bottom=p(bxx,0,z-8),mid=p(bxx+4,0,z);
+  // Bow limbs — thicker, with taper.
+  ctx.strokeStyle='#8a7040';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(...top);ctx.quadraticCurveTo(mid[0]+4,mid[1],...bottom);ctx.stroke();
+  ctx.strokeStyle='#b8a273';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(top[0]-.3,top[1]-.5);ctx.quadraticCurveTo(mid[0]+3.5,mid[1]-.5,bottom[0]-.3,bottom[1]-.5);ctx.stroke();
+  // Bow tips.
+  ball(bxx,0,z+8,1,1,'#c5b880');ball(bxx,0,z-8,1,1,'#c5b880');
+  // Bowstring.
+  const draw=p(bxx-(attack&&frame<2?7:0),0,z);
+  ctx.strokeStyle='#c6bd9e';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(...top);ctx.lineTo(...draw);ctx.lineTo(...bottom);ctx.stroke();
+  // Arrow nocked.
+  if(attack&&frame<2){
+   const arrowTip=p(bxx+8,0,z);segment([bxx-6,0,z],[bxx+8,0,z],'#9a8e70',.8);
+   // Arrowhead.
+   const ap=p(bxx+8,0,z);ctx.fillStyle='#c8c0a0';ctx.beginPath();ctx.moveTo(ap[0],ap[1]-1);ctx.lineTo(ap[0]+2,ap[1]);ctx.lineTo(ap[0],ap[1]+1);ctx.fill();
+   // Fletching.
+   for(const s of [-1,1]){const fp=p(bxx-5,s*.5,z);ctx.fillStyle='#8a7850';ctx.fillRect(fp[0],fp[1]-.2,2,.4);}
+  }
+  // Quiver on back.
+  segment([-2,-3,hh-2+bz],[-5,-3,hh-14+bz],'#6a5a42',2.5);
+  for(let j=0;j<3;j++)segment([-3,-3+j*.5,hh-2+bz],[-5,-3+j*.5,hh+2+bz],'#9a8e70',.6);
+ }
+ else if(d.range<1.2){
+  // === MELEE WEAPON — sword with guard, pommel, blade ===
+  const swArc=meleeSwing*Math.PI*.7;
+  const swX=attack?hand[0]+8+Math.cos(swArc)*9:4;
+  const swZ=attack?hand[2]+6+Math.sin(swArc)*14:4;
+  const tip=attack?[swX,4+(1-meleeSwing)*3,swZ]:[4,4,4];
+  // Blade with fuller (central groove).
+  if(attack){
+   const mid=[(hand[0]+tip[0])*.5+2,(hand[1]+tip[1])*.5,(hand[2]+tip[2])*.5+4];
+   // Blade shadow edge.
+   segment(hand,mid,'#8a8a7a',3);segment(mid,tip,'#aaa890',2.5);
+   // Blade bright edge.
+   segment([hand[0]+.5,hand[1],hand[2]+.5],[mid[0]+.5,mid[1],mid[2]+.5],'#ddd9c0',1.5);
+   segment([mid[0]+.5,mid[1],mid[2]+.5],[tip[0]+.3,tip[1],tip[2]+.3],'#eee8d4',1);
+  }else{
+   // Resting blade.
+   segment(hand,tip,'#b0b0a0',2.2);
+   // Fuller highlight.
+   const v=p(...hand),w=p(...tip);ctx.strokeStyle='#d5d0b8';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(v[0]-.3,v[1]-.5);ctx.lineTo(w[0]-.3,w[1]-.5);ctx.stroke();
+  }
+  // Cross guard.
+  segment([hand[0]-2,2,hand[2]],[hand[0]+2,6,hand[2]],'#88785a',2.5);
+  // Guard tips.
+  ball(hand[0]-2,2,hand[2],1,1,'#a09060');ball(hand[0]+2,6,hand[2],1,1,'#a09060');
+  // Pommel.
+  ball(hand[0]-1,3,hand[2]-2,1.5,1.2,'#a09060');
+  // Grip wrapping.
+  for(let j=0;j<3;j++){const gp=p(hand[0]-.5+j*.3,3.5,hand[2]-1+j*.5);ctx.fillStyle=j%2?leather:tint(leather,15);ctx.fillRect(gp[0]-.2,gp[1]-.3,.4,.6);}
+  // Shield for melee variants.
+  if(d.role==='melee'&&d.variant%2){
+   // Kite shield with boss and rim.
+   poly(ctx,[p(1,-8,hh-2+bz),p(3,-8,hh-2+bz),p(3,-7,hh-14+bz),p(1,-9,hh-14+bz)],tint(cloth,-8),'#3a3e3a');
+   // Shield boss.
+   metalBall(2,-7.5,hh-8+bz,2,2,tint(armor,10));
+   // Shield rim highlight.
+   const sr=p(2,-8,hh-2+bz);ctx.strokeStyle=tint(armor,30);ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(sr[0],sr[1]);ctx.lineTo(sr[0]+1,sr[1]+8);ctx.stroke();
+   // Shield heraldry stripe.
+   segment([2,-8,hh-5+bz],[2,-8,hh-11+bz],color,1.5);
+  }
+ }
+ else if(d.heal||['wizard','myth','elder'].includes(style)&&/Spell|Seer|Hexer|Mage|Wizard/.test(d.name)){
+  // Staff with orb and rune wrappings.
+  segment([4,5,2],[8,5,hh+12],'#7a7050',2);
+  // Staff wrapping bands.
+  for(let j=0;j<4;j++){const sp=p(5+j*.8,5,4+j*5);ctx.fillStyle=j%2?color:tint(color,20);ctx.fillRect(sp[0]-.4,sp[1]-.5,.8,1);}
+  // Orb with inner glow.
+  ball(8,5,hh+12,3,3,'#79b5a8');
+  ball(8.3,5,hh+12.5,2,2,'#a9d3c1');
+  ball(8.5,4.8,hh+13,1,1,'#d4ece4');
+  // Orb sparkle.
+  if(frame%2===0){const sp=p(9,4.5,hh+13.5);ctx.fillStyle='#ffffff';ctx.fillRect(sp[0]-.3,sp[1]-.3,.6,.6);}
+ }
+ else{
+  // === RANGED WEAPON — musket/crossbow with stock detail ===
+  const recoil=attack&&frame===2?-3:0;
+  const gunZ=attack?20:16,xx=attack?9:5;
+  // Gun barrel — main tube.
+  segment([xx-4,4,gunZ],[xx+10+recoil,4,gunZ+(attack?recoil*.3:-2)],'#5a6460',d.role==='aa'?3.5:2.5);
+  // Barrel highlight strip.
+  const bv=p(xx-3,4,gunZ+.5),bw=p(xx+9+recoil,4,gunZ+(attack?recoil*.3:-1.5));
+  ctx.strokeStyle='#8a9490';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(bv[0],bv[1]-.3);ctx.lineTo(bw[0],bw[1]-.3);ctx.stroke();
+  // Barrel bands.
+  for(let j=0;j<3;j++){const bp=p(xx+j*4,4,gunZ-.5);ctx.fillStyle='#4a5450';ctx.fillRect(bp[0]-.3,bp[1]-.8,.6,1.6);}
+  // Stock — wooden.
+  box(xx-2,4,3,1.5,2.5,gunZ-3,'#5a4a38');
+  // Stock grain highlight.
+  const sp=p(xx-2,4,gunZ-2);ctx.strokeStyle='#7a6a50';ctx.lineWidth=.3;ctx.beginPath();ctx.moveTo(sp[0]-1,sp[1]);ctx.lineTo(sp[0]+2,sp[1]+1);ctx.stroke();
+  // Trigger guard.
+  segment([xx-1,4,gunZ-1],[xx-2,4,gunZ-3],'#4a4a40',.8);
+  // Buttstock.
+  segment([xx-3,4,gunZ+1],[xx-6,4,gunZ-3],'#5a4a38',2);
+  ball(xx-6,4,gunZ-3,1.5,1.5,'#4a3a2a');
+  // Muzzle.
+  ball(xx+10+recoil,4,gunZ+(attack?recoil*.3:-2),1.5,1.5,'#3a4440');
+  // Muzzle flash on fire frame.
+  if(attack&&frame===2){
+   ball(xx+12+recoil,4,gunZ,4,3,'#f2d896');
+   ball(xx+13+recoil,4,gunZ+1,2,1.5,'#fff8e0');
+  }
+  // Bayonet for some variants.
+  if(d.variant%3===0&&d.role!=='aa')segment([xx+10+recoil,4,gunZ-2],[xx+14+recoil,4,gunZ-4],'#c0c0a8',1);
+ }
  }
  ctx.globalCompositeOperation='source-atop';for(let j=0;j<130;j++){ctx.fillStyle=j%2?'#ffffff0b':'#00000014';ctx.fillRect(23+hash(j,8,d.variant)*66,30+hash(j,9,d.variant)*60,1,1);}ctx.globalCompositeOperation='source-over';return this.keepUnit(key,c);}
 }

@@ -1,0 +1,95 @@
+{
+  "bad": [],
+  "checks": [
+    {
+      "id": "symbiotes_u0",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u1",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u2",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u3",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u4",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u5",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u6",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u7",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u8",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u9",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_u10",
+      "pulseFrames": 5
+    },
+    {
+      "id": "symbiotes_u11",
+      "pulseFrames": 6
+    },
+    {
+      "id": "symbiotes_u12",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_merchant_ship",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_transport_ship",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_warship",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_scout_boat",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_escort_ship",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_siege_ship",
+      "pulseFrames": 3
+    },
+    {
+      "id": "symbiotes_bomber",
+      "pulseFrames": 5
+    },
+    {
+      "id": "symbiotes_air_transport",
+      "pulseFrames": 5
+    },
+    {
+      "id": "symbiotes_merchant",
+      "pulseFrames": 3
+    }
+  ],
+  "samples": 1034,
+  "errors": []
+}

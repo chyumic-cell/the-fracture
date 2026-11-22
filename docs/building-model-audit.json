@@ -1,0 +1,2991 @@
+{
+  "bad": [],
+  "count": 272,
+  "records": [
+    {
+      "id": "humans_b0",
+      "kind": "hq",
+      "pixels": 32601,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_b1",
+      "kind": "house",
+      "pixels": 27200,
+      "materials": [
+        "cinderblock",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_b2",
+      "kind": "inf",
+      "pixels": 26546,
+      "materials": [
+        "cinderblock",
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "humans_b3",
+      "kind": "lab",
+      "pixels": 27592,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_b4",
+      "kind": "armor",
+      "pixels": 34835,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_b5",
+      "kind": "air",
+      "pixels": 28334,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_b6",
+      "kind": "elite",
+      "pixels": 28221,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_b7",
+      "kind": "defense",
+      "pixels": 12597,
+      "materials": [
+        "concrete",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_orewell",
+      "kind": "extractor",
+      "pixels": 15819,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_oilwell",
+      "kind": "extractor",
+      "pixels": 17048,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_aetherwell",
+      "kind": "extractor",
+      "pixels": 16156,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_riftwell",
+      "kind": "extractor",
+      "pixels": 16948,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "humans_wall",
+      "kind": "wall",
+      "pixels": 27586,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "humans_trap",
+      "kind": "trap",
+      "pixels": 6044,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "humans_dock",
+      "kind": "dock",
+      "pixels": 26246,
+      "materials": [
+        "metal",
+        "paint"
+      ]
+    },
+    {
+      "id": "humans_market",
+      "kind": "market",
+      "pixels": 29178,
+      "materials": [
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "humans_deep_ore",
+      "kind": "deepMine",
+      "pixels": 20907,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "humans_deep_oil",
+      "kind": "deepMine",
+      "pixels": 22659,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "humans_deep_aether",
+      "kind": "deepMine",
+      "pixels": 21011,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "humans_deep_rift",
+      "kind": "deepMine",
+      "pixels": 21613,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "reptilians_b0",
+      "kind": "hq",
+      "pixels": 31834,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_b1",
+      "kind": "house",
+      "pixels": 22487,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "reptilians_b2",
+      "kind": "inf",
+      "pixels": 25996,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "metal",
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "reptilians_b3",
+      "kind": "lab",
+      "pixels": 28866,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_b4",
+      "kind": "counter",
+      "pixels": 31326,
+      "materials": [
+        "bone",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_b5",
+      "kind": "armor",
+      "pixels": 24437,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "reptilians_b6",
+      "kind": "armor",
+      "pixels": 26890,
+      "materials": [
+        "bone",
+        "brick",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "reptilians_b7",
+      "kind": "air",
+      "pixels": 28973,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_b8",
+      "kind": "elite",
+      "pixels": 32795,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_b9",
+      "kind": "defense",
+      "pixels": 16628,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_orewell",
+      "kind": "extractor",
+      "pixels": 15375,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_oilwell",
+      "kind": "extractor",
+      "pixels": 16865,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_aetherwell",
+      "kind": "extractor",
+      "pixels": 15902,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_riftwell",
+      "kind": "extractor",
+      "pixels": 16677,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "reptilians_wall",
+      "kind": "wall",
+      "pixels": 27802,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "reptilians_trap",
+      "kind": "trap",
+      "pixels": 5849,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "reptilians_dock",
+      "kind": "dock",
+      "pixels": 28963,
+      "materials": [
+        "metal",
+        "paint"
+      ]
+    },
+    {
+      "id": "reptilians_market",
+      "kind": "market",
+      "pixels": 29188,
+      "materials": [
+        "bone",
+        "glass",
+        "metal",
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "reptilians_deep_ore",
+      "kind": "deepMine",
+      "pixels": 21182,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "reptilians_deep_oil",
+      "kind": "deepMine",
+      "pixels": 22934,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "reptilians_deep_aether",
+      "kind": "deepMine",
+      "pixels": 21286,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "reptilians_deep_rift",
+      "kind": "deepMine",
+      "pixels": 21888,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "machines_b0",
+      "kind": "hq",
+      "pixels": 30778,
+      "materials": [
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b1",
+      "kind": "house",
+      "pixels": 22151,
+      "materials": [
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b2",
+      "kind": "depot",
+      "pixels": 21152,
+      "materials": [
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b3",
+      "kind": "inf",
+      "pixels": 28096,
+      "materials": [
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b4",
+      "kind": "lab",
+      "pixels": 28231,
+      "materials": [
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b5",
+      "kind": "armor",
+      "pixels": 29142,
+      "materials": [
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b6",
+      "kind": "air",
+      "pixels": 26531,
+      "materials": [
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b7",
+      "kind": "lab",
+      "pixels": 28757,
+      "materials": [
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b8",
+      "kind": "elite",
+      "pixels": 30598,
+      "materials": [
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_b9",
+      "kind": "defense",
+      "pixels": 11893,
+      "materials": [
+        "chitin",
+        "concrete",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_orewell",
+      "kind": "extractor",
+      "pixels": 15819,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_oilwell",
+      "kind": "extractor",
+      "pixels": 17048,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_aetherwell",
+      "kind": "extractor",
+      "pixels": 16156,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_riftwell",
+      "kind": "extractor",
+      "pixels": 16948,
+      "materials": [
+        "cloth",
+        "concrete",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_wall",
+      "kind": "wall",
+      "pixels": 27733,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "machines_trap",
+      "kind": "trap",
+      "pixels": 4884,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "machines_dock",
+      "kind": "dock",
+      "pixels": 26281,
+      "materials": [
+        "metal",
+        "paint"
+      ]
+    },
+    {
+      "id": "machines_market",
+      "kind": "market",
+      "pixels": 31572,
+      "materials": [
+        "glow",
+        "metal",
+        "paint",
+        "stone"
+      ]
+    },
+    {
+      "id": "machines_deep_ore",
+      "kind": "deepMine",
+      "pixels": 23300,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "machines_deep_oil",
+      "kind": "deepMine",
+      "pixels": 25052,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "machines_deep_aether",
+      "kind": "deepMine",
+      "pixels": 23404,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "machines_deep_rift",
+      "kind": "deepMine",
+      "pixels": 24006,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "insects_b0",
+      "kind": "hq",
+      "pixels": 26058,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b1",
+      "kind": "house",
+      "pixels": 15311,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b2",
+      "kind": "depot",
+      "pixels": 19178,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b3",
+      "kind": "inf",
+      "pixels": 16849,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b4",
+      "kind": "inf",
+      "pixels": 22369,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b5",
+      "kind": "lab",
+      "pixels": 20066,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b6",
+      "kind": "lab",
+      "pixels": 21726,
+      "materials": [
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b7",
+      "kind": "armor",
+      "pixels": 26049,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b8",
+      "kind": "air",
+      "pixels": 28917,
+      "materials": [
+        "bone",
+        "chitin",
+        "cloth"
+      ]
+    },
+    {
+      "id": "insects_b9",
+      "kind": "elite",
+      "pixels": 26995,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_b10",
+      "kind": "defense",
+      "pixels": 11321,
+      "materials": [
+        "bone",
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_orewell",
+      "kind": "extractor",
+      "pixels": 11371,
+      "materials": [
+        "chitin",
+        "glass"
+      ]
+    },
+    {
+      "id": "insects_oilwell",
+      "kind": "extractor",
+      "pixels": 11851,
+      "materials": [
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_aetherwell",
+      "kind": "extractor",
+      "pixels": 11371,
+      "materials": [
+        "chitin",
+        "glass"
+      ]
+    },
+    {
+      "id": "insects_riftwell",
+      "kind": "extractor",
+      "pixels": 11765,
+      "materials": [
+        "chitin",
+        "glass"
+      ]
+    },
+    {
+      "id": "insects_wall",
+      "kind": "wall",
+      "pixels": 27199,
+      "materials": [
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_trap",
+      "kind": "trap",
+      "pixels": 3068,
+      "materials": [
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_dock",
+      "kind": "dock",
+      "pixels": 24409,
+      "materials": [
+        "chitin",
+        "paint"
+      ]
+    },
+    {
+      "id": "insects_market",
+      "kind": "market",
+      "pixels": 24631,
+      "materials": [
+        "chitin",
+        "glass",
+        "skin"
+      ]
+    },
+    {
+      "id": "insects_deep_ore",
+      "kind": "deepMine",
+      "pixels": 22078,
+      "materials": [
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_deep_oil",
+      "kind": "deepMine",
+      "pixels": 23061,
+      "materials": [
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_deep_aether",
+      "kind": "deepMine",
+      "pixels": 22165,
+      "materials": [
+        "chitin"
+      ]
+    },
+    {
+      "id": "insects_deep_rift",
+      "kind": "deepMine",
+      "pixels": 22529,
+      "materials": [
+        "chitin"
+      ]
+    },
+    {
+      "id": "primates_b0",
+      "kind": "hq",
+      "pixels": 29072,
+      "materials": [
+        "cloth",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b1",
+      "kind": "house",
+      "pixels": 20529,
+      "materials": [
+        "cloth",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b2",
+      "kind": "depot",
+      "pixels": 17301,
+      "materials": [
+        "cloth",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b3",
+      "kind": "inf",
+      "pixels": 15622,
+      "materials": [
+        "cloth",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b4",
+      "kind": "inf",
+      "pixels": 15588,
+      "materials": [
+        "cloth",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b5",
+      "kind": "lab",
+      "pixels": 17959,
+      "materials": [
+        "cloth",
+        "glow",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b6",
+      "kind": "armor",
+      "pixels": 21070,
+      "materials": [
+        "cloth",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b7",
+      "kind": "armor",
+      "pixels": 17693,
+      "materials": [
+        "cloth",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b8",
+      "kind": "armor",
+      "pixels": 16782,
+      "materials": [
+        "cloth",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b9",
+      "kind": "elite",
+      "pixels": 26568,
+      "materials": [
+        "bone",
+        "cloth",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_b10",
+      "kind": "defense",
+      "pixels": 24329,
+      "materials": [
+        "cloth",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_orewell",
+      "kind": "extractor",
+      "pixels": 14044,
+      "materials": [
+        "cloth",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_oilwell",
+      "kind": "extractor",
+      "pixels": 12449,
+      "materials": [
+        "cloth",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_aetherwell",
+      "kind": "extractor",
+      "pixels": 12868,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_riftwell",
+      "kind": "extractor",
+      "pixels": 14407,
+      "materials": [
+        "cloth",
+        "glass",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_wall",
+      "kind": "wall",
+      "pixels": 27292,
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_trap",
+      "kind": "trap",
+      "pixels": 6764,
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_dock",
+      "kind": "dock",
+      "pixels": 25469,
+      "materials": [
+        "paint",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_aviary",
+      "kind": "air",
+      "pixels": 40212,
+      "materials": [
+        "bone",
+        "cloth",
+        "fur",
+        "skin",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_market",
+      "kind": "market",
+      "pixels": 26308,
+      "materials": [
+        "cloth",
+        "metal",
+        "paint",
+        "skin",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_deep_ore",
+      "kind": "deepMine",
+      "pixels": 21812,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_deep_oil",
+      "kind": "deepMine",
+      "pixels": 23212,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_deep_aether",
+      "kind": "deepMine",
+      "pixels": 21871,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "primates_deep_rift",
+      "kind": "deepMine",
+      "pixels": 22296,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_b0",
+      "kind": "hq",
+      "pixels": 36842,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_b1",
+      "kind": "house",
+      "pixels": 27306,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_b2",
+      "kind": "inf",
+      "pixels": 30991,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_b3",
+      "kind": "lab",
+      "pixels": 32126,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_b4",
+      "kind": "support",
+      "pixels": 32179,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_b5",
+      "kind": "armor",
+      "pixels": 25607,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_b6",
+      "kind": "armor",
+      "pixels": 27353,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_b7",
+      "kind": "air",
+      "pixels": 28187,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_b8",
+      "kind": "elite",
+      "pixels": 37151,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_b9",
+      "kind": "defense",
+      "pixels": 16071,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_orewell",
+      "kind": "extractor",
+      "pixels": 15375,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_oilwell",
+      "kind": "extractor",
+      "pixels": 16865,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_aetherwell",
+      "kind": "extractor",
+      "pixels": 15902,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_riftwell",
+      "kind": "extractor",
+      "pixels": 16677,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_wall",
+      "kind": "wall",
+      "pixels": 28605,
+      "materials": [
+        "stone"
+      ]
+    },
+    {
+      "id": "wizards_trap",
+      "kind": "trap",
+      "pixels": 7392,
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_dock",
+      "kind": "dock",
+      "pixels": 30655,
+      "materials": [
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_market",
+      "kind": "market",
+      "pixels": 29414,
+      "materials": [
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_deep_ore",
+      "kind": "deepMine",
+      "pixels": 22516,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_deep_oil",
+      "kind": "deepMine",
+      "pixels": 24021,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_deep_aether",
+      "kind": "deepMine",
+      "pixels": 22620,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "wizards_deep_rift",
+      "kind": "deepMine",
+      "pixels": 23120,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b0",
+      "kind": "hq",
+      "pixels": 32114,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b1",
+      "kind": "house",
+      "pixels": 25148,
+      "materials": [
+        "cloth",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b2",
+      "kind": "depot",
+      "pixels": 30986,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b3",
+      "kind": "inf",
+      "pixels": 28484,
+      "materials": [
+        "cloth",
+        "metal",
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b4",
+      "kind": "lab",
+      "pixels": 33444,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b5",
+      "kind": "inf",
+      "pixels": 34641,
+      "materials": [
+        "cloth",
+        "fur",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b6",
+      "kind": "inf",
+      "pixels": 31457,
+      "materials": [
+        "bone",
+        "cloth",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b7",
+      "kind": "armor",
+      "pixels": 28138,
+      "materials": [
+        "brick",
+        "cloth",
+        "glow",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b8",
+      "kind": "armor",
+      "pixels": 30865,
+      "materials": [
+        "cloth",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b9",
+      "kind": "air",
+      "pixels": 22650,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b10",
+      "kind": "elite",
+      "pixels": 34945,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_b11",
+      "kind": "defense",
+      "pixels": 20353,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_orewell",
+      "kind": "extractor",
+      "pixels": 15375,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_oilwell",
+      "kind": "extractor",
+      "pixels": 16865,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_aetherwell",
+      "kind": "extractor",
+      "pixels": 15902,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_riftwell",
+      "kind": "extractor",
+      "pixels": 16677,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_wall",
+      "kind": "wall",
+      "pixels": 27442,
+      "materials": [
+        "stone"
+      ]
+    },
+    {
+      "id": "elders_trap",
+      "kind": "trap",
+      "pixels": 7848,
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_dock",
+      "kind": "dock",
+      "pixels": 30407,
+      "materials": [
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_market",
+      "kind": "market",
+      "pixels": 31123,
+      "materials": [
+        "fur",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_deep_ore",
+      "kind": "deepMine",
+      "pixels": 22367,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_deep_oil",
+      "kind": "deepMine",
+      "pixels": 23865,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_deep_aether",
+      "kind": "deepMine",
+      "pixels": 22471,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "elders_deep_rift",
+      "kind": "deepMine",
+      "pixels": 22971,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_b0",
+      "kind": "hq",
+      "pixels": 33494,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_b1",
+      "kind": "house",
+      "pixels": 25039,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_b2",
+      "kind": "depot",
+      "pixels": 31407,
+      "materials": [
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_b3",
+      "kind": "inf",
+      "pixels": 28314,
+      "materials": [
+        "cloth",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_b4",
+      "kind": "armor",
+      "pixels": 26824,
+      "materials": [
+        "cloth",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_b5",
+      "kind": "lab",
+      "pixels": 31009,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_b6",
+      "kind": "armor",
+      "pixels": 24704,
+      "materials": [
+        "cloth",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_b7",
+      "kind": "air",
+      "pixels": 26002,
+      "materials": [
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_b8",
+      "kind": "lab",
+      "pixels": 31032,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_b9",
+      "kind": "armor",
+      "pixels": 26493,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_b10",
+      "kind": "elite",
+      "pixels": 34922,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_b11",
+      "kind": "defense",
+      "pixels": 20398,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_orewell",
+      "kind": "extractor",
+      "pixels": 15375,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_oilwell",
+      "kind": "extractor",
+      "pixels": 16865,
+      "materials": [
+        "cloth",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_aetherwell",
+      "kind": "extractor",
+      "pixels": 15902,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_riftwell",
+      "kind": "extractor",
+      "pixels": 16677,
+      "materials": [
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_wall",
+      "kind": "wall",
+      "pixels": 28605,
+      "materials": [
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_trap",
+      "kind": "trap",
+      "pixels": 6764,
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_dock",
+      "kind": "dock",
+      "pixels": 30407,
+      "materials": [
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_market",
+      "kind": "market",
+      "pixels": 28504,
+      "materials": [
+        "glass",
+        "metal",
+        "paint",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "myth_deep_ore",
+      "kind": "deepMine",
+      "pixels": 24465,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_deep_oil",
+      "kind": "deepMine",
+      "pixels": 25573,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_deep_aether",
+      "kind": "deepMine",
+      "pixels": 24517,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "myth_deep_rift",
+      "kind": "deepMine",
+      "pixels": 24817,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_b0",
+      "kind": "hq",
+      "pixels": 34843,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_b1",
+      "kind": "house",
+      "pixels": 23139,
+      "materials": [
+        "cloth",
+        "glow",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_b2",
+      "kind": "depot",
+      "pixels": 28842,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_b3",
+      "kind": "inf",
+      "pixels": 25804,
+      "materials": [
+        "bone",
+        "chitin",
+        "cloth",
+        "glow",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_b4",
+      "kind": "lab",
+      "pixels": 28941,
+      "materials": [
+        "cloth",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_b5",
+      "kind": "armor",
+      "pixels": 23896,
+      "materials": [
+        "bone",
+        "glow",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_b6",
+      "kind": "air",
+      "pixels": 30836,
+      "materials": [
+        "bone",
+        "cloth",
+        "glow",
+        "metal",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_b7",
+      "kind": "lab",
+      "pixels": 28326,
+      "materials": [
+        "bone",
+        "cloth",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_b8",
+      "kind": "elite",
+      "pixels": 39109,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_b9",
+      "kind": "defense",
+      "pixels": 14287,
+      "materials": [
+        "bone",
+        "glass",
+        "glow",
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_orewell",
+      "kind": "extractor",
+      "pixels": 15375,
+      "materials": [
+        "cloth",
+        "glow",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_oilwell",
+      "kind": "extractor",
+      "pixels": 16865,
+      "materials": [
+        "cloth",
+        "glow",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_aetherwell",
+      "kind": "extractor",
+      "pixels": 15902,
+      "materials": [
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_riftwell",
+      "kind": "extractor",
+      "pixels": 16677,
+      "materials": [
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_wall",
+      "kind": "wall",
+      "pixels": 27531,
+      "materials": [
+        "stone"
+      ]
+    },
+    {
+      "id": "dragons_trap",
+      "kind": "trap",
+      "pixels": 6325,
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_dock",
+      "kind": "dock",
+      "pixels": 32233,
+      "materials": [
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_market",
+      "kind": "market",
+      "pixels": 27833,
+      "materials": [
+        "bone",
+        "glass",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_deep_ore",
+      "kind": "deepMine",
+      "pixels": 21405,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_deep_oil",
+      "kind": "deepMine",
+      "pixels": 22634,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_deep_aether",
+      "kind": "deepMine",
+      "pixels": 21457,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "dragons_deep_rift",
+      "kind": "deepMine",
+      "pixels": 21798,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "night_b0",
+      "kind": "hq",
+      "pixels": 42358,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_b1",
+      "kind": "house",
+      "pixels": 28948,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "night_b2",
+      "kind": "lab",
+      "pixels": 34394,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_b3",
+      "kind": "inf",
+      "pixels": 33965,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "night_b4",
+      "kind": "inf",
+      "pixels": 34928,
+      "materials": [
+        "bone",
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "night_b5",
+      "kind": "lab",
+      "pixels": 34287,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_b6",
+      "kind": "armor",
+      "pixels": 30969,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_b7",
+      "kind": "air",
+      "pixels": 28994,
+      "materials": [
+        "brick",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_b8",
+      "kind": "armor",
+      "pixels": 31968,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "night_b9",
+      "kind": "elite",
+      "pixels": 42525,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_b10",
+      "kind": "defense",
+      "pixels": 20457,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_orewell",
+      "kind": "extractor",
+      "pixels": 15375,
+      "materials": [
+        "brick",
+        "cloth",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_oilwell",
+      "kind": "extractor",
+      "pixels": 16865,
+      "materials": [
+        "brick",
+        "cloth",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_aetherwell",
+      "kind": "extractor",
+      "pixels": 15902,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_riftwell",
+      "kind": "extractor",
+      "pixels": 16677,
+      "materials": [
+        "brick",
+        "cloth",
+        "glass",
+        "metal",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_wall",
+      "kind": "wall",
+      "pixels": 27445,
+      "materials": [
+        "stone"
+      ]
+    },
+    {
+      "id": "night_trap",
+      "kind": "trap",
+      "pixels": 5188,
+      "materials": [
+        "metal"
+      ]
+    },
+    {
+      "id": "night_dock",
+      "kind": "dock",
+      "pixels": 27230,
+      "materials": [
+        "metal",
+        "paint"
+      ]
+    },
+    {
+      "id": "night_market",
+      "kind": "market",
+      "pixels": 33251,
+      "materials": [
+        "cloth",
+        "glow",
+        "metal",
+        "paint",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "night_deep_ore",
+      "kind": "deepMine",
+      "pixels": 23200,
+      "materials": [
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_deep_oil",
+      "kind": "deepMine",
+      "pixels": 24952,
+      "materials": [
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_deep_aether",
+      "kind": "deepMine",
+      "pixels": 23304,
+      "materials": [
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "night_deep_rift",
+      "kind": "deepMine",
+      "pixels": 23902,
+      "materials": [
+        "metal",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_b0",
+      "kind": "hq",
+      "pixels": 37858,
+      "materials": [
+        "bone",
+        "cloth",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_b1",
+      "kind": "house",
+      "pixels": 28167,
+      "materials": [
+        "bone",
+        "cloth",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_b2",
+      "kind": "depot",
+      "pixels": 31352,
+      "materials": [
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_b3",
+      "kind": "inf",
+      "pixels": 32378,
+      "materials": [
+        "bone",
+        "cloth",
+        "glow",
+        "metal",
+        "paint",
+        "rock",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_b4",
+      "kind": "inf",
+      "pixels": 34007,
+      "materials": [
+        "bone",
+        "cloth",
+        "glow",
+        "metal",
+        "paint",
+        "rock",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_b5",
+      "kind": "armor",
+      "pixels": 29028,
+      "materials": [
+        "bone",
+        "cloth",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_b6",
+      "kind": "lab",
+      "pixels": 34009,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_b7",
+      "kind": "air",
+      "pixels": 30497,
+      "materials": [
+        "bone",
+        "glow",
+        "metal",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_b8",
+      "kind": "lab",
+      "pixels": 34456,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_b9",
+      "kind": "armor",
+      "pixels": 22483,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_b10",
+      "kind": "elite",
+      "pixels": 38091,
+      "materials": [
+        "bone",
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_b11",
+      "kind": "defense",
+      "pixels": 16611,
+      "materials": [
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_orewell",
+      "kind": "extractor",
+      "pixels": 15375,
+      "materials": [
+        "cloth",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_oilwell",
+      "kind": "extractor",
+      "pixels": 16865,
+      "materials": [
+        "cloth",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_aetherwell",
+      "kind": "extractor",
+      "pixels": 15902,
+      "materials": [
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_riftwell",
+      "kind": "extractor",
+      "pixels": 16677,
+      "materials": [
+        "cloth",
+        "glass",
+        "glow",
+        "metal",
+        "rock",
+        "slate",
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_wall",
+      "kind": "wall",
+      "pixels": 27450,
+      "materials": [
+        "stone"
+      ]
+    },
+    {
+      "id": "infernal_trap",
+      "kind": "trap",
+      "pixels": 6325,
+      "materials": [
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_dock",
+      "kind": "dock",
+      "pixels": 32003,
+      "materials": [
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_market",
+      "kind": "market",
+      "pixels": 27557,
+      "materials": [
+        "bone",
+        "glow",
+        "metal",
+        "paint",
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_deep_ore",
+      "kind": "deepMine",
+      "pixels": 21405,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_deep_oil",
+      "kind": "deepMine",
+      "pixels": 22634,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_deep_aether",
+      "kind": "deepMine",
+      "pixels": 21457,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "infernal_deep_rift",
+      "kind": "deepMine",
+      "pixels": 21798,
+      "materials": [
+        "stone",
+        "wood"
+      ]
+    },
+    {
+      "id": "symbiotes_b0",
+      "kind": "hq",
+      "pixels": 23320,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b1",
+      "kind": "house",
+      "pixels": 13019,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b2",
+      "kind": "depot",
+      "pixels": 13482,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b3",
+      "kind": "inf",
+      "pixels": 12981,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b4",
+      "kind": "lab",
+      "pixels": 14927,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b5",
+      "kind": "counter",
+      "pixels": 14797,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b6",
+      "kind": "armor",
+      "pixels": 19549,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b7",
+      "kind": "air",
+      "pixels": 20418,
+      "materials": [
+        "bio",
+        "cloth",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b8",
+      "kind": "elite",
+      "pixels": 19083,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_b9",
+      "kind": "defense",
+      "pixels": 6959,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_orewell",
+      "kind": "extractor",
+      "pixels": 7584,
+      "materials": [
+        "bio",
+        "glow",
+        "slate"
+      ]
+    },
+    {
+      "id": "symbiotes_oilwell",
+      "kind": "extractor",
+      "pixels": 8549,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_aetherwell",
+      "kind": "extractor",
+      "pixels": 9171,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_riftwell",
+      "kind": "extractor",
+      "pixels": 9547,
+      "materials": [
+        "bio",
+        "glow"
+      ]
+    },
+    {
+      "id": "symbiotes_wall",
+      "kind": "wall",
+      "pixels": 26398,
+      "materials": [
+        "skin"
+      ]
+    },
+    {
+      "id": "symbiotes_trap",
+      "kind": "trap",
+      "pixels": 3380,
+      "materials": [
+        "bio"
+      ]
+    },
+    {
+      "id": "symbiotes_dock",
+      "kind": "dock",
+      "pixels": 27128,
+      "materials": [
+        "bio",
+        "paint"
+      ]
+    },
+    {
+      "id": "symbiotes_market",
+      "kind": "market",
+      "pixels": 22968,
+      "materials": [
+        "bio",
+        "fur",
+        "glass"
+      ]
+    },
+    {
+      "id": "symbiotes_deep_ore",
+      "kind": "deepMine",
+      "pixels": 20294,
+      "materials": [
+        "bio"
+      ]
+    },
+    {
+      "id": "symbiotes_deep_oil",
+      "kind": "deepMine",
+      "pixels": 21414,
+      "materials": [
+        "bio"
+      ]
+    },
+    {
+      "id": "symbiotes_deep_aether",
+      "kind": "deepMine",
+      "pixels": 20396,
+      "materials": [
+        "bio"
+      ]
+    },
+    {
+      "id": "symbiotes_deep_rift",
+      "kind": "deepMine",
+      "pixels": 20951,
+      "materials": [
+        "bio"
+      ]
+    }
+  ],
+  "materials": [
+    "bio",
+    "bone",
+    "brick",
+    "chitin",
+    "cinderblock",
+    "cloth",
+    "concrete",
+    "fur",
+    "glass",
+    "glow",
+    "metal",
+    "paint",
+    "rock",
+    "skin",
+    "slate",
+    "stone",
+    "wood"
+  ]
+}

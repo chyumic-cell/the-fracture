@@ -1,7 +1,7 @@
 'use strict';
 const $=id=>document.getElementById(id),art=new FractureArt.Art(),cards=[];
 let time=0,last=0,lastDraw=0,paused=false,revision=0;
-const labels={bullet:['Bullets','Small, fast tracer rounds'],shell:['Tank & artillery shells','Metal rounds with a blast impact'],rocket:['Rockets','Fins, exhaust and smoke'],arrow:['Arrows','Wood shaft, head and feather fletching'],bolt:['Crossbow bolts','Short, flatter-flying quarrels'],javelin:['Javelins','Long thrown spears'],rock:['Stones','Tumbling rock; size varies by weapon'],potion:['Potions','Glass vials and colored splashes'],firepot:['Firepots','Clay vessels with a burning fuse'],acid:['Acid & venom spit','Droplets and a wet impact'],spore:['Spores','Barbed organic pods'],spine:['Biological darts','Bone spines, stingers and venom darts'],spell:['Spells','Runes and a luminous magical impact'],pulse:['Energy pulses','Compact, fast machine bolts'],flame:['Flame','Directional tongues of fire']};
+const labels={bomb:['Bombs','Dropped explosives; fixed ground impact and area damage'],bullet:['Bullets','Small, fast tracer rounds'],shell:['Tank & artillery shells','Metal rounds with a blast impact'],rocket:['Rockets','Fins, exhaust and smoke'],arrow:['Arrows','Wood shaft, head and feather fletching'],bolt:['Crossbow bolts','Short, flatter-flying quarrels'],javelin:['Javelins','Long thrown spears'],rock:['Stones','Tumbling rock; size varies by weapon'],potion:['Potions','Glass vials and colored splashes'],firepot:['Firepots','Clay vessels with a burning fuse'],acid:['Acid & venom spit','Droplets and a wet impact'],spore:['Spores','Barbed organic pods'],spine:['Biological darts','Bone spines, stingers and venom darts'],spell:['Spells','Runes and a luminous magical impact'],pulse:['Energy pulses','Compact, fast machine bolts'],flame:['Flame','Directional tongues of fire']};
 const observer=new IntersectionObserver(entries=>{for(const e of entries)e.target._card.visible=e.isIntersecting;},{rootMargin:'120px'});
 function card(host,title,detail,data,description=''){
  const a=document.createElement('article'),c=document.createElement('canvas'),h=document.createElement('h3'),sub=document.createElement('small');
@@ -38,7 +38,7 @@ function draw(card){const {c,d,f,kind}=card,x=c.getContext('2d'),detail=$('viewS
  if(kind==='unit'){
   const dir=$('direction').value==='rotate'?Math.floor(time/2)%8:+$('direction').value;let action=$('action').value;
   if(['gather','build'].includes(action)&&!d.worker||action==='heal'&&!d.heal)action='idle';
-  const frame=Math.floor(time*(action==='attack'?5:7))%(['attack','gather','build','heal'].includes(action)?4:6),im=paint(art.unit(d,f,dir*Math.PI/4,action,frame,d.transport?+$('occupancy').value:0));
+  const frame=Math.floor(time*(action==='attack'?5:7))%(['attack','gather','build','heal','scratch','yawn'].includes(action)?4:6),im=paint(art.unit(d,f,dir*Math.PI/4,action,frame,d.transport?+$('occupancy').value:0));
   if(detail)detailed(x,im);else{const vs=FractureArt.unitScale(d);x.drawImage(im,128-44.8*vs,142-69.6*vs,89.6*vs,89.6*vs);}
  }else if(kind==='projectile'){
   const name=card.projectile,s={...FractureProjectiles.categories[name],kind:name},t=time%1;x.save();x.translate(22+t*207,48-Math.sin(t*Math.PI)*s.arc);x.scale(2,2);x.rotate(Math.atan2(-Math.cos(t*Math.PI)*s.arc*Math.PI,207));FractureProjectiles.draw(x,s,t,time*7);x.restore();if(t>.8){x.save();x.translate(229,48);FractureProjectiles.impact(x,{projectileKind:name,color:s.color,time:(1-t)*2,max:.4});x.restore();}

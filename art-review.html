@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Fracture - Art & weapons</title>
-<link rel="stylesheet" href="src/art-review.css"></head><body>
+<style>*{box-sizing:border-box}body{margin:0;background:#101c22;color:#dedacb;font:14px/1.5 system-ui}header{padding:22px 32px;background:#1c2b30;border-bottom:1px solid #6c6954;display:flex;justify-content:space-between;gap:24px;align-items:center}h1{font:30px Georgia;color:#e4ce99;margin:2px 0}.eyebrow{font-size:11px;letter-spacing:.16em;color:#b4ab83;margin:0}main{padding:18px 32px}.intro{max-width:850px}p{color:#a9bdb9}select,input,button,a{font:inherit;color:#eee1bf;background:#263a40;border:1px solid #607773;padding:8px 10px;border-radius:2px}a{text-decoration:none}button,a,select{cursor:pointer}:focus-visible{outline:2px solid #e4ce99;outline-offset:3px}.controls{display:flex;align-items:end;flex-wrap:wrap;gap:12px;padding:15px;background:#17262b;border:1px solid #33484b}.controls label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#bdc9c3}.controls select,.controls input{max-width:240px;font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}article{background:#1b2a2e;border:1px solid #35484b;padding:12px;text-align:center;min-width:0}canvas{image-rendering:pixelated;width:256px;height:224px;max-width:100%;object-fit:contain}article h3{font-size:14px;color:#e5d6b1;margin:3px 0 6px}small{display:block;color:#a8bbb7}details{font-size:12px;text-align:left;margin-top:10px;color:#afbfba}summary{cursor:pointer;color:#dcc99f}details p{white-space:pre-line;margin-bottom:0}h2{font:22px Georgia;color:#dfc58d;margin:30px 0 12px}#projectiles canvas{height:80px}#summary{font-size:12px;color:#d8c798}footer{padding:30px;color:#9daea9;border-top:1px solid #33484b;margin-top:24px}[hidden]{display:none!important}@media(max-width:600px){header,main{padding:16px}.grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}.controls label{flex:1;min-width:125px}.controls select,.controls input{width:100%}}
+
+/* Trading is a paired comparison of one unit and its destination. */
+main[data-view="trade"] section[data-section="units"],main[data-view="trade"] section[data-section="buildings"]{display:inline-block;vertical-align:top;width:calc(50% - 14px);max-width:420px;margin-right:20px}main[data-view="trade"] section[data-section="buildings"]>p{display:none}main[data-view="trade"] .grid{grid-template-columns:1fr}main[data-view="trade"] h2{min-height:27px}@media(max-width:650px){main[data-view="trade"] section[data-section="units"],main[data-view="trade"] section[data-section="buildings"]{display:block;width:100%;margin-right:0}}
+</style></head><body>
 <header><div><p class="eyebrow">THE FRACTURE / FIELD ARCHIVE</p><h1>Art & weapons</h1></div><a href="index.html">Back to game</a></header>
 <main><p class="intro">Explore the current artwork for all twelve civilizations, from infantry and aircraft to fleets, fortifications and ruined buildings. This preview leaves your saved match untouched.</p>
 <div class="controls">
@@ -8,7 +12,7 @@
 <label>Show<select id="category"><option value="all">Everything</option><option value="units">All units</option><option value="naval">Ships</option><option value="air">Aircraft & flying creatures</option><option value="buildings">Buildings</option><option value="trade">Markets & merchants</option><option value="fortifications">Walls & gates</option><option value="extensions">Extensions</option><option value="projectiles">Projectiles</option></select></label>
 <label>Find a design<input id="search" type="search" placeholder="Name or role"></label>
 <label>Player color<select id="playerColor"><option value="#6eb8c6">Blue</option><option value="#cb756a">Red</option><option value="#b6a16e">Gold</option><option value="#ad8ec4">Violet</option></select></label>
-<label>Action<select id="action"><option value="walk">Moving</option><option value="attack">Attacking</option><option value="idle">At rest</option><option value="gather">Gathering</option><option value="build">Building</option><option value="heal">Healing</option><option value="dead">Fallen</option></select></label>
+<label>Action<select id="action"><option value="walk">Moving</option><option value="ready">Combat ready</option><option value="walkReady">Armed advance</option><option value="scratch">Scratch</option><option value="yawn">Yawn</option><option value="attack">Attacking</option><option value="idle">At rest</option><option value="gather">Gathering</option><option value="build">Building</option><option value="heal">Healing</option><option value="dead">Fallen</option></select></label>
 <label>Direction<select id="direction"><option value="rotate">All eight directions</option><option value="0">Southeast</option><option value="1">South</option><option value="2">Southwest</option><option value="3">West</option><option value="4">Northwest</option><option value="5">North</option><option value="6">Northeast</option><option value="7">East</option></select></label>
 <label>Scale<select id="viewScale"><option value="detail">Detailed inspection</option><option value="game">Battlefield size</option></select></label>
 <label>Building state<select id="construction"><option value="1">Complete</option><option value="0.15">Early frame</option><option value="0.5">Half built</option><option value="0.85">Finishing</option><option value="ruin">Ruins</option></select></label>
@@ -22,6 +26,37 @@
 <section data-section="extensions"><h2>Extension bays & add-ons</h2><div id="extensions" class="grid"></div></section>
 <section data-section="projectiles"><h2>Projectile families</h2><p>Distinct ammunition, flight paths and impacts. Unit attack previews show the release pose; these swatches compare ammunition separately.</p><div id="projectiles" class="grid"></div></section>
 </main><footer>Original code-drawn artwork. Sharp pixels. The same sprite renderers used in the game.</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="src/combat.js"></script>
 <script src="src/expansion-data.js"></script>
 <script src="src/data.js"></script>
@@ -37,10 +72,12 @@
 <script src="src/march.js"></script>
 <script src="src/walls.js"></script>
 <script src="src/simulation.js"></script>
-<script src="src/environments.js"></script><script src="src/art.js"></script>
+<script src="src/environments.js"></script>
+<script src="src/art.js"></script>
 <script src="src/terrain.js"></script>
 <script src="src/help.js"></script>
-<script src="src/sprite-mesh.js"></script><script src="src/environment-art.js"></script>
+<script src="src/sprite-mesh.js"></script>
+<script src="src/environment-art.js"></script>
 <script src="src/detail-art.js"></script>
 <script src="src/extension-art.js"></script>
 <script src="src/construction-art.js"></script>
@@ -49,8 +86,10 @@
 <script src="src/symbiote-art.js"></script>
 <script src="src/primate-art.js"></script>
 <script src="src/identity-art.js"></script>
-<script src="src/trade-art.js"></script><script src="src/expansion-art.js"></script>
+<script src="src/trade-art.js"></script>
+<script src="src/expansion-art.js"></script>
 <script src="src/fortification-art.js"></script>
 <script src="src/ruins-art.js"></script>
 <script src="src/building-art.js"></script>
-<script src="src/art-review.js"></script></body></html>
+<script src="src/art-review.js"></script>
+</body></html>

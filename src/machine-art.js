@@ -1,14 +1,20 @@
 'use strict';
 // Original industrial machine silhouettes; geometry and poses do not alter unit behavior.
 (function(root){
-function render(ctx,d,f,angle,action,frame){
+function render(ctx,d,f,angle,action,frame){if(action==='ready'){action='attack';frame=0;}if(action==='walkReady')action='walk';
  if(f.id!=='machines')return false;
  const dir=Math.round(angle/(Math.PI/4))*Math.PI/4,m=new root.FractureSpriteMesh(ctx,dir,action==='dead').pose(d,action,frame),pi=Math.PI,phase=frame%4,walk=action==='walk'?Math.sin(frame*pi/3):0,attack=action==='attack',work=action==='gather'||action==='build',stroke=attack?[0,.65,1,.25][phase]:work?[0,.6,1,.3][phase]:0,breathe=Math.sin(frame*pi/3)*.35;
- const c={dark:'#252e34',black:'#151d22',shell:'#47545b',plate:'#65767c',edge:'#99aaa9',steel:'#b5c0b8',joint:'#3c474c',wire:'#66757a',red:'#dd4e43',redDark:'#782b2b',team:'#716c65'};
+ const c={dark:'#252e34',black:'#151d22',shell:'#47545b',plate:'#82919a',edge:'#b4c2cc',steel:'#d9e2e5',joint:'#3c474c',wire:'#66757a',red:'#dd4e43',redDark:'#782b2b',team:'#716c65'};
  const livery=root.FractureArt.unitLivery(d,f);c.shell=root.FractureArt.mixColor(c.shell,livery.primary,.55);c.plate=livery.primary;c.team=livery.trim;
  const mat=(name='metal')=>m.material(name),box=(x,y,z,w,l,h,col=c.shell)=>{mat();m.box(x,y,z,w,l,h,col);},seg=(a,b,col=c.edge,width=1.6)=>{mat();m.seg(a,b,col,width);},orb=(x,y,z,rx,ry,rz,col=c.joint)=>{mat();m.orb(x,y,z,rx,ry,rz,col);},face=(v,col=c.shell)=>{mat();m.face(v,col);};
  const tube=(a,b,r1,r2,col=c.edge,sides=8)=>{const v=b.map((q,j)=>q-a[j]),vl=Math.hypot(...v)||1;for(let j=0;j<3;j++)v[j]/=vl;const u=Math.abs(v[2])>.92?[1,0,0]:[-v[1],v[0],0],ul=Math.hypot(...u)||1;for(let j=0;j<3;j++)u[j]/=ul;const w=[v[1]*u[2]-v[2]*u[1],v[2]*u[0]-v[0]*u[2],v[0]*u[1]-v[1]*u[0]];mat();m.rings([a,b].map((p,k)=>Array.from({length:sides},(_,i)=>p.map((q,j)=>q+(u[j]*Math.cos(i*pi*2/sides)+w[j]*Math.sin(i*pi*2/sides))*(k?r2:r1)))),col);};
- const hull=(x,y,z,len,w,h,col=c.shell)=>{const ring=(xx,ww,hh,zz)=>[[-ww*.62,-hh],[-ww,-hh*.45],[-ww,hh*.45],[-ww*.58,hh],[ww*.58,hh],[ww,hh*.45],[ww,-hh*.45],[ww*.62,-hh]].map(([yy,vz])=>[xx,y+yy,zz+vz]);mat();m.rings([ring(x-len,w*.63,h*.76,z),ring(x-len*.55,w,h,z),ring(x+len*.5,w*.91,h*.87,z),ring(x+len,w*.43,h*.48,z-.3)],col);for(const side of [-1,1]){seg([x-len*.5,y+side*w*.64,z+h],[x+len*.45,y+side*w*.58,z+h*.87],c.edge,.65);face([[x-len*.45,y+side*w*1.01,z-.7],[x+len*.3,y+side*w*.95,z-.7],[x+len*.3,y+side*w*.95,z+1],[x-len*.45,y+side*w*1.01,z+1]],c.dark);}};
+ const hull=(x,y,z,len,w,h,col=c.shell)=>{const ring=(xx,ww,hh,zz)=>[[-ww*.62,-hh],[-ww,-hh*.45],[-ww,hh*.45],[-ww*.58,hh],[ww*.58,hh],[ww,hh*.45],[ww,-hh*.45],[ww*.62,-hh]].map(([yy,vz])=>[xx,y+yy,zz+vz]);mat();m.rings([ring(x-len,w*.63,h*.76,z),ring(x-len*.55,w,h,z),ring(x+len*.5,w*.91,h*.87,z),ring(x+len,w*.43,h*.48,z-.3)],col);for(const side of [-1,1]){seg([x-len*.5,y+side*w*.64,z+h],[x+len*.45,y+side*w*.58,z+h*.87],c.edge,.65);face([[x-len*.45,y+side*w*1.01,z-.7],[x+len*.3,y+side*w*.95,z-.7],[x+len*.3,y+side*w*.95,z+1],[x-len*.45,y+side*w*1.01,z+1]],c.dark);
+  // Raised angled shoulder panel, dark underside and metal fastening points.
+  const y0=y+side*w*.78,z0=z+h*.68;
+  face([[x-len*.5,y0,z0],[x+len*.38,y0,z0-.3],[x+len*.32,y0+side*.5,z0+1.2],[x-len*.42,y0+side*.5,z0+1.5]],c.plate);
+  for(const xx of [x-len*.35,x+len*.23]){orb(xx,y0+side*.6,z0+.65,.35,.4,.35,c.steel);}
+  if(len>8)for(let j=0;j<3;j++)seg([x-len*.4+j*1.6,y+side*w*.35,z+h+.1],[x-len*.4+j*1.6,y+side*w*.62,z+h+.1],c.dark,.5);
+ }};
  const lens=(x,y,z,r=1.2,col=c.red)=>{tube([x-.8,y,z],[x+.6,y,z],r*1.55,r*1.4,c.black,10);tube([x+.65,y,z],[x+.95,y,z],r*1.04,r,col,10);m.material('glow');m.orb(x+1,y-.16,z+.16,.25,r*.48,r*.48,col);};
  const eyes=(x,y,z,scale=1)=>{lens(x,y,z,1.5*scale);lens(x-.5,y-2.7*scale,z+1.5*scale,.9*scale);lens(x-.5,y+2.7*scale,z+1.5*scale,.9*scale);lens(x-.2,y,z-2.6*scale,.7*scale);};
  const spine=(x,z,count=5,step=3.4,w=4)=>{seg([x,0,z],[x-(count-1)*step,0,z-1],c.dark,3);for(let j=0;j<count;j++){box(x-j*step,0,z-.6,j===0?1.5:1.2,w*(1-j*.045),2.4,j%2?c.plate:c.shell);seg([x-j*step,-w*.78,z+1.8],[x-j*step,w*.78,z+1.8],c.edge,.7);}};
@@ -31,7 +37,7 @@ function render(ctx,d,f,angle,action,frame){
   hull(-2,0,11,15,4.3,3.6,c.dark);spine(-3,15,6,3.4,2.3);tube([1,0,11],[3,0,23],1.4,1.3,c.edge);hull(4,0,23,5,3.5,2.8,c.shell);eyes(9,0,23,.7);emitter(22,1.05);
   for(const side of [-1,1]){thruster(-5,side*3,5,1.6);tendril([-12,side*2,12],[-24,side*8,17],[-25+walk*2,side*14,3],[-25,side*17,6],.8);seg([-2,side*3,22],[-7,side*8,31],c.edge,.7);lens(-6,side*8,31,.6);}break;}
  case 'Blade Drone':{
-  hull(0,0,20,7,6,5.5,c.dark);spine(-1,25,3,3,3);eyes(7,0,22,.85);for(const side of [-1,1]){thruster(-1,side*4,10,2.4);const elbow=[3,side*(13+stroke*2),24+stroke*6],hand=[14+stroke*5,side*(16-stroke*5),18+stroke*8];tube([0,side*5,22],elbow,2.6,2.1,c.plate);orb(...elbow,2.4,2.4,2.4,c.dark);tube(elbow,hand,1.7,1.3,c.edge);piston([1,side*7,20],[hand[0]-2,hand[1],hand[2]-1],.8);face([[hand[0]-2,hand[1],hand[2]+3],[hand[0]+4,hand[1]+side*2,hand[2]+1],[hand[0]+10,hand[1]+side*1,hand[2]-10],[hand[0]+4,hand[1],hand[2]-5]],c.steel);face([[hand[0]-2,hand[1]-.7,hand[2]+3],[hand[0]+4,hand[1]+side*2,hand[2]+1],[hand[0]+4,hand[1],hand[2]-5]],c.plate);tendril([-5,side*3,18],[-14,side*6,15],[-18+walk*2,side*8,4],[-19,side*11,8],1);}
+  hull(0,0,20,7,6,5.5,c.dark);spine(-1,25,3,3,3);eyes(7,0,22,.85);for(const side of [-1,1]){thruster(-1,side*4,10,2.4);const elbow=[attack?[3,-2,7,5][phase]:3,side*(13+stroke*2),24+stroke*6],hand=attack?[[12,side*17,22],[-5,side*22,36],[24,side*5,17],[19,side*9,21]][phase]:[14,side*16,18];tube([0,side*5,22],elbow,2.6,2.1,c.plate);orb(...elbow,2.4,2.4,2.4,c.dark);tube(elbow,hand,1.7,1.3,c.edge);piston([1,side*7,20],[hand[0]-2,hand[1],hand[2]-1],.8);face([[hand[0]-2,hand[1],hand[2]+3],[hand[0]+4,hand[1]+side*2,hand[2]+1],[hand[0]+10,hand[1]+side*1,hand[2]-10],[hand[0]+4,hand[1],hand[2]-5]],c.steel);face([[hand[0]-2,hand[1]-.7,hand[2]+3],[hand[0]+4,hand[1]+side*2,hand[2]+1],[hand[0]+4,hand[1],hand[2]-5]],c.plate);tendril([-5,side*3,18],[-14,side*6,15],[-18+walk*2,side*8,4],[-19,side*11,8],1);}
   break;}
  case 'Pulse Sentry':{
   for(const side of [-1,1])tread(-2,side*8,11,2.5,5);hull(-2,0,14,10,7,5,c.shell);hull(2,0,21,9,5.5,4.5,c.plate);eyes(10,0,26,.7);emitter(22,2.4);radiator(-10,0,16,5,8);for(const side of [-1,1]){box(-1,side*6,17,3,1.5,6,c.dark);lens(3,side*7,20,.7);}break;}

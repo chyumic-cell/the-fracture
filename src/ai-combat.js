@@ -4,6 +4,7 @@ const D=root.FD||(typeof require!=='undefined'?require('./data.js'):null),C=root
 const config=(g,p)=>(root.FractureAI||(typeof require!=='undefined'?require('./ai.js'):null)).configuration(g,p);
 const def=e=>e.kind==='unit'?D.units[e.type]:D.buildings[e.type];
 function expectedHit(g,u,t){const d=def(u),td=def(t),weapons=g.players[u.owner].tech.filter(id=>D.research[id]?.kind==='weapons').length,damage=d.damage*(1+weapons*.12)*(u.focusUntil>g.time?1.18:1)*C.multiplier(d,td,t.kind==='building')*(g.height(u.x,u.y)>g.height(t.x,t.y)?1.1:1);return Math.max(1,damage-(td.armor||0)-(t.bracedUntil>g.time?5:0));}
+function detachedIds(p){return new Set([...(p.aiRaid?.ids||[]),...(p.aiRaidExtra?.ids||[]),...(p.aiSecondary?.ids||[])]);}
 function center(us,fallback){return us.length?{x:us.reduce((n,u)=>n+u.x,0)/us.length,y:us.reduce((n,u)=>n+u.y,0)/us.length}:fallback;}
 function power(g,units,opponents=[]){return units.reduce((n,u)=>{const d=def(u);if(!d||u.hp<=0)return n;const damage=d.kind==='defense'?23:d.damage||0;if(!damage)return n+(d.heal||0)*6;const compatible=opponents.length?opponents.filter(e=>{const td=def(e);return(!td.air||d.aa||d.kind==='defense')&&(!d.airOnly||td.air);}):[];if(opponents.length&&!compatible.length)return n;let match=1;if(compatible.length)match=compatible.reduce((n,e)=>n+C.multiplier(d,def(e),e.kind==='building'),0)/compatible.length;return n+Math.sqrt(u.maxHp||d.hp)*(u.hp/(u.maxHp||d.hp))*damage/(d.cooldown||(d.kind==='defense'?1.5:1.25))*match*(d.splash?1.15:1);},0);}
 function order(g,u,o,delay=1.8){if(u.windup&&!u.windup.fired&&(['move','hold'].includes(o.kind)||o.kind==='attack'&&o.target!==u.windup.target))return false;const old=u.order;if(old?.kind===o.kind&&(o.kind==='attack'?old.target===o.target:o.x===undefined||Math.hypot((old.x??0)-o.x,(old.y??0)-o.y)<1.2))return false;if(g.time<(u.aiOrderAt||0)&&o.kind!=='attack')return false;g.order([u.id],o);u.aiOrderAt=g.time+delay;return true;}
@@ -29,10 +30,24 @@ function siegeScreen(g,p,op,us,cfig,enemies){
 function operationStep(g,p,enemies){const cfig=config(g,p),op=p.operation;if(!op)return false;let us=(op.ids||[]).map(id=>g.entity(id)).filter(u=>u&&!u.aiLogistics&&!u.embarkedBy&&!(u.aiWithdrawUntil>g.time));if(!us.length){p.operation=null;p.attackAt=g.time+15;return false;}const c=center(us,p.home),near=enemies.filter(e=>dist(e,c)<11&&(!def(e).worker)),health=us.reduce((n,u)=>n+u.hp/u.maxHp,0)/us.length,ratio=cfig.retreatRatio;
  if(op.phase!=='retreat'&&((cfig.adaptiveEconomy?health<.28||us.length<(op.initial||us.length)*.5&&near.length&&power(g,near,us)>power(g,us,near)*.9:health<.4||us.length<(op.initial||us.length)*.5)||near.length&&power(g,near,us)>power(g,us,near)*ratio&&dist(c,p.home)>12)){op.phase='retreat';op.changed=g.time;op.withdrawTo=fallbackPoint(g,p,us);p.plan='Withdrawing survivors behind support';g.order(us.map(u=>u.id),{kind:'move',...op.withdrawTo,formation:'column'});}
  if(op.phase==='advance'&&!near.length){if(!op.lastProgress||dist(c,op.lastProgress)>2){op.lastProgress={...c};op.progressAt=g.time;}else if(g.time-op.progressAt>22&&us.filter(u=>u.stuck>4).length>us.length*.3){if(op.target.id)(p.aiState.routePenalty||={})[op.target.id]=90;g.order(us.map(u=>u.id),{kind:'stop'});p.operation=null;p.attackAt=g.time+8;return false;}}
- if(op.phase==='retreat'){if(dist(c,op.withdrawTo||p.home)<5||g.time-op.changed>40){g.order(us.map(u=>u.id),{kind:'hold'});p.operation=null;p.attackAt=g.time+cfig.regroupDelay;}return true;}
+ if(op.phase==='retreat'){if(dist(c,op.withdrawTo||p.home)<5||g.time-op.changed>40){g.order(us.map(u=>u.id),{kind:'hold'});
+  // Learn from the failed attack
+  if(cfig.grade>=5){const h=p.aiState||{};h.attackHistory||(h.attackHistory=[]);
+   h.attackHistory.push({time:g.time,sent:op.initial,survived:us.length,result:'retreat'});
+   if(h.attackHistory.length>8)h.attackHistory.shift();
+   const recent=h.attackHistory.filter(a=>g.time-a.time<300);
+   const failures=recent.filter(a=>a.result==='retreat').length;
+   p.attackAt=failures>=2?g.time+cfig.regroupDelay*(1+failures*.15):g.time+cfig.regroupDelay;}
+  else p.attackAt=g.time+cfig.regroupDelay;
+  if(cfig.relentlessPressure){const fresh=us.filter(u=>u.hp>u.maxHp*.7),known=enemies.filter(e=>def(e).damage>0&&dist(e,op.target)<12);
+   if(fresh.length>=cfig.minAttack&&power(g,fresh,known)>power(g,known,fresh)*1.4)p.attackAt=Math.min(p.attackAt,g.time+6);
+  }
+  p.operation=null;}return true;}
  if(op.phase==='assemble'){p.plan='Staging armor, ranged troops and support';if(us.filter(u=>dist(u,op.rally)<5).length>=us.length*.7||g.time-op.changed>cfig.assembleTime){op.phase='advance';op.changed=g.time;const main=us.filter(u=>!(op.flank||[]).includes(u.id));g.order(main.map(u=>u.id),{kind:'attackMove',x:op.target.x,y:op.target.y,formation:'line',face:Math.atan2(op.target.y-c.y,op.target.x-c.x)});if(op.flank?.length){op.side=op.side||flankPoint(g,p,op,us,enemies);if(op.side){op.flankPending=true;g.order(op.flank,{kind:'move',...op.rally,formation:'column'});}else{g.order(op.flank,{kind:'attackMove',x:op.target.x,y:op.target.y,formation:'wedge'});op.flankCommitted=true;}}p.plan=op.side?'Coordinated assault with a separate flank':'Combined-arms assault';}return true;}
  if(op.flankPending){const main=us.filter(u=>!op.flank.includes(u.id));if(dist(center(main,p.home),op.target)<14||main.some(u=>u.windup)||g.time-op.changed>40){op.flankPending=false;g.order(op.flank,{kind:'attackMove',x:op.side.x,y:op.side.y,formation:'column'});}}
  if(op.flank?.length&&!op.flankCommitted&&!op.flankPending){const wing=us.filter(u=>op.flank.includes(u.id));if(op.side&&wing.some(u=>dist(u,op.side)<3)||g.time-op.changed>25){const wc=center(wing,c),soft=enemies.filter(e=>e.kind==='unit'&&['siege','support','worker'].includes(def(e).role)).sort((a,b)=>dist(wc,a)-dist(wc,b))[0],target=soft||op.target;g.order(op.flank,{kind:'attackMove',x:target.x,y:target.y,formation:'wedge'});op.flankCommitted=true;}}
+ // Record successful attacks for adaptive learning
+ if(op.target.id&&g.visible(p.id,op.target)&&!enemies.some(e=>e.id===op.target.id)){if(cfig.grade>=5){const h=p.aiState||{};h.attackHistory||(h.attackHistory=[]);h.attackHistory.push({time:g.time,sent:op.initial,survived:us.length,result:'success'});if(h.attackHistory.length>8)h.attackHistory.shift();}}
  if(op.target.id&&g.visible(p.id,op.target)&&!enemies.some(e=>e.id===op.target.id)||g.time-op.changed>(cfig.adaptiveEconomy?Math.max(105,dist(op.rally||p.home,op.target)/Math.max(.6,Math.min(...us.map(u=>def(u).speed||1)))*2+90):105)){p.operation=null;p.attackAt=g.time+4;return false;}
  if(cfig.battleAssessment&&!siegeScreen(g,p,op,us,cfig,enemies))op.siegeCoverIds=[];
  // Recover stragglers without repeatedly overwriting fighting units' target orders.
@@ -43,7 +58,7 @@ function operationStep(g,p,enemies){const cfig=config(g,p),op=p.operation;if(!op
 // nearby friendly support. Distant armies cannot make an isolated chase safe.
 function safePursuit(g,p,ctx,u,target){
  const reach=g.attackReach(u,target),distance=dist(u,target);
- if(ctx.config.level<7||distance<=reach+.2)return true;
+ if(ctx.config.grade<7||distance<=reach+.2)return true;
  const step=Math.max(0,distance-reach+.15),q={x:u.x+(target.x-u.x)*step/distance,y:u.y+(target.y-u.y)*step/distance};
  // Do not query an enemy's fog/detector state to predict its ability to fire.
  const threatReach=e=>(def(e).range||0)+(u.size||.35)+(g.height(e.x,e.y)>g.height(u.x,u.y)?(def(e).range||0)*.08:0);
@@ -60,7 +75,7 @@ function safePursuit(g,p,ctx,u,target){
 // Require a substantial advantage and a reachable, similarly close alternative
 // so routine scouting changes do not make an army oscillate between targets.
 function reassess(g,p,ctx){
- const op=p.operation;if(ctx.config.level<8||!op||op.phase!=='advance'||g.time<(op.reviewAt||0))return;
+ const op=p.operation;if(ctx.config.grade<8||!op||op.phase!=='advance'||g.time<(op.reviewAt||0))return;
  op.reviewAt=g.time+8;
  const us=op.ids.map(id=>g.entity(id)).filter(u=>u&&u.hp>0&&!u.embarkedBy&&!u.aiLogistics);
  if(!us.length||us.some(u=>u.windup))return;
@@ -76,63 +91,101 @@ function reassess(g,p,ctx){
   g.order(us.map(u=>u.id),{kind:'attackMove',x:t.x,y:t.y,formation:'line'});p.plan='Redirecting the assault toward a vulnerable strategic target';return;
  }
 }
-function defend(g,p,ctx){const anchors=[p.home,...ctx.ready.filter(b=>['hq','depot','extractor'].includes(def(b).kind)),...ctx.workers],threats=ctx.enemy.filter(e=>{const d=def(e);return(d.damage>0||d.kind==='defense')&&anchors.some(a=>dist(a,e)<(a===p.home?15:a.kind==='unit'?6:10));});if(!threats.length){p.defenseIds=[];return;}
- const focus=threats.map(e=>({e,score:threats.filter(v=>dist(v,e)<7).reduce((n,v)=>n+(def(v).worker?2:def(v).damage||15),0)-dist(e,p.home)*.6+(ctx.config.level>=7?anchors.reduce((n,a)=>n+(dist(a,e)<(a.kind==='unit'?6:10)?a===p.home?0:a.kind==='unit'?12:def(a).kind==='hq'?90:def(a).kind==='extractor'?55:30:0),0):0)})).sort((a,b)=>b.score-a.score)[0].e,cluster=threats.filter(e=>dist(e,focus)<9),required=power(g,cluster)*1.3,available=ctx.military.filter(u=>u.hp>u.maxHp*.3&&!u.returning&&!(u.aiWithdrawUntil>g.time)&&!(u.aiScoutUntil>g.time)).sort((a,b)=>{if(ctx.config.level<7)return dist(a,focus)-dist(b,focus);const cost=u=>dist(u,focus)/Math.max(.5,def(u).speed)+(p.operation?.ids.includes(u.id)?5:0)-(p.defenseIds?.includes(u.id)?2:0);return cost(a)-cost(b)||a.id-b.id;}),chosen=[];let strength=0;
+function defend(g,p,ctx){const anchors=[p.home,...ctx.ready.filter(b=>['hq','depot','extractor'].includes(def(b).kind)),...ctx.workers],threats=ctx.enemy.filter(e=>{const d=def(e);return(d.damage>0||d.kind==='defense')&&anchors.some(a=>dist(a,e)<(a===p.home?15:a.kind==='unit'?6:10));});if(!threats.length){
+  if(ctx.config.counterattackAfterDefense&&p.defenseIds?.length&&ctx.military.filter(u=>u.hp>u.maxHp*.65).length>=ctx.config.minAttack){p.attackAt=g.time;p.aiCounterattackUntil=g.time+18;}
+  p.defenseIds=[];return;}
+ const focus=threats.map(e=>({e,score:threats.filter(v=>dist(v,e)<7).reduce((n,v)=>n+(def(v).worker?2:def(v).damage||15),0)-dist(e,p.home)*.6+(ctx.config.grade>=7?anchors.reduce((n,a)=>n+(dist(a,e)<(a.kind==='unit'?6:10)?a===p.home?0:a.kind==='unit'?12:def(a).kind==='hq'?90:def(a).kind==='extractor'?55:30:0),0):0)})).sort((a,b)=>b.score-a.score)[0].e,cluster=threats.filter(e=>dist(e,focus)<9),required=power(g,cluster)*1.3,available=ctx.military.filter(u=>u.hp>u.maxHp*.3&&!u.returning&&!(u.aiWithdrawUntil>g.time)&&!(u.aiScoutUntil>g.time)).sort((a,b)=>{if(ctx.config.grade<7)return dist(a,focus)-dist(b,focus);const cost=u=>dist(u,focus)/Math.max(.5,def(u).speed)+(p.operation?.ids.includes(u.id)?5:0)-(p.defenseIds?.includes(u.id)?2:0);return cost(a)-cost(b)||a.id-b.id;}),chosen=[];let strength=0;
  for(const u of available){if(def(u).airOnly&&!cluster.some(e=>def(e).air))continue;if(def(u).damage<=0&&chosen.length<3)continue;if(ctx.config.recoveryCoordination&&def(u).damage>0&&!cluster.some(e=>g.canTarget(u,e)))continue;chosen.push(u);strength+=power(g,[u],cluster);if(chosen.length>=2&&strength>=required||dist(focus,p.home)>18&&chosen.length>=Math.max(2,Math.ceil(available.length*.25)))break;}
  p.defenseIds=chosen.map(u=>u.id);if(!chosen.length)return;
- let cover=null;if(ctx.config.level>=5&&power(g,cluster,chosen)>power(g,chosen,cluster)*.7){const towers=ctx.ready.filter(b=>def(b).kind==='defense'&&dist(b,focus)<17&&!cluster.some(e=>def(e).role==='siege'&&g.range(e)>g.range(b)));for(const b of towers.sort((a,b)=>dist(a,focus)-dist(b,focus))){const angle=Math.atan2(b.y-focus.y,b.x-focus.x),q={x:b.x+Math.cos(angle)*2.5,y:b.y+Math.sin(angle)*2.5},probe=chosen.find(u=>!def(u).air)||chosen[0];if(g.known(p.id,q)&&!g.blocked(q.x,q.y,!!def(probe).air,p.id)&&dist(g.path(probe,q,true).at(-1)||probe,q)<1.5){cover=q;break;}}}
+ let cover=null;if(ctx.config.grade>=5&&power(g,cluster,chosen)>power(g,chosen,cluster)*.7){const towers=ctx.ready.filter(b=>def(b).kind==='defense'&&dist(b,focus)<17&&!cluster.some(e=>def(e).role==='siege'&&g.range(e)>g.range(b)));for(const b of towers.sort((a,b)=>dist(a,focus)-dist(b,focus))){const angle=Math.atan2(b.y-focus.y,b.x-focus.x),q={x:b.x+Math.cos(angle)*2.5,y:b.y+Math.sin(angle)*2.5},probe=chosen.find(u=>!def(u).air)||chosen[0];if(g.known(p.id,q)&&!g.blocked(q.x,q.y,!!def(probe).air,p.id)&&dist(g.path(probe,q,true).at(-1)||probe,q)<1.5){cover=q;break;}}}
  p.plan=cover?'Drawing the attack into supporting tower fire':'Intercepting threats with a local defense group';for(const u of chosen)if(dist(u,focus)>g.range(u)+(focus.size||.3)&&!u.windup)order(g,u,{kind:'attackMove',x:(cover||focus).x,y:(cover||focus).y,formation:'line'},3);
- if(p.operation&&p.operation.phase!=='retreat'){const removed=ctx.config.level>=7?p.operation.ids.filter(id=>p.defenseIds.includes(id)).length:chosen.length;p.operation.ids=p.operation.ids.filter(id=>!p.defenseIds.includes(id));p.operation.initial=Math.max(p.operation.ids.length,p.operation.initial-removed);if(!p.operation.ids.length)p.operation=null;}
+ if(p.operation&&p.operation.phase!=='retreat'){const removed=ctx.config.grade>=7?p.operation.ids.filter(id=>p.defenseIds.includes(id)).length:chosen.length;p.operation.ids=p.operation.ids.filter(id=>!p.defenseIds.includes(id));p.operation.initial=Math.max(p.operation.ids.length,p.operation.initial-removed);if(!p.operation.ids.length)p.operation=null;}
 }
-function chooseAttack(g,p,ctx){if(g.time<Math.max(p.attackAt||0,ctx.config.attackNotBefore||0))return;const defence=new Set(p.defenseIds||[]),available=ctx.military.filter(u=>u.hp>u.maxHp*.55&&!u.returning&&!(u.aiWithdrawUntil>g.time)&&!(u.aiScoutUntil>g.time)&&!p.aiRaid?.ids.includes(u.id)&&!defence.has(u.id)),finishing=ctx.config.level>=8&&(ctx.targets||[]).some(t=>g.visible(p.id,t)&&t.hp<t.maxHp*.5&&power(g,ctx.knownEnemies.filter(e=>e.id!==t.id&&dist(e,t)<10),available)<power(g,available)*.5),opportunity=ctx.config.level>=5&&(ctx.targets||[]).some(t=>g.visible(p.id,t)&&(t.progress<.8||['extractor','depot'].includes(def(t)?.kind))&&power(g,ctx.knownEnemies.filter(e=>e.id!==t.id&&dist(e,t)<12&&g.time-e.seenAt<25),available)<power(g,available)*.45),minimum=finishing?2:opportunity?Math.max(3,7-Math.floor(ctx.config.level/2)):Math.min(ctx.config.minAttack,Math.max(2,Math.floor(ctx.config.maxMilitary*.4))),reserve=finishing?0:opportunity?1:Math.min(3,Math.floor(available.length*.12));if(available.filter(u=>def(u).damage>0&&!def(u).airOnly).length<minimum+reserve)return;
+// Standing home garrison. Previously the controller committed everything but a hard cap of
+// three units, so a counter-attack met an empty base. Every tier now holds back a real
+// proportion of its army; capable tiers (adaptiveGarrison) size that reserve against the
+// enemy strength they have actually observed instead of using a flat fraction, so they
+// neither over-garrison against a weak opponent nor leave home open against a strong one.
+function homeGuard(g,p,ctx,available){
+ const cfig=ctx.config,armed=available.filter(u=>def(u).damage>0);
+ if(armed.length<=2)return 0;
+ let fraction=cfig.garrisonFraction??.18;
+ // Finishing: a garrison exists to meet a counter-attack. When no armed enemy has been seen
+ // anywhere for a long while, holding troops at home only prevents the match from resolving,
+ // so the guard shrinks and the army commits. Applies at every tier.
+ const armedSeen=(ctx.knownEnemies||[]).some(e=>e.kind==='unit'&&(def(e)?.damage||0)>0&&g.time-(e.seenAt??g.time)<90);
+ if(!armedSeen&&armed.length>=6)fraction*=.35;
+ if(cfig.adaptiveGarrison){
+  const ours=power(g,armed)||1;
+  const seen=(ctx.knownEnemies||[]).filter(e=>e.kind==='unit'&&(def(e)?.damage||0)>0&&g.time-(e.seenAt??g.time)<90);
+  const theirs=power(g,seen);
+  fraction=Math.max(armedSeen?.08:.04,Math.min(.38,theirs/ours*.3));
+  // A known threat already inside our territory always warrants a stronger guard.
+  if((ctx.knownEnemies||[]).some(e=>(def(e)?.damage||0)>0&&dist(e,p.home)<26))fraction=Math.max(fraction,.26);
+ }
+ return Math.max(cfig.reinforceReserve??1,Math.min(Math.floor(armed.length*.4),Math.ceil(available.length*fraction)));
+}
+function chooseAttack(g,p,ctx){if(g.time<Math.max(p.attackAt||0,ctx.config.attackNotBefore||0))return;const defence=new Set(p.defenseIds||[]),available=ctx.military.filter(u=>u.hp>u.maxHp*.55&&!u.returning&&!(u.aiWithdrawUntil>g.time)&&!(u.aiScoutUntil>g.time)&&!detachedIds(p).has(u.id)&&!defence.has(u.id)),finishing=ctx.config.grade>=8&&(ctx.targets||[]).some(t=>g.visible(p.id,t)&&t.hp<t.maxHp*.5&&power(g,ctx.knownEnemies.filter(e=>e.id!==t.id&&dist(e,t)<10),available)<power(g,available)*.5),opportunity=ctx.config.grade>=5&&(ctx.targets||[]).some(t=>g.visible(p.id,t)&&(t.progress<.8||['extractor','depot'].includes(def(t)?.kind))&&power(g,ctx.knownEnemies.filter(e=>e.id!==t.id&&dist(e,t)<12&&g.time-e.seenAt<25),available)<power(g,available)*.45),recentHist=(p.aiState?.attackHistory||[]).filter(a=>g.time-a.time<300),recentFails=recentHist.filter(a=>a.result==='retreat');
+ let adaptMin=0;if(ctx.config.grade>=5&&recentFails.length>=2){const avgSent=recentFails.reduce((n,a)=>n+a.sent,0)/recentFails.length;adaptMin=Math.min(Math.ceil(avgSent*1.1),Math.ceil((ctx.config.minAttack||6)*1.5));}
+ const minimum=finishing?2:opportunity?Math.max(3,7-Math.floor(ctx.config.grade/2)):Math.max(Math.min(ctx.config.minAttack,Math.max(2,Math.floor(ctx.config.maxMilitary*.4))),adaptMin),reserve=finishing?0:opportunity?1:homeGuard(g,p,ctx,available);if(available.filter(u=>def(u).damage>0&&!def(u).airOnly).length<minimum+reserve)return;
  const ordered=[...available].sort((a,b)=>dist(b,p.home)-dist(a,p.home)),force=ordered.slice(0,Math.max(minimum,ordered.length-reserve));let target=null;for(const candidate of (ctx.targets||[]).slice(0,8)){const walker=force.find(u=>!def(u).air);if(walker){const q=g.approach(walker,candidate,1),route=g.path(walker,q);if(dist(route.at(-1)||walker,q)>3){(p.aiState.routePenalty||={})[candidate.id]=90;continue;}}const guard=ctx.knownEnemies.filter(e=>dist(e,candidate)<10&&g.time-e.seenAt<65),friendlyPower=power(g,force,guard);if(!guard.length||friendlyPower>power(g,guard,force)*(ctx.military.length>=ctx.config.maxMilitary*.75||g.time>900?Math.min(1,ctx.config.attackRatio):ctx.config.attackRatio)){target=candidate;break;}}
  if(!target){p.plan=ctx.targets?.length?'Building counters before challenging the defended position':'Waiting for reconnaissance';return;}const c=center(force,p.home),a=Math.atan2(target.y-c.y,target.x-c.x),origin=dist(c,p.home)>13?c:p.home;let rally={x:origin.x+Math.cos(a)*(origin===p.home?6:1),y:origin.y+Math.sin(a)*(origin===p.home?6:1)};const probe=force.find(u=>!def(u).air)||force[0];if(g.blocked(rally.x,rally.y,!!def(probe).air,p.id))rally={x:probe.x,y:probe.y};const fast=force.filter(u=>def(u).damage>0&&def(u).speed>=1.65&&!['siege','support','giant','tank'].includes(def(u).role)),op={ids:force.map(u=>u.id),initial:force.length,phase:'assemble',changed:g.time,rally,target:{id:target.id,type:target.type,kind:target.kind,x:target.x,y:target.y},flank:[]};if(ctx.config.flank&&force.length>=12&&fast.length>=4){op.side=flankPoint(g,p,op,force,ctx.enemy);if(op.side)op.flank=fast.sort((a,b)=>def(b).speed-def(a).speed).slice(0,Math.min(ctx.config.flankLimit,Math.floor(force.length*ctx.config.flankFraction))).map(u=>u.id);}p.operation=op;p.attackAt=g.time+ctx.config.attackDelay;g.order(op.ids,{kind:'move',...rally,formation:'line',face:a});p.plan='Gathering a balanced attack group';}
 function micro(g,p,ctx){const committed=new Map();for(const shot of g.projectiles)if(shot.owner===p.id){const t=ctx.enemy.find(e=>e.id===shot.target),damage=ctx.config.forecastFire&&t?Math.max(1,shot.damage-(def(t).armor||0)-(t.bracedUntil>g.time?5:0)):shot.damage;committed.set(shot.target,(committed.get(shot.target)||0)+damage);}if(ctx.config.forecastFire)for(const ally of ctx.military){const t=ctx.enemy.find(e=>e.id===ally.windup?.target);if(t&&ally.windup&&!ally.windup.fired)committed.set(t.id,(committed.get(t.id)||0)+expectedHit(g,ally,t));}const retreating=p.operation?.phase==='retreat'?new Set(p.operation.ids):new Set(),front=ctx.military.filter(u=>def(u).damage>0&&!['siege','support'].includes(def(u).role)&&!(u.aiWithdrawUntil>g.time)),frontCenter=center(front,p.home);
  // Assign ready weapons first; a reloading soldier must not reserve a victim
  // before an ally who can fire now. Existing projectiles/windups stay committed.
- const shooters=ctx.config.level>=9?[...ctx.military].sort((a,b)=>a.cooldown-b.cooldown||a.id-b.id):ctx.military;
- for(const u of shooters){const d=def(u);if(u.returning||u.aiScoutUntil>g.time||retreating.has(u.id)||ctx.config.forecastFire&&p.aiRaid?.ids.includes(u.id))continue;
+ const shooters=ctx.config.grade>=9?[...ctx.military].sort((a,b)=>a.cooldown-b.cooldown||a.id-b.id):ctx.military;
+ for(const u of shooters){const d=def(u);if(u.returning||u.aiScoutUntil>g.time||retreating.has(u.id)||ctx.config.forecastFire&&(p.aiRaid?.ids.includes(u.id)||p.aiRaidExtra?.ids.includes(u.id)))continue;
   if(u.aiMoveUntil>g.time&&u.order?.kind==='move')continue;
-  if(u.hp<u.maxHp*ctx.config.withdrawHealth&&!(u.aiWithdrawUntil>g.time)&&(!ctx.config.recoveryCoordination&&ctx.config.level<8||(ctx.own||[]).some(v=>v.kind==='unit'&&def(v).heal&&dist(u,v)<24)||ctx.config.recoveryCoordination&&(p.faction==='symbiotes'||p.faction==='machines'&&p.stock[0]>.2)&&(ctx.own||[]).some(v=>v.kind==='building'&&v.progress>=1&&dist(u,v)<12))){u.aiWithdrawUntil=g.time+12;u.aiWithdrawTo=fallbackPoint(g,p,[u]);if(!u.windup||u.windup.fired)g.order([u.id],{kind:'move',...u.aiWithdrawTo});continue;}
+  if(u.hp<u.maxHp*ctx.config.withdrawHealth&&!(u.aiWithdrawUntil>g.time)&&(!ctx.config.recoveryCoordination&&ctx.config.grade<8||(ctx.own||[]).some(v=>v.kind==='unit'&&def(v).heal&&dist(u,v)<24)||ctx.config.recoveryCoordination&&(p.faction==='symbiotes'||p.faction==='machines'&&p.stock[0]>.2)&&(ctx.own||[]).some(v=>v.kind==='building'&&v.progress>=1&&dist(u,v)<12))){u.aiWithdrawUntil=g.time+12;u.aiWithdrawTo=fallbackPoint(g,p,[u]);if(!u.windup||u.windup.fired)g.order([u.id],{kind:'move',...u.aiWithdrawTo});continue;}
   if(u.aiWithdrawUntil>g.time){if(u.hp>u.maxHp*.75){u.aiWithdrawUntil=0;u.aiWithdrawTo=null;}else{if(u.aiWithdrawTo&&(!u.windup||u.windup.fired))order(g,u,{kind:'move',...u.aiWithdrawTo},2);continue;}}
   if(d.heal){const wounded=(ctx.own||ctx.military).filter(v=>v.kind==='unit'&&!def(v).worker&&!v.embarkedBy&&v!==u&&v.hp>0&&v.hp<v.maxHp*.9&&!(v.aiScoutUntil>g.time)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(wounded&&dist(u,wounded)>4.3){const away=Math.atan2(p.home.y-wounded.y,p.home.x-wounded.x),q={x:wounded.x+Math.cos(away)*2.4,y:wounded.y+Math.sin(away)*2.4};order(g,u,{kind:'move',...q},2);}else if(!wounded&&dist(u,frontCenter)>7)order(g,u,{kind:'move',x:frontCenter.x+(p.home.x-frontCenter.x)*.12,y:frontCenter.y+(p.home.y-frontCenter.y)*.12},3);if(wounded&&ctx.military.filter(v=>v.hp<v.maxHp*.7&&dist(u,v)<5).length>=2)g.ability([u.id]);continue;}
   if(d.damage<=0)continue;
-  if(ctx.config.level>=9&&!u.windup&&u.cooldown>.2){const danger=g.projectiles.find(shot=>shot.splash>0&&g.hostile(p.id,shot.owner)&&g.visible(p.id,shot)&&shot.target!==u.id&&g.entity(shot.target)&&dist(u,g.entity(shot.target))<shot.splash+.2&&(()=>{const remaining=(shot.flight||0)-(shot.elapsed||0),escape=(shot.splash+.3-dist(u,g.entity(shot.target)))/Math.max(.1,d.speed);return remaining<1.4&&remaining>escape+.1&&u.cooldown>escape+.2;})());if(danger){const impact=g.entity(danger.target),a=Math.atan2(u.y-impact.y,u.x-impact.x),step=Math.max(.6,danger.splash+.4-dist(u,impact)),q=safePoint(g,p,u,{x:u.x+Math.cos(a)*step,y:u.y+Math.sin(a)*step},ctx.enemy),travel=q?dist(u,q)/Math.max(.1,d.speed):Infinity,remaining=(danger.flight||0)-(danger.elapsed||0);if(q&&dist(q,impact)>danger.splash+.1&&travel+.1<Math.min(remaining,u.cooldown)&&order(g,u,{kind:'move',...q},travel)){u.aiMoveUntil=g.time+travel;continue;}}}
+  if(ctx.config.grade>=9&&!u.windup&&u.cooldown>.2){const danger=g.projectiles.find(shot=>shot.splash>0&&g.hostile(p.id,shot.owner)&&g.visible(p.id,shot)&&shot.target!==u.id&&g.entity(shot.target)&&dist(u,g.entity(shot.target))<shot.splash+.2&&(()=>{const remaining=(shot.flight||0)-(shot.elapsed||0),escape=(shot.splash+.3-dist(u,g.entity(shot.target)))/Math.max(.1,d.speed);return remaining<1.4&&remaining>escape+.1&&u.cooldown>escape+.2;})());if(danger){const impact=g.entity(danger.target),a=Math.atan2(u.y-impact.y,u.x-impact.x),step=Math.max(.6,danger.splash+.4-dist(u,impact)),q=safePoint(g,p,u,{x:u.x+Math.cos(a)*step,y:u.y+Math.sin(a)*step},ctx.enemy),travel=q?dist(u,q)/Math.max(.1,d.speed):Infinity,remaining=(danger.flight||0)-(danger.elapsed||0);if(q&&dist(q,impact)>danger.splash+.1&&travel+.1<Math.min(remaining,u.cooldown)&&order(g,u,{kind:'move',...q},travel)){u.aiMoveUntil=g.time+travel;continue;}}}
   const targets=ctx.enemy.filter(e=>g.canTarget(u,e)&&dist(u,e)<=Math.max(6.5,g.range(u)+1)+(e.size||.35));if(!targets.length){if(u.aiPursuitHeld){const resume=u.aiPursuitResume;u.aiPursuitHeld=false;u.aiPursuitResume=null;if(u.order?.kind==='hold'&&resume)order(g,u,resume,1);}continue;}
   if(u.windup){if(!ctx.config.forecastFire&&!u.windup.fired)committed.set(u.windup.target,(committed.get(u.windup.target)||0)+d.damage);continue;}
   if(ctx.config.screenArtillery&&d.minRange){const close=targets.filter(e=>e.kind==='unit'&&!def(e).air&&dist(u,e)<d.minRange+(e.size||.35)+.8).sort((a,b)=>dist(a,u)-dist(b,u))[0];if(close){const a=Math.atan2(u.y-close.y,u.x-close.x),q=safePoint(g,p,u,{x:u.x+Math.cos(a)*2.5,y:u.y+Math.sin(a)*2.5},ctx.enemy);if(q&&dist(q,close)>dist(u,close)+.5){order(g,u,{kind:'move',...q},.8);u.aiMoveUntil=g.time+.8;continue;}}}
   // Spread ranged troops during weapon cooldown before a visible artillery
   // battery fires into a dense group. Do not cancel shots or abandon firing range.
-  if(ctx.config.level>=6&&d.range>=3&&d.role!=='siege'&&u.cooldown>.45){const battery=ctx.enemy.find(e=>def(e).splash>0&&dist(u,e)<g.range(e)+3),nearby=battery?ctx.military.filter(v=>v.id!==u.id&&dist(v,u)<Math.max(1.6,def(battery).splash)):[];if(nearby.length>=Math.max(2,5-Math.floor(ctx.config.level/2))){const c=center(nearby,u),angle=dist(c,u)>.05?Math.atan2(u.y-c.y,u.x-c.x):(u.id%8)*Math.PI/4,q=safePoint(g,p,u,{x:u.x+Math.cos(angle)*1.8,y:u.y+Math.sin(angle)*1.8},ctx.enemy);if(q&&dist(q,c)>dist(u,c)+.65&&dist(u,q)/d.speed+.15<u.cooldown&&targets.some(t=>dist(q,t)<=g.attackReach(u,t))&&order(g,u,{kind:'move',...q},dist(u,q)/d.speed)){u.aiMoveUntil=g.time+dist(u,q)/d.speed;continue;}}}
+  if(ctx.config.grade>=6&&d.range>=3&&d.role!=='siege'&&u.cooldown>.45){const battery=ctx.enemy.find(e=>def(e).splash>0&&dist(u,e)<g.range(e)+3),nearby=battery?ctx.military.filter(v=>v.id!==u.id&&dist(v,u)<Math.max(1.6,def(battery).splash)):[];if(nearby.length>=Math.max(2,5-Math.floor(ctx.config.grade/2))){const c=center(nearby,u),angle=dist(c,u)>.05?Math.atan2(u.y-c.y,u.x-c.x):(u.id%8)*Math.PI/4,q=safePoint(g,p,u,{x:u.x+Math.cos(angle)*1.8,y:u.y+Math.sin(angle)*1.8},ctx.enemy);if(q&&dist(q,c)>dist(u,c)+.65&&dist(u,q)/d.speed+.15<u.cooldown&&targets.some(t=>dist(q,t)<=g.attackReach(u,t))&&order(g,u,{kind:'move',...q},dist(u,q)/d.speed)){u.aiMoveUntil=g.time+dist(u,q)/d.speed;continue;}}}
   const closeMelee=targets.filter(e=>e.kind==='unit'&&!def(e).air&&(def(e).range<2&&dist(u,e)<Math.max(2.1,g.range(u)*.5)||ctx.config.forecastFire&&g.range(u)>g.range(e)+.8&&d.speed>=def(e).speed&&dist(u,e)<g.attackReach(e,u)+1)).sort((a,b)=>dist(a,u)-dist(b,u))[0];if(ctx.config.kite&&d.range>=4&&d.speed>1.3&&closeMelee&&u.cooldown>.35){const a=Math.atan2(u.y-closeMelee.y,u.x-closeMelee.x),q=safePoint(g,p,u,{x:u.x+Math.cos(a)*1.6,y:u.y+Math.sin(a)*1.6},ctx.enemy);if(q&&dist(q,closeMelee)>dist(u,closeMelee)+.5){order(g,u,{kind:'move',...q},.65);u.aiMoveUntil=g.time+.65;continue;}}
-  const candidates=ctx.config.level>=7?targets.filter(e=>safePursuit(g,p,ctx,u,e)):targets;if(!candidates.length){if(u.order?.kind==='attack'||u.order?.kind==='attackMove'){const resume=u.order.kind==='attackMove'?{...u.order}:p.operation?.ids.includes(u.id)?{kind:'attackMove',x:p.operation.target.x,y:p.operation.target.y}:null;if(order(g,u,{kind:'hold'},1)){u.aiPursuitHeld=true;u.aiPursuitResume=resume;}}continue;}
-  const target=candidates.map(e=>{const td=def(e),dd=dist(u,e),inRange=dd<=g.attackReach(u,e),remaining=e.hp-(committed.get(e.id)||0);let score=(inRange?32:0)-dd*2+(td.role==='siege'?26:td.heal?22:td.kind==='defense'?18:td.worker?3:12)+(1-e.hp/e.maxHp)*14;if(d.bonus==='armor'&&(td.armored||td.armor>=3))score+=20;if(d.bonus==='air'&&td.air)score+=25;if(d.bonus==='light'&&['melee','rifle','worker','scout'].includes(td.role))score+=10;if(d.bonus==='building'&&e.kind==='building')score+=38;if(e.kind==='building'&&d.role!=='siege')score-=16;if(remaining<=0)score-=70;if(ctx.config.level>=5)score+=Math.max(-12,Math.min(25,(C.multiplier(d,td,e.kind==='building')-1)*18))*ctx.config.counterWeight;if(ctx.config.forecastFire){const expected=expectedHit(g,u,e);score+=Math.min(28,expected/Math.max(1,e.hp)*20);if(inRange&&remaining>0&&expected>=remaining)score+=25;if(C.category(d)==='breacher'&&e.kind!=='building')score-=60;if(d.minRange&&dd<d.minRange+(e.size||.35))score-=80;}if(ctx.config.battleAssessment&&e.kind==='unit'&&td.damage>0){const canHurt=(!d.air||td.aa)&&(!td.airOnly||d.air),danger=canHurt?td.damage*C.multiplier(td,d)/(td.cooldown||1.25):0;score+=Math.min(30,danger*expectedHit(g,u,e)/Math.max(1,e.hp));}if(ctx.config.splashFocus&&d.splash)score+=Math.min(35,targets.filter(t=>t.id!==e.id&&dist(t,e)<d.splash).length*9);if(!ctx.config.focusFire)score=(inRange?32:0)-dd*2;return{e,score};}).sort((a,b)=>b.score-a.score||a.e.id-b.e.id)[0]?.e;if(!target)continue;
+  const candidates=ctx.config.grade>=7?targets.filter(e=>safePursuit(g,p,ctx,u,e)):targets;if(!candidates.length){if(u.order?.kind==='attack'||u.order?.kind==='attackMove'){const resume=u.order.kind==='attackMove'?{...u.order}:p.operation?.ids.includes(u.id)?{kind:'attackMove',x:p.operation.target.x,y:p.operation.target.y}:null;if(order(g,u,{kind:'hold'},1)){u.aiPursuitHeld=true;u.aiPursuitResume=resume;}}continue;}
+  const target=candidates.map(e=>{const td=def(e),dd=dist(u,e),inRange=dd<=g.attackReach(u,e),remaining=e.hp-(committed.get(e.id)||0);let score=(inRange?32:0)-dd*2+(td.role==='siege'?26:td.heal?22:td.kind==='defense'?18:td.worker?3:12)+(1-e.hp/e.maxHp)*14;if(d.bonus==='armor'&&(td.armored||td.armor>=3))score+=20;if(d.bonus==='air'&&td.air)score+=25;if(d.bonus==='light'&&['melee','rifle','worker','scout'].includes(td.role))score+=10;if(d.bonus==='building'&&e.kind==='building')score+=38;if(e.kind==='building'&&d.role!=='siege')score-=16;if(remaining<=0)score-=70;if(ctx.config.grade>=5)score+=Math.max(-12,Math.min(25,(C.multiplier(d,td,e.kind==='building')-1)*18))*ctx.config.counterWeight;if(ctx.config.forecastFire){const expected=expectedHit(g,u,e);score+=Math.min(28,expected/Math.max(1,e.hp)*20);if(inRange&&remaining>0&&expected>=remaining)score+=25;if(C.category(d)==='breacher'&&e.kind!=='building')score-=60;if(d.minRange&&dd<d.minRange+(e.size||.35))score-=80;}if(ctx.config.battleAssessment&&e.kind==='unit'&&td.damage>0){const canHurt=(!d.air||td.aa)&&(!td.airOnly||d.air),danger=canHurt?td.damage*C.multiplier(td,d)/(td.cooldown||1.25):0;score+=Math.min(30,danger*expectedHit(g,u,e)/Math.max(1,e.hp));}if(ctx.config.splashFocus&&d.splash)score+=Math.min(35,targets.filter(t=>t.id!==e.id&&dist(t,e)<d.splash).length*9);if(!ctx.config.focusFire)score=(inRange?32:0)-dd*2;return{e,score};}).sort((a,b)=>b.score-a.score||a.e.id-b.e.id)[0]?.e;if(!target)continue;
   const reach=g.attackReach(u,target),allowedChase=d.range<2?4:d.role==='siege'?1.5:2;if(dist(u,target)>reach+allowedChase)continue;
   // Ability windows are tied to an actual encounter, rather than used at random.
   if(ctx.config.abilities&&d.detector&&ctx.enemy.some(e=>def(e).stealth)&&dist(u,target)<9)g.ability([u.id]);else if(ctx.config.abilities&&!d.armored&&dist(u,target)<=reach&&u.abilityCooldown<=0)g.ability([u.id]);else if(ctx.config.abilities&&d.armored&&dist(u,target)<=reach&&targets.length>=2&&u.abilityCooldown<=0)g.ability([u.id]);
   order(g,u,{kind:'attack',target:target.id},.75);if(!ctx.config.forecastFire||u.cooldown<=ctx.config.think+.25)committed.set(target.id,(committed.get(target.id)||0)+(ctx.config.forecastFire?expectedHit(g,u,target):d.damage));
  }
 }
-function reinforce(g,p,ctx){const op=p.operation;if(!op||op.phase!=='advance'||g.time<(op.reinforceAt||op.changed+12))return;op.reinforceAt=g.time+ctx.config.reinforceDelay;const assigned=new Set([...op.ids,...(p.defenseIds||[])]),fresh=ctx.military.filter(u=>!assigned.has(u.id)&&u.hp>u.maxHp*.6&&!u.returning&&!(u.aiScoutUntil>g.time)&&!(u.aiWithdrawUntil>g.time)),front=op.ids.map(id=>g.entity(id)).filter(Boolean);if(fresh.length<(ctx.config.level>=7?Math.max(2,ctx.config.reinforceMinimum-Math.floor((ctx.config.level-5)/2)):ctx.config.reinforceMinimum)||!front.length)return;const wave=(ctx.config.level>=7?[...fresh].sort((a,b)=>dist(a,center(front,p.home))-dist(b,center(front,p.home))):fresh).slice(0,Math.min(8,Math.max(2,fresh.length-ctx.config.reinforceReserve))),destination=center(front,p.home);g.order(wave.map(u=>u.id),{kind:'attackMove',...destination,formation:'column'});op.ids.push(...wave.map(u=>u.id));op.initial+=wave.length;p.plan='Reinforcing the assault in a protected group';}
+function reinforce(g,p,ctx){const op=p.operation;if(!op||op.phase!=='advance'||g.time<(op.reinforceAt||op.changed+12))return;op.reinforceAt=g.time+ctx.config.reinforceDelay;const assigned=new Set([...op.ids,...(p.defenseIds||[]),...detachedIds(p)]),fresh=ctx.military.filter(u=>!assigned.has(u.id)&&u.hp>u.maxHp*.6&&!u.returning&&!(u.aiScoutUntil>g.time)&&!(u.aiWithdrawUntil>g.time)),front=op.ids.map(id=>g.entity(id)).filter(Boolean);if(fresh.length<(ctx.config.grade>=7?Math.max(2,ctx.config.reinforceMinimum-Math.floor((ctx.config.grade-5)/2)):ctx.config.reinforceMinimum)||!front.length)return;const reserve=ctx.config.reserveForce?homeGuard(g,p,ctx,fresh):ctx.config.reinforceReserve;if(fresh.length-reserve<2)return;const wave=(ctx.config.grade>=7?[...fresh].sort((a,b)=>dist(a,center(front,p.home))-dist(b,center(front,p.home))):fresh).slice(0,Math.min(8,Math.max(2,fresh.length-reserve))),destination=center(front,p.home);g.order(wave.map(u=>u.id),{kind:'attackMove',...destination,formation:'column'});op.ids.push(...wave.map(u=>u.id));op.initial+=wave.length;p.plan='Reinforcing the assault in a protected group';}
 // A small separate raid is justified only by observed, lightly defended workers.
 // It cannot inspect hidden economies and gives up quickly when defenders respond.
 function raid(g,p,ctx){
- if(ctx.config.level<9)return;
+ if(ctx.config.grade<9)return;
  const danger=ctx.enemy.filter(e=>def(e).damage>0&&!def(e).worker&&dist(e,p.home)<13),active=p.aiRaid;
  if(active){const units=active.ids.map(id=>g.entity(id)).filter(Boolean),target=ctx.enemy.find(e=>e.id===active.target),guards=target?ctx.enemy.filter(e=>e.id!==target.id&&def(e).damage>0&&dist(e,target)<8):[];
   if(danger.length>=2||units.length<2||units.some(u=>u.hp<u.maxHp*.45)||g.time-active.started>35||!target||power(g,guards,units)>power(g,units,guards)*.8){for(const u of units)if(!u.windup)g.order([u.id],{kind:'attackMove',...fallbackPoint(g,p,units)});p.aiRaid=null;p.nextRaid=g.time+25;return;}
   for(const u of units)if(!u.windup&&u.order?.target!==target.id)order(g,u,{kind:'attack',target:target.id},2);return;
  }
- if(danger.length||ctx.military.length<(ctx.config.level===10?4:6)||g.time<(p.nextRaid||(ctx.config.level===10?70:100)))return;
- const workers=ctx.enemy.filter(e=>def(e).worker&&dist(e,p.home)>15&&!ctx.knownEnemies.some(v=>v.id!==e.id&&def(v).damage>0&&!def(v).worker&&dist(v,e)<(def(v).range||1)+4)).sort((a,b)=>dist(a,p.home)-dist(b,p.home));
- const target=workers[0];if(!target)return;const available=ctx.military.filter(u=>!def(u).air&&def(u).damage>0&&def(u).speed>=1.6&&!['siege','support','tank','giant'].includes(def(u).role)&&u.hp>u.maxHp*.8&&!p.defenseIds?.includes(u.id)&&!p.operation?.ids.includes(u.id)).sort((a,b)=>dist(a,target)-dist(b,target)),units=available.slice(0,ctx.config.level===10?3:2);if(units.length<2)return;
+ if(danger.length||ctx.military.length<(ctx.config.grade>=14?3:ctx.config.grade>=11?4:ctx.config.grade===10?4:6)||g.time<(p.nextRaid||(ctx.config.grade>=14?40:ctx.config.grade>=11?55:ctx.config.grade===10?70:100)))return;
+ // Upper tiers also raid enemy extractors and depots — economic harassment
+ const raidTargets=ctx.config.economicRaids?[...ctx.enemy.filter(e=>def(e).worker&&dist(e,p.home)>15),...ctx.enemy.filter(e=>e.kind==='building'&&['extractor','depot'].includes(def(e)?.kind)&&dist(e,p.home)>15)].filter(e=>!ctx.knownEnemies.some(v=>v.id!==e.id&&def(v).damage>0&&!def(v).worker&&dist(v,e)<(def(v).range||1)+4)):ctx.enemy.filter(e=>def(e).worker&&dist(e,p.home)>15&&!ctx.knownEnemies.some(v=>v.id!==e.id&&def(v).damage>0&&!def(v).worker&&dist(v,e)<(def(v).range||1)+4));
+ const workers=raidTargets.sort((a,b)=>dist(a,p.home)-dist(b,p.home));
+ const target=workers[0];if(!target)return;const available=ctx.military.filter(u=>!def(u).air&&def(u).damage>0&&def(u).speed>=1.6&&!['siege','support','tank','giant'].includes(def(u).role)&&u.hp>u.maxHp*.8&&!p.defenseIds?.includes(u.id)&&!p.operation?.ids.includes(u.id)&&!p.aiSecondary?.ids.includes(u.id)&&!p.aiRaidExtra?.ids.includes(u.id)&&!(u.aiScoutUntil>g.time)&&!(u.aiWithdrawUntil>g.time)&&!u.returning).sort((a,b)=>dist(a,target)-dist(b,target)),units=available.slice(0,ctx.config.grade>=14?5:ctx.config.grade>=11?4:ctx.config.grade===10?3:2);if(units.length<2)return;
  const route=g.path(units[0],g.approach(units[0],target,1));if(dist(route.at(-1)||units[0],target)>3)return;
  p.aiRaid={ids:units.map(u=>u.id),target:target.id,started:g.time};g.order(p.aiRaid.ids,{kind:'attackMove',x:target.x,y:target.y,formation:'wedge'});p.plan='Raiding exposed workers while the main army holds together';
 }
 // A real bait-and-withdraw maneuver, based only on visible opponents and
 // completed friendly defenses. Nothing changes the enemy's orders or statistics.
+function raidExtra(g,p,ctx){
+ if(!ctx.config.simultaneousRaids)return;
+ const first=p.aiRaid,next=p.nextRaid,second=p.aiRaidExtra,secondNext=p.nextRaidExtra;
+ const occupied=new Set(first?.ids||[]);
+ p.aiRaid=second||null;p.aiRaidExtra=first||null;p.nextRaid=secondNext||0;
+ try{raid(g,p,{...ctx,military:ctx.military.filter(u=>!occupied.has(u.id)),enemy:ctx.enemy.filter(e=>e.id!==first?.target)});}
+ finally{p.aiRaidExtra=p.aiRaid;p.nextRaidExtra=p.nextRaid;p.aiRaid=first;p.nextRaid=next;}
+}
 function ambush(g,p,ctx){
- if(ctx.config.level<8)return;
+ if(ctx.config.grade<8)return;
  let op=p.aiAmbush;
  if(op){const bait=g.entity(op.bait),tower=g.entity(op.tower),enemy=ctx.enemy.find(e=>e.id===op.target),guards=op.guards.map(id=>g.entity(id)).filter(Boolean);
   const release=()=>{p.aiAmbush=null;p.nextAmbush=g.time+65;};
@@ -153,6 +206,43 @@ function ambush(g,p,ctx){
   p.aiAmbush={bait:bait.id,guards:guards.map(u=>u.id),tower:tower.id,target:enemy.id,x:enemy.x,y:enemy.y,phase:'probe',started:g.time};g.order(p.aiAmbush.guards,{kind:'hold'});g.order([bait.id],{kind:'attack',target:enemy.id});p.plan='Drawing a visible patrol toward a mined defensive position';return;
  }
 }
-function step(g,p,ctx){ctx.config={...config(g,p),...ctx.config};ctx.knownEnemies=ctx.knownEnemies||[];ambush(g,p,ctx);if(p.aiAmbush){const held=new Set([p.aiAmbush.bait,...p.aiAmbush.guards]);ctx={...ctx,military:ctx.military.filter(u=>!held.has(u.id))};}defend(g,p,ctx);raid(g,p,ctx);reassess(g,p,ctx);if(p.operation)operationStep(g,p,ctx.enemy);if(!p.operation)chooseAttack(g,p,ctx);reinforce(g,p,ctx);micro(g,p,ctx);}
-root.FractureAICombat={step,operationStep,power,ambush,siegeScreen};if(typeof module!=='undefined')module.exports=root.FractureAICombat;
+// Multi-prong pressure: grade >= 13 sends a secondary harassment force toward a different target
+// while the main army is engaged, splitting the enemy's attention.
+function secondaryPressure(g,p,ctx){
+ if(!ctx.config.multiProngAttack||!p.operation||p.operation.phase!=='advance'||p.aiSecondary)return;
+ if(g.time<(p.nextSecondary||300))return;
+ const mainTarget=p.operation.target,assigned=new Set([...p.operation.ids,...(p.defenseIds||[]),...detachedIds(p)]);
+ const available=ctx.military.filter(u=>!assigned.has(u.id)&&def(u).damage>0&&u.hp>u.maxHp*.7&&!u.returning&&!(u.aiScoutUntil>g.time)&&!(u.aiWithdrawUntil>g.time));
+ if(available.length<(ctx.config.grade>=15?3:4))return;
+ // Find a target far from the main attack
+ const alt=(ctx.targets||[]).find(t=>{
+  if(t.id===mainTarget.id||dist(t,mainTarget)<=15)return false;
+  const guards=ctx.knownEnemies.filter(e=>dist(e,t)<11&&g.time-e.seenAt<65);
+  const small=available.slice(0,Math.min(5,available.length-1));
+  if(power(g,guards,small)>power(g,small,guards)*.65)return false;
+  const probe=small.find(u=>!def(u).air)||small[0];if(!probe)return false;
+  const goal=g.approach(probe,t,1);return dist(g.path(probe,goal).at(-1)||probe,goal)<3;
+ });
+ if(!alt)return;
+ const force=available.sort((a,b)=>dist(a,alt)-dist(b,alt)).slice(0,Math.min(available.length-1,ctx.config.grade>=15?5:4));
+ p.aiSecondary={ids:force.map(u=>u.id),target:alt.id,goal:{x:alt.x,y:alt.y},started:g.time};
+ g.order(force.map(u=>u.id),{kind:'attackMove',x:alt.x,y:alt.y,formation:'wedge'});
+ p.plan='Applying pressure on a secondary objective while the main force engages';
+}
+function tickSecondary(g,p,ctx){
+ if(!p.aiSecondary)return;
+ const s=p.aiSecondary,units=s.ids.map(id=>g.entity(id)).filter(u=>u&&u.hp>0&&!p.defenseIds?.includes(u.id)),visible=ctx.enemy.find(e=>e.id===s.target),target=visible||(ctx.targets||[]).find(e=>e.id===s.target);
+ if(!units.length||g.time-s.started>90||!target||!visible&&g.visible(p.id,target)){
+  if(units.length)g.order(units.map(u=>u.id),{kind:'attackMove',...p.home});
+  p.aiSecondary=null;p.nextSecondary=g.time+40;return;
+ }
+ // Withdraw if too much opposition
+ const guards=ctx.enemy.filter(e=>def(e).damage>0&&dist(e,target)<10);
+ if(guards.length&&power(g,guards,units)>power(g,units,guards)*1.2){
+  g.order(units.map(u=>u.id),{kind:'attackMove',...fallbackPoint(g,p,units)});
+  p.aiSecondary=null;p.nextSecondary=g.time+30;return;
+ }
+}
+function step(g,p,ctx){ctx.config={...config(g,p),...ctx.config};ctx.knownEnemies=ctx.knownEnemies||[];ambush(g,p,ctx);if(p.aiAmbush){const held=new Set([p.aiAmbush.bait,...p.aiAmbush.guards]);ctx={...ctx,military:ctx.military.filter(u=>!held.has(u.id))};}defend(g,p,ctx);raid(g,p,ctx);raidExtra(g,p,ctx);reassess(g,p,ctx);if(p.operation)operationStep(g,p,ctx.enemy);if(!p.operation)chooseAttack(g,p,ctx);secondaryPressure(g,p,ctx);tickSecondary(g,p,ctx);reinforce(g,p,ctx);micro(g,p,ctx);}
+root.FractureAICombat={step,operationStep,power,ambush,siegeScreen,reinforce,secondaryPressure,tickSecondary,defend,raid,raidExtra,detachedIds};if(typeof module!=='undefined')module.exports=root.FractureAICombat;
 })(globalThis);

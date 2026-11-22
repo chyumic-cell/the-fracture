@@ -68,7 +68,18 @@ function waterways(state,dense=false){
  // A disconnected backwater remains a local transport system.
  const lake={x:n*.13,y:n*.72};channel(bend(lake,{x:n*.22,y:n*.84},n*.035),3.6);channel([lake,{x:lake.x+.1,y:lake.y+.1}],6);
  state.maritime=true;state.playableCells=Uint8Array.from(map,t=>!t.water&&t.height<state.rockHeight?1:0);
+
+ // Naval access guarantee: a start left dry by the drainage network receives a tributary.
+ // `channel` keeps its 13-tile dry margin around every base, so the spur stops short of the
+ // base itself and, being a dead end, never severs land movement across the map.
+ for(const s of starts){
+  let near=null,best=Infinity;
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++){if(!map[y*n+x].water)continue;const d=Math.hypot(x+.5-s.x,y+.5-s.y);if(d<best){best=d;near={x:x+.5,y:y+.5};}}
+  if(!near||best<=26)continue;
+  channel(bend(near,s,6),1.6);
+ }
 }
+
 function rivers(state){for(const t of state.map){t.height=0;t.water=false;t.road=false;}state.rockHeight=99;waterways(state);baseClearings(state);state.playableCells=Uint8Array.from(state.map,t=>t.water?0:1);}
 function startingHarbors(state){
  const {n,map,starts,protectedCells}=state;

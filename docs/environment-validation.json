@@ -2,63 +2,56 @@
   {
     "theme": "Kareth",
     "environment": "varied",
-    "colors": 17440,
+    "colors": 17422,
     "maxChroma": 69,
     "workerParity": true
   },
   {
     "theme": "Kareth",
     "environment": "temperate",
-    "colors": 12086,
+    "colors": 12055,
     "maxChroma": 60,
     "workerParity": true
   },
   {
     "theme": "Kareth",
     "environment": "desert",
-    "colors": 6202,
+    "colors": 6194,
     "maxChroma": 82,
     "workerParity": true
   },
   {
     "theme": "Kareth",
     "environment": "arctic",
-    "colors": 4108,
+    "colors": 4115,
     "maxChroma": 65,
     "workerParity": true
   },
   {
     "theme": "Elyndra",
-    "environment": "varied",
-    "colors": 21205,
-    "maxChroma": 69,
+    "environment": "aetherland",
+    "colors": 8416,
+    "maxChroma": 84,
     "workerParity": true
   },
   {
     "theme": "Elyndra",
-    "environment": "temperate",
-    "colors": 15136,
-    "maxChroma": 56,
+    "environment": "osland",
+    "colors": 13249,
+    "maxChroma": 142,
     "workerParity": true
   },
   {
     "theme": "Elyndra",
-    "environment": "desert",
-    "colors": 6202,
-    "maxChroma": 82,
-    "workerParity": true
-  },
-  {
-    "theme": "Elyndra",
-    "environment": "arctic",
-    "colors": 4108,
-    "maxChroma": 65,
+    "environment": "starfall",
+    "colors": 5768,
+    "maxChroma": 119,
     "workerParity": true
   },
   {
     "theme": "Morvane",
     "environment": "hell",
-    "colors": 8147,
+    "colors": 8145,
     "maxChroma": 110,
     "workerParity": true
   },
@@ -67,6 +60,13 @@
     "environment": "moon",
     "colors": 187,
     "maxChroma": 0,
+    "workerParity": true
+  },
+  {
+    "theme": "Morvane",
+    "environment": "dreadhollow",
+    "colors": 4496,
+    "maxChroma": 108,
     "workerParity": true
   }
 ]

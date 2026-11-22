@@ -4,19 +4,21 @@
 const norm=v=>{const l=Math.hypot(...v)||1;return v.map(x=>x/l)},cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],sub=(a,b)=>a.map((x,i)=>x-b[i]),dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
 const mod=(a,b)=>(a%b+b)%b;
 const mats={rock:[.04,9,3.1],slate:[.06,11,2.3],paint:[.2,26,1.6],metal:[.85,55,2.5],cloth:[.02,7,2],skin:[.12,16,1],fur:[.03,7,3.2],stone:[.03,8,4.1],chitin:[.55,37,2],wood:[.06,13,3],bone:[.12,22,1.3],glow:[0,1,0],glass:[1,76,.5]};
+mats.mold=[.045,9,2.6];mats.scales=[.38,34,.8];mats.brick=[.035,9,1.8];mats.cinderblock=[.025,8,2.1];mats.concrete=[.03,10,1.6];mats.bio=[.72,48,.6];mats.mail=[.6,34,.6];mats.leather=[.13,19,1.2];
+const materialIds=Object.fromEntries(Object.keys(mats).map((m,i)=>[m,i+1]));
 class SpriteMesh{
- constructor(ctx,angle=0,dead=false,options={}){this.ctx=ctx;this.w=ctx.canvas.width;this.h=ctx.canvas.height;this.scale=this.w/(options.logicalWidth||112);this.ox=options.originX??56;this.oy=options.originY??87;this.ca=Math.cos(angle);this.sa=Math.sin(angle);this.dead=dead;this.image=ctx.createImageData(this.w,this.h);const count=this.w*this.h;this.depth=new Float32Array(count).fill(-Infinity);this.xyz=new Float32Array(count*3);this.lit=new Uint8Array(count);this.normalZ=new Float32Array(count);this.colors=new Map();this.light=norm([-.9,.65,1.55]);this.eye=norm([1,1,.8]);this.half=norm(this.light.map((x,i)=>x+this.eye[i]));this.su=norm([this.light[1],-this.light[0],0]);this.sv=cross(this.light,this.su);this.sw=options.logicalWidth?384:256;this.ss=options.logicalWidth?1.65:2;this.shadow=new Float32Array(this.sw*this.sw).fill(-Infinity);this.mat='paint';this.detail=options.detail!==false;}
+ constructor(ctx,angle=0,dead=false,options={}){this.ctx=ctx;this.w=ctx.canvas.width;this.h=ctx.canvas.height;this.scale=this.w/(options.logicalWidth||112);this.ox=options.originX??56;this.oy=options.originY??87;this.ca=Math.cos(angle);this.sa=Math.sin(angle);this.dead=dead;this.image=ctx.createImageData(this.w,this.h);const count=this.w*this.h;this.depth=new Float32Array(count).fill(-Infinity);this.xyz=new Float32Array(count*3);this.lit=new Uint8Array(count);this.surfaceMaterial=new Uint8Array(count);this.normalZ=new Float32Array(count);this.colors=new Map();this.light=norm([-.9,.65,1.55]);this.eye=norm([1,1,.8]);this.half=norm(this.light.map((x,i)=>x+this.eye[i]));this.su=norm([this.light[1],-this.light[0],0]);this.sv=cross(this.light,this.su);this.sw=options.logicalWidth?384:256;this.ss=options.logicalWidth?1.65:2;this.shadow=new Float32Array(this.sw*this.sw).fill(-Infinity);this.mat='paint';this.detail=options.detail!==false;}
  pose(d,action,frame){
-  this.unit=d;
-  const moving=action==='walk',air=!!d.air,heavy=['tank','siege','giant'].includes(d.role),phase=frame%4,t=frame*Math.PI/3;
+  this.unit=d;this.modelScale=d.naval?(d.faction==='symbiotes'&&d.navalRole==='siege'?.79:.82):d.bomber?.9:['Infernal Guard','Satyr Javelin Thrower'].includes(d.name)?.9:1;this.action=action;this.frame=frame;
+  const moving=action==='walk'||action==='walkReady',air=!!d.air,heavy=['tank','siege','giant'].includes(d.role),phase=frame%4,t=frame*Math.PI/3;
   this.motion={bob:moving?(air?Math.sin(t)*.7:-Math.cos(t*2)*(heavy?.35:.65)):air&&action==='idle'?Math.sin(t)*.6:0,
-   shift:action==='attack'?[-.35,-1.2,0,.4][phase]:['gather','build'].includes(action)?[.3,-.8,1.5,.5][phase]:moving&&!air?.5:0,
-   lean:moving&&!air?.018:action==='attack'?[0,-.025,0,.012][phase]:['gather','build'].includes(action)?[.01,-.025,.05,.02][phase]:0,
+   shift:action==='attack'&&!d.air&&!d.naval?[-1.8,-3.4,0,1.7][phase]:['gather','build'].includes(action)?[.3,-.8,1.5,.5][phase]:moving&&!air?.5:0,
+   lean:moving&&!air?.018:action==='attack'&&!d.air&&!d.naval?[.025,-.07,0,.04][phase]:['gather','build'].includes(action)?[.01,-.025,.05,.02][phase]:0,
    sway:moving&&!air&&!heavy?Math.sin(t)*.45:0};return this;
  }
- ownership(zones){this.ownerZones=zones;return this;}
- posed(v){if(this.part){const {origin,scale}=this.part;v=v.map((x,i)=>origin[i]+(x-origin[i])*scale);}if(!this.motion)return v;const m=this.motion,w=Math.max(0,Math.min(1,v[2]/16));return[v[0]+(m.shift+v[2]*m.lean)*w,v[1]+m.sway*w,v[2]+m.bob*w];}
- material(kind){this.mat=mats[kind]?kind:'paint';return this;}
+ ownership(zones,materials=null){this.ownerZones=zones;this.ownerMaterials=materials?.map(m=>materialIds[m]);return this;}
+ posed(v){if(this.modelScale&&this.modelScale!==1)v=v.map(x=>x*this.modelScale);if(this.part){const {origin,scale}=this.part;v=v.map((x,i)=>origin[i]+(x-origin[i])*scale);}if(!this.motion)return v;const m=this.motion,w=Math.max(0,Math.min(1,v[2]/16));return[v[0]+(m.shift+v[2]*m.lean)*w,v[1]+m.sway*w,v[2]+m.bob*w];}
+ material(kind){if(this.buildingFaction==='symbiotes'&&['skin','fur','chitin'].includes(kind))kind='bio';this.mat=mats[kind]?kind:'paint';return this;}
  project(v){v=this.posed(v);const x=v[0]*this.ca-v[1]*this.sa,y=v[0]*this.sa+v[1]*this.ca,z=this.dead?v[2]*.16:v[2];return[(this.ox+(x-y)*.8)*this.scale,(this.oy+(x+y)*.4-z)*this.scale,x+y+z*.8];}
  rotate(n){return[n[0]*this.ca-n[1]*this.sa,n[0]*this.sa+n[1]*this.ca,n[2]];}
  world(v){const q=this.rotate(this.posed(v));if(this.dead)q[2]*=.16;return q;}
@@ -27,17 +29,21 @@ class SpriteMesh{
  const ns=normals?normals.map(n=>this.rotate(n)):null;if(!ns&&dot(normal,this.eye)<0)for(let j=0;j<3;j++)normal[j]*=-1;const material=mats[this.mat],glow=this.mat==='glow',mat=this.mat,light=this.light,half=this.half,data=this.image.data;
  for(let y=lowY;y<=highY;y++)for(let x=lowX;x<=highX;x++){const u=((pb[1]-pc[1])*(x+.5-pc[0])+(pc[0]-pb[0])*(y+.5-pc[1]))/det,v=((pc[1]-pa[1])*(x+.5-pc[0])+(pa[0]-pc[0])*(y+.5-pc[1]))/det,w=1-u-v;if(u<-.0001||v<-.0001||w<-.0001)continue;const z=pa[2]*u+pb[2]*v+pc[2]*w,i=y*this.w+x;if(z<this.depth[i]-.008)continue;this.depth[i]=z;
  let nx=normal[0],ny=normal[1],nz=normal[2];if(ns){nx=ns[0][0]*u+ns[1][0]*v+ns[2][0]*w;ny=ns[0][1]*u+ns[1][1]*v+ns[2][1]*w;nz=ns[0][2]*u+ns[1][2]*v+ns[2][2]*w;const nl=Math.hypot(nx,ny,nz)||1;nx/=nl;ny/=nl;nz/=nl;}
- const diff=Math.max(0,nx*light[0]+ny*light[1]+nz*light[2]),spec=material[0]*Math.pow(Math.max(0,nx*half[0]+ny*half[1]+nz*half[2]),material[1])*105;
+ const diff=Math.max(0,nx*light[0]+ny*light[1]+nz*light[2]),spec=material[0]*Math.pow(Math.max(0,nx*half[0]+ny*half[1]+nz*half[2]),material[1])*(this.unit&&this.mat==='metal'?155:105);
  const mx=a[0]*u+b[0]*v+c[0]*w,my=a[1]*u+b[1]*v+c[1]*w,mz=a[2]*u+b[2]*v+c[2]*w,seed=(Math.imul(Math.floor(mx*3+113),73856093)^Math.imul(Math.floor(my*3+117),19349663)^Math.imul(Math.floor(mz*3+109),83492791))>>>0;
  // Material patterns live in object coordinates, so they rotate with the model.
  // Broad variation supplies form; fine detail is deliberately lower contrast.
- let grain=(seed%13-6)*material[2]*.28,pattern=0;
- const along=Math.abs(normal[0])>.55?my:mx;
+ let grain=(seed%13-6)*material[2]*(this.unit&&['metal','cloth','skin'].includes(mat)?.12:.28),pattern=0;
+ const along=Math.abs(normal[0]*this.ca+normal[1]*this.sa)>.55?my:mx;
  if(mat==='metal'||mat==='paint'){
   const u=mod(along,12),v=mod(mz,9),seam=Math.abs(nz)<.7&&(u<.18||v<.18);
   pattern=seam?-15:(u<.42||v<.42?5:0)+(Math.floor(mx*2+my*.3)%7===0?1.5:0);
   // Sparse chips and streaks, not uniform television noise.
   if(seed%149===0)pattern+=16;if(seed%211===0)pattern-=12;
+ }
+ if(mat==='mold'){
+  const patch=Math.sin(mx*.81+Math.sin(mz*.49)*2.3)*Math.sin(my*.93+mz*.62),thread=Math.sin(mx*3.8+my*2.1+Math.sin(mz*1.8)*1.7);
+  pattern=patch<-.32?-17:patch>.28?9:0;pattern+=thread>.92?6:0;if(seed%19===0)pattern-=14;
  }
  if(mat==='cloth'){const fold=Math.sin(along*1.5+mz*.14);pattern=fold*2.4+((Math.floor(along*6)+Math.floor(mz*6))%2?.65:-.65);}
  if(mat==='wood'){const knot=Math.sin(mz*.16+Math.sin(along*.21)*2);pattern=Math.sin(along*3+knot*1.4)*3.5+Math.sin(along*.7+knot)*2.5;if(mod(along,5.8)<.15)pattern-=12;}
@@ -46,15 +52,37 @@ class SpriteMesh{
   const mortar=wall&&(v<.42||u<.4),block=(Math.imul(Math.floor((along+(row%2)*7)/14),37)+row*13)%7;
   pattern=mortar?-23:block*1.2+(wall&&(v<.78||u<.75)?6:0)+Math.sin(mx*.22+my*.31+mz*.47)*2;
  }
+ if(mat==='brick'||mat==='cinderblock'){
+  // Running bond in object coordinates: mortar, recessed joints and irregular fired faces.
+  const brick=mat==='brick',bh=brick?3:5.8,bw=brick?7.2:12,wall=Math.abs(nz)<.65;
+  const vertical=wall?mz:my,row=Math.floor(vertical/bh),horizontal=wall?along:mx;
+  const u=mod(horizontal+(row%2)*bw*.5,bw),v=mod(vertical,bh),joint=brick?.28:.38;
+  const blockSeed=(Math.imul(Math.floor((horizontal+(row%2)*bw*.5)/bw),31)^Math.imul(row,71))>>>0;
+  pattern=(u<joint||v<joint)?-26:(u<joint+.22||v<joint+.22)?8:(blockSeed%13-6)*(brick?1.65:.6);
+  if(u>joint&&v>joint){pattern+=Math.sin(mx*2.2+my*1.7+mz*3.1)*(brick?1.8:1);if(seed%43===0)pattern-=brick?6:11;}
+ }
+ if(mat==='concrete'){pattern=Math.sin(mx*.18+my*.14+mz*.1)*3;if(seed%29===0)pattern-=9;if(Math.abs(nz)<.7){const u=mod(along,23),v=mod(mz,19);if(u<.22||v<.22)pattern-=13;if(Math.abs(u-2)<.5&&Math.abs(v-2)<.5)pattern-=17;}}
+ if(mat==='bio'){
+  // Wet membranes, branching veins and shallow translucent-looking vesicles.
+  const vein=mod(along*.75+Math.sin(mz*.28)*2+Math.sin(my*.4),7),blister=Math.sin(mx*.61)*Math.sin(my*.57+mz*.23)*Math.sin(mz*.73);
+  pattern=vein<.22?-21:vein<.5?10:Math.sin(along*.21+mz*.4)*5;
+  pattern+=blister>.53?(blister-.53)*48:blister<-.57?-9:0;grain=0;
+ }
  if(mat==='rock'){const strata=mz*.19+Math.sin(mx*.21+my*.13)*1.4,seam=mod(strata,4);pattern=Math.sin(mx*.33+my*.41+mz*.27)*4+(seam<.13?-14:seam<.32?7:0);if(seed%163===0)pattern-=15;}
  if(mat==='slate'){const u=mod(along+Math.floor(mz/3)*2.5,5),v=mod(my+mx*.12,4);pattern=v<.3?-14:v<.65?9:u<.18?-6:Math.sin(along*.4+mz)*2;}
  if(mat==='fur'){const strand=mod(along*3+Math.sin(mz*.8)+my*.4,2.8);pattern=strand<.42?-7:strand<.8?5:Math.sin(mz*2+along*.4)*2;}
+ if(mat==='scales'){const row=Math.floor(mz/1.6),u=mod(along+(row%2)*1.2,2.4)-1.2,v=mod(mz,1.6),edge=Math.abs(u)*.62+v;pattern=edge>1.55?-13:edge>1.32?9:Math.sin(v*2)*3;grain*=.25;}
  if(mat==='chitin'){const row=Math.floor(mz/2.2),u=mod(along+(row%2)*1.8,3.6),v=mod(mz,2.2),rim=v<.2||Math.abs(u-1.8)>1.65;pattern=rim?-8:(v<.5?5:0)+Math.sin(mx*.24+my*.31)*2;}
+ if(mat==='mail'){
+  const row=Math.floor(mz*1.65),u=mod(along*1.65+(row%2)*.5,1)-.5,v=mod(mz*1.65,1)-.5,r=Math.hypot(u,v);
+  pattern=r<.2?-35:r<.32?18:r<.43?7:-18;grain=0;
+ }
+ if(mat==='leather'){pattern=Math.sin(along*.6+mz*.2)*3;if(mod(along,7)<.12)pattern-=14;grain*=.4;}
  if(mat==='skin')pattern=Math.sin(mx*.27+my*.33+mz*.18)*2.5;
  if(mat==='bone')pattern=Math.sin(along*4+mz*.15)*1.2;
  if(mat==='glass'){pattern=Math.max(0,Math.sin(along*.15+mz*.19))**14*24;grain=0;}
  const k=i*4,amb=.4+Math.max(0,nz)*.08;
- for(let j=0;j<3;j++){const warm=j===0?1.06:j===1?1.015:.91,ambient=j===2?1.18:j===0?.93:1.02;data[k+j]=Math.max(0,Math.min(255,Math.round(glow?col[j]*1.12:(col[j]*(amb*ambient+diff*.85*warm)+spec+grain+pattern))));}data[k+3]=255;this.lit[i]=glow?0:Math.round(diff*255);this.normalZ[i]=nz;this.xyz[i*3]=wa[0]*u+wb[0]*v+wc[0]*w;this.xyz[i*3+1]=wa[1]*u+wb[1]*v+wc[1]*w;this.xyz[i*3+2]=wa[2]*u+wb[2]*v+wc[2]*w;
+ for(let j=0;j<3;j++){const warm=j===0?1.06:j===1?1.015:.91,ambient=j===2?1.18:j===0?.93:1.02;data[k+j]=Math.max(0,Math.min(255,Math.round(glow?col[j]*1.12:(col[j]*(amb*ambient+diff*.85*warm)+spec+grain+pattern))));}data[k+3]=255;this.surfaceMaterial[i]=materialIds[mat];this.lit[i]=glow?0:Math.round(diff*255);this.normalZ[i]=nz;this.xyz[i*3]=wa[0]*u+wb[0]*v+wc[0]*w;this.xyz[i*3+1]=wa[1]*u+wb[1]*v+wc[1]*w;this.xyz[i*3+2]=wa[2]*u+wb[2]*v+wc[2]*w;
  }
  }
  shadowTriangle(a,b,c){const det=(b[1]-c[1])*(a[0]-c[0])+(c[0]-b[0])*(a[1]-c[1]);if(Math.abs(det)<.02)return;const x0=Math.max(0,Math.floor(Math.min(a[0],b[0],c[0]))),x1=Math.min(this.sw-1,Math.ceil(Math.max(a[0],b[0],c[0]))),y0=Math.max(0,Math.floor(Math.min(a[1],b[1],c[1]))),y1=Math.min(this.sw-1,Math.ceil(Math.max(a[1],b[1],c[1])));for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const u=((b[1]-c[1])*(x+.5-c[0])+(c[0]-b[0])*(y+.5-c[1]))/det,v=((c[1]-a[1])*(x+.5-c[0])+(a[0]-c[0])*(y+.5-c[1]))/det,w=1-u-v;if(u<0||v<0||w<0)continue;const z=a[2]*u+b[2]*v+c[2]*w,i=y*this.sw+x;if(z>this.shadow[i])this.shadow[i]=z;}}
@@ -75,18 +103,38 @@ class SpriteMesh{
  }
  }
  cylinder(x,y,z,r,h,color,sides=16,topR=r){this.loft([[x,y,z,r,r],[x,y,z+h,topR,topR]],color,sides);}
- finish(){const data=this.image.data,depth=this.depth,s=this.scale,sw=this.sw;for(let y=1;y<this.h-1;y++)for(let x=1;x<this.w-1;x++){const i=y*this.w+x;if(!data[i*4+3])continue;let shade=1;const px=this.xyz[i*3],py=this.xyz[i*3+1],pz=this.xyz[i*3+2],sx=Math.round(sw*.5+(px*this.su[0]+py*this.su[1]+pz*this.su[2])*this.ss),sy=Math.round(sw*.65-(px*this.sv[0]+py*this.sv[1]+pz*this.sv[2])*this.ss),sd=px*this.light[0]+py*this.light[1]+pz*this.light[2];if(sx>0&&sy>0&&sx<sw-1&&sy<sw-1&&this.lit[i]>0){let occluded=0;for(const [dx,dy]of [[0,0],[1,0],[0,1],[-1,0],[0,-1]])if(this.shadow[(sy+dy)*sw+sx+dx]>sd+1.25)occluded++;shade-=occluded*.065*(.4+this.lit[i]/425);}
+ finish(){if(this.unit)root.FractureDetailArt?.unit(this,this.unit);const data=this.image.data,depth=this.depth,s=this.scale,sw=this.sw;for(let y=1;y<this.h-1;y++)for(let x=1;x<this.w-1;x++){const i=y*this.w+x;if(!data[i*4+3])continue;let shade=1;const px=this.xyz[i*3],py=this.xyz[i*3+1],pz=this.xyz[i*3+2],sx=Math.round(sw*.5+(px*this.su[0]+py*this.su[1]+pz*this.su[2])*this.ss),sy=Math.round(sw*.65-(px*this.sv[0]+py*this.sv[1]+pz*this.sv[2])*this.ss),sd=px*this.light[0]+py*this.light[1]+pz*this.light[2];if(sx>0&&sy>0&&sx<sw-1&&sy<sw-1&&this.lit[i]>0){let occluded=0;for(const [dx,dy]of [[0,0],[1,0],[0,1],[-1,0],[0,-1]])if(this.shadow[(sy+dy)*sw+sx+dx]>sd+1.25)occluded++;shade-=occluded*.065*(.4+this.lit[i]/425);}
  let cavity=0;for(const [dx,dy]of [[-2,0],[2,0],[0,-2],[0,2],[-3,-3],[3,-3]]){const xx=x+Math.round(dx*s*.6),yy=y+Math.round(dy*s*.6);if(xx<0||yy<0||xx>=this.w||yy>=this.h)continue;const dz=depth[yy*this.w+xx]-depth[i];if(dz>1.3&&dz<10)cavity+=.017;}shade-=Math.min(.1,cavity);if(!data[(i-1)*4+3]||!data[(i+1)*4+3]||!data[(i-this.w)*4+3]||!data[(i+this.w)*4+3])shade*=.86;for(let k=0;k<3;k++)data[i*4+k]=Math.round(data[i*4+k]*shade);}
  this.ctx.putImageData(this.image,0,0);
  if(this.unit){
+  if(Number.isFinite(this.modelScale)&&this.modelScale!==1&&this.unit.faction){const muzzle=root.FractureProjectiles?.profile(this.unit,root.FD?.factions[this.unit.faction])?.muzzle;if(muzzle)this.ctx.canvas.weaponMuzzle=Object.fromEntries(Object.entries(muzzle).map(([k,v])=>[k,v*this.modelScale]));}
   const d=this.unit,n=d.name,animal=/Dragon|Drake|Wyvern|Beast|Prowler|Spitter|Chimera|Hydra|Hellhound|Familiar/.test(n),machine=d.faction==='machines'||/Tank|Vehicle|Artillery|Gunship|Aircraft|Walker|Crawler|Ram|Catapult/.test(n),bug=d.faction==='insects';
   const zones=this.ownerZones||(n==='Broom Rider'?[{x:[-6,7],y:[-7,7],z:[21,24]}]:bug?[{x:[-11,-6],y:[-14,14],z:[15,42]}]:machine?[{x:[-9,-4],y:[-20,20],z:[11,50]},{x:[4,8],y:[-20,20],z:[11,50]}]:animal?[{x:[-8,-3],y:[-13,13],z:[20,55]}]:[{x:[-12,12],y:[-12,12],z:[20,24]}]);
   const marks=[];let x0=this.w,y0=this.h,x1=0,y1=0;
-  for(let i=0;i<this.w*this.h;i++){if(!data[i*4+3])continue;const wx=this.xyz[i*3],wy=this.xyz[i*3+1],z=this.xyz[i*3+2]/(this.dead?.16:1),x=wx*this.ca+wy*this.sa,y=-wx*this.sa+wy*this.ca;if(!zones.some(q=>x>=q.x[0]&&x<=q.x[1]&&y>=q.y[0]&&y<=q.y[1]&&z>=q.z[0]&&z<=q.z[1]))continue;const px=i%this.w,py=Math.floor(i/this.w);x0=Math.min(x0,px);y0=Math.min(y0,py);x1=Math.max(x1,px);y1=Math.max(y1,py);marks.push([px,py,.48+this.lit[i]/255*.62]);}
+  for(let i=0;i<this.w*this.h;i++){if(!data[i*4+3])continue;const wx=this.xyz[i*3],wy=this.xyz[i*3+1],z=this.xyz[i*3+2]/(this.dead?.16:1)/(this.modelScale||1),x=(wx*this.ca+wy*this.sa)/(this.modelScale||1),y=(-wx*this.sa+wy*this.ca)/(this.modelScale||1);if(this.ownerMaterials&&!this.ownerMaterials.includes(this.surfaceMaterial[i]))continue;if(!zones.some(q=>x>=q.x[0]&&x<=q.x[1]&&y>=q.y[0]&&y<=q.y[1]&&z>=q.z[0]&&z<=q.z[1]))continue;const px=i%this.w,py=Math.floor(i/this.w);x0=Math.min(x0,px);y0=Math.min(y0,py);x1=Math.max(x1,px);y1=Math.max(y1,py);marks.push([px,py,.48+this.lit[i]/255*.62]);}
   if(marks.length){const w=x1-x0+1,h=y1-y0+1,region=this.ctx.getImageData(x0,y0,w,h);this.ctx.canvas.ownerPaint={x:x0,y:y0,data:region,indices:marks.map(p=>((p[1]-y0)*w+p[0]-x0)*4),light:marks.map(p=>p[2])};root.FractureArt?.paintOwner(this.ctx.canvas,'#6eb8c6');}
  }
  }
 }
-root.FractureMotion={step(frame,offset=0,reach=7.5){const t=((frame/6+offset)%1+1)%1,stance=.58;if(t<stance)return{x:reach*(1-2*t/stance),lift:0,planted:true};const q=(t-stance)/(1-stance),ease=q*q*(3-2*q);return{x:reach*(-1+2*ease),lift:Math.sin(q*Math.PI)*3.3,planted:false};}};
+root.FractureMotion={
+ // An occasional gesture, staggered by stable unit ID. Only a handful of unique
+ // baked poses are needed; a 48-frame idle loop would thrash the sprite cache.
+ visual(u,d,time){
+  if(u.windup)return{action:'attack',frame:u.windup.fired?(u.windup.time<.12?3:2):(u.windup.time>.45?0:1)};
+  if(u.action==='ready')return{action:'ready',frame:0};
+  if(u.action==='idle'&&!d.air&&!d.naval){
+   const combat=time-(u.hitAt??-100)<5||time-(u.combatReadyAt??-100)<5;
+   if(combat)return{action:d.worker?'idle':'ready',frame:0};
+   if(d.faction!=='symbiotes'&&!u.order&&!(u.cooldown>0)){
+    const t=((time+(Number(u.id)||0)*7.13)%29+29)%29;
+    const gesture=t>=23&&t<24.6?'scratch':t>=26&&t<28?'yawn':null;
+    if(gesture)return{action:gesture,frame:Math.min(3,Math.floor((t-(gesture==='scratch'?23:26))/(gesture==='scratch'?1.6:2)*4))};
+   }
+   return{action:'idle',frame:d.faction==='symbiotes'?Math.floor(time*3+(u.id||0)*.71)%6:0};
+  }
+  if(d.faction==='symbiotes'&&u.action==='idle')return{action:'idle',frame:Math.floor(time*3+(Number(u.id)||0)*.71)%6};
+  return{action:u.action==='walk'&&!d.air&&!d.naval&&!d.worker&&time-(u.combatReadyAt??-100)<5?'walkReady':u.action,frame:Math.floor(d.air&&u.action==='idle'?time*6:u.action==='heal'?time*5:u.phase||0)%(['gather','build','heal'].includes(u.action)?4:6)};
+ },
+ step(frame,offset=0,reach=7.5){const t=((frame/6+offset)%1+1)%1,stance=.58;if(t<stance)return{x:reach*(1-2*t/stance),lift:0,planted:true};const q=(t-stance)/(1-stance),ease=q*q*(3-2*q);return{x:reach*(-1+2*ease),lift:Math.sin(q*Math.PI)*3.3,planted:false};}};
 root.FractureSpriteMesh=SpriteMesh;
 })(globalThis);

@@ -2,7 +2,7 @@
 // Purpose-built aircraft, reptilian armor and specialist insect silhouettes.
 (function(root){
 const names=new Set(['Broom Rider','Gunship','Siege Walker','Winged Hunter','Winged Scout','Flying Stinger','Siege Termite','Bombardier Caste']);
-function render(ctx,d,f,angle,action,frame){if(!names.has(d.name))return false;
+function render(ctx,d,f,angle,action,frame){if(action==='walkReady')action='walk';if(action==='ready'){action='attack';frame=0;}if(!names.has(d.name))return false;
  const a=Math.round(angle/(Math.PI/4))*Math.PI/4,M=new root.FractureSpriteMesh(ctx,a,action==='dead').pose(d,action,frame),tint=root.FractureArt.tint,attack=action==='attack',phase=frame%4,t=frame*Math.PI/3,walk=action==='walk'?Math.sin(t):0,recoil=attack&&phase===2?1.5:0;
  const mat=s=>M.material(s),box=(x,y,z,w,l,h,c,m='metal')=>{mat(m);M.box(x,y,z,w,l,h,c);},orb=(x,y,z,rx,ry,rz,c,m='metal')=>{mat(m);M.orb(x,y,z,rx,ry,rz,c);},seg=(p,q,c,w=1,m='metal')=>{mat(m);M.seg(p,q,c,w);},face=(v,c,m='metal')=>{mat(m);M.face(v,c);};
  const spine=(rings,c,m='metal',n=12)=>{mat(m);M.rings(rings.map(([x,y,z,ry,rz])=>Array.from({length:n},(_,i)=>[x,y+Math.cos(i*2*Math.PI/n)*ry,z+Math.sin(i*2*Math.PI/n)*rz])),c,true);};

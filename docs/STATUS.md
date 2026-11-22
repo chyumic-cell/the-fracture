@@ -1,3 +1,19 @@
+# Bomber weapons and AI recovery repairs - 22 November 2026
+
+All twelve bomber equivalents now drop explosive bombs; the human unit is named Bomber. All 61 test files and both browser checks passed. AI counter selection, squad coordination, discovered chokepoints and reserve-spending deadlocks were repaired. The 5-10% adjacent difficulty win-rate target is still NOT achieved. See [AI-REPAIR-2026-11-22.md](AI-REPAIR-2026-11-22.md) for measured evidence and limits.
+
+# Dreadhollow horror environment - 22 November 2026
+
+Morvane now offers Hell, Moon and Dreadhollow. Dreadhollow uses blood-dark water, ashen soil and haunted hollow trees. See [DREADHOLLOW-ENVIRONMENT.md](DREADHOLLOW-ENVIRONMENT.md) for scope and verification.
+
+# Elyndra-exclusive environments - 22 November 2026
+
+Aetherland, Osland and Starfall are available under Elyndra. Kareth climates have been removed from that world. See [ELYNDRA-ENVIRONMENTS.md](ELYNDRA-ENVIRONMENTS.md) for palettes, compatibility and validation.
+
+# Model, anatomy and symbiote root revision - 22 November 2026
+
+The live art review and game now share model sources. Humanoid anatomy, distinct architecture/materials and connected symbiote root growth are documented in [MODEL-REVISION-2026-11-22.md](MODEL-REVISION-2026-11-22.md), including test evidence and limitations. This does not mark reference-quality artwork or the AI difficulty ladder complete.
+
 # Operational decision improvements - 15 November 2026
 
 - **The 5-10% adjacent difficulty target is still not achieved.** Do not describe the ladder as finished. Full-match screens and combat fixtures are recorded separately in AI-LADDER-CALIBRATION.md.

@@ -1,0 +1,10 @@
+'use strict';
+const assert=require('node:assert/strict');
+require('../src/combat.js');require('../src/expansion-data.js');require('../src/data.js');require('../src/tactics.js');require('../src/projectiles.js');require('../src/map-layouts.js');require('../src/save-codec.js');require('../src/simulation.js');require('../src/sprite-mesh.js');
+const g=new FractureSim.Game({factions:['humans','machines'],size:48,seed:42});g.entities=[];g.map.forEach(t=>{t.water=false;t.height=0;});g.players.forEach(p=>p.ai=false);g.rebuildNav();
+const rifle=FD.factions.humans.units.find(d=>d.name==='Rifleman'),victim=FD.factions.machines.units.find(d=>d.worker),a=g.spawnUnit(rifle.id,0,20.5,20.5),b=g.spawnUnit(victim.id,1,22.5,20.5);g.updateVision();a.order={kind:'attack',target:b.id};a.cooldown=1;g.tickUnit(a,.1);assert.equal(a.action,'ready');assert.equal(a.cooldown,.9);assert.equal(g.projectiles.length,0);
+const visual=FractureMotion.visual;assert.deepEqual(visual(a,rifle,g.time),{action:'ready',frame:0});a.action='walk';assert.equal(visual(a,rifle,g.time).action,'walkReady');
+assert.equal(visual({...a,windup:{fired:true,time:.2}},rifle,24).frame,2);assert.equal(visual({...a,action:'dead',windup:null},rifle,24).action,'dead');
+const calm={id:0,action:'idle',cooldown:0};assert.equal(visual(calm,rifle,23.5).action,'scratch');assert.equal(visual(calm,rifle,27).action,'yawn');assert.equal(visual({...calm,hitAt:23},rifle,23.5).action,'ready');assert.equal(visual({...calm,order:{kind:'hold'}},rifle,23.5).action,'idle');assert.notEqual(visual({...calm,id:1},rifle,23.5).action,'scratch');
+const phases=new Set();for(let t=0;t<100;t+=.05){const q=visual(calm,rifle,t);phases.add(q.action+q.frame);}assert(phases.size<=9,'Idle cache stays bounded');
+console.log('PASS cooldown guard, armed advance, preserved shot timing, calm-only staggered gestures, and bounded sprite poses');

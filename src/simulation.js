@@ -10,7 +10,10 @@ class Game{
  this.options={seed:Math.floor(Math.random()*999999),size:200,theme:'Kareth',layout:'natural',resourceAmount:1,resourcePlacement:'random',startingResources:true,factions:['humans','reptilians'],difficulty:'standard',teams:[0,1],...options};this.n=this.options.size;this.rng=new RNG(this.options.seed);this.time=0;this.nextId=1;this.entities=[];this.projectiles=[];this.effects=[];this.events=[];this.winner=null;this.paused=false;this.fogTick=0;this.aiTick=0;this.navVersion=0;
  this.controlGroups={};this.players=this.options.factions.map((f,i)=>({id:i,faction:f,team:(this.options.teams||[])[i]??i,stock:[320,60,60,10],tech:[],special:0,kills:0,lost:0,gathered:[0,0,0,0],ai:i>0||this.options.spectate,explored:new Uint8Array(this.n*this.n),visible:new Uint8Array(this.n*this.n),attackAt:90,plan:'Establishing economy',nextDecision:0,knownNav:new Uint8Array(this.n*this.n),knownTiles:new Uint8Array(this.n*this.n),knowledge:{}}));
  this.map=Array.from({length:this.n*this.n},(_,i)=>{const x=i%this.n,y=Math.floor(i/this.n),h=noise(x/13,y/13,this.options.seed),j=noise(x/5,y/5,this.options.seed+19);return{water:h<.26,height:Math.max(0,Math.floor((h-.37)*7)),texture:j,road:false};});
- this.starts=this.players.map((p,i)=>{const a=Math.PI*2*i/this.players.length+Math.PI*.72;return{x:Math.round(this.n/2+Math.cos(a)*this.n*.31),y:Math.round(this.n/2+Math.sin(a)*this.n*.31)};});
+ // Skirmish starts are random per seed. `starts` pins exact positions and
+ // `startPositions:'ring'` restores the original fixed ring, both for deterministic tests
+ // and for scripted content that needs a known layout.
+ this.starts=Array.isArray(this.options.starts)&&this.options.starts.length===this.players.length?this.options.starts.map(q=>({x:Math.round(q.x),y:Math.round(q.y)})):this.options.startPositions==='ring'?this.ringStarts():this.randomStarts();
  for(const pos of this.starts)for(let y=-9;y<=9;y++)for(let x=-9;x<=9;x++){let t=this.tile(pos.x+x,pos.y+y);if(t&&Math.hypot(x,y)<9){t.water=false;t.height=0;}}
  // Meandering land passages ensure every starting base is connected.
  for(let k=1;k<this.starts.length;k++){const a=this.starts[k-1],b=this.starts[k],bend=this.rng.between(-5,5),steps=Math.ceil(dist(a,b)*3);for(let j=0;j<=steps;j++){const t=j/steps,x=a.x+(b.x-a.x)*t+Math.sin(t*Math.PI)*bend,y=a.y+(b.y-a.y)*t-Math.sin(t*Math.PI)*bend;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){const tile=this.tile(x+dx,y+dy);if(tile&&Math.hypot(dx,dy)<2.3){tile.water=false;if(Math.hypot(dx,dy)<1.5)tile.height=0;}}}}
@@ -20,6 +23,43 @@ class Game{
  this.generateResources();
  this.players.forEach((p,i)=>{p.home={...this.starts[i]};const f=D.factions[p.faction];this.spawnBuilding(f.buildings[0].id,i,p.home.x,p.home.y,true);for(let j=0;j<5;j++)this.spawnUnit(f.units[0].id,i,p.home.x-2+j*.8,p.home.y+3);});
  this.rebuildNav();this.updateVision();if(this.options.neutralSettlements&&!this.campaign)this.generateSettlements();
+ }
+ // Starting positions are drawn at random from the seed, not from a fixed ring. A minimum
+ // separation keeps openings playable, and candidate sets are scored so that no player is
+ // dropped into materially worse ground than the others. Falls back to the old ring if the
+ // map cannot satisfy the constraints.
+ ringStarts(){return this.players.map((p,i)=>{const a=Math.PI*2*i/this.players.length+Math.PI*.72;return{x:Math.round(this.n/2+Math.cos(a)*this.n*.31),y:Math.round(this.n/2+Math.sin(a)*this.n*.31)};});}
+ randomStarts(){
+  const n=this.n,count=this.players.length,margin=Math.max(12,Math.round(n*.09));
+  const minSep=Math.max(26,n*(count<=2?.4:count<=4?.29:.22));
+  const quality=(x,y)=>{let land=0,flat=0,total=0;for(let dy=-8;dy<=8;dy+=2)for(let dx=-8;dx<=8;dx+=2){const t=this.tile(x+dx,y+dy);if(!t)continue;total++;if(!t.water)land++;if(!t.water&&t.height===this.tile(x,y)?.height)flat++;}return total?(land/total)*.7+(flat/total)*.3:0;};
+  // Naval access must stay possible from every start, so a position is only accepted when
+  // water lies inside the radius the game itself searches when siting a dock. Sampled on a
+  // stride for cost; layouts only add water, never remove it, so this bound holds afterwards.
+  const waterReach=Math.min(45,Math.max(18,Math.round(n*.34)));
+  const anyWater=this.map.some(t=>t.water);
+  const nearWater=(x,y)=>{if(!anyWater)return true;for(let r=4;r<=waterReach;r+=4)for(let a=0;a<24;a++){const ang=a/24*Math.PI*2,t=this.tile(x+Math.cos(ang)*r,y+Math.sin(ang)*r);if(t&&t.water)return true;}return false;};
+  let best=null,bestScore=-Infinity;
+  for(let attempt=0;attempt<300;attempt++){
+   const picks=[];
+   for(let i=0;i<count;i++){
+    let placed=null;
+    for(let tries=0;tries<150;tries++){
+     const x=Math.round(this.rng.between(margin,n-margin)),y=Math.round(this.rng.between(margin,n-margin));
+     if(picks.some(q=>dist(q,{x,y})<minSep))continue;
+     if(!nearWater(x,y))continue;
+     placed={x,y};break;
+    }
+    if(!placed)break;
+    picks.push(placed);
+   }
+   if(picks.length<count)continue;
+   const qs=picks.map(q=>quality(q.x,q.y)),mean=qs.reduce((a,b)=>a+b,0)/count,spread=Math.max(...qs)-Math.min(...qs);
+   const score=mean-spread*1.6;
+   if(score>bestScore){bestScore=score;best=picks;}
+   if(bestScore>.82)break;
+  }
+  return best||this.ringStarts();
  }
  generateSettlements(){const types=this.options.theme==='Elyndra'?['wizards','primates']:this.options.theme==='Morvane'?['wizards','humans']:['humans','primates'];for(let k=0;k<Math.min(10,2+Math.floor(this.n/100));k++)for(let attempt=0;attempt<180;attempt++){const x=this.rng.between(8,this.n-8),y=this.rng.between(8,this.n-8);if(this.starts.some(p=>Math.hypot(p.x-x,p.y-y)<17)||this.entities.some(e=>e.kind!=='tree'&&Math.hypot(e.x-x,e.y-y)<5)||this.blocked(x,y)||this.tile(x,y).water)continue;let flat=true;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)if(!this.tile(x+dx,y+dy)||this.tile(x+dx,y+dy).water||this.height(x+dx,y+dy)!==this.height(x,y))flat=false;if(!flat)continue;this.clearConstructionTrees(x,y,2);const f=types[k%types.length],b=this.spawnBuilding('neutral_'+f,undefined,x,y,true);b.campaignFaction=f;b.campaignImmune=true;b.recruits={};break;}this.rebuildNav();this.updateVision();}
  recruitNeutral(id,owner=0){const b=this.entity(id),p=this.players[owner];if(!b||this.def(b).kind!=='neutral'||!this.visible(owner,b))return{ok:false,reason:'Visit a visible settlement.'};if(!this.entitiesByKind('unit').some(u=>u.owner===owner&&!u.embarkedBy&&Math.hypot(u.x-b.x,u.y-b.y)<6))return{ok:false,reason:'Bring a unit beside the settlement.'};if((b.recruits?.[owner]||0)>=2)return{ok:false,reason:'This settlement has no more volunteers.'};const unit=D.factions[b.campaignFaction].units.find(u=>u.role==='melee'&&!u.special&&!u.air)||D.factions[b.campaignFaction].units.find(u=>u.role==='rifle');if(this.population(owner)+unit.pop>this.capacity(owner))return{ok:false,reason:'More population capacity needed.'};const probe={kind:'unit',owner,type:unit.id,x:b.x,y:b.y},spot=this.approach(probe,b,1.8);if(this.blocked(spot.x,spot.y))return{ok:false,reason:'Clear a place beside the settlement.'};if(!this.pay(owner,[120,0,30,0]))return{ok:false,reason:'Requires 120 Ore and 30 Aetherite.'};const u=this.spawnUnit(unit.id,owner,spot.x,spot.y);u.campaignFaction=b.campaignFaction;b.recruits||={};b.recruits[owner]=(b.recruits[owner]||0)+1;return{ok:true,unit:u};}
@@ -44,7 +84,14 @@ class Game{
  const spaced=(x,y,r)=>{const cx=Math.floor(x/3),cy=Math.floor(y/3);for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)for(const e of buckets.get((cx+dx)+','+(cy+dy))||[])if((e.x-x)**2+(e.y-y)**2<r*r)return false;return true;};
  const available=(x,y,r)=>{const t=this.tile(x,y);if(!t||t.water)return false;const i=Math.floor(y)*this.n+Math.floor(x);if(this.playableCells&&!this.playableCells[i])return false;if(this.routeMask)for(let yy=Math.max(0,Math.floor(y-r-.45));yy<=Math.min(this.n-1,Math.floor(y+r+.45));yy++)for(let xx=Math.max(0,Math.floor(x-r-.45));xx<=Math.min(this.n-1,Math.floor(x+r+.45));xx++)if(this.routeMask[yy*this.n+xx]&&Math.hypot(xx+.5-x,yy+.5-y)<r+.45)return false;return true;};
  const add=(r,x,y,amount=600)=>{const size=r===3?.65:.85;if(!available(x,y,size)||!spaced(x,y,2))return false;remember(this.add({kind:'resource',resource:r,x,y,hp:1,amount,maxAmount:amount,size}));return true;};
- if(this.options.startingResources!==false)for(const h of this.starts){[[0,4,-4],[0,6,-3],[1,-6,-2],[2,1,7],[3,-5,6]].forEach(([r,dx,dy])=>add(r,h.x+dx,h.y+dy,r===3?220:900));}
+ // Every player's opening deposits must actually exist. If the intended offset is water,
+ // blocked, reserved for a route or already occupied, the deposit is nudged outward to the
+ // nearest workable tile instead of being silently dropped.
+ if(this.options.startingResources!==false)for(const h of this.starts){[[0,4,-4],[0,6,-3],[1,-6,-2],[2,1,7],[3,-5,6]].forEach(([r,dx,dy])=>{
+  const amount=r===3?220:900;if(add(r,h.x+dx,h.y+dy,amount))return;
+  for(let radius=1;radius<=8;radius++)for(let a=0;a<20;a++){const ang=a/20*Math.PI*2+radius;
+   if(add(r,h.x+dx+Math.cos(ang)*radius,h.y+dy+Math.sin(ang)*radius,amount))return;}
+ });}
  const abundance=clamp(Number(this.options.resourceAmount)||1,.25,4),distribution=this.options.resourcePlacement||'random',districts=[],districtCount=Math.max(distribution==='balanced'?this.players.length:1,Math.ceil(this.n*this.n/1320*abundance));
  for(let r=0;r<4;r++)for(let c=0;c<districtCount;c++){
   let center=null,best=Infinity;const owner=c%this.starts.length,home=this.starts[owner],goal=Math.min(this.n*.32,18+Math.floor(c/this.starts.length)*3);
@@ -112,7 +159,7 @@ class Game{
   // Black, unexplored ground is never a legal construction site. Fog uses remembered terrain.
   for(let iy=top;iy<=bottom;iy++)for(let ix=left;ix<=right;ix++)if(!p?.explored[iy*this.n+ix])return'Explore the entire building site first';
   const terrainAt=(ix,iy)=>{const i=Math.floor(iy)*this.n+Math.floor(ix);return actual||p.visible[i]?this.tile(ix,iy):{water:!!(p.knownTiles[i]&128),height:p.knownTiles[i]&127};},height=terrainAt(x,y).height;
-  for(let iy=top;iy<=bottom;iy++)for(let ix=left;ix<=right;ix++){const t=terrainAt(ix,iy);if(t.water)return'Needs dry ground';if(this.rockTerrain(t.height))return'Impassable rock';if(Math.abs(t.height-height)>1)return'Terrain too steep';}
+  for(let iy=top;iy<=bottom;iy++)for(let ix=left;ix<=right;ix++){const t=terrainAt(ix,iy);if(t.water)return'Needs dry ground';if(this.rockTerrain(t.height))return'Impassable rock';if(t.height!==height)return'Terrain must be level';}
   return null;
  }
  constructionObstruction(blockers){
@@ -127,6 +174,9 @@ class Game{
  }
  extensionFits(b){return !this.extensionPlacement(b);}
  clearConstructionTrees(x,y,size){for(const e of this.entities)if(e.kind==='tree'&&e.hp>0&&dist(e,{x,y})<(e.size||.4)+size+.4)e.hp=0;}
+ // Push units out of a building's footprint so they don't get stuck inside.
+ ejectUnitsFromBuilding(b){const d=this.def(b),r=d.size||1;for(const u of this.entities){if(u.kind!=='unit'||u.hp<=0||u.embarkedBy)continue;if(this.def(u)?.air)continue;const ux=Math.abs(u.x-b.x),uy=Math.abs(u.y-b.y);if(ux>=r+.5||uy>=r+.5)continue;// Unit is inside or very close to building footprint
+  const spot=this.approach(u,b,1.5);if(spot&&!this.blocked(spot.x,spot.y,false,u.owner,true)){u.x=spot.x;u.y=spot.y;u.path=[];u.destination=null;u.stuck=0;}}}
  placement(type,owner,x,y,actual=false,ignoreId=null,paid=false){
   const d=D.buildings[type];if(!d)return'Unknown building';
   const missing=this.missing(owner,d);if(missing.length)return'Requires '+missing.join(', ');
@@ -152,7 +202,7 @@ class Game{
  fortificationPlan(type,a,b){const kind=D.buildings[type]?.kind,cells=[];let x=Math.floor(a.x),y=Math.floor(a.y),tx=Math.floor(b.x),ty=Math.floor(b.y);if(kind==='trap'){for(let yy=Math.min(y,ty);yy<=Math.max(y,ty)&&cells.length<64;yy+=2)for(let xx=Math.min(x,tx);xx<=Math.max(x,tx)&&cells.length<64;xx+=2)cells.push({x:xx+.5,y:yy+.5});return cells;}const dx=Math.abs(tx-x),dy=Math.abs(ty-y),sx=Math.sign(tx-x),sy=Math.sign(ty-y);let error=dx-dy;while(cells.length<96){cells.push({x:x+.5,y:y+.5});if(x===tx&&y===ty)break;const e=error*2;if(e>-dy){error-=dy;x+=sx;}if(e<dx){error+=dx;y+=sy;}}const ax=Math.floor(a.x)+.5,ay=Math.floor(a.y)+.5,vx=tx+.5-ax,vy=ty+.5-ay,length=vx*vx+vy*vy;return cells.map(c=>{if(!length)return c;const t=((c.x-ax)*vx+(c.y-ay)*vy)/length;return{x:clamp(ax+vx*t,Math.floor(c.x)+.02,Math.floor(c.x)+.98),y:clamp(ay+vy*t,Math.floor(c.y)+.02,Math.floor(c.y)+.98)};});}
  buildFortification(type,owner,a,b,workers){const cells=this.fortificationPlan(type,a,b,owner),built=[];let reason='';for(const c of cells){if(this.entities.some(e=>e.hp>0&&e.type===type&&e.owner===owner&&Math.floor(e.x)===Math.floor(c.x)&&Math.floor(e.y)===Math.floor(c.y)))continue;const r=this.build(type,owner,c.x,c.y,workers);if(r.ok)built.push(r.building);else{reason=r.reason;break;}}if(built.length)this.order(workers,{kind:'build',target:built[0].id});return{ok:built.length>0,reason,placed:built.length};}
  refundConstructionSite(b,reason=null){if(!b?.pendingSite||b.hp<=0)return false;const cost=b.reservedCost||this.def(b).cost;b.hp=0;delete b.reservedCost;for(let i=0;i<cost.length;i++)this.players[b.owner].stock[i]+=cost[i];for(const u of this.entities)if(u.kind==='unit'&&u.order?.target===b.id){u.order=null;u.destination=null;u.path=[];u.action='idle';}if(reason)this.say(this.def(b).name+' canceled: '+reason+'. Full cost refunded.',b.owner);return true;}
- startConstructionSite(b){const err=this.placement(b.type,b.owner,b.x,b.y,true,b.id,true);if(err){this.refundConstructionSite(b,err);return false;}delete b.pendingSite;delete b.reservedCost;delete b.siteProgressAt;this.clearConstructionTrees(b.x,b.y,b.size);this.rebuildNav();this.updateVision();return true;}
+ startConstructionSite(b){const err=this.placement(b.type,b.owner,b.x,b.y,true,b.id,true);if(err){this.refundConstructionSite(b,err);return false;}delete b.pendingSite;delete b.reservedCost;delete b.siteProgressAt;this.clearConstructionTrees(b.x,b.y,b.size);this.rebuildNav();this.ejectUnitsFromBuilding(b);this.updateVision();return true;}
  visible(owner,e){if(e.kind==='building'&&this.def(e)?.concealedTrap&&this.hostile(owner,e.owner))return false;if(e.embarkedBy||e.insideMine)return false;if(e.pendingSite&&e.owner!==owner)return false;return !!this.players[owner]?.visible[Math.floor(e.y)*this.n+Math.floor(e.x)];}
  known(owner,e){if(e.kind==='building'&&this.def(e)?.concealedTrap&&this.hostile(owner,e.owner))return false;return !!this.players[owner]?.explored[Math.floor(e.y)*this.n+Math.floor(e.x)];}
  hostile(a,b){return a!==undefined&&b!==undefined&&this.players[a].team!==this.players[b].team;}
@@ -220,7 +270,10 @@ class Game{
  formationRank(u){const r=this.def(u).role;if(r==='worker')return 4;return ['tank','melee','heavy','giant'].includes(r)?0:['rifle','aa','elite'].includes(r)?1:r==='siege'?3:2;}
  go(u,p,dt,near=.25){if(dist(u,p)<Math.max(.12,near)){u.path=[];u.destination=null;return true;}if(!u.destination||dist(u.destination,p)>.8||u.pathVersion!==this.navVersion||(!u.path.length&&this.time>=(u.nextPathAt||0))){u.nextPathAt=this.time+1.3;u.path=this.path(u,p);u.destination={...p};u.pathVersion=this.navVersion;}
  while(u.path.length>1&&dist(u,u.path[0])<.12)u.path.shift();const v=u.path[0];if(!v){if(dist(u,p)<2.6&&this.blocked(p.x,p.y,this.movementMode(u),u.owner)){u.destination=null;u.stuck=0;return true;}u.stuck+=dt;return false;}const d=dist(u,v),ud=this.def(u),speed=ud.speed*(this.height(v.x,v.y)>this.height(u.x,u.y)?.85:1),step=Math.min(d,speed*dt),nx=u.x+(v.x-u.x)/Math.max(.001,d)*step,ny=u.y+(v.y-u.y)/Math.max(.001,d)*step;
- if(!this.canTraverse(u.x,u.y,nx,ny,this.movementMode(u),u.owner,true)){const i=Math.floor(ny)*this.n+Math.floor(nx),p=this.players[u.owner];const tile=this.map[i];if(!tile||nx<0||ny<0||nx>=this.n||ny>=this.n){u.path=[];u.destination=null;u.pathVersion=-1;u.stuck+=dt;return false;}p.explored[i]=1;const terrainCode=(tile.water?128:0)|tile.height;if(p.knownNav[i]!==this.nav[i]||p.knownTiles[i]!==terrainCode){p.navigationRevision=(p.navigationRevision||0)+1;}p.knownNav[i]=this.nav[i];p.knownTiles[i]=terrainCode;u.path=[];u.pathVersion=-1;u.stuck+=dt;return false;}const dx=nx-u.x,dy=ny-u.y;u.face=Math.atan2(dy,dx);u.x=nx;u.y=ny;u.action='walk';u.phase+=dt*speed*(ud.air||['tank','siege'].includes(ud.role)?5:9);u.stuck=0;if(d<.13||step>=d)u.path.shift();return dist(u,p)<Math.max(.12,near);}
+ if(!this.canTraverse(u.x,u.y,nx,ny,this.movementMode(u),u.owner,true)){const i=Math.floor(ny)*this.n+Math.floor(nx),p=this.players[u.owner];const tile=this.map[i];if(!tile||nx<0||ny<0||nx>=this.n||ny>=this.n){u.path=[];u.destination=null;u.pathVersion=-1;u.stuck+=dt;return false;}p.explored[i]=1;const terrainCode=(tile.water?128:0)|tile.height;if(p.knownNav[i]!==this.nav[i]||p.knownTiles[i]!==terrainCode){p.navigationRevision=(p.navigationRevision||0)+1;}p.knownNav[i]=this.nav[i];p.knownTiles[i]=terrainCode;u.path=[];u.pathVersion=-1;u.stuck+=dt;
+  // If stuck for too long, nudge the unit to the nearest unblocked tile
+  if(u.stuck>3&&!this.def(u).air){const spot=this.approach(u,u,2);if(spot&&!this.blocked(spot.x,spot.y,false,u.owner,true)&&dist(u,spot)>0.3){u.x=spot.x;u.y=spot.y;u.path=[];u.pathVersion=-1;u.stuck=0;}}
+  return false;}const dx=nx-u.x,dy=ny-u.y;u.face=Math.atan2(dy,dx);u.x=nx;u.y=ny;u.action='walk';u.phase+=dt*speed*(ud.air||['tank','siege'].includes(ud.role)?5:9);u.stuck=0;if(d<.13||step>=d)u.path.shift();return dist(u,p)<Math.max(.12,near);}
  detectable(owner,t){if(t.owner===undefined||!this.hostile(owner,t.owner)||!this.def(t)?.stealth)return true;return this.entities.some(v=>v.owner!==undefined&&!this.hostile(owner,v.owner)&&v.hp>0&&(this.def(v)?.detector||this.def(v)?.kind==='defense'||v.scanUntil>this.time)&&dist(v,t)<(v.scanUntil>this.time?13:7));}
  range(u){const d=this.def(u),p=this.players[u.owner];return (d.range||0)*(p.tech.includes(d.building+'_specialization')&&D.research[d.building+'_specialization']?.kind==='range'?1.15:1);}
  // The arrival point must be inside weapon reach, not a rounded ring outside it.
@@ -232,7 +285,7 @@ class Game{
  nearestEnemy(u,r){let best=null,bv=Infinity;for(const e of this.combatEntities()){if(!['unit','building'].includes(e.kind)||!this.canTarget(u,e))continue;const dd=dist(u,e);if(dd>r+(e.size||0))continue;let v=dd+(e.kind==='building'?3:0);if(v<bv){bv=v;best=e;}}return best;}
  strike(u,target){const d=this.def(u),td=this.def(target),p=this.players[u.owner];const baseDamage=d.damage*(u.focusUntil>this.time?1.18:1)*(1+.12*p.tech.filter(t=>D.research[t]?.kind==='weapons').length);let damage=baseDamage;const C=root.FractureCombat||(typeof require!=='undefined'?require('./combat.js'):null);damage*=C.multiplier(d,td,target.kind==='building');if(this.height(u.x,u.y)>this.height(target.x,target.y))damage*=1.1;
  const P=root.FractureProjectiles||(typeof require!=='undefined'?require('./projectiles.js'):null),shot=P.profile(d,D.factions[p.faction]);
- if(d.bomber){u.bombs=(u.bombs??2)-1;if(u.bombs<=0)u.returning=true;}if(shot.kind==='melee'){this.damage(target,damage,u);this.effects.push({kind:'slash',x:target.x,y:target.y,time:.25,max:.25,face:u.face});}else this.projectiles.push({x:u.x,y:u.y,fromX:u.x,fromY:u.y,toX:target.x,toY:target.y,target:target.id,source:u.id,owner:u.owner,damage,baseDamage,attackerType:u.type,launchHeight:this.height(u.x,u.y),targetAir:!!td.air,splash:d.splash||0,weapon:shot.kind,shot,face:u.face,flight:Math.max(.1,dist(u,target)/shot.speed),elapsed:0,air:!!d.air});
+ if(d.bomber){u.bombs=(u.bombs??2)-1;if(u.bombs<=0)u.returning=true;}if(shot.kind==='melee'){this.damage(target,damage,u);this.effects.push({kind:'slash',x:target.x,y:target.y,time:.25,max:.25,face:u.face});}else this.projectiles.push({x:u.x,y:u.y,fromX:u.x,fromY:u.y,toX:target.x,toY:target.y,target:target.id,source:u.id,owner:u.owner,damage,baseDamage,attackerType:u.type,launchHeight:this.height(u.x,u.y),targetAir:!!td.air,splash:d.splash||0,weapon:shot.kind,shot,face:u.face,flight:Math.max(shot.kind==='bomb'?.65:.1,dist(u,target)/shot.speed),elapsed:0,air:!!d.air});
 
  }
  damage(e,value,source){if(e.hp<=0||e.pendingSite||e.campaignImmune||e.campaignLocked)return;const d=this.def(e),p=this.players[e.owner],armor=(d.armor||0)+(e.bracedUntil>this.time?5:0)+p.tech.filter(t=>D.research[t]?.kind==='armor').length*2;if(e.campaignEmperor&&campaignAPI().emperorDamage(this,e,Math.max(1,value-armor)))return;e.hp-=Math.max(1,value-armor);e.hitAt=this.time;if(e.owner===0&&source?.owner!==undefined&&this.hostile(e.owner,source.owner)&&this.time>=(this.nextAttackAlert||0)){this.nextAttackAlert=this.time+10;this.audioEvents||=[];this.audioEvents.push({kind:e.kind==='building'?'baseAttack':'underAttack',x:e.x,y:e.y,time:this.time});if(this.audioEvents.length>16)this.audioEvents.shift();this.say(e.kind==='building'?'Our base is under attack!':'Our forces are under attack!',0);}e.hitFace=source&&Number.isFinite(source.x)?Math.atan2(e.y-source.y,e.x-source.x):e.face||0;if(e.hp>0)return;
@@ -262,7 +315,7 @@ class Game{
  if(d.heal){const t=this.entitiesByKind('unit').filter(e=>e.kind==='unit'&&e.owner===u.owner&&e.hp>0&&e.hp<e.maxHp&&dist(u,e)<5).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(t){t.hp=Math.min(t.maxHp,t.hp+(d.heal+(p.tech.includes(p.faction+'_healing')?4:0))*dt);u.action='heal';u.face=Math.atan2(t.y-u.y,t.x-u.x);return;}}
  let o=u.order,enemy=null;if(d.damage>0&&o?.kind==='attack'){const t=this.entity(o.target);if(t&&this.canTarget(u,t)){enemy=t;o.lastSeen={x:t.x,y:t.y};}else{u.order=o.lastSeen?{kind:'attackMove',...o.lastSeen}:null;o=u.order;}}
  if(d.damage>0&&!d.worker&&!['move'].includes(o?.kind))enemy=enemy||this.nearestEnemy(u,(o?.kind==='hold'||u.stance==='hold')?this.range(u):Math.max(7,this.range(u)));
- if(enemy){u.face=Math.atan2(enemy.y-u.y,enemy.x-u.x);const range=this.attackReach(u,enemy);if(dist(u,enemy)<=range&&(!d.minRange||dist(u,enemy)>=d.minRange+(enemy.size||.35))){u.path=[];if(u.cooldown<=0){u.windup={target:enemy.id,time:.65,fired:false};u.cooldown=d.cooldown;u.action='attack';}}else if(o?.kind!=='hold'&&u.stance!=='hold')this.go(u,this.attackSpot(u,enemy),dt,.05);return;}
+ if(enemy){u.combatReadyAt=this.time;u.face=Math.atan2(enemy.y-u.y,enemy.x-u.x);const range=this.attackReach(u,enemy);if(dist(u,enemy)<=range&&(!d.minRange||dist(u,enemy)>=d.minRange+(enemy.size||.35))){u.path=[];u.action='ready';if(u.cooldown<=0){u.windup={target:enemy.id,time:.65,fired:false};u.cooldown=d.cooldown;u.action='attack';}}else if(o?.kind!=='hold'&&u.stance!=='hold')this.go(u,this.attackSpot(u,enemy),dt,.05);return;}
  if(o&&['move','attackMove','patrol'].includes(o.kind)){if(this.go(u,o,dt,.2)){if(o.kind==='patrol'){const origin=o.origin;o.origin={x:o.x,y:o.y};o.x=origin.x;o.y=origin.y;}else {if(o.face!==undefined)u.face=o.face;u.order=null;}}}
  if(D.factions[p.faction].style==='machine'&&u.hp<u.maxHp&&p.stock[0]>dt*.2&&this.entitiesByKind('building').some(e=>e.kind==='building'&&e.owner===u.owner&&e.progress>=1&&dist(e,u)<6)){u.hp=Math.min(u.maxHp,u.hp+dt*1.2);p.stock[0]-=dt*.2;}if(p.faction==='symbiotes'&&this.entitiesByKind('building').some(e=>e.kind==='building'&&e.owner===u.owner&&e.progress>=1&&dist(e,u)<6))u.hp=Math.min(u.maxHp,u.hp+dt*.6);
  }
@@ -274,7 +327,7 @@ class Game{
  // Gentle separation only; idle workers are not subjected to combat-style jams.
  const moving=this.entities.filter(e=>e.kind==='unit'&&e.hp>0&&!e.embarkedBy&&!e.insideMine&&!this.def(e).air);for(let i=0;i<moving.length;i++)for(let j=i+1;j<moving.length;j++){const a=moving[i],b=moving[j];let dd=dist(a,b);if(dd>.85||dd<.001)continue;const calm=!this.hostile(a.owner,b.owner)&&!a.windup&&!b.windup&&this.time-(a.hitAt??-10)>3&&this.time-(b.hitAt??-10)>3&&!['attack','attackMove'].includes(a.order?.kind)&&!['attack','attackMove'].includes(b.order?.kind);if(calm&&dd<.75&&Math.cos(a.face-b.face)<-.3){for(const u of [a,b])if(u.action==='walk'){const heading=u.order?.x!==undefined?Math.atan2(u.order.y-u.y,u.order.x-u.x):u.face,dx=-Math.sin(heading)*dt*1.3,dy=Math.cos(heading)*dt*1.3;if(this.canTraverse(u.x,u.y,u.x+dx,u.y+dy,this.movementMode(u),u.owner,true)){u.x+=dx;u.y+=dy;}}dd=dist(a,b);}const min=calm?.24:.5;if(dd>=min||dd<.001)continue;const f=(min-dd)*.3,dx=(a.x-b.x)/dd*f,dy=(a.y-b.y)/dd*f;if(this.canTraverse(a.x,a.y,a.x+dx,a.y+dy,this.movementMode(a),a.owner,true)){a.x+=dx;a.y+=dy;}if(this.canTraverse(b.x,b.y,b.x-dx,b.y-dy,this.movementMode(b),b.owner,true)){b.x-=dx;b.y-=dy;}}
 
- for(const p of this.projectiles){p.elapsed+=dt;const t=this.entity(p.target);if(t){p.toX=t.x;p.toY=t.y;}const a=clamp(p.elapsed/p.flight,0,1);p.x=p.fromX+(p.toX-p.fromX)*a;p.y=p.fromY+(p.toY-p.fromY)*a;if(a>=1){const source=this.entity(p.source)||{owner:p.owner};if(t)this.damage(t,p.damage,source);if(p.splash){const C=root.FractureCombat||(typeof require!=='undefined'?require('./combat.js'):null),weapon=D.units[p.attackerType];for(const e of this.entities)if(e.id!==p.target&&e.hp>0&&['unit','building'].includes(e.kind)&&!e.embarkedBy&&!e.insideMine&&!!this.def(e)?.air===!!p.targetAir&&this.hostile(p.owner,e.owner)&&dist(e,{x:p.toX,y:p.toY})<p.splash){const hit=weapon&&Number.isFinite(p.baseDamage)?p.baseDamage*C.multiplier(weapon,this.def(e),e.kind==='building')*((p.launchHeight??0)>this.height(e.x,e.y)?1.1:1):p.damage;this.damage(e,hit*.5,source);}}this.effects.push({kind:'impact',projectileKind:p.weapon,color:p.shot?.color,x:p.toX,y:p.toY,time:.45,max:.45});}}
+ for(const p of this.projectiles){p.elapsed+=dt;const t=this.entity(p.target);if(t&&p.weapon!=='bomb'){p.toX=t.x;p.toY=t.y;}const a=clamp(p.elapsed/p.flight,0,1);p.x=p.fromX+(p.toX-p.fromX)*a;p.y=p.fromY+(p.toY-p.fromY)*a;if(a>=1){const source=this.entity(p.source)||{owner:p.owner};if(t&&p.weapon!=='bomb')this.damage(t,p.damage,source);if(p.splash){const C=root.FractureCombat||(typeof require!=='undefined'?require('./combat.js'):null),weapon=D.units[p.attackerType];for(const e of this.entities)if((e.id!==p.target||p.weapon==='bomb')&&e.hp>0&&['unit','building'].includes(e.kind)&&!e.embarkedBy&&!e.insideMine&&!!this.def(e)?.air===!!p.targetAir&&this.hostile(p.owner,e.owner)&&dist(e,{x:p.toX,y:p.toY})<p.splash){const hit=weapon&&Number.isFinite(p.baseDamage)?p.baseDamage*C.multiplier(weapon,this.def(e),e.kind==='building')*((p.launchHeight??0)>this.height(e.x,e.y)?1.1:1):p.damage;this.damage(e,hit*(p.weapon==='bomb'&&dist(e,{x:p.toX,y:p.toY})<Math.max(.65,e.size||0)?1:.5),source);}}this.effects.push({kind:'impact',projectileKind:p.weapon,color:p.shot?.color,x:p.toX,y:p.toY,time:.45,max:.45});}}
  this.projectiles=this.projectiles.filter(p=>p.elapsed<p.flight);for(const e of this.effects)e.time-=dt;this.effects=this.effects.filter(e=>e.time>0);if(this.entities.some(e=>e.hp<=0))this.entities=this.entities.filter(e=>e.hp>0);
  this.aiTick-=dt;if(this.aiTick<=0){this.aiTick=.2;for(const p of this.players)if(p.ai)this.ai(p);}
  if(this.campaign)campaignAPI().update(this,dt);

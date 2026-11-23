@@ -2,7 +2,7 @@
 (function(root){
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function random(seed){let s=seed>>>0||1;return()=>{let t=s+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
-function canonical(layout){const key=String(layout||'plains').toLowerCase().replace(/[ _]/g,'-');if(['rivers','narrows','mediterranean','continental','coastal','small-islands','large-islands'].includes(key))return key;return ['mountain-passes','mountainpasses','passes','mountains','mountain'].includes(key)?'mountain-passes':['steppes','steppe','plateaus'].includes(key)?'steppes':['labyrinth','maze'].includes(key)?'labyrinth':'plains';}
+function canonical(layout){const key=String(layout||'plains').toLowerCase().replace(/[ _]/g,'-');if(worldLayoutIds.includes(key))return key;if(['rivers','narrows','mediterranean','continental','coastal','small-islands','large-islands'].includes(key))return key;return ['mountain-passes','mountainpasses','passes','mountains','mountain'].includes(key)?'mountain-passes':['steppes','steppe','plateaus'].includes(key)?'steppes':['labyrinth','maze'].includes(key)?'labyrinth':'plains';}
 function shuffle(values,rand){for(let i=values.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[values[i],values[j]]=[values[j],values[i]];}return values;}
 function makeGrid(n,count,margin=0){const size=(n-margin*2)/count,nodes=[];for(let y=0;y<count;y++)for(let x=0;x<count;x++)nodes.push({id:y*count+x,col:x,row:y,x:Math.floor(margin+(x+.5)*size)+.5,y:Math.floor(margin+(y+.5)*size)+.5,height:0,degree:0});return{nodes,count,size,margin};}
 function neighbors(grid,id){const {count}=grid,x=id%count,y=Math.floor(id/count),out=[];if(x>0)out.push(id-1);if(x<count-1)out.push(id+1);if(y>0)out.push(id-count);if(y<count-1)out.push(id+count);return out;}
@@ -243,17 +243,213 @@ function playable(state){
  while(head<tail){const i=queue[head++],x=i%n,y=Math.floor(i/n),h=map[i].height;for(const j of [x?i-1:-1,x<n-1?i+1:-1,y?i-n:-1,y<n-1?i+n:-1])if(j>=0&&!seen[j]&&!map[j].water&&Math.abs(map[j].height-h)<2){seen[j]=1;queue[tail++]=j;}}
  return seen;
 }
+// ---------------------------------------------------------------------------
+// World map types. Each world offers three layouts that suit its look; the
+// shared layouts above stay available everywhere. Every builder keeps flat,
+// dry base clearings, reserves protected movement lanes, and finishes with
+// linkStarts(), which carves a causeway only if some base would otherwise be
+// cut off from the others by land.
+const worldLayouts={
+ Kareth:[
+  {id:'kareth-lochs',name:'Highland Lochs',hint:'long glacial lakes crossed by fords',maritime:false},
+  {id:'kareth-canyons',name:'Canyonlands',hint:'winding canyons below climbable mesas',maritime:false},
+  {id:'kareth-fjords',name:'Fjords',hint:'deep sea inlets between highland ridges',maritime:true}
+ ],
+ Elyndra:[
+  {id:'elyndra-wildwood',name:'Wildwood',hint:'dense overgrown forest with hidden trails',maritime:false},
+  {id:'elyndra-terraces',name:'Ley Terraces',hint:'stepped hills crowned by ley spires',maritime:false},
+  {id:'elyndra-lakes',name:'Starfall Lakes',hint:'crater lakes behind breached rims',maritime:false}
+ ],
+ Morvane:[
+  {id:'morvane-rifts',name:'Brimstone Rifts',hint:'molten chasms spanned by stone bridges',maritime:false},
+  {id:'morvane-craters',name:'Crater Field',hint:'walled impact craters with narrow breaches',maritime:false},
+  {id:'morvane-spires',name:'Spire Wastes',hint:'fields of stone spires and ash ridges',maritime:false}
+ ]
+};
+const worldLayoutIds=Object.values(worldLayouts).flat().map(l=>l.id);
+// Smooth, cheap pseudo-noise from a few phased sines: enough for rolling 0/1 ground.
+function rolling(rand){const p=Array.from({length:6},()=>rand()*Math.PI*2),s=[11+rand()*5,13+rand()*5,17+rand()*6];return(x,y)=>(Math.sin(x/s[0]+p[0])+Math.sin(y/s[1]+p[1])+Math.sin((x+y)/s[2]+p[2])+Math.sin((x-y)/(s[2]*1.3)+p[3]))/4;}
+// Calls paint(tile,distance,index) for every cell within radius of a polyline.
+function stroke(state,points,radius,paint){const {map,n}=state;for(let k=1;k<points.length;k++){const a=points[k-1],b=points[k],dx=b.x-a.x,dy=b.y-a.y,len=dx*dx+dy*dy;
+ for(let y=Math.max(0,Math.floor(Math.min(a.y,b.y)-radius));y<=Math.min(n-1,Math.ceil(Math.max(a.y,b.y)+radius));y++)for(let x=Math.max(0,Math.floor(Math.min(a.x,b.x)-radius));x<=Math.min(n-1,Math.ceil(Math.max(a.x,b.x)+radius));x++){
+  const t=clamp(((x+.5-a.x)*dx+(y+.5-a.y)*dy)/(len||1),0,1),d=Math.hypot(x+.5-a.x-t*dx,y+.5-a.y-t*dy);if(d<=radius)paint(map[y*n+x],d,y*n+x);}}}
+// A gently meandering polyline between two points.
+function meander(state,a,b,amplitude){const {n,rand}=state,dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy),count=Math.max(2,Math.ceil(length/6)),phase=rand()*Math.PI*2,out=[];for(let k=0;k<=count;k++){const t=k/count,wave=Math.sin(t*Math.PI)*(Math.sin(t*Math.PI*3+phase)*.65+Math.sin(t*Math.PI*5-phase)*.35)*amplitude;out.push({x:clamp(a.x+dx*t-dy/(length||1)*wave,1,n-1),y:clamp(a.y+dy*t+dx/(length||1)*wave,1,n-1)});}return out;}
+// A protected, level walking lane along a meandering line.
+function trail(state,points,radius,height=0){stroke(state,points,radius,(t,d,i)=>{t.water=false;t.height=height;if(d<1.65){t.road=true;state.protectedCells[i]=1;}});}
+const nearStart=(state,x,y,r)=>state.starts.some(s=>Math.hypot(s.x-x,s.y-y)<r);
+// Sites for round features away from bases and from each other.
+function scatter(state,count,radius,gap,keep=14,tries=40){const {n,rand}=state,out=[];for(let k=0;k<count;k++)for(let attempt=0;attempt<tries;attempt++){const r=radius(),x=r+4+rand()*(n-r*2-8),y=r+4+rand()*(n-r*2-8);if(x<r||y<r||nearStart(state,x,y,r+keep)||out.some(o=>Math.hypot(o.x-x,o.y-y)<(o.r+r)*gap))continue;out.push({x,y,r});break;}return out;}
+// Ring painter for craters: inner/outer radii with an angle-dependent wobble.
+function ring(state,c,paint){const {n,map}=state,phase=c.phase??0,extent=c.r*1.35+4;for(let y=Math.max(0,Math.floor(c.y-extent));y<=Math.min(n-1,Math.ceil(c.y+extent));y++)for(let x=Math.max(0,Math.floor(c.x-extent));x<=Math.min(n-1,Math.ceil(c.x+extent));x++){const a=Math.atan2(y+.5-c.y,x+.5-c.x),wobble=1+.07*Math.sin(a*3+phase)+.04*Math.sin(a*7-phase);paint(map[y*n+x],Math.hypot(x+.5-c.x,y+.5-c.y)/wobble,a,y*n+x);}}
+function linkStarts(state){
+ const {map,n,starts}=state;
+ for(let pass=0;pass<starts.length;pass++){
+  const reach=playable(state),lost=starts.find(s=>!reach[clamp(Math.floor(s.y),0,n-1)*n+clamp(Math.floor(s.x),0,n-1)]);if(!lost)return;
+  let best=null,bestD=Infinity;for(let i=0;i<map.length;i++){if(!reach[i]||map[i].height>0)continue;const d=Math.hypot(i%n+.5-lost.x,Math.floor(i/n)+.5-lost.y);if(d<bestD){bestD=d;best={x:i%n+.5,y:Math.floor(i/n)+.5};}}
+  if(!best)return;corridor(state,lost,best,5);
+ }
+}
+// Joins every large stranded land region (and any region holding a reserved lane) to the
+// bases' region, so no sizeable territory or bridge is unreachable on foot. Small knolls,
+// spires and islets stay as landmarks.
+function linkRegions(state){
+ const {map,n,protectedCells}=state,minimum=Math.max(120,Math.round(n*n*.003));
+ for(let pass=0;pass<24;pass++){
+  const reach=playable(state),label=new Int32Array(n*n).fill(-1),sizes=[],lanes=[];let count=0;
+  for(let i=0;i<map.length;i++){if(reach[i]||map[i].water||label[i]>=0)continue;const queue=[i];label[i]=count;let lane=0;for(let k=0;k<queue.length;k++){const at=queue[k],x=at%n,y=Math.floor(at/n);if(protectedCells[at])lane=1;for(const j of [x?at-1:-1,x<n-1?at+1:-1,y?at-n:-1,y<n-1?at+n:-1])if(j>=0&&label[j]<0&&!reach[j]&&!map[j].water&&Math.abs(map[j].height-map[at].height)<2){label[j]=count;queue.push(j);}}sizes.push(queue.length);lanes.push(lane);count++;}
+  const wanted=c=>sizes[c]>=minimum||lanes[c];if(!sizes.some((_,c)=>wanted(c)))return;
+  // Multi-source search from the reachable ground finds the nearest stranded cell and its anchor.
+  const from=new Int32Array(n*n).fill(-1),queue=new Int32Array(n*n);let tail=0,hit=-1;for(let i=0;i<map.length;i++)if(reach[i]){from[i]=i;queue[tail++]=i;}
+  for(let head=0;head<tail&&hit<0;head++){const at=queue[head],x=at%n,y=Math.floor(at/n);for(const j of [x?at-1:-1,x<n-1?at+1:-1,y?at-n:-1,y<n-1?at+n:-1]){if(j<0||from[j]>=0)continue;from[j]=from[at];if(label[j]>=0&&wanted(label[j])){hit=j;break;}queue[tail++]=j;}}
+  if(hit<0)return;const a=from[hit],ha=map[a].height,hb=map[hit].height,start={x:a%n+.5,y:Math.floor(a/n)+.5},end={x:hit%n+.5,y:Math.floor(hit/n)+.5},length=Math.hypot(end.x-start.x,end.y-start.y);
+  // Extend short links so the climb never exceeds one level per cell.
+  const run=Math.max(length,Math.abs(hb-ha)*1.6+2),ux=(end.x-start.x)/(length||1),uy=(end.y-start.y)/(length||1),far={x:clamp(start.x+ux*run,1,n-1),y:clamp(start.y+uy*run,1,n-1)};
+  corridor(state,{x:start.x-ux,y:start.y-uy},far,4.2,t=>ha+(hb-ha)*clamp(t*1.15,0,1));
+ }
+}
+// Lowers raised ground toward each base at one level per three tiles, so a base clearing opens onto
+// its surroundings instead of sitting in a walled pit.
+function easeBases(state){const {map,n,starts}=state;for(const s of starts){const reach=9+3*8;for(let y=Math.max(0,Math.floor(s.y-reach));y<=Math.min(n-1,Math.ceil(s.y+reach));y++)for(let x=Math.max(0,Math.floor(s.x-reach));x<=Math.min(n-1,Math.ceil(s.x+reach));x++){const t=map[y*n+x];if(t.water)continue;const cap=Math.max(0,Math.floor((Math.hypot(x+.5-s.x,y+.5-s.y)-9)/3));if(t.height>cap)t.height=cap;}}}
+// Fairness guard: no base's nearest neighbour may be more than 2.2 times its straight (grid)
+// distance away on foot. A worse pair gets a direct trail, cut as a canyon or causeway.
+function boundDetours(state,limit=2.2){
+ const {map,n,starts}=state;
+ for(const s of starts){
+  const others=starts.filter(t=>t!==s);if(!others.length)return;const t=others.reduce((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)<Math.hypot(b.x-s.x,b.y-s.y)?a:b);
+  const steps=new Int32Array(n*n).fill(-1),queue=new Int32Array(n*n),first=Math.floor(s.y)*n+Math.floor(s.x),goal=Math.floor(t.y)*n+Math.floor(t.x);let tail=1;queue[0]=first;steps[first]=0;
+  for(let head=0;head<tail&&steps[goal]<0;head++){const i=queue[head],x=i%n,y=Math.floor(i/n);for(const j of [x?i-1:-1,x<n-1?i+1:-1,y?i-n:-1,y<n-1?i+n:-1])if(j>=0&&steps[j]<0&&!map[j].water&&Math.abs(map[j].height-map[i].height)<2){steps[j]=steps[i]+1;queue[tail++]=j;}}
+  if(steps[goal]<0||steps[goal]>limit*(Math.abs(t.x-s.x)+Math.abs(t.y-s.y)))trail(state,meander(state,s,t,Math.min(6,n*.03)),2.4,0);
+ }
+}
+function finishWorld(state){baseClearings(state);linkStarts(state);baseClearings(state);ensurePlateauAccess(state);linkRegions(state);boundDetours(state);baseClearings(state);linkStarts(state);}
+
+function lochs(state){
+ const {map,n,rand,starts}=state,hill=rolling(rand);for(let y=0;y<n;y++)for(let x=0;x<n;x++){const t=map[y*n+x];t.water=false;t.road=false;t.height=hill(x,y)>.42?1:0;}
+ for(const c of scatter(state,Math.max(2,Math.round(n*n/9000)),()=>1.5+rand()*2.5,3,16))disc(state,c.x,c.y,c.r,3);
+ const angle=rand()*Math.PI,ax=Math.cos(angle),ay=Math.sin(angle),px=-ay,py=ax,count=clamp(Math.round(n/40),2,16),width=2.2+Math.min(2.4,n/300),crossings=[];
+ for(let k=0;k<count;k++){
+  const offset=(k+1)/(count+1)-.5+(rand()-.5)*.35/(count+1),length=n*(.55+rand()*.35),shift=(rand()-.5)*(n-length)*.8,c={x:n/2+px*offset*n*.9+ax*shift,y:n/2+py*offset*n*.9+ay*shift};
+  const a={x:c.x-ax*length/2,y:c.y-ay*length/2},b={x:c.x+ax*length/2,y:c.y+ay*length/2},line=meander(state,a,b,Math.min(14,n*.035));
+  stroke(state,line,width,(t,d,i)=>{if(nearStart(state,i%n+.5,Math.floor(i/n)+.5,13))return;t.water=true;t.road=false;t.height=0;});
+  // Fords: shallow causeways across the loch at staggered points.
+  const fords=1+Math.floor(length/70);for(let f=0;f<fords;f++){const p=line[Math.floor(line.length*(f+.5+(rand()-.5)*.4)/fords)],q=p||line[1];crossings.push([{x:q.x-px*(width+4),y:q.y-py*(width+4)},{x:q.x+px*(width+4),y:q.y+py*(width+4)}]);}
+ }
+ // Fords go in after every loch, so a later loch never floods an earlier crossing.
+ for(const [a,b] of crossings)corridor(state,a,b,4.2);
+ finishWorld(state);
+}
+function canyons(state){
+ const {map,n,rand}=state;for(const t of map){t.water=false;t.road=false;t.height=3;}
+ const grid=makeGrid(n,Math.max(3,Math.round(n/38)),2);for(const node of grid.nodes){node.x+=(rand()-.5)*grid.size*.35;node.y+=(rand()-.5)*grid.size*.35;}
+ const edges=connections(grid,rand,.45),floor=2.8+Math.min(1.8,n/250);
+ for(const [a,b] of edges){const line=meander(state,grid.nodes[a],grid.nodes[b],Math.min(9,grid.size*.22));
+  // Walkable benches (height 1) line the canyon floor; the mesa above stays a cliff.
+  if(rand()<.55)stroke(state,line,floor+2.6,t=>{if(t.height>1)t.height=1;});
+  stroke(state,line,floor,(t,d,i)=>{t.height=0;if(d<1.6){t.road=true;state.protectedCells[i]=1;}});}
+ for(const node of grid.nodes)disc(state,node.x,node.y,floor+1.5+rand()*2.5,0);
+ // Isolated buttes stay as unclimbable landmarks.
+ for(const c of scatter(state,Math.max(2,Math.round(n*n/7000)),()=>1.6+rand()*1.6,3,14))if(map[Math.floor(c.y)*n+Math.floor(c.x)].height===3)disc(state,c.x,c.y,c.r,6);
+  easeBases(state);
+ // Every base gets two canyon exits, so no start depends on one long winding route.
+ for(const start of state.starts){const near=[...grid.nodes].sort((a,b)=>Math.hypot(a.x-start.x,a.y-start.y)-Math.hypot(b.x-start.x,b.y-start.y)).slice(0,2);for(const node of near)trail(state,meander(state,start,node,3),floor,0);}
+ finishWorld(state);for(let pass=0;pass<2;pass++)ensurePlateauAccess(state);state.regions=grid.nodes;
+}
+function fjords(state){
+ const {map,n,rand}=state,side=Math.floor(rand()*4),hill=rolling(rand),phase=rand()*6.28;
+ const frame=(x,y)=>side===0?{u:x/n,v:y/n}:side===1?{u:1-x/n,v:y/n}:side===2?{u:y/n,v:x/n}:{u:1-y/n,v:x/n},point=(u,v)=>side===0?{x:u*n,y:v*n}:side===1?{x:(1-u)*n,y:v*n}:side===2?{x:v*n,y:u*n}:{x:v*n,y:(1-u)*n};
+ for(let y=0;y<n;y++)for(let x=0;x<n;x++){const {u,v}=frame(x+.5,y+.5),t=map[y*n+x];t.road=false;t.water=u<.13+Math.sin(v*9+phase)*.025&&!nearStart(state,x+.5,y+.5,15);t.height=t.water?0:clamp(Math.floor((u-.22)*4+hill(x,y)*.9),0,2);}
+ const count=clamp(Math.round(n/45),3,12),width=2.4+Math.min(2.6,n/260),bridges=[];
+ for(let k=0;k<count;k++){const v=(k+.5+(rand()-.5)*.5)/count,depth=.42+rand()*.3,mouth=point(.06,v),head=point(depth,clamp(v+(rand()-.5)*.08,.04,.96)),line=meander(state,mouth,head,Math.min(16,n*.04));
+  for(let j=1;j<line.length;j++){const taper=width*(1-.6*j/line.length);stroke(state,[line[j-1],line[j]],taper,(t,d,i)=>{if(nearStart(state,i%n+.5,Math.floor(i/n)+.5,13))return;t.water=true;t.height=0;t.road=false;});}
+  // A natural land bridge spans each long fjord partway in, keeping overland detours bounded.
+  if(depth>.3){const at=line[Math.floor(line.length*(.45+rand()*.2))],next=line[Math.min(line.length-1,line.indexOf(at)+1)],dx=next.x-at.x,dy=next.y-at.y,l=Math.hypot(dx,dy)||1,reach=width+4;bridges.push([{x:at.x-dy/l*reach,y:at.y+dx/l*reach},{x:at.x+dy/l*reach,y:at.y-dx/l*reach}]);}}
+ for(const [a,b] of bridges)corridor(state,a,b,4.6,()=>0);
+ for(const c of scatter(state,Math.max(2,Math.round(n*n/8000)),()=>1.5+rand()*2,3,16)){const t=map[Math.floor(c.y)*n+Math.floor(c.x)];if(!t.water)disc(state,c.x,c.y,c.r,4);}
+ easeBases(state);state.maritime=true;finishWorld(state);startingHarbors(state);state.playableCells=null;
+}
+function wildwood(state){
+ const {map,n,rand}=state,hill=rolling(rand),clear=new Uint8Array(n*n);for(let y=0;y<n;y++)for(let x=0;x<n;x++){const t=map[y*n+x];t.water=false;t.road=false;t.height=hill(x,y)>.5?1:0;}
+ for(const c of scatter(state,Math.max(1,Math.round(n*n/12000)),()=>2+rand()*2.5,3,16))disc(state,c.x,c.y,c.r,0),stroke(state,[c,c],c.r,t=>{t.water=true;});
+ const grid=makeGrid(n,Math.max(4,Math.round(n/26)),2);for(const node of grid.nodes){node.x+=(rand()-.5)*grid.size*.4;node.y+=(rand()-.5)*grid.size*.4;}
+ for(const [a,b] of connections(grid,rand,.22)){const line=meander(state,grid.nodes[a],grid.nodes[b],Math.min(8,grid.size*.25));trail(state,line,2.3,0);stroke(state,line,3.2,(t,d,i)=>{clear[i]=1;});}
+ for(const node of grid.nodes){const r=2.5+rand()*3.5;disc(state,node.x,node.y,r,0);stroke(state,[node,node],r+1,(t,d,i)=>{clear[i]=1;});}
+ attachBases(state,grid);finishWorld(state);
+ // Forest everywhere off the trails, glades and bases; Game plants it after ordinary scenery.
+ state.forestCells=new Uint8Array(n*n);for(let i=0;i<map.length;i++)if(!clear[i]&&!map[i].water&&!state.protectedCells[i]&&!nearStart(state,i%n+.5,Math.floor(i/n)+.5,12))state.forestCells[i]=1;
+ state.regions=grid.nodes;
+}
+function terraces(state){
+ const {map,n,rand}=state;for(const t of map){t.water=false;t.road=false;t.height=0;}
+ const mounds=scatter(state,clamp(Math.round(n*n/4500),3,40),()=>Math.min(26,9+rand()*Math.max(4,n*.06)),1.2,8,60);
+ for(const m of mounds){const tiers=m.r>17?3:2;m.phase=rand()*6.28;
+  for(let k=1;k<=tiers;k++){const r=m.r*(1-(k-1)/(tiers+.4));ring(state,{...m,r},(t,d)=>{if(d<r)t.height=Math.max(t.height,k*2);});}
+  // Radial stairs: each tier is climbed by two ramps from the tier below.
+  for(let k=1;k<=tiers;k++){const r=m.r*(1-(k-1)/(tiers+.4));for(let s=0;s<2;s++){const a=rand()*Math.PI*2+s*Math.PI,outer={x:m.x+Math.cos(a)*(r+3.5),y:m.y+Math.sin(a)*(r+3.5)},inner={x:m.x+Math.cos(a)*(r-3.5),y:m.y+Math.sin(a)*(r-3.5)},from=(k-1)*2;corridor(state,outer,inner,4,t=>from+2*t);state.ramps.push({x:m.x+Math.cos(a)*r,y:m.y+Math.sin(a)*r,fromHeight:from,toHeight:from+2,width:4});}}
+  disc(state,m.x,m.y,1.6,tiers*2+4);for(let y=Math.floor(m.y-3);y<=Math.ceil(m.y+3);y++)for(let x=Math.floor(m.x-3);x<=Math.ceil(m.x+3);x++)if(x>=0&&y>=0&&x<n&&y<n&&Math.hypot(x+.5-m.x,y+.5-m.y)<2.6)state.protectedCells[y*n+x]=0;
+ }
+ for(const c of scatter(state,Math.max(1,Math.round(n*n/14000)),()=>2+rand()*1.5,3,14))if(map[Math.floor(c.y)*n+Math.floor(c.x)].height===0)ring(state,{...c,phase:0},(t,d,a,i)=>{if(d<c.r&&t.height===0&&!state.protectedCells[i])t.water=true;});
+ finishWorld(state);for(let pass=0;pass<2;pass++)ensurePlateauAccess(state);state.regions=mounds;
+}
+function craterLakes(state){
+ const {map,n,rand}=state,hill=rolling(rand);for(let y=0;y<n;y++)for(let x=0;x<n;x++){const t=map[y*n+x];t.water=false;t.road=false;t.height=hill(x,y)>.55?1:0;}
+ const craters=scatter(state,clamp(Math.round(n*n/2200),4,140),()=>Math.min(22,5+rand()*Math.max(4,n*.05)),1.12,13,60);
+ for(const c of craters){c.phase=rand()*6.28;const breaches=Array.from({length:1+Math.floor(rand()*2)},()=>rand()*Math.PI*2),lake=c.r-1.6;
+  ring(state,c,(t,d,a)=>{if(d>=c.r+2.2)return;t.road=false;if(d<lake){t.water=true;t.height=0;return;}t.water=false;if(d<c.r){t.height=1;return;}t.height=breaches.some(b=>Math.abs(Math.atan2(Math.sin(a-b),Math.cos(a-b)))<.32+1.5/c.r)?1:2;});
+  if(c.r>12)disc(state,c.x,c.y,c.r*.22,1);
+ }
+ finishWorld(state);state.regions=craters;
+}
+function rifts(state){
+ const {map,n,rand}=state,hill=rolling(rand);for(let y=0;y<n;y++)for(let x=0;x<n;x++){const t=map[y*n+x];t.water=false;t.road=false;t.height=hill(x,y)>.5?1:0;}
+ const count=clamp(Math.round(n/90)+1,2,8),width=1.8+Math.min(1.8,n/350),spans=[];
+ for(let k=0;k<count;k++){
+  // Jagged edge-to-edge chasm: straight zig-zag legs, not a smooth river.
+  const vertical=(k+Math.floor(rand()*2))%2===0,at=(k+.5+(rand()-.5)*.6)/count,steps=Math.max(4,Math.round(n/28)),line=[];
+  for(let s=0;s<=steps;s++){const along=s/steps*n,across=at*n+(s&&s<steps?(rand()-.5)*n*.12:0);line.push(vertical?{x:clamp(across,2,n-2),y:along}:{x:along,y:clamp(across,2,n-2)});}
+  stroke(state,line,width,(t,d,i)=>{if(nearStart(state,i%n+.5,Math.floor(i/n)+.5,13))return;t.water=true;t.height=0;t.road=false;});
+  // Stone bridges at the middle of chosen legs, perpendicular to the leg.
+  const bridges=2+Math.floor(n/150);for(let b=0;b<bridges;b++){const s=clamp(Math.floor((b+.5)/bridges*steps),0,steps-1),a=line[s],c=line[s+1],mid={x:(a.x+c.x)/2,y:(a.y+c.y)/2},dx=c.x-a.x,dy=c.y-a.y,l=Math.hypot(dx,dy)||1,reach=width+3.5;spans.push([{x:mid.x-dy/l*reach,y:mid.y+dx/l*reach},{x:mid.x+dy/l*reach,y:mid.y-dx/l*reach}]);}
+ }
+ // Bridges are laid after every chasm is cut, so crossing rifts cannot sever them.
+ for(const [a,b] of spans)corridor(state,a,b,4.4);
+ for(const c of scatter(state,Math.max(2,Math.round(n*n/7000)),()=>1.3+rand()*1.7,3,14))if(!map[Math.floor(c.y)*n+Math.floor(c.x)].water)disc(state,c.x,c.y,c.r,3);
+ finishWorld(state);
+}
+function craterField(state){
+ const {map,n,rand}=state;for(const t of map){t.water=false;t.road=false;t.height=0;}
+ const craters=scatter(state,clamp(Math.round(n*n/2000),4,160),()=>Math.min(20,5+rand()*Math.max(4,n*.045)),.95,13,60);
+ for(const c of craters){c.phase=rand()*6.28;const breaches=Array.from({length:1+Math.floor(rand()*2.5)},()=>rand()*Math.PI*2);
+  ring(state,c,(t,d,a)=>{if(d>=c.r+2.4)return;t.road=false;t.water=false;if(d<c.r){t.height=Math.max(t.height===3?1:t.height,1);return;}t.height=breaches.some(b=>Math.abs(Math.atan2(Math.sin(a-b),Math.cos(a-b)))<.3+1.6/c.r)?1:3;});
+  if(rand()<.4)disc(state,c.x,c.y,Math.max(1.2,c.r*.18),4);
+ }
+ // Re-open breaches cut by later, overlapping rims so every crater floor keeps an entrance.
+ for(const c of craters){const a=rand()*Math.PI*2,outer={x:c.x+Math.cos(a)*(c.r+3.5),y:c.y+Math.sin(a)*(c.r+3.5)},inner={x:c.x+Math.cos(a)*(c.r-2),y:c.y+Math.sin(a)*(c.r-2)};stroke(state,[outer,inner],1.8,t=>{if(t.height===3)t.height=1;});}
+ finishWorld(state);state.regions=craters;
+}
+function spires(state){
+ const {map,n,rand,starts}=state;for(const t of map){t.water=false;t.road=false;t.height=0;}
+ const clusters=scatter(state,clamp(Math.round(n*n/3500),3,100),()=>6+rand()*Math.min(14,n*.06),1,6,60);
+ for(const c of clusters){const count=Math.round(c.r*c.r/5);for(let k=0;k<count;k++){const a=rand()*Math.PI*2,d=Math.sqrt(rand())*c.r,x=c.x+Math.cos(a)*d,y=c.y+Math.sin(a)*d;if(!nearStart(state,x,y,13))disc(state,x,y,.9+rand()*1.3,6);}}
+ // Broken ash ridges: short jagged walls with gaps between their segments.
+ for(let k=0;k<Math.max(3,Math.round(n*n/4000));k++){let p={x:8+rand()*(n-16),y:8+rand()*(n-16)},a=rand()*Math.PI*2;for(let s=0;s<6;s++){a+=(rand()-.5)*1.2;const q={x:clamp(p.x+Math.cos(a)*7,2,n-2),y:clamp(p.y+Math.sin(a)*7,2,n-2)};if(s%3!==2)stroke(state,[p,q],1.3,(t,d,i)=>{if(!nearStart(state,i%n+.5,Math.floor(i/n)+.5,13)&&t.height<3)t.height=3;});p=q;}}
+ for(let i=1;i<starts.length;i++)trail(state,meander(state,starts[i-1],starts[i],Math.min(16,n*.06)),2.5,0);
+ finishWorld(state);
+}
+const worldBuilders={'kareth-lochs':lochs,'kareth-canyons':canyons,'kareth-fjords':fjords,'elyndra-wildwood':wildwood,'elyndra-terraces':terraces,'elyndra-lakes':craterLakes,'morvane-rifts':rifts,'morvane-craters':craterField,'morvane-spires':spires};
 function apply({map,n,starts,rng,seed=1,layout='plains'}){
  if(!Array.isArray(map)||map.length!==n*n)throw new Error('Map layouts require a complete square tile array.');
  const selected=canonical(layout),state={map,n,starts,rand:rng&&typeof rng.next==='function'?()=>rng.next():random(seed),protectedCells:new Uint8Array(n*n),regions:[],ramps:[]};
- if(selected==='rivers')rivers(state);else if(selected==='narrows')narrows(state);else if(['mediterranean','continental','coastal','small-islands','large-islands'].includes(selected))maritime(state,selected);else if(selected==='mountain-passes')mountains(state);else if(selected==='steppes')steppes(state);else if(selected==='labyrinth')labyrinth(state);else plains(state);
+ if(worldBuilders[selected])worldBuilders[selected](state);else if(selected==='rivers')rivers(state);else if(selected==='narrows')narrows(state);else if(['mediterranean','continental','coastal','small-islands','large-islands'].includes(selected))maritime(state,selected);else if(selected==='mountain-passes')mountains(state);else if(selected==='steppes')steppes(state);else if(selected==='labyrinth')labyrinth(state);else plains(state);
  if(selected==='steppes')smoothProtectedRamps(state);
  if(selected==='plains'||selected==='steppes')ensurePlateauAccess(state);
  // Fixed opening deposits occupy the base interior; only the approaches outside it require obstruction protection.
  for(const start of starts)for(let y=Math.max(0,Math.floor(start.y-8));y<=Math.min(n-1,Math.ceil(start.y+8));y++)for(let x=Math.max(0,Math.floor(start.x-8));x<=Math.min(n-1,Math.ceil(start.x+8));x++)if(Math.hypot(x+.5-start.x,y+.5-start.y)<8)state.protectedCells[y*n+x]=0;
- return{layout:selected,protectedCells:state.protectedCells,playableCells:state.playableCells||playable(state),ramps:state.ramps,regions:state.regions};
+ return{layout:selected,protectedCells:state.protectedCells,playableCells:state.playableCells||playable(state),ramps:state.ramps,regions:state.regions,forestCells:state.forestCells||null};
 }
-root.FractureMapLayouts={apply};if(typeof module!=='undefined')module.exports=root.FractureMapLayouts;
+// Map types offered for a world, and whether a layout is meant for naval play.
+const forWorld=theme=>worldLayouts[theme]||worldLayouts.Kareth,isMaritime=layout=>{const id=canonical(layout);return['rivers','narrows','continental','small-islands','large-islands','mediterranean','coastal'].includes(id)||!!Object.values(worldLayouts).flat().find(l=>l.id===id)?.maritime;};
+root.FractureMapLayouts={apply,worlds:worldLayouts,forWorld,isMaritime,canonical};if(typeof module!=='undefined')module.exports=root.FractureMapLayouts;
 })(globalThis);
 
 

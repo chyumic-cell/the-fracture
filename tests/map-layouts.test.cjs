@@ -34,4 +34,41 @@ test('Labyrinth corridors contain physical dead ends and force a winding ground 
  const w=world('labyrinth'),reachable=flood(w),ratio=reachable.area/w.map.length;assert(ratio>.25&&ratio<.6);const end=w.starts[1],route=reachable.steps[end.y*w.n+end.x],direct=Math.abs(end.x-w.starts[0].x)+Math.abs(end.y-w.starts[0].y);assert(route>direct*1.3,'The maze route should not collapse to a direct cross-map road');
  const spacing=w.info.regions[1].x-w.info.regions[0].x;let deadEnds=0;for(const node of w.info.regions){if(w.starts.some(s=>Math.hypot(s.x-node.x,s.y-node.y)<18))continue;let exits=0;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const x=Math.floor(node.x+dx*spacing/2),y=Math.floor(node.y+dy*spacing/2);if(x>=0&&y>=0&&x<w.n&&y<w.n&&w.map[y*w.n+x].height===0)exits++;}if(exits===1)deadEnds++;}assert(deadEnds>=5,'The terrain must contain genuine one-exit chambers');
 });
+// World map types: three or more per world, each connected, fair and recognisably themed.
+const {worlds,forWorld,isMaritime}=require('../src/map-layouts.js'),worldIds=Object.values(worlds).flat().map(l=>l.id);
+function within(w,start,limit){const r=flood(w,start);let area=0;for(let i=0;i<r.steps.length;i++)if(r.steps[i]>=0&&r.steps[i]<=limit)area++;return area;}
+function adjacentCliff(w,high,low){let count=0;for(let y=0;y<w.n-1;y++)for(let x=0;x<w.n-1;x++){const i=y*w.n+x;for(const j of [i+1,i+w.n]){const a=w.map[i],b=w.map[j];if(a.water||b.water)continue;if(a.height>=high&&b.height<=low||b.height>=high&&a.height<=low)count++;}}return count;}
+test('Every world offers at least three distinct, deterministic map types of its own',()=>{
+ for(const theme of ['Kareth','Elyndra','Morvane']){const list=forWorld(theme);assert(list.length>=3,theme);assert(list.every(l=>l.id.startsWith(theme.toLowerCase()+'-')&&l.name&&l.hint),theme);}
+ assert.equal(new Set(worldIds).size,worldIds.length);assert.deepEqual(forWorld('Unknown'),worlds.Kareth);
+ const hashes=new Set();for(const id of worldIds){const a=world(id,96),b=world(id,96),c=world(id,96,2,87);assert.equal(a.info.layout,id);assert.equal(signature(a),signature(b),id+' is not seed-deterministic');assert.notEqual(signature(a),signature(c),id+' ignores the seed');assert.deepEqual(a.info.protectedCells,b.info.protectedCells);assert(a.map.every(t=>Object.keys(t).sort().join(',')==='height,road,texture,water'),id+' added unsaved tile fields');hashes.add(signature(a));}
+ assert.equal(hashes.size,worldIds.length,'World map types must differ geometrically');
+});
+test('World map types connect every base and every reserved lane at every size',()=>{
+ let samples=0;const cases=[];for(const n of [96,144,192])for(const players of [2,3,4])for(const seed of [7,42,113])cases.push([n,players,seed]);cases.push([500,2,42],[500,4,91],[700,4,42]);
+ for(const id of worldIds)for(const [n,players,seed] of cases){const w=world(id,n,players,seed),result=flood(w);assertStarts(w,result);for(let i=0;i<w.map.length;i++)if(w.info.protectedCells[i])assert(result.steps[i]>=0,'Unreachable reserved lane: '+JSON.stringify({id,n,players,seed,i}));samples++;}
+ console.log('  '+samples+' world-type connectivity/base-clearance cases, including 500 and 700');
+});
+test('World map types give every base comparable open ground and bounded overland detours',()=>{
+ for(const id of worldIds)for(const n of [96,144,192])for(const players of [2,4])for(const seed of [7,42,113]){
+  const w=world(id,n,players,seed),areas=w.starts.map(s=>within(w,s,18)),tag=JSON.stringify({id,n,players,seed});
+  assert(Math.min(...areas)/Math.max(...areas)>=.75,'Unequal open ground near bases '+tag+' '+areas);
+  for(const s of w.starts){const near=w.starts.filter(t=>t!==s).reduce((a,b)=>Math.hypot(a.x-s.x,a.y-s.y)<Math.hypot(b.x-s.x,b.y-s.y)?a:b),steps=flood(w,s).steps[near.y*n+near.x];assert(steps>0&&steps<=2.3*(Math.abs(near.x-s.x)+Math.abs(near.y-s.y)),'Nearest rival too far on foot '+tag);}
+ }
+});
+test('Opening deposits remain clear of world-type lane reservations',()=>{
+ for(const id of worldIds){const w=world(id,96,4);for(const s of w.starts)for(const [dx,dy] of [[4,-4],[6,-3],[-6,-2],[1,7],[-5,6]])assert.equal(w.info.protectedCells[(s.y+dy)*w.n+s.x+dx],0,id);}
+});
+test('World map types keep their themed terrain',()=>{
+ const sample=id=>world(id,144,4,42),water=w=>w.map.filter(t=>t.water).length/w.map.length;
+ {const w=sample('kareth-lochs');assert(water(w)>.03&&water(w)<.25);assert(!isMaritime('kareth-lochs'));let fords=0;for(let y=4;y<w.n-4;y++)for(let x=4;x<w.n-4;x++){const i=y*w.n+x,wet=(dx,dy)=>w.map[(y+dy)*w.n+x+dx].water;if(w.info.protectedCells[i]&&!w.map[i].water&&(wet(-3,0)&&wet(3,0)||wet(0,-3)&&wet(0,3)||wet(-2,-2)&&wet(2,2)||wet(-2,2)&&wet(2,-2)))fords++;}assert(fords>4,'Fords should cross the lochs');}
+ {const w=sample('kareth-canyons'),mesa=w.map.filter(t=>t.height===3).length/w.map.length;assert(mesa>.25,'Canyonlands should be mostly mesa');assert(adjacentCliff(w,3,1)>w.n*3,'Mesas need cliff walls');const r=flood(w);let tops=0,climbed=0;for(let i=0;i<w.map.length;i++)if(w.map[i].height===3){tops++;if(r.steps[i]>=0)climbed++;}assert(climbed/tops>.5,'Mesa tops must be climbable');}
+ {const w=sample('kareth-fjords');assert(isMaritime('kareth-fjords'));assert(water(w)>.08&&water(w)<.4);const edges=[[0,1],[w.n-1,1]].map(([c])=>[...Array(w.n).keys()].filter(k=>w.map[k*w.n+c].water).length).concat([0,w.n-1].map(r=>[...Array(w.n).keys()].filter(k=>w.map[r*w.n+k].water).length));assert(Math.max(...edges)>w.n*.6,'Fjords open onto a sea along one edge');}
+ {const w=sample('elyndra-wildwood'),forest=w.info.forestCells;assert(forest,'Wildwood must mark forest');const land=w.map.filter(t=>!t.water).length,wooded=forest.reduce((a,b)=>a+b,0);assert(wooded/land>.4,'Wildwood should be mostly forest');for(let i=0;i<forest.length;i++)if(forest[i]){assert(!w.info.protectedCells[i],'Forest on a trail');assert(!w.starts.some(s=>Math.hypot(i%w.n+.5-s.x,Math.floor(i/w.n)+.5-s.y)<12),'Forest inside a base');}}
+ {const w=sample('elyndra-terraces'),heights=new Set(w.map.map(t=>t.height));assert(heights.has(2)&&heights.has(4),'Terraces need stepped tiers');assert(w.info.ramps.length>=4);}
+ {const w=sample('elyndra-lakes');assert(water(w)>.04);assert(adjacentCliff(w,2,0)>w.n,'Crater lakes need raised rims');}
+ {const w=sample('morvane-rifts');assert(water(w)>.03);const blocked=Uint8Array.from(w.info.protectedCells);assert(flood(w,w.starts[0],blocked).area<flood(w).area*.85,'Rifts should be crossed only at bridges');}
+ {const w=sample('morvane-craters'),r=flood(w);let floors=0,reached=0;for(let i=0;i<w.map.length;i++)if(w.map[i].height===1){floors++;if(r.steps[i]>=0)reached++;}assert(adjacentCliff(w,3,1)>w.n*2,'Craters need walls');assert(reached/floors>.8,'Crater floors need breaches');}
+ {const w=sample('morvane-spires'),spires=w.map.filter(t=>t.height>=6).length;assert(spires>w.n,'Spire Wastes need stone spires');assert(flood(w).area<w.map.length*.99);}
+});
 console.log('TOTAL '+count+' map-layout topology checks passed');

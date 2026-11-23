@@ -69,7 +69,7 @@ function step(g,p,ctx){
   u.aiLogistics=true;if(!u.order||u.stuck>3){const A=root.FractureAI||(typeof require!=='undefined'?require('./ai.js'):null),q=A.explorationGoal(g,p,u,ctx);if(q)g.order([u.id],{kind:'attackMove',x:q.x,y:q.y});}
  }
  if(g.time<s.next)return;s.next=g.time+5;
- const maritime=['rivers','narrows','continental','small-islands','large-islands','mediterranean','coastal'].includes(g.options.layout),probe=workers[0]||ctx.military.find(u=>!g.def(u).air);
+ const layouts=root.FractureMapLayouts||(typeof require!=='undefined'?require('./map-layouts.js'):null),maritime=layouts?.isMaritime?layouts.isMaritime(g.options.layout):['rivers','narrows','continental','small-islands','large-islands','mediterranean','coastal'].includes(g.options.layout),probe=workers[0]||ctx.military.find(u=>!g.def(u).air);
  let target=null;for(const t of [...ctx.targets].sort((a,b)=>(['hq','inf','armor','air','elite'].includes(g.def(b)?.kind)?1:0)-(['hq','inf','armor','air','elite'].includes(g.def(a)?.kind)?1:0)).slice(0,5)){if(!probe)break;const q=g.approach(probe,t,2),path=g.path(probe,q);if(dist(path.at(-1)||probe,q)>4){target=t;break;}}
  if(!target&&maritime)target=ctx.knownEnemies.find(e=>e.kind==='unit'&&!D.units[e.type]?.air&&!D.units[e.type]?.naval&&dist(e,p.home)>20);
  // A fleet cannot see a headquarters deep inside an island. Land a paid scouting

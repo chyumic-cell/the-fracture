@@ -65,6 +65,19 @@ test('Legacy small saves without optional knowledge fields still load',()=>{
  const old=game(48),saved={version:1,options:old.options,time:old.time,nextId:old.nextId,entities:old.entities,players:old.players.map(({knownNav,knownTiles,knowledge,...p})=>({...p,visible:Array.from(p.visible),explored:Array.from(p.explored)})),map:old.map,starts:old.starts,rng:old.rng.s,winner:old.winner};
  const g=Game.restore(JSON.stringify(saved));assert.equal(g.n,48);assert.equal(g.players[0].knownNav.length,48*48);assert.equal(g.players[0].knownTiles.length,48*48);assert.deepEqual(g.controlGroups,{});
 });
+test('World map types play fairly in real matches: walked base routes, opening deposits, bounded scenery',()=>{
+ const {worlds}=require('../src/map-layouts.js');
+ for(const [theme,list] of Object.entries(worlds))for(const {id} of list)for(const [size,seed,players] of [[100,42,2],[100,48122,2],[200,213301,4]]){
+  const g=new Game({size,seed,theme,layout:id,factions:['humans','machines','symbiotes','reptilians'].slice(0,players),teams:Array.from({length:players},(_,i)=>i)}),tag=id+' '+size+'/'+seed;
+  assert.equal(g.options.layout,id);chart(g);
+  for(let owner=0;owner<players;owner++)baseRoute(g,owner,(owner+1)%players);
+  for(const h of g.starts){const near=g.entities.filter(e=>e.kind==='resource'&&dist(e,h)<16);assert.deepEqual([...new Set(near.map(e=>e.resource))].sort(),[0,1,2,3],'Opening deposits missing near a base: '+tag);for(const e of near)assert(!g.tile(e.x,e.y).water,tag);}
+  const trees=g.entities.filter(e=>e.kind==='tree').length;assert(trees<size*size*.12,'Scenery count must stay bounded: '+tag);
+  if(id==='elyndra-wildwood'){const open=new Game({size,seed,theme,layout:'natural',factions:g.options.factions,teams:g.options.teams});assert(trees>open.entities.filter(e=>e.kind==='tree').length*1.5,'Wildwood should be far denser than open country');}
+  assert(g.entities.filter(e=>e.kind==='resource').length>=players*5+8,'Expansion deposits missing: '+tag);
+ }
+ const g=new Game({size:100,seed:42,theme:'Morvane',environment:'hell',layout:'morvane-rifts',factions:['humans','insects']}),restored=Game.restore(g.serialize());assert.equal(digest(restored),digest(g));assert.equal(restored.options.layout,'morvane-rifts');
+});
 console.log('RESOURCE COUNTS '+JSON.stringify(counts));
 console.log('GENERATION METRICS '+JSON.stringify(generation));
 console.log('SAVE METRICS '+JSON.stringify(saves));

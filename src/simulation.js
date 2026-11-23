@@ -20,7 +20,7 @@ class Game{
  // Meandering land passages ensure every starting base is connected.
  for(let k=1;k<this.starts.length;k++){const a=this.starts[k-1],b=this.starts[k],bend=this.rng.between(-5,5),steps=Math.ceil(dist(a,b)*3);for(let j=0;j<=steps;j++){const t=j/steps,x=a.x+(b.x-a.x)*t+Math.sin(t*Math.PI)*bend,y=a.y+(b.y-a.y)*t-Math.sin(t*Math.PI)*bend;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){const tile=this.tile(x+dx,y+dy);if(tile&&Math.hypot(dx,dy)<2.3){tile.water=false;if(Math.hypot(dx,dy)<1.5)tile.height=0;}}}}
  {
- const layouts=root.FractureMapLayouts||(typeof require!=='undefined'?require('./map-layouts.js'):null),result=layouts.apply({map:this.map,n:this.n,starts:this.starts,rng:this.rng,seed:this.options.seed,layout:this.options.layout});this.routeMask=result.protectedCells;this.playableCells=result.playableCells;
+ const layouts=root.FractureMapLayouts||(typeof require!=='undefined'?require('./map-layouts.js'):null),result=layouts.apply({map:this.map,n:this.n,starts:this.starts,rng:this.rng,seed:this.options.seed,layout:this.options.layout});this.routeMask=result.protectedCells;this.playableCells=result.playableCells;this.forestCells=result.forestCells;
  }
  this.generateResources();
  this.players.forEach((p,i)=>{p.home={...this.starts[i]};const f=D.factions[p.faction];this.spawnBuilding(f.buildings[0].id,i,p.home.x,p.home.y,true);for(let j=0;j<5;j++)this.spawnUnit(f.units[0].id,i,p.home.x-2+j*.8,p.home.y+3);});
@@ -115,7 +115,11 @@ class Game{
  }
 
  for(let i=0;i<this.n*this.n*.035;i++){const p={x:this.rng.between(1,this.n-1),y:this.rng.between(1,this.n-1)};if(available(p.x,p.y,.4)&&this.starts.every(h=>dist(h,p)>7)&&spaced(p.x,p.y,1.7))remember(this.add({...p,kind:'tree',hp:1,size:.4,variant:Math.floor(this.rng.next()*4)}));}
- delete this.routeMask;delete this.playableCells;
+ // Forest map types mark dense woods off their trails. Planted after the ordinary scatter, so every
+ // other layout draws exactly the same random sequence; capped to keep entity counts bounded.
+ if(this.forestCells){const n=this.n,candidates=[];for(let y=1;y<n-1;y+=2)for(let x=1;x<n-1;x+=2)if(this.forestCells[y*n+x])candidates.push(y*n+x);const chance=Math.min(1,n*n*.07/Math.max(1,candidates.length));
+  for(const i of candidates){if(this.rng.next()>=chance)continue;const p={x:i%n+this.rng.next()*2,y:Math.floor(i/n)+this.rng.next()*2};if(available(p.x,p.y,.4)&&this.starts.every(h=>dist(h,p)>9)&&spaced(p.x,p.y,1.7))remember(this.add({...p,kind:'tree',hp:1,size:.4,variant:Math.floor(this.rng.next()*4)}));}}
+ delete this.routeMask;delete this.playableCells;delete this.forestCells;
  }
  spawnUnit(type,owner,x,y){const d=D.units[type];return this.add({kind:'unit',type,owner,x,y,hp:d.hp,maxHp:d.hp,face:2,order:null,path:[],carry:0,carryType:0,cooldown:0,action:'idle',phase:0,stuck:0,flight:d.air?63:null});}
  spawnBuilding(type,owner,x,y,complete=false){const d=D.buildings[type];const b=this.add({kind:'building',type,owner,x,y,hp:complete?d.hp:d.hp*.15,maxHp:d.hp,progress:complete?1:0,queue:[],rally:{x:x+3,y:y+3},extension:null,size:d.size,attackTimer:0});this.navVersion++;return b;}
@@ -215,7 +219,7 @@ class Game{
  known(owner,e){if(e.kind==='building'&&this.def(e)?.concealedTrap&&this.hostile(owner,e.owner))return false;return !!this.players[owner]?.explored[Math.floor(e.y)*this.n+Math.floor(e.x)];}
  hostile(a,b){return a!==undefined&&b!==undefined&&this.players[a].team!==this.players[b].team;}
  updateVision(){for(const p of this.players){const signature=this.players.filter(a=>a.id!==p.id&&a.team===p.team).map(a=>a.id).join(',');if(p.sharedRouteTeam!==signature){for(const a of this.players)if(a.id!==p.id&&a.team===p.team)for(let i=0;i<this.n*this.n;i++)if(a.explored[i]&&!p.explored[i]){p.explored[i]=1;p.knownNav[i]=a.knownNav[i];p.knownTiles[i]=a.knownTiles[i];p.navigationRevision=(p.navigationRevision||0)+1;}p.sharedRouteTeam=signature;}}this.visionRevision=(this.visionRevision||0)+1;for(const p of this.players){p.visible.fill(0);p.visibleCells=[];}for(const e of this.entities){if(e.hp<=0||e.embarkedBy||e.insideMine||e.owner===undefined||e.owner===this.campaign?.neutralOwner||e.kind==='building'&&e.progress<1)continue;const d=this.def(e),r=e.scanUntil>this.time?13:(d.vision??(d.kind==='hq'?10:d.kind==='defense'?11:6)),p=this.players[e.owner],cx=Math.floor(e.x),cy=Math.floor(e.y);if(r<=0)continue;for(let y=Math.max(0,cy-r);y<=Math.min(this.n-1,cy+r);y++)for(let x=Math.max(0,cx-r);x<=Math.min(this.n-1,cx+r);x++){if(Math.hypot(x-cx,y-cy)>r)continue;if(!d.air&&this.height(x,y)>this.height(e.x,e.y)+2&&Math.hypot(x-cx,y-cy)>3)continue;const i=y*this.n+x;if(!p.visible[i]){p.visible[i]=1;p.visibleCells.push(i);}}}
- for(const p of this.players){for(const ally of this.players)if(ally.id!==p.id&&ally.team===p.team)for(const i of ally.visibleCells)if(!p.visible[i]){p.visible[i]=1;p.visibleCells.push(i);}for(const i of p.visibleCells){p.explored[i]=1;if(p.visible[i]){const terrainCode=(this.map[i].water?128:0)|this.map[i].height;if(p.knownNav[i]!==this.nav[i]||p.knownTiles[i]!==terrainCode){p.navigationRevision=(p.navigationRevision||0)+1;}p.knownNav[i]=this.nav[i];p.knownTiles[i]=terrainCode;}}
+ for(const p of this.players){for(const ally of this.players)if(ally.id!==p.id&&ally.team===p.team)for(const i of ally.visibleCells)if(!p.visible[i]){p.visible[i]=1;p.visibleCells.push(i);}for(const i of p.visibleCells){p.explored[i]=1;if(p.visible[i]){const terrainCode=(this.map[i].water?128:0)|this.map[i].height;if(p.knownNav[i]!==this.nav[i]||p.knownTiles[i]!==terrainCode){p.navigationRevision=(p.navigationRevision||0)+1;if(p.knownNav[i]&&!this.nav[i]||p.knownTiles[i]&&p.knownTiles[i]!==terrainCode){this.knownGain??={};this.knownGain[p.id]=(this.knownGain[p.id]||0)+1;}}p.knownNav[i]=this.nav[i];p.knownTiles[i]=terrainCode;}}
  // Re-snapshot remembered objects only when something a player could notice has actually changed.
  // This ran over every tree, resource and building for every player several times a second, and the
  // literal kind array plus the spread clone made it the largest periodic allocation in the tick.
@@ -233,18 +237,24 @@ class Game{
  rebuildNav(){this.nav=new Uint8Array(this.n*this.n);for(const e of this.entities){if(e.hp<=0||e.pendingSite||this.def(e)?.kind==='trap'||!['building','resource','tree'].includes(e.kind)||e.kind==='resource'&&e.amount<=0)continue;const r=e.size||1;for(let y=Math.max(0,Math.floor(e.y-r));y<=Math.min(this.n-1,Math.floor(e.y+r));y++)for(let x=Math.max(0,Math.floor(e.x-r));x<=Math.min(this.n-1,Math.floor(e.x+r));x++)if(e.kind==='building'?(this.def(e).kind==='wall'?Math.floor(e.x)===x&&Math.floor(e.y)===y:Math.abs(x+.5-e.x)<r*(22*1.6/48)+.10&&Math.abs(y+.5-e.y)<r*(22*1.6/48)+.10):Math.hypot(x+.5-e.x,y+.5-e.y)<r+.45)this.nav[y*this.n+x]=1;if(e.extension){const x=Math.floor(e.x+r+1.2),y=Math.floor(e.y);if(this.tile(x,y))this.nav[y*this.n+x]=1;}}
  this.navVersion++;}
  blocked(x,y,air=false,owner=null,actual=false){const t=this.tile(x,y);if(!t)return true;if(air==='water'){const i=Math.floor(y)*this.n+Math.floor(x),p=this.players[owner];if(p&&!actual){if(!p.explored[i])return false;return !(p.knownTiles[i]&128)||!!p.knownNav[i];}return !t.water||!!this.nav[i];}if(air)return false;const i=Math.floor(y)*this.n+Math.floor(x),gate=this.gatePassable(i,owner);if(owner!==null&&!actual){const p=this.players[owner];if(!p.explored[i])return false;return !!(p.knownTiles[i]&128)||this.rockTerrain(p.knownTiles[i]&127)||!!p.knownNav[i]&&!gate;}return t.water||this.rockTerrain(t.height)||!!this.nav[i]&&!gate;}
- path(u,dest,knownOnly=false){
+ path(u,dest,knownOnly=false,optimisticOnly=false){
  if(![u.x,u.y,dest?.x,dest?.y].every(Number.isFinite))return[];
  const mode=this.movementMode(u);if(mode===true)return[{x:clamp(dest.x,1,this.n-1),y:clamp(dest.y,1,this.n-1)}];
  const n=this.n,count=n*n,p=this.players[u.owner],sx=Math.floor(u.x),sy=Math.floor(u.y),tx=clamp(Math.floor(dest.x),0,n-1),ty=clamp(Math.floor(dest.y),0,n-1),start=sy*n+sx,goal=ty*n+tx,water=mode==='water';
  if(start<0||start>=count||water&&!this.tile(u.x,u.y)?.water)return[];
- if(!knownOnly&&p.explored[start]&&p.explored[goal]){const known=this.path(u,dest,true);if(known.length&&dist(known.at(-1),dest)<1)return known;}
+ // A search that found no step closer to an unreachable goal stays empty while known terrain only
+ // loses links (new exploration); stuck movers re-asking every 1.3s would otherwise repeat a
+ // whole-map search each time. Any gain in passability, gate change or knowledge reset clears it.
+ const stuckKey=!knownOnly&&u.owner+':'+mode+':'+start+':'+goal,stuckStamp=(this.knownGain?.[u.owner]||0)+':'+(this.gateCells?.size||0);if(stuckKey){const memo=this.stuckPaths?.get(stuckKey);if(memo&&memo.stamp===stuckStamp&&memo.explored<=this.exploredCount(p))return[];}
+ // The known-only attempt is accepted only if it ends within one cell of dest; skip it when the
+ // known-region map shows no cell around the goal can be reached, which would cost a full search.
+ if(!knownOnly&&!optimisticOnly&&p.explored[start]&&p.explored[goal]&&(mode!==false||this.knownNear(u,tx,ty))){const known=this.path(u,dest,true);if(known.length&&dist(known.at(-1),dest)<1)return known;}
  const free=i=>(!knownOnly||!!p.explored[i])&&(!p.explored[i]||(water?!!(p.knownTiles[i]&128)&&!p.knownNav[i]:!(p.knownTiles[i]&128)&&!this.rockTerrain(p.knownTiles[i]&127)&&(!p.knownNav[i]||this.gatePassable(i,u.owner))));
  const slope=(a,b)=>water||!p.explored[a]||!p.explored[b]||Math.abs((p.knownTiles[a]&127)-(p.knownTiles[b]&127))<2;
  // A blocked goal can never be expanded. Stop at its nearest walkable ring instead
  // of exhaustively searching every cell before returning that same nearby point.
  let nearest=0;if(!free(goal)){nearest=Infinity;for(let r=1;r<=12;r++){for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;const x=tx+dx,y=ty+dy;if(x<0||y<0||x>=n||y>=n)continue;if(free(y*n+x))nearest=Math.min(nearest,Math.hypot(dx,dy));}if(nearest<=r)break;}}
- const revision=p.navigationRevision||0,key=[u.owner,mode,knownOnly,revision,start,goal].join(':');this.pathCache??=new Map();const cached=this.pathCache.get(key);if(cached)return cached.map(q=>({...q}));
+ const revision=p.navigationRevision||0,key=[u.owner,mode,knownOnly,revision,start,goal,optimisticOnly?1:0].join(':');this.pathCache??=new Map();const cached=this.pathCache.get(key);if(cached)return cached.map(q=>({...q}));
  // Generation stamps reuse scratch storage without allocating/clearing whole maps per unit.
  let w=this.pathWorkspace;if(!w||w.count!==count)w=this.pathWorkspace={count,g:new Float64Array(count),parent:new Int32Array(count),seen:new Uint32Array(count),closed:new Uint32Array(count),stamp:0};
  if(++w.stamp>=4294967295){w.seen.fill(0);w.closed.fill(0);w.stamp=1;}const stamp=w.stamp,heap=[],cost=[],push=(i,f)=>{let k=heap.length;heap.push(i);cost.push(f);while(k>0){const j=(k-1)>>1;if(cost[j]<=f)break;heap[k]=heap[j];cost[k]=cost[j];k=j;}heap[k]=i;cost[k]=f;},pop=()=>{const first=heap[0],i=heap.pop(),f=cost.pop();if(heap.length){let k=0;while(k*2+1<heap.length){let j=k*2+1;if(j+1<heap.length&&cost[j+1]<cost[j])j++;if(cost[j]>=f)break;heap[k]=heap[j];cost[k]=cost[j];k=j;}heap[k]=i;cost[k]=f;}return first;};
@@ -256,12 +266,57 @@ class Game{
    const g=w.g[i]+(dx&&dy?Math.SQRT2:1);if(w.seen[ni]!==stamp||g<w.g[ni]){w.seen[ni]=stamp;w.g[ni]=g;w.parent[ni]=i;push(ni,g+heuristic(xx,yy));}
   }
  }
- if(best===start&&goal===start&&free(goal))return[{x:dest.x,y:dest.y}];const route=[];for(let i=best;i!==start&&i>=0&&route.length<count;i=w.parent[i])route.push({x:i%n+.5,y:Math.floor(i/n)+.5});route.reverse();
+ if(best===start&&goal===start&&free(goal))return[{x:dest.x,y:dest.y}];if(stuckKey&&best===start&&goal!==start){this.stuckPaths??=new Map();this.stuckPaths.set(stuckKey,{stamp:stuckStamp,explored:this.exploredCount(p)});while(this.stuckPaths.size>256)this.stuckPaths.delete(this.stuckPaths.keys().next().value);}const route=[];for(let i=best;i!==start&&i>=0&&route.length<count;i=w.parent[i])route.push({x:i%n+.5,y:Math.floor(i/n)+.5});route.reverse();
  this.pathCache.set(key,route);while(this.pathCache.size>128)this.pathCache.delete(this.pathCache.keys().next().value);return route.map(q=>({...q}));
  }
+ // Explored-cell count, recounted at most once per tick and vision pass. Cells are only ever
+ // un-explored by a full knowledge reset, which this count reveals.
+ exploredCount(p){const stamp=this.time+':'+(this.visionRevision||0);if(this.exploredStamps?.[p.id]?.stamp===stamp)return this.exploredStamps[p.id].count;let c=0;const ex=p.explored;for(let i=0;i<ex.length;i++)c+=ex[i]?1:0;(this.exploredStamps??={})[p.id]={stamp,count:c};return c;}
+ // Connected regions of a player's known ground terrain, built with exactly path()'s cell,
+ // slope and diagonal rules. open=false keeps explored walkable cells only (path()'s knownOnly
+ // search); open=true also treats unexplored cells as walkable (its optimistic search). Two cells
+ // share a label exactly when path() can link them, so callers can reject an unreachable goal
+ // without an exhaustive A* over the whole map. Rebuilt lazily when knowledge or navigation changes.
+ navRegions(owner,open=false,exact=false){const p=this.players[owner],n=this.n,count=n*n,ex=p.explored;this.regionCache??=new Map();
+ const explored=this.exploredCount(p);
+ // Newly explored cells only remove links from the optimistic map, so its labels stay a safe
+ // over-approximation (a different label still proves no route) until known terrain becomes more
+ // passable (knownGain), a gate changes, or knowledge is reset.
+ const gates=this.gateCells?.size||0,id=owner+':'+open+':'+exact,cached=this.regionCache.get(id),key=open&&!exact?(this.knownGain?.[owner]||0)+':'+gates:(p.navigationRevision||0)+':'+this.navVersion+':'+explored+':'+gates;if(cached&&cached.key===key&&(!open||exact||cached.explored<=explored))return cached;
+ // h holds the known height, or 255 for an unexplored cell, which never fails the slope test.
+ const free=new Uint8Array(count),h=new Uint8Array(count),known=p.knownTiles,nav=p.knownNav;for(let i=0;i<count;i++){if(!ex[i]){free[i]=open?1:0;h[i]=255;continue;}const t=known[i];h[i]=t&127;free[i]=!(t&128)&&!this.rockTerrain(t&127)&&(!nav[i]||this.gatePassable(i,owner))?1:0;}
+ const slope=(a,b)=>{const ha=h[a],hb=h[b];return ha===255||hb===255||(ha>hb?ha-hb:hb-ha)<2;},labels=new Int32Array(count),stack=new Int32Array(count);let next=0;
+ for(let s=0;s<count;s++){if(!free[s]||labels[s])continue;labels[s]=++next;let top=0;stack[top++]=s;while(top){const i=stack[--top],x=i%n,y=(i/n)|0;
+  for(let dy=-1;dy<=1;dy++){const yy=y+dy;if(yy<0||yy>=n)continue;for(let dx=-1;dx<=1;dx++){const xx=x+dx;if(!dx&&!dy||xx<0||xx>=n)continue;const ni=yy*n+xx;if(labels[ni]||!free[ni]||!slope(i,ni))continue;
+   if(dx&&dy){const a=i+dx,b=i+dy*n;if(!free[a]||!free[b]||!slope(i,a)||!slope(i,b)||!slope(a,ni)||!slope(b,ni))continue;}labels[ni]=next;stack[top++]=ni;}}}}
+ const regions={key,labels,free,slope,n,explored};this.regionCache.set(id,regions);return regions;}
+ // Labels path() can enter from (x,y). The start cell is expanded even when it is not itself walkable.
+ regionsFrom(regions,x,y){const {labels,free,slope,n}=regions,sx=Math.floor(x),sy=Math.floor(y),i=sy*n+sx,out=new Set();if(sx<0||sy<0||sx>=n||sy>=n)return out;if(labels[i])out.add(labels[i]);
+ for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;const xx=sx+dx,yy=sy+dy;if(xx<0||yy<0||xx>=n||yy>=n)continue;const ni=yy*n+xx;if(!labels[ni]||!slope(i,ni))continue;if(dx&&dy){const a=i+dx,b=i+dy*n;if(!free[a]||!free[b]||!slope(i,a)||!slope(i,b)||!slope(a,ni)||!slope(b,ni))continue;}out.add(labels[ni]);}return out;}
+ // Whether path(u,..,true) could end in the 3x3 block around goal cell (tx,ty): the only cells within
+ // one unit of a destination inside that cell.
+ knownNear(u,tx,ty){const n=this.n,sx=Math.floor(u.x),sy=Math.floor(u.y);if(Math.abs(sx-tx)<=1&&Math.abs(sy-ty)<=1)return true;const regions=this.navRegions(u.owner,false),from=this.regionsFrom(regions,u.x,u.y);if(!from.size)return false;
+ for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const x=tx+dx,y=ty+dy;if(x>=0&&y>=0&&x<n&&y<n&&from.has(regions.labels[y*n+x]))return true;}return false;}
+ // Whether a ground unit has a route to q through explored terrain only: the question the AI's
+ // supply checks asked with a full path() call. Non-ground movers, and a mover on an unexplored
+ // cell (which skips the known-only search), keep the original search.
+ knownRoute(u,q){const search=()=>{const route=this.path(u,q),p=this.players[u.owner];return dist(route.at(-1)||u,q)<2&&route.every(v=>p.explored[Math.floor(v.y)*this.n+Math.floor(v.x)]);};if(this.movementMode(u)!==false||!this.players[u.owner].explored[Math.floor(u.y)*this.n+Math.floor(u.x)])return search();
+ // q reachable on known ground: true. No known-reachable cell in the 3x3 around q (the only cells within
+ // two units of it): false. Otherwise a neighbour is reachable but q is not. If q is reachable through
+ // unexplored ground the old search ended there (false). If not, it ended at the reachable cell nearest
+ // q, by the shortest optimistic route, and the answer was whether that route stayed on explored
+ // ground; a directed optimistic-only search to that cell reproduces it without two whole-map scans.
+ const n=this.n,qx=Math.floor(q.x),qy=Math.floor(q.y);if(qx===Math.floor(u.x)&&qy===Math.floor(u.y))return search();if(qx<0||qy<0||qx>=n||qy>=n)return search();
+ const regions=this.navRegions(u.owner,false),from=this.regionsFrom(regions,u.x,u.y),label=regions.labels[qy*n+qx];if(label&&from.has(label))return true;
+ for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const x=qx+dx,y=qy+dy;if(x>=0&&y>=0&&x<n&&y<n&&from.has(regions.labels[y*n+x])){const open=this.navRegions(u.owner,true,true),reach=this.regionsFrom(open,u.x,u.y),target=open.labels[qy*n+qx];if(target&&reach.has(target))return false;
+  let best=null,bestH=Infinity,ties=0;for(let yy=qy-1;yy<=qy+1;yy++)for(let xx=qx-1;xx<=qx+1;xx++){if(xx<0||yy<0||xx>=n||yy>=n||!reach.has(open.labels[yy*n+xx]))continue;const h=Math.hypot(xx-qx,yy-qy);if(h<bestH-1e-9){best={x:xx+.5,y:yy+.5};bestH=h;ties=0;}else if(Math.abs(h-bestH)<1e-9)ties++;}
+  if(!best||ties)return search();const route=this.path(u,best,false,true),p=this.players[u.owner];return dist(route.at(-1)||u,q)<2&&route.every(v=>p.explored[Math.floor(v.y)*n+Math.floor(v.x)]);}}return false;}
  approach(u,target,range=1){const r=(target.size||.4)+range;let best=null,bestD=Infinity;for(let i=0;i<16;i++){let a=i*Math.PI/8,p={x:Math.floor(target.x+Math.cos(a)*r)+.5,y:Math.floor(target.y+Math.sin(a)*r)+.5};if(!this.blocked(p.x,p.y,this.movementMode(u),u.owner)&&dist(u,p)<bestD){best=p;bestD=dist(u,p);}}return best||{x:target.x,y:target.y};}
  // Choose a reachable cell immediately at the deposit edge, not a building-sized work radius.
- gatherSpot(u,t){const cached=u.gatherPosition;if(cached&&cached.target===t.id&&cached.nav===this.navVersion&&this.time<cached.until&&!this.blocked(cached.x,cached.y,false,u.owner))return cached;let best=null,score=Infinity;const candidates=[];const radius=t.size+.95;
+ // The chosen edge is reused for up to 2s while the worker is still more than 3 tiles away, so a
+ // walking gatherer does not repeat its route searches every tick; near the deposit it re-chooses.
+ // Kept in a WeakMap so it never enters saves; hypothetical copies of a worker never hit it.
+ gatherSpot(u,t){const cached=this.gatherCache?.get(u)||u.gatherPosition;if(cached&&cached.target===t.id&&dist(u,cached)>3&&cached.nav===this.navVersion&&this.time<cached.until&&!this.blocked(cached.x,cached.y,false,u.owner))return cached;let best=null,score=Infinity;const candidates=[];const radius=t.size+.95;
  for(let y=Math.floor(t.y-radius);y<=Math.floor(t.y+radius);y++)for(let x=Math.floor(t.x-radius);x<=Math.floor(t.x+radius);x++){
  const p={x:x+.5,y:y+.5},centerDistance=dist(p,t);if(centerDistance>radius+.3||this.blocked(p.x,p.y,false,u.owner))continue;
  // Move within the walkable edge cell so small deposits do not require a distant full-cell gap.
@@ -270,10 +325,13 @@ class Game{
  const cost=dist(u,p)+edge*.5+(occupied?1.5:0);candidates.push({point:p,cost});if(cost<score){best=p;score=cost;}}
  // Dense deposits can make the nearest working edge unreachable. Choose a
  // reachable edge instead of repeatedly walking toward a sealed pocket.
+ const ground=candidates.length&&this.movementMode(u)===false?(()=>{const regions=this.navRegions(u.owner,true);return{regions,from:this.regionsFrom(regions,u.x,u.y)};})():null;
  for(const {point}of candidates.sort((a,b)=>a.cost-b.cost)){
   if(this.cliffBetween(point.x,point.y,t.x,t.y))continue;
+  // A goal in another region of the optimistic map cannot be reached; skip its whole-map search.
+  if(ground){const r=ground.regions.labels[Math.floor(point.y)*this.n+Math.floor(point.x)];if(!r||!ground.from.has(r))continue;}
   const route=this.path(u,point),end=route.at(-1)||u;
-  if(Math.floor(end.x)===Math.floor(point.x)&&Math.floor(end.y)===Math.floor(point.y))return point;
+  if(Math.floor(end.x)===Math.floor(point.x)&&Math.floor(end.y)===Math.floor(point.y)){(this.gatherCache??=new WeakMap()).set(u,{x:point.x,y:point.y,target:t.id,nav:this.navVersion,until:this.time+2});return point;}
  }
  return null;}
  order(ids,order){const list=ids.map(id=>this.entity(id)).filter(e=>e?.kind==='unit');const facing=order.face??(list.length?Math.atan2((order.y??list[0].y)-list[0].y,(order.x??list[0].x)-list[0].x):0),slots=['move','attackMove','patrol'].includes(order.kind)?this.formationLayout(list,order.formation||'line',order,facing):[];const target=order.target?this.entity(order.target):null;
@@ -286,7 +344,7 @@ class Game{
  formationRank(u){const r=this.def(u).role;if(r==='worker')return 4;return ['tank','melee','heavy','giant'].includes(r)?0:['rifle','aa','elite'].includes(r)?1:r==='siege'?3:2;}
  go(u,p,dt,near=.25){if(dist(u,p)<Math.max(.12,near)){u.path=[];u.destination=null;return true;}if(!u.destination||dist(u.destination,p)>.8||u.pathVersion!==this.navVersion||(!u.path.length&&this.time>=(u.nextPathAt||0))){u.nextPathAt=this.time+1.3;u.path=this.path(u,p);u.destination={...p};u.pathVersion=this.navVersion;}
  while(u.path.length>1&&dist(u,u.path[0])<.12)u.path.shift();const v=u.path[0];if(!v){if(dist(u,p)<2.6&&this.blocked(p.x,p.y,this.movementMode(u),u.owner)){u.destination=null;u.stuck=0;return true;}u.stuck+=dt;return false;}const d=dist(u,v),ud=this.def(u),speed=ud.speed*(this.height(v.x,v.y)>this.height(u.x,u.y)?.85:1),step=Math.min(d,speed*dt),nx=u.x+(v.x-u.x)/Math.max(.001,d)*step,ny=u.y+(v.y-u.y)/Math.max(.001,d)*step;
- if(!this.canTraverse(u.x,u.y,nx,ny,this.movementMode(u),u.owner,true)){const i=Math.floor(ny)*this.n+Math.floor(nx),p=this.players[u.owner];const tile=this.map[i];if(!tile||nx<0||ny<0||nx>=this.n||ny>=this.n){u.path=[];u.destination=null;u.pathVersion=-1;u.stuck+=dt;return false;}p.explored[i]=1;const terrainCode=(tile.water?128:0)|tile.height;if(p.knownNav[i]!==this.nav[i]||p.knownTiles[i]!==terrainCode){p.navigationRevision=(p.navigationRevision||0)+1;}p.knownNav[i]=this.nav[i];p.knownTiles[i]=terrainCode;u.path=[];u.pathVersion=-1;u.stuck+=dt;
+ if(!this.canTraverse(u.x,u.y,nx,ny,this.movementMode(u),u.owner,true)){const i=Math.floor(ny)*this.n+Math.floor(nx),p=this.players[u.owner];const tile=this.map[i];if(!tile||nx<0||ny<0||nx>=this.n||ny>=this.n){u.path=[];u.destination=null;u.pathVersion=-1;u.stuck+=dt;return false;}p.explored[i]=1;const terrainCode=(tile.water?128:0)|tile.height;if(p.knownNav[i]!==this.nav[i]||p.knownTiles[i]!==terrainCode){p.navigationRevision=(p.navigationRevision||0)+1;if(p.knownNav[i]&&!this.nav[i]||p.knownTiles[i]&&p.knownTiles[i]!==terrainCode){this.knownGain??={};this.knownGain[p.id]=(this.knownGain[p.id]||0)+1;}}p.knownNav[i]=this.nav[i];p.knownTiles[i]=terrainCode;u.path=[];u.pathVersion=-1;u.stuck+=dt;
   // If stuck for too long, nudge the unit to the nearest unblocked tile
   if(u.stuck>3&&!this.def(u).air){const spot=this.approach(u,u,2);if(spot&&!this.blocked(spot.x,spot.y,false,u.owner,true)&&dist(u,spot)>0.3){u.x=spot.x;u.y=spot.y;u.path=[];u.pathVersion=-1;u.stuck=0;}}
   return false;}const dx=nx-u.x,dy=ny-u.y;u.face=Math.atan2(dy,dx);u.x=nx;u.y=ny;u.action='walk';u.phase+=dt*speed*(ud.air||['tank','siege'].includes(ud.role)?5:9);u.stuck=0;if(d<.13||step>=d)u.path.shift();return dist(u,p)<Math.max(.12,near);}

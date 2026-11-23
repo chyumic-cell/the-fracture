@@ -1,3 +1,7 @@
+# New environments and Varied on every world - 23 November 2026
+
+Kareth gained Jungle, Elyndra gained Duskbloom, and Morvane gained Rotmire, its first look that is neither red nor grey (a plague bog with cocoon-hung gallows trees). Elyndra (Varied realms) and Morvane (Varied wastes) now have a Varied option like Kareth's Varied climates, banding their own looks across the map. Visual only; resources, navigation and stats are unchanged. Environment suite (205 cases), browser environment, graphics, simulation, legacy gameplay, map and browser gameplay checks pass. See [NEW-ENVIRONMENTS-2026-11-23.md](NEW-ENVIRONMENTS-2026-11-23.md).
+
 # Save-file hitch fixed; three map types per world - 23 November 2026
 
 The user's 300x300 Narrows save froze for 1-2 s every few seconds. Causes were whole-map route searches repeated on a schedule: AI deposit-reachability checks, units with unreachable move orders re-planning every 1.3 s, and walking gatherers re-searching every tick (their edge cache was never written). Cached connected-region maps of each player's known terrain now answer those questions without exhaustive searches; the AI check returns the same answers as before (0 differences over 8,358 compared calls). Same save, 30 s headless: before p99 1.0-1.2 s, max 1.7 s, 7 frames over 1 s, ~20 fps; after p99 67 ms, max 133-150 ms, none over 250 ms, ~57 fps. About five frames per 30 s still exceed 100 ms. One deliberate change: a gatherer more than 3 tiles from its deposit keeps its chosen edge for up to 2 s.

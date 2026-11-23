@@ -28,6 +28,20 @@
     "workerParity": true
   },
   {
+    "theme": "Kareth",
+    "environment": "jungle",
+    "colors": 14316,
+    "maxChroma": 89,
+    "workerParity": true
+  },
+  {
+    "theme": "Elyndra",
+    "environment": "varied",
+    "colors": 35243,
+    "maxChroma": 142,
+    "workerParity": true
+  },
+  {
     "theme": "Elyndra",
     "environment": "aetherland",
     "colors": 8416,
@@ -49,6 +63,20 @@
     "workerParity": true
   },
   {
+    "theme": "Elyndra",
+    "environment": "duskbloom",
+    "colors": 4704,
+    "maxChroma": 154,
+    "workerParity": true
+  },
+  {
+    "theme": "Morvane",
+    "environment": "varied",
+    "colors": 26901,
+    "maxChroma": 167,
+    "workerParity": true
+  },
+  {
     "theme": "Morvane",
     "environment": "hell",
     "colors": 8145,
@@ -67,6 +95,13 @@
     "environment": "dreadhollow",
     "colors": 4496,
     "maxChroma": 108,
+    "workerParity": true
+  },
+  {
+    "theme": "Morvane",
+    "environment": "rotmire",
+    "colors": 16283,
+    "maxChroma": 167,
     "workerParity": true
   }
 ]

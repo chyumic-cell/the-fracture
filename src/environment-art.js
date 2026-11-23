@@ -52,6 +52,53 @@ function tree(e,options,art){
   for(let j=0;j<7;j++){const a=j*.898,mid=[Math.cos(a)*7,Math.sin(a)*6,2],end=[Math.cos(a+.22)*15,Math.sin(a+.22)*12,.6];M.material('wood').limb([0,0,6],mid,bark,3.4);M.seg(mid,end,wood,1.3);}
   // Recessed fissures and sparse spectral light are attached to the bark.
   for(const side of [-1,1]){M.material('wood').orb(2,side*2.5,28,1.6,1.3,5,'#101b22');M.material('glow').seg([2.4,side*3,25],[2.1,side*3.1,29],'#6a9baf',.5);M.material('wood').seg([1,side*3,14],[0,side*2.8,23],wood,.6);}
+ }else if(kind==='jungle'){
+  // Jungle tree: buttress roots, a tall smooth trunk, layered broad-leaf canopy and hanging vines.
+  const bark='#6b5a42',pale='#8a7a5c',leaf='#2f6a2c',dark='#21501f',vine='#3f7a2e',height=58+variant*3,lean=(variant%2?1:-1)*3;
+  M.material('wood').loft([[0,0,0,6.5,6],[0,0,9,4.4,4],[lean*.4,0,30,3.7,3.4],[lean,0,height,2.8,2.5]],bark,9);
+  for(let j=0;j<5;j++){const a=j*1.257+variant*.4,dx=Math.cos(a),dy=Math.sin(a);M.material('wood').face([[0,0,14],[dx*3,dy*2.4,14],[dx*11,dy*8.5,0],[dx*4,dy*3,0]],pale);M.seg([dx*3,dy*2.4,13],[dx*11,dy*8.5,.4],bark,.9);}
+  for(let j=0;j<6;j++){const a=j*2.399+variant*.3,r=11+(j%3)*4,x=Math.cos(a)*r+lean,y=Math.sin(a)*r*.75,z=height-6+(j%2)*5;M.material('wood').seg([lean,0,height-12+j],[x*.8,y*.8,z-2],bark,1.6);M.foliage(x,y,z,15,11.5,7,j%2?leaf:dark,j+variant*13);}
+  M.foliage(lean,0,height+4,19,15,8,'#357530',91+variant*7);M.foliage(lean+2,-1,height+10,12,10,5.5,'#3f8236',97+variant*7);
+  // Broad single leaves at the canopy rim.
+  for(let j=0;j<10;j++){const a=j*.628+variant*.2,dx=Math.cos(a),dy=Math.sin(a),base=[lean+dx*14,dy*11,height-2],tip=[lean+dx*22,dy*17,height-7];M.material('leaf');for(const side of [-1,1])M.face([base,[base[0]-dy*4*side+dx*3,base[1]+dx*3*side+dy*2,base[2]-1],tip],j%2?'#3c7d33':'#2c6328');}
+  // Vines hang from the canopy, some to the ground.
+  for(let j=0;j<7;j++){const a=j*.9+variant*.5,x=Math.cos(a)*(8+j%3*3)+lean,y=Math.sin(a)*7,top=height-3,bottom=j%3===0?2:top-14-rand(j,41)*10;M.material('fur').seg([x,y,top],[x+1,y,(top+bottom)/2],vine,.55);M.seg([x+1,y,(top+bottom)/2],[x,y+.5,bottom],vine,.45);M.material('leaf').orb(x,y,(top+bottom)/2,.9,.7,1.2,'#4b8a35');}
+  for(let j=0;j<4;j++){const a=j*1.6+.4;M.material('leaf').foliage(Math.cos(a)*12,Math.sin(a)*9,2.5,4.5,3.5,2.5,'#2d6a2a',j+60+variant);}
+ }else if(kind==='duskbloom'){
+  // Duskcap: a giant mushroom of pale violet stalk and indigo-magenta cap, freckled with teal light.
+  const stalk='#c6a9ea',ring='#9a7fc4',cap=variant%2?'#6a3d8f':'#4d3a8f',gill='#d4c4ec',glowA='#7ff0dc',glowB='#9fd8ff',height=40+variant*4,lean=(variant%2?1:-1)*3;
+  M.material('skin').loft([[0,0,0,7,6.2],[0,0,5,4.6,4.1],[lean*.5,0,height*.55,4,3.6],[lean,0,height,4.4,3.9]],stalk,10);
+  M.orb(lean*.45,0,height*.5,4.4,3.8,1.2,ring);
+  const rx=20+variant*1.5,ry=16+variant;M.material('skin').orb(lean,0,height+4,rx,ry,4.5,gill);M.orb(lean,0,height+8,rx-1,ry-1,8,cap);M.orb(lean,0,height+12,rx*.55,ry*.55,4,variant%2?'#7a4a9e':'#5c47a0');
+  for(let j=0;j<12;j++){const a=j*2.399,d=Math.sqrt((j+.5)/12)*(rx-4),x=lean+Math.cos(a)*d,y=Math.sin(a)*d*ry/rx,z=height+8+8*Math.sqrt(Math.max(0,1-(d/(rx-1))**2))+.6;M.material('glow').orb(x,y,z,1.9+rand(j,51)*.9,1.6,1,j%3?glowA:glowB);}
+  // Gill rim and drifting spores.
+  for(let j=0;j<16;j++){const a=j*Math.PI/8,x=lean+Math.cos(a)*(rx-.5),y=Math.sin(a)*(ry-.5);M.material('skin').seg([lean+Math.cos(a)*rx*.4,Math.sin(a)*ry*.4,height+2],[x,y,height+3.5],ring,.4);}
+  for(let j=0;j<5;j++){const a=j*1.3+variant,r=8+rand(j,61)*10;M.material('glow').orb(Math.cos(a)*r,Math.sin(a)*r*.7,height-6-j*5,.55,.55,.55,glowA);}
+  // A cluster of smaller caps at the foot.
+  for(let j=0;j<3;j++){const a=j*2.1+variant*.7,x=Math.cos(a)*11,y=Math.sin(a)*8,h=7+j*3;M.material('skin').loft([[x,y,0,1.6,1.4],[x,y,h,1,.9]],stalk,6);M.orb(x,y,h+1,4.2,3.5,1.8,cap);M.material('glow').orb(x,y,h+2.6,.8,.7,.5,glowA);}
+ }else if(kind==='rotmire'){
+  // Gallows tree: a swollen, tumoured trunk of bruise-violet bark streaked with rot-moss, drooping
+  // limbs hung with silk-wrapped cocoons, and sickly green pustules. No reds or greys.
+  const bark='#644a70',moss='#8d9e34',pale='#a294a8',silk='#e6dcaa',strand='#b3aa80',height=50+variant*4,lean=(variant%2?-1:1)*4;
+  M.material('wood').loft([[0,0,0,7,6],[1,-1,8,6.2,5.6],[-1,1,20,6.8,6],[lean*.5,0,32,4.4,4],[lean,0,height-8,2.6,2.3],[lean+2,-1,height,1.3,1.1]],bark,10);
+  // Tumours bulge from the trunk; moss streaks run down from them.
+  for(let j=0;j<5;j++){const a=j*2.2+variant,z=10+j*7+rand(j,7)*4,r=4.5+rand(j,8)*1.5;const x=Math.cos(a)*r*.9+lean*z/height,y=Math.sin(a)*r*.7;M.material('skin').orb(x,y,z,2.4+rand(j,9)*1.6,2.1+rand(j,10)*1.4,2.6+rand(j,11)*1.5,j%2?'#7e5f8a':'#73567e');M.material('fur').seg([x,y,z-1],[x*1.05,y*1.05,z-8],moss,.9);}
+  for(let j=0;j<6;j++){
+   const a=j*2.399+variant*.5,dx=Math.cos(a),dy=Math.sin(a),z=height-14+(j%3)*5,r=15+(j%2)*5;
+   const shoulder=[lean*.8,0,z],elbow=[dx*r*.6,dy*r*.5,z+6],hand=[dx*r,dy*r*.8,z+1],droop=[dx*(r+3),dy*(r+3)*.8,z-7];
+   M.material('wood').limb(shoulder,elbow,bark,3);M.limb(elbow,hand,bark,2.1);M.seg(hand,droop,pale,.8);
+   M.material('fur').seg(elbow,[elbow[0],elbow[1],elbow[2]-6],moss,1.1);
+   // Cocoons hang on silk strands from alternate limbs; each holds the hunched outline of its victim.
+   if((j+variant)%2===0){const top=[hand[0]*.92,hand[1]*.92,hand[2]-.5],len=9+rand(j,21)*5,c=[top[0],top[1],top[2]-len];M.material('cloth').seg(top,[c[0],c[1],c[2]+6],strand,.35);
+    M.material('cloth').orb(c[0],c[1],c[2]+3,3.1,2.7,5.4,silk);M.orb(c[0],c[1],c[2]+8.6,2,1.8,2,silk);
+    for(let k=0;k<4;k++)M.seg([c[0]-3,c[1],c[2]+k*2.4-.5],[c[0]+3,c[1],c[2]+k*2.4+.8],'#a39870',.3);}
+   else{const tip=[droop[0],droop[1],droop[2]-4];M.material('wood').seg(droop,tip,pale,.45);}
+  }
+  // Pustules glow on the trunk and among the roots.
+  for(let j=0;j<7;j++){const a=j*1.7+variant*.3,z=4+j*6.5,r=j<5?5.6:3.2;M.material('glow').orb(Math.cos(a)*r+lean*z/height,Math.sin(a)*r*.7,z,1.4+rand(j,31)*.7,1.25,1.4,j%3?'#a8d448':'#c9e86a');}
+  // Rib-like roots arch out of the mire.
+  for(let j=0;j<7;j++){const a=j*.898+variant*.2,mid=[Math.cos(a)*9,Math.sin(a)*7,4.5],end=[Math.cos(a+.25)*16,Math.sin(a+.25)*12.5,.4];M.material('wood').limb([0,0,5],mid,bark,3);M.seg(mid,end,pale,1.3);}
+  M.material('glow').orb(3,8,1,1.1,.9,.6,'#b6dc52');M.orb(-9,-3,1,.9,.8,.5,'#a8d448');
  }else if(kind==='osland'||kind==='starfall'){
   const star=kind==='starfall',height=48+variant*4,bark=star?'#8d97a6':'#555d3a',leaf=star?'#88b7bd':'#315e37';
   M.material('wood').loft([[0,0,0,4.8,4],[1,-1,20,3.4,3],[-2,1,38,2,1.7],[0,0,height+6,.8,.8]],bark,9);
@@ -78,7 +125,7 @@ function tree(e,options,art){
  M.finish();
  // Moon light is achromatic, including shaded facets; other sprites retain their identity colors.
  if(kind==='moon'){const im=ctx.getImageData(0,0,96,112);for(let i=0;i<im.data.length;i+=4){const gray=Math.round(im.data[i]*.30+im.data[i+1]*.59+im.data[i+2]*.11);im.data[i]=im.data[i+1]=im.data[i+2]=gray;}ctx.putImageData(im,0,0);}
- ctx.save();ctx.globalCompositeOperation='destination-over';root.FractureArt.ellipse(ctx,48,96,22,6,kind==='hell'?'#19060a65':kind==='moon'?'#10101055':'#17242a45');ctx.restore();art.cache.set(key,c);return c;
+ ctx.save();ctx.globalCompositeOperation='destination-over';root.FractureArt.ellipse(ctx,48,96,22,6,kind==='hell'?'#19060a65':kind==='moon'?'#10101055':kind==='rotmire'?'#0f170a60':'#17242a45');ctx.restore();art.cache.set(key,c);return c;
 }
 root.FractureEnvironmentArt={tree};
 })(globalThis);

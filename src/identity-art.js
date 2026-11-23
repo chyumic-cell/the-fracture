@@ -39,6 +39,7 @@ function identity(d,f){if(profiles[d.name])return profiles[d.name];if(f.id==='in
 function render(ctx,d,f,angle,action,frame){
  if(root.FractureSpecialistArt?.render(ctx,d,f,angle,action,frame)||root.FractureMachineArt?.render(ctx,d,f,angle,action,frame)||root.FractureSymbioteArt?.renderUnit(ctx,d,f,angle,action,frame))return true;
  if(root.FractureDetailArt?.vehicle(ctx,d,f,angle,action,frame))return true;
+ if(root.FractureReptilianArt?.render(ctx,d,f,angle,action,frame))return true;
  if(root.FractureDetailArt?.figure(ctx,d,f,angle,action,frame))return true;
  const kind=identity(d,f);
  const {tint,poly,ellipse}=root.FractureArt,dir=Math.round(angle/(Math.PI/4))*Math.PI/4,ca=Math.cos(dir),sa=Math.sin(dir),dead=action==='dead',walk=(action==='walk'||action==='walkReady')?Math.sin(frame*Math.PI/3):0,att=action==='attack',ready=action==='ready'||action==='walkReady',gesture=action==='scratch'||action==='yawn',gestureLift=gesture?[.35,1,1,.35][frame%4]:0,work=action==='gather'||action==='gatherOil'||action==='build'||action==='heal',phase=frame%4,wind=att?[-.35,1.15,1.3,.2][phase]:0,seq=[],team=f.color;

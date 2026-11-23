@@ -229,7 +229,8 @@ function step(g,p,ctx={}){
   return value;
  }
  const unitValues=new Map();function unitValue(u){const key=u.id+':'+armyDefs.length+':'+p.special;if(!unitValues.has(key))unitValues.set(key,evaluateUnit(u));return unitValues.get(key);}
- const unitOrder=f.units.filter(u=>!u.worker).map(u=>({u,value:unitValue(u)})).sort((a,b)=>b.value-a.value||a.u.cost[0]-b.u.cost[0]);
+ const strategistPriorities=p.aiStrategistDecision?.expires>g.time?new Set(p.aiStrategistDecision.unitPriorities||[]):new Set();
+ const unitOrder=f.units.filter(u=>!u.worker).map(u=>({u,value:unitValue(u)+(strategistPriorities.has(u.id)?18:0)})).sort((a,b)=>b.value-a.value||a.u.cost[0]-b.u.cost[0]);
  function canPlan(u){
   if(unitValue(u)<1)return false;
   // One useful field army and a productive branch come before a collection of empty factories.
@@ -289,6 +290,8 @@ function step(g,p,ctx={}){
  }else if(p.aiLogistics?.needAirTransport)plan(unlockAction(D.units[f.id+'_air_transport'],109));
  if(strategyTime>65&&armySize>=(config.grade>=8?6:4))plan(buildingAction(f.buildings.find(b=>b.kind==='lab').id,68));
  for(const {u,value}of unitOrder)if(canPlan(u)){const urgentAir=config.forecastFire&&airCount>0&&u.role==='aa'&&countRole('aa')<Math.max(1,Math.ceil(airCount*.75)),urgentArmor=config.forecastFire&&armorCount>=2&&u.bonus==='armor'&&armyDefs.filter(d=>d.bonus==='armor').length<Math.ceil(armorCount*.6);plan(unlockAction(u,urgentAir?108:urgentArmor?99:u.detector&&!detectors?88:47+value*.6));}
+ const strategistResearch=p.aiStrategistDecision?.expires>g.time?new Set(p.aiStrategistDecision.researchPriorities||[]):new Set();
+ for(const id of strategistResearch)plan(researchAction(id,106));
  if(strategyTime>115&&workers.length>=9&&!threatened)plan(researchAction(f.id+'_economy',config.grade>=7&&workers.length>=12&&armySize>=3?92:69));
  if((strategyTime>130||config.techRush&&strategyTime>95)&&armySize>=7){plan(researchAction(f.id+'_weapons1',upgradePriority(config,D.research[f.id+'_weapons1'],military.map(definition),foeUnits,62)+(config.techRush?12:0)));if(strategyTime>175)plan(researchAction(f.id+'_armor1',upgradePriority(config,D.research[f.id+'_armor1'],military.map(definition),foeUnits,54)));}
  if(strategyTime>270&&armySize>=18&&!threatened){plan(researchAction(f.id+'_weapons2',upgradePriority(config,D.research[f.id+'_weapons2'],military.map(definition),foeUnits,43)));plan(researchAction(f.id+'_armor2',upgradePriority(config,D.research[f.id+'_armor2'],military.map(definition),foeUnits,40)));}
@@ -296,16 +299,28 @@ function step(g,p,ctx={}){
  if(strategyTime>230&&armySize>=15&&!threatened)for(const b of ready)if(armyDefs.filter(u=>u.building===b.type).length>=5)plan(researchAction(b.type+'_specialization',config.macroForecast&&ready.filter(v=>v.type===b.type&&queueOf(v).length).length>=2?95:39));
  if(strategyTime>135&&armySize>=7&&!buildings.some(b=>definition(b)?.kind==='defense')&&(threatened||stock[0]>350))plan(buildingAction(f.buildings.find(b=>b.kind==='defense').id,threatened?84:35));
   // Choke-point fortification: higher-grade AIs identify narrow map passages and fortify them
-  if(config.chokePointTowers&&strategyTime>200&&armySize>=12&&stock[0]>400&&!threatened){
+  if(config.chokePointTowers&&strategyTime>200&&armySize>=12&&stock[0]>400&&(!threatened||p.aiStrategistFortifyUntil>g.time)){
    const chokePoints=findChokePoints(g,p,config);
    const trapDef=f.buildings.find(b=>b.kind==='trap');
+   const wallDef=f.buildings.find(b=>b.kind==='wall');
    // Towers cover approaches; route preservation prevents sealing the AI inside.
    const towerDef=f.buildings.find(b=>b.kind==='defense');
    for(const cp of chokePoints.slice(0,config.fullMapControl?3:config.chokePointTraps?2:1)){
     // Build a defense tower at the choke point
     if(towerDef&&!buildings.some(b=>definition(b)?.kind==='defense'&&distance(b,cp)<8)){
      const err=g.placement(towerDef.id,p.id,cp.x,cp.y,false);
-     if(!err)plan({kind:'build',def:towerDef,near:cp,priority:42,key:'choke-tower:'+Math.round(cp.x)+','+Math.round(cp.y)});
+     if(!err)plan({kind:'build',def:towerDef,near:cp,priority:66,key:'choke-tower:'+Math.round(cp.x)+','+Math.round(cp.y)});
+    }
+    // A defense line uses two wall segments beside the known passage instead of
+    // sealing its center. keepsRoutes() below rejects any site that would trap
+    // workers or close the AI's only route; the clear middle remains the gate lane.
+    if(wallDef&&config.fortifyApproaches){
+     const dx=cp.x-home.x,dy=cp.y-home.y,len=Math.hypot(dx,dy)||1,perp={x:-dy/len,y:dx/len};
+     for(const side of [-1,1]){
+      const q={x:Math.round(cp.x+perp.x*2.1*side)+.5,y:Math.round(cp.y+perp.y*2.1*side)+.5};
+      if(q.x<=1||q.y<=1||q.x>=g.n-1||q.y>=g.n-1||!g.known(p.id,q)||buildings.some(b=>definition(b)?.kind==='wall'&&distance(b,q)<1.1))continue;
+      if(!g.placement(wallDef.id,p.id,q.x,q.y,false))plan({kind:'build',def:wallDef,near:q,exact:true,priority:58,key:'choke-wall:'+Math.round(q.x)+','+Math.round(q.y)});
+     }
     }
     // Mine the approach with traps
     if(trapDef&&config.chokePointTraps&&!buildings.some(b=>definition(b)?.kind==='trap'&&distance(b,cp)<6)){

@@ -6,9 +6,9 @@ function render(ctx,d,f,angle,action,frame){if(action==='ready'){action='attack'
  const dir=Math.round(angle/(Math.PI/4))*Math.PI/4,m=new root.FractureSpriteMesh(ctx,dir,action==='dead').pose(d,action,frame),pi=Math.PI,phase=frame%4,walk=action==='walk'?Math.sin(frame*pi/3):0,attack=action==='attack',work=action==='gather'||action==='build',stroke=attack?[0,.65,1,.25][phase]:work?[0,.6,1,.3][phase]:0,breathe=Math.sin(frame*pi/3)*.35;
  const c={dark:'#252e34',black:'#151d22',shell:'#47545b',plate:'#82919a',edge:'#b4c2cc',steel:'#d9e2e5',joint:'#3c474c',wire:'#66757a',red:'#dd4e43',redDark:'#782b2b',team:'#716c65'};
  const livery=root.FractureArt.unitLivery(d,f);c.shell=root.FractureArt.mixColor(c.shell,livery.primary,.55);c.plate=livery.primary;c.team=livery.trim;
- const mat=(name='metal')=>m.material(name),box=(x,y,z,w,l,h,col=c.shell)=>{mat();m.box(x,y,z,w,l,h,col);},seg=(a,b,col=c.edge,width=1.6)=>{mat();m.seg(a,b,col,width);},orb=(x,y,z,rx,ry,rz,col=c.joint)=>{mat();m.orb(x,y,z,rx,ry,rz,col);},face=(v,col=c.shell)=>{mat();m.face(v,col);};
+ const mat=(name='metal')=>m.material(name),box=(x,y,z,w,l,h,col=c.shell)=>{mat(col===c.shell||col===c.plate?'paint':'metal');m.box(x,y,z,w,l,h,col);},seg=(a,b,col=c.edge,width=1.6)=>{mat();m.seg(a,b,col,width);},orb=(x,y,z,rx,ry,rz,col=c.joint)=>{mat();m.orb(x,y,z,rx,ry,rz,col);},face=(v,col=c.shell)=>{mat(col===c.shell||col===c.plate?'paint':'metal');m.face(v,col);};
  const tube=(a,b,r1,r2,col=c.edge,sides=8)=>{const v=b.map((q,j)=>q-a[j]),vl=Math.hypot(...v)||1;for(let j=0;j<3;j++)v[j]/=vl;const u=Math.abs(v[2])>.92?[1,0,0]:[-v[1],v[0],0],ul=Math.hypot(...u)||1;for(let j=0;j<3;j++)u[j]/=ul;const w=[v[1]*u[2]-v[2]*u[1],v[2]*u[0]-v[0]*u[2],v[0]*u[1]-v[1]*u[0]];mat();m.rings([a,b].map((p,k)=>Array.from({length:sides},(_,i)=>p.map((q,j)=>q+(u[j]*Math.cos(i*pi*2/sides)+w[j]*Math.sin(i*pi*2/sides))*(k?r2:r1)))),col);};
- const hull=(x,y,z,len,w,h,col=c.shell)=>{const ring=(xx,ww,hh,zz)=>[[-ww*.62,-hh],[-ww,-hh*.45],[-ww,hh*.45],[-ww*.58,hh],[ww*.58,hh],[ww,hh*.45],[ww,-hh*.45],[ww*.62,-hh]].map(([yy,vz])=>[xx,y+yy,zz+vz]);mat();m.rings([ring(x-len,w*.63,h*.76,z),ring(x-len*.55,w,h,z),ring(x+len*.5,w*.91,h*.87,z),ring(x+len,w*.43,h*.48,z-.3)],col);for(const side of [-1,1]){seg([x-len*.5,y+side*w*.64,z+h],[x+len*.45,y+side*w*.58,z+h*.87],c.edge,.65);face([[x-len*.45,y+side*w*1.01,z-.7],[x+len*.3,y+side*w*.95,z-.7],[x+len*.3,y+side*w*.95,z+1],[x-len*.45,y+side*w*1.01,z+1]],c.dark);
+ const hull=(x,y,z,len,w,h,col=c.shell)=>{const ring=(xx,ww,hh,zz)=>[[-ww*.62,-hh],[-ww,-hh*.45],[-ww,hh*.45],[-ww*.58,hh],[ww*.58,hh],[ww,hh*.45],[ww,-hh*.45],[ww*.62,-hh]].map(([yy,vz])=>[xx,y+yy,zz+vz]);mat('paint');m.rings([ring(x-len,w*.63,h*.76,z),ring(x-len*.55,w,h,z),ring(x+len*.5,w*.91,h*.87,z),ring(x+len,w*.43,h*.48,z-.3)],col);for(const side of [-1,1]){seg([x-len*.5,y+side*w*.64,z+h],[x+len*.45,y+side*w*.58,z+h*.87],c.edge,.65);face([[x-len*.45,y+side*w*1.01,z-.7],[x+len*.3,y+side*w*.95,z-.7],[x+len*.3,y+side*w*.95,z+1],[x-len*.45,y+side*w*1.01,z+1]],c.dark);
   // Raised angled shoulder panel, dark underside and metal fastening points.
   const y0=y+side*w*.78,z0=z+h*.68;
   face([[x-len*.5,y0,z0],[x+len*.38,y0,z0-.3],[x+len*.32,y0+side*.5,z0+1.2],[x-len*.42,y0+side*.5,z0+1.5]],c.plate);
@@ -27,6 +27,37 @@ function render(ctx,d,f,angle,action,frame){if(action==='ready'){action='attack'
  const thruster=(x,y,z,r=2.5,flying=false)=>{tube([x,y,z+4],[x,y,z],r*.85,r,c.dark,10);tube([x,y,z+.6],[x,y,z],r*1.12,r*1.12,c.plate,10);m.material('glow');m.orb(x,y,z-.4,r*.62,r*.62,.6,'#bd6556');if(flying){tube([x,y,z-.5],[x-walk*.7,y,z-(action==='walk'?5.5:3)],r*.55,.1,'#b6c5c1',8);}};
  const tread=(x,y,len=15,width=3.5,z=5)=>{const out=[[-len,-2.2],[-len+3,-4],[len-3,-4],[len,-2],[len,2],[len-3,4],[-len+3,4],[-len,2]],inn=[[-len+2,-1.3],[-len+4,-2.6],[len-4,-2.6],[len-2,-1.3],[len-2,1.3],[len-4,2.5],[-len+4,2.5],[-len+2,1.3]],side=y<0?-1:1,yy=y+side*width;box(x,y,z-3,len-1,width*.8,6,c.dark);for(let j=-len+4;j<len-3;j+=5){orb(x+j,yy,z,2.2,.5,2.2,c.plate);orb(x+j,yy+side*.5,z,.7,.2,.7,c.edge);}for(let j=0;j<out.length;j++){const a=out[j],b=out[(j+1)%8],q=inn[j],e=inn[(j+1)%8];face([[x+a[0],yy,z+a[1]],[x+b[0],yy,z+b[1]],[x+e[0],yy,z+e[1]],[x+q[0],yy,z+q[1]]],c.shell);face([[x+a[0],y-width,z+a[1]],[x+b[0],y-width,z+b[1]],[x+b[0],y+width,z+b[1]],[x+a[0],y+width,z+a[1]]],c.dark);const n=Math.max(1,Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])/3));for(let k=0;k<n;k++){const t=(k+.3+(action==='walk'?(frame%3)*.18:0))/n,xx=x+a[0]+(b[0]-a[0])*t,zz=z+a[1]+(b[1]-a[1])*t;seg([xx,y-width-.1,zz],[xx,y+width+.1,zz],c.plate,.8);}}};
  const leg=(side,heavy=false)=>{const sy=side*(heavy?10:7),stride=walk*side*(heavy?3.8:4.5),hip=[-2,sy,heavy?28:23],knee=[4-stride*.4,sy,heavy?17:13],ankle=[-1+stride,sy,5];tube(hip,knee,heavy?3.1:2.4,heavy?2.7:1.8,c.dark);hull(0,sy,heavy?22:18,5,heavy?3.6:2.8,heavy?4.2:3.4,c.plate);orb(...knee,heavy?2.7:2.1,heavy?3.1:2.4,heavy?2.7:2.1,c.shell);tube(knee,ankle,heavy?2.1:1.5,heavy?1.7:1.2,c.joint);piston([knee[0]-2,sy-side*2,knee[2]],[ankle[0]-1,sy-side*2,ankle[2]+1],heavy?1.1:.8);box(ankle[0]+2,sy,1,heavy?6.1:4.4,heavy?3.7:2.8,4,c.plate);for(let j=-1;j<=1;j++)seg([ankle[0]+7,sy+j*2,1.5],[ankle[0]+7,sy+j*2,4],c.edge,.65);};
+ // Radiating nest of segmented manipulator tentacles. Each one curls on its own phase and ends in a
+ // claw, so a machine reads as a tangle of cables rather than a box with two arms.
+ const crown=(x,z,count,reach,r=.85,tool=true,turn=0,lift=0)=>{
+  for(let i=0;i<count;i++){
+   const a=turn+(i+.5)*pi*2/count,co=Math.cos(a),si=Math.sin(a);
+   const curl=Math.sin(frame*pi/3+i*1.37)*(action==='walk'?1.9:attack?2.6:.9);
+   const reach2=reach*(.74+((i*5)%4)*.09),rise=lift+Math.sin(i*2.11)*3.4;
+   const root=[x+co*2.4,si*2.4,z+Math.cos(i*1.7)*1.8];
+   const mid=[x+co*reach2*.46+curl,si*reach2*.5,z+rise+5.5];
+   const bend=[x+co*reach2*.86-curl,si*reach2*.95,z+rise+1.5];
+   const end=[x+co*reach2,si*reach2*1.04,z+rise-3.4+Math.sin(i*3.3)*2.6];
+   tendril(root,mid,end,bend,r*(.78+((i*7)%3)*.13),tool&&i%2===0);
+   if(i%3===0)lens(root[0]+co*1.6,root[1]+si*1.6,root[2]+1.4,.45);
+  }
+ };
+ // Load-bearing tentacle legs. Each plants a splayed pad on the ground and lifts on its own beat, so
+ // these machines crawl on limbs instead of rolling on tracks.
+ const walkerLegs=(x,z,count=6,reach=13,r=1.4)=>{
+  for(let i=0;i<count;i++){
+   const a=(i+.5)*pi*2/count,co=Math.cos(a),si=Math.sin(a);
+   const beat=Math.sin(frame*pi/3+i*pi*2/count),step=action==='walk'?beat:0;
+   const lift=Math.max(0,step)*3.4,swing=step*3.2;
+   const root=[x+co*2.6,si*2.6,z];
+   const mid=[x+co*reach*.5+swing*.4,si*reach*.55,z+3.6];
+   const bend=[x+co*reach*.92+swing,si*reach*.98,z*.45+lift*.7];
+   const foot=[x+co*reach+swing,si*reach*1.04,1.3+lift];
+   tendril(root,mid,foot,bend,r*(.86+((i*5)%3)*.1),false);
+   mat();m.orb(foot[0],foot[1],foot[2],1.5,1.4,.85,c.joint);
+   for(const t of [-1,0,1])seg([foot[0],foot[1],foot[2]],[foot[0]+co*2.7-si*t*1.7,foot[1]+si*2.7+co*t*1.7,foot[2]-.9],c.steel,.5);
+  }
+ };
  const radiator=(x,y,z,count=5,h=7)=>{box(x,y,z,3.5,count*1.1,h,c.dark);for(let j=0;j<count;j++)box(x,y+(j-(count-1)/2)*2.1,z+.8,4,.38,h-.8,c.plate);};
  switch(d.name){
  case 'Construction Drone':{
@@ -40,7 +71,7 @@ function render(ctx,d,f,angle,action,frame){if(action==='ready'){action='attack'
   hull(0,0,20,7,6,5.5,c.dark);spine(-1,25,3,3,3);eyes(7,0,22,.85);for(const side of [-1,1]){thruster(-1,side*4,10,2.4);const elbow=[attack?[3,-2,7,5][phase]:3,side*(13+stroke*2),24+stroke*6],hand=attack?[[12,side*17,22],[-5,side*22,36],[24,side*5,17],[19,side*9,21]][phase]:[14,side*16,18];tube([0,side*5,22],elbow,2.6,2.1,c.plate);orb(...elbow,2.4,2.4,2.4,c.dark);tube(elbow,hand,1.7,1.3,c.edge);piston([1,side*7,20],[hand[0]-2,hand[1],hand[2]-1],.8);face([[hand[0]-2,hand[1],hand[2]+3],[hand[0]+4,hand[1]+side*2,hand[2]+1],[hand[0]+10,hand[1]+side*1,hand[2]-10],[hand[0]+4,hand[1],hand[2]-5]],c.steel);face([[hand[0]-2,hand[1]-.7,hand[2]+3],[hand[0]+4,hand[1]+side*2,hand[2]+1],[hand[0]+4,hand[1],hand[2]-5]],c.plate);tendril([-5,side*3,18],[-14,side*6,15],[-18+walk*2,side*8,4],[-19,side*11,8],1);}
   break;}
  case 'Pulse Sentry':{
-  for(const side of [-1,1])tread(-2,side*8,11,2.5,5);hull(-2,0,14,10,7,5,c.shell);hull(2,0,21,9,5.5,4.5,c.plate);eyes(10,0,26,.7);emitter(22,2.4);radiator(-10,0,16,5,8);for(const side of [-1,1]){box(-1,side*6,17,3,1.5,6,c.dark);lens(3,side*7,20,.7);}break;}
+  walkerLegs(-2,11,6,12.5,1.3);hull(-2,0,14,10,7,5,c.shell);hull(2,0,21,9,5.5,4.5,c.plate);eyes(10,0,26,.7);emitter(22,2.4);radiator(-10,0,16,5,8);for(const side of [-1,1]){box(-1,side*6,17,3,1.5,6,c.dark);lens(3,side*7,20,.7);}break;}
  case 'Repair Drone':{
   hull(-1,0,15,8,8,4,c.plate);box(-5,0,8,5,5,5,c.dark);for(const side of [-1,1]){thruster(-3,side*6,6,2);for(let j=0;j<2;j++)tendril([j*4-3,side*6,17],[4+j*3,side*(11+j*2),26],[17+stroke*2,side*(7+j*6),14+j*7],[14,side*(16+j*3),18+stroke*4],j?1:1.4,true);}
   tube([-4,0,17],[-4,0,33],1.8,1.4,c.edge);for(let j=0;j<3;j++){box(-4,-5+j*5,29,1.1,1.5,7,c.plate);lens(-2.8,-5+j*5,33,.8,j===1?'#cfae69':c.red);}emitter(22,1.25);break;}
@@ -52,7 +83,7 @@ function render(ctx,d,f,angle,action,frame){if(action==='ready'){action='attack'
   for(const side of [-1,1]){hull(-3,side*12,32,5,3.7,5,c.shell);const e=[5,side*15,25],hand=[15+stroke*2,side*13,27+stroke*2];tube([-1,side*12,32],e,2.5,2.2,c.plate);tube(e,hand,2,1.7,c.dark);piston([0,side*14,31],[12,side*14,27],1);claw(hand,stroke,2);radiator(-10,side*5,30,3,11);}
   break;}
  case 'Siege Crawler':{
-  for(const side of [-1,1])tread(-3,side*11,19,3.4,5);hull(-3,0,13,18,9,5,c.dark);box(-6,0,17,9,7,4,c.plate);hull(3,0,22,10,5.8,5.2,c.shell);emitter(22,3.4);radiator(-14,0,18,6,13);spine(-4,30,4,3.4,6);
+  walkerLegs(-3,12,8,17,1.75);hull(-3,0,13,18,9,5,c.dark);box(-6,0,17,9,7,4,c.plate);hull(3,0,22,10,5.8,5.2,c.shell);emitter(22,3.4);radiator(-14,0,18,6,13);spine(-4,30,4,3.4,6);
   for(const side of [-1,1]){piston([-9,side*6,17],[15,side*6,22],1.4);tendril([-12,side*6,25],[-20,side*9,20],[-7,side*9,12],[-21,side*11,12],1.5);lens(-4,side*8,25,.8);}break;}
  case 'Sentinel':{
   hull(-3,0,32,10,8,7,c.dark);spine(-1,39,5,3.1,4.5);eyes(7,0,34,1.2);hull(10,0,24,7,4,3,c.plate);emitter(22,1.9);
@@ -61,11 +92,18 @@ function render(ctx,d,f,angle,action,frame){if(action==='ready'){action='attack'
   hull(-2,0,16,17,6,5,c.dark);for(const side of [-1,1]){face([[-13,side*6,18],[-6,side*13,22],[16,side*11,19],[21,side*5,14],[4,side*7,12]],c.plate);face([[-6,side*13,22],[16,side*11,19],[14,side*12,13],[-7,side*13,14]],c.shell);seg([-6,side*13,22],[15,side*11,19],c.edge,.8);thruster(-5,side*9,6,2.6);tendril([-13,side*4,17],[-24,side*11,16],[-28,side*(12+walk*2),4],[-31,side*16,6],1.25);lens(15,side*8,19,.9);}
   hull(7,0,23,6,4,3,c.shell);eyes(13,0,25,.8);emitter(22,2.2);spine(-3,22,7,3.3,3);break;}
  case 'Command Relay':{
-  for(const side of [-1,1])tread(-2,side*7,9,2.6,4.8);hull(-2,0,12,9,7,4.2,c.dark);tube([-3,0,13],[-3,0,48],2.6,1.4,c.edge,10);box(-3,0,20,3,3,18,c.shell);for(let j=0;j<3;j++){const z=30+j*7,w=13-j*2;box(-3,0,z,1.4,w,3.3,c.plate);for(const side of [-1,1]){box(-3,side*(w-1),z-2,2,2,7,c.dark);lens(-.7,side*(w-1),z+2,.9);}seg([-3,-w,z+3.6],[-3,w,z+3.6],c.steel,.6);}lens(-.5,0,49,1.3);seg([-3,0,48],[-3,0,56],c.edge,.65);emitter(22,1.15);for(const side of [-1,1])tendril([-7,side*3,21],[-22,side*9,23],[-16,side*11,4],[-26,side*15,9],1.15);break;}
+  walkerLegs(-2,10.5,6,11.5,1.2);hull(-2,0,12,9,7,4.2,c.dark);tube([-3,0,13],[-3,0,48],2.6,1.4,c.edge,10);box(-3,0,20,3,3,18,c.shell);for(let j=0;j<3;j++){const z=30+j*7,w=13-j*2;box(-3,0,z,1.4,w,3.3,c.plate);for(const side of [-1,1]){box(-3,side*(w-1),z-2,2,2,7,c.dark);lens(-.7,side*(w-1),z+2,.9);}seg([-3,-w,z+3.6],[-3,w,z+3.6],c.steel,.6);}lens(-.5,0,49,1.3);seg([-3,0,48],[-3,0,56],c.edge,.65);emitter(22,1.15);for(const side of [-1,1])tendril([-7,side*3,21],[-22,side*9,23],[-16,side*11,4],[-26,side*15,9],1.15);break;}
  case 'Juggernaut':{
   for(const side of [-1,1]){tread(-10,side*14,11,3.7,5);tread(12,side*14,10,3.7,5);}hull(-1,0,17,20,11,7,c.dark);hull(-5,0,29,13,10,8,c.shell);hull(-3,0,37,9,7.5,4.2,c.plate);eyes(6,0,39,1.25);emitter(30,3.8);spine(-4,42,4,3.3,6);
   for(const side of [-1,1]){hull(3,side*11,27,10,3.5,5,c.plate);piston([-7,side*11,21],[17,side*10,28],1.6);radiator(-15,side*7,24,4,13);gun(10,side*9,27,1.6);tendril([-12,side*8,31],[-26,side*15,29],[-16,side*16,12],[-28,side*22,15],1.65);lens(11,side*10,32,.8);}break;}
  default:return false;
+ }
+ // Shared across the whole civilization: more manipulators on everything that is not a pure hull.
+ if(!d.naval&&!d.bomber){
+  const big=['tank','siege','giant','heavy'].includes(d.role),mid=['elite','aa','rifle','melee'].includes(d.role);
+  const count=big?9:mid?7:d.worker?8:6,reach=big?20:mid?15:12,base=big?26:mid?19:16;
+  crown(big?-4:-2,base,count,reach,big?1.15:.85,true,.37,big?2:0);
+  if(big||mid)crown(big?-7:-4,base+(big?9:6),Math.max(4,count-3),reach*.72,big?.85:.65,false,1.04,big?4:2);
  }
  m.finish();return true;
 }

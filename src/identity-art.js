@@ -41,7 +41,7 @@ function render(ctx,d,f,angle,action,frame){
  if(root.FractureDetailArt?.vehicle(ctx,d,f,angle,action,frame))return true;
  if(root.FractureDetailArt?.figure(ctx,d,f,angle,action,frame))return true;
  const kind=identity(d,f);
- const {tint,poly,ellipse}=root.FractureArt,dir=Math.round(angle/(Math.PI/4))*Math.PI/4,ca=Math.cos(dir),sa=Math.sin(dir),dead=action==='dead',walk=(action==='walk'||action==='walkReady')?Math.sin(frame*Math.PI/3):0,att=action==='attack',ready=action==='ready'||action==='walkReady',gesture=action==='scratch'||action==='yawn',gestureLift=gesture?[.35,1,1,.35][frame%4]:0,work=action==='gather'||action==='build'||action==='heal',phase=frame%4,wind=att?[0,.8,1,.3][phase]:0,seq=[],team=f.color;
+ const {tint,poly,ellipse}=root.FractureArt,dir=Math.round(angle/(Math.PI/4))*Math.PI/4,ca=Math.cos(dir),sa=Math.sin(dir),dead=action==='dead',walk=(action==='walk'||action==='walkReady')?Math.sin(frame*Math.PI/3):0,att=action==='attack',ready=action==='ready'||action==='walkReady',gesture=action==='scratch'||action==='yawn',gestureLift=gesture?[.35,1,1,.35][frame%4]:0,work=action==='gather'||action==='gatherOil'||action==='build'||action==='heal',phase=frame%4,wind=att?[-.35,1.15,1.3,.2][phase]:0,seq=[],team=f.color;
  const p=(x,y,z=0)=>{const xx=x*ca-y*sa,yy=x*sa+y*ca;return[56+(xx-yy)*.8,87+(xx+yy)*.4-(dead?z*.16:z)];};
  const depth=(x,y,z)=>x*(ca+sa)+y*(ca-sa)+z*.04;
  const add=(x,y,z,fn)=>seq.push({depth:depth(x,y,z),fn});
@@ -58,7 +58,28 @@ function render(ctx,d,f,angle,action,frame){
  const eye=(x,y,z,color='#d6b877')=>{orb(x,y,z,.68,.68,.56,'#253039');orb(x+.16,y,z+.08,.34,.4,.35,color);},horn=(a,b,color='#d4c4a0',width=2)=>tendon([a,a.map((q,j)=>q+(b[j]-q)*.6),b],[width*.62,width*.34,.06],color,'bone');
  const claw=(x,y,z,forward=1)=>{const scale=kind==='cat'?.55:1;for(let k=-1;k<=1;k++)horn([x,y+k*1.4*scale,z],[x+forward*3.5*scale,y+k*1.7*scale,z-1.2*scale],'#d6cab0',.8*scale);};
  const wings=(x,z,span,color,feather=false)=>{for(const side of [-1,1]){const flap=d.air?((action==='walk'||action==='walkReady')?walk:Math.sin(frame*Math.PI/3)*.35):-.3,tip=[x-7,side*span,z+7+flap*9],elbow=[x+2,side*span*.48,z+13],root=[x,side*4,z];
- if(feather){for(let j=0;j<7;j++){const y=side*(9+j*(span-9)/7),zz=z+8+flap*j,xx=x-3-j*1.7;face([[xx+4,y-side*3,zz+4],[xx+5,y+side*3,zz+3],[xx-13-j*.3,y+side*2,zz-11],[xx-10,y-side*2,zz-10]],tint(color,j%2?18:-10));}}else{face([root,elbow,[x-14,side*8,z-1]],tint(color,-7));face([elbow,tip,[x-21,side*span*.72,z-5]],tint(color,-16));face([elbow,[x-21,side*span*.72,z-5],[x-14,side*8,z-1]],tint(color,-22));for(let j=1;j<5;j++)seg(elbow,[x-15-j,side*(8+j*(span*.72-8)/5),z-2-j*.6],tint(color,5),.35);for(const v of [tip,[x-21,side*span*.72,z-5],[x-14,side*8,z-1]])seg(elbow,v,tint(color,36),1);}
+ if(feather){
+ // The vane is built as one closed fan so adjacent flight feathers overlap instead of leaving gaps,
+ // then the arm bone, covert rows and separated tips are laid over it.
+ const shoulder=[x+2,side*5,z+1],elbow=[x-2,side*span*.42,z+7+flap*4],wrist=[x-8,side*span*.74,z+8+flap*8],along=(a,b,t)=>a.map((q,k)=>q+(b[k]-q)*t);
+ const tips=[[x-25,side*span*1.02,z+1+flap*7],[x-27,side*span*.88,z-2+flap*5],[x-26,side*span*.7,z-5+flap*3],[x-22,side*span*.5,z-7+flap],[x-16,side*span*.3,z-8],[x-9,side*9,z-6]];
+ const roots=[wrist,along(elbow,wrist,.66),along(elbow,wrist,.3),elbow,along(shoulder,elbow,.5),shoulder];
+ // Every primary and secondary is its own quill, each overlapping the next like shingles.
+ const pick=(arr,t)=>{const u=Math.min(.9999,Math.max(0,t))*(arr.length-1),i=Math.floor(u),fr=u-i,a=arr[i],b=arr[Math.min(arr.length-1,i+1)];return a.map((q,k)=>q+(b[k]-q)*fr);};
+ const NF=16;
+ for(let i=0;i<NF;i++){
+  const t=i/(NF-1),t2=Math.min(1,(i+1.7)/(NF-1)),lift=(NF-i)*.06;
+  const r0=pick(roots,t),r1=pick(roots,t2),p0=pick(tips,t),p1=pick(tips,t2);
+  face([[r0[0],r0[1],r0[2]+lift],[r1[0],r1[1],r1[2]+lift],[p1[0],p1[1],p1[2]+lift],[p0[0],p0[1],p0[2]+lift]],tint(color,i%2?11:-10));
+  seg([r0[0],r0[1],r0[2]+lift+.1],[p0[0],p0[1],p0[2]+lift+.1],tint(color,i%3?24:0),.32);
+  face([[p0[0],p0[1],p0[2]+lift],[p0[0]-2.4,p0[1]+side*.8,p0[2]+lift-1.1],[p1[0]-1.2,p1[1],p1[2]+lift-.6],[p1[0],p1[1],p1[2]+lift]],tint(color,i%2?19:-16));
+ }
+ // Three covert rows of small feathers over the leading edge, then the arm bone on top of them.
+ for(let row=0;row<3;row++){const cn=8+row*2;
+  for(let j=0;j<cn;j++){const a=along(shoulder,wrist,j/cn),b=along(shoulder,wrist,Math.min(1,(j+1.5)/cn)),depth=2.6+row*2.4,drop=row*1.5;
+   face([[a[0]+1.5,a[1],a[2]+1.5-drop],[b[0]+1.5,b[1],b[2]+1.5-drop],[b[0]-depth,b[1]+side*.85,b[2]-1-drop],[a[0]-depth,a[1]+side*.85,a[2]-1-drop]],tint(color,row===0?12:row===1?-3:-16));}}
+ tendon([shoulder,elbow,wrist],[2.3,1.8,1],tint(color,12),'skin');
+ }else{face([root,elbow,[x-14,side*8,z-1]],tint(color,-7));face([elbow,tip,[x-21,side*span*.72,z-5]],tint(color,-16));face([elbow,[x-21,side*span*.72,z-5],[x-14,side*8,z-1]],tint(color,-22));for(let j=1;j<5;j++)seg(elbow,[x-15-j,side*(8+j*(span*.72-8)/5),z-2-j*.6],tint(color,5),.35);for(const v of [tip,[x-21,side*span*.72,z-5],[x-14,side*8,z-1]])seg(elbow,v,tint(color,36),1);}
  seg(root,elbow,tint(color,24),2);seg(elbow,tip,tint(color,32),1.5);}};
  const tail=(x,z,length,color)=>spine([[x,0,z,4.5,4.2],[x-length*.24,1,z*.81,3.7,3.4],[x-length*.5,2+walk*1.4,z*.53,2.5,2.2],[x-length*.77,4+walk*2,z*.28,1.3,1.1],[x-length,5+walk*3,3,.18,.2]],color);
  const muzzle=(x,y,z,color,length=7,wolf=false)=>{const feline=kind==='cat'||kind==='chimera',bovine=kind==='minotaur',reptile=!wolf&&!feline&&!bovine,open=att&&phase===2?1.7:.3,wide=bovine?4.7:feline?4.4:reptile?4.5:3.8,snout=feline?length*.68:length;
@@ -72,21 +93,38 @@ function render(ctx,d,f,angle,action,frame){
  if(wolf||feline||bovine){spine([[x+snout-.6,y,z-1,wide*.46,1.2],[x+snout+.7,y,z-1.2,wide*.42,1]],'#33352f');if(feline)for(const side of [-1,1])orb(x+snout-1,y+side*1.7,z-2,1.8,1.8,1.2,tint(color,24));}
  };
  const legs4=(length,width,z,color,hooves=false,wyvern=false,center=0)=>{for(const offset of wyvern?[-length]:[-length,length])for(const side of [-1,1]){const x=offset+center,hind=offset<0,bulk=(z<15?.68:1)*(kind==='cat'?.82:1),gait=(action==='walk'||action==='walkReady')?root.FractureMotion.step(frame,(hind?0:.5)+(side<0?.5:0),6):{x:0,lift:0},stride=gait.x,hip=[x,side*width,z],knee=[x+(hind?3.6:-2.7)+stride*.45,side*(width+1.2),z*.52+gait.lift*.4],hock=[x+(hind?-2.1:-.7)+stride,side*(width+1.8),4.2+gait.lift],foot=[x+1.8+stride,side*(width+2),1.7+gait.lift];
- limb(hip,knee,color,(hind?8:6.5)*bulk);orb(...hip,(hind?4.6:3.6)*bulk,3.6*bulk,(hind?5.8:5.2)*bulk,color);limb(knee,hock,tint(color,-7),(hind?4.7:4)*bulk);orb(...knee,2.3*bulk,2*bulk,2.3*bulk,tint(color,5));tendon([hock,foot],[1.6,1.7],color);if(hooves){box(foot[0]+.6,foot[1],.5+gait.lift,2.5,1.8,2.5,'#403f35');seg([foot[0]+3,foot[1],.7+gait.lift],[foot[0]+3,foot[1],2.7+gait.lift],'#252d29',.45);}else{spine([[foot[0]-1,foot[1],2+gait.lift,1.8,1.5],[foot[0]+2,foot[1],1.8+gait.lift,2.4,1.3],[foot[0]+3.5,foot[1],1.4+gait.lift,1.8,.7]],tint(color,-9));claw(foot[0]+3,foot[1],1.8+gait.lift);}}};
+ limb(hip,knee,color,(hind?8:6.5)*bulk);orb(...hip,(hind?4.6:3.6)*bulk,3.6*bulk,(hind?5.8:5.2)*bulk,color);limb(knee,hock,tint(color,-7),(hind?4.7:4)*bulk);orb(...knee,2.3*bulk,2*bulk,2.3*bulk,tint(color,5));orb(...hock,1.95*bulk,1.7*bulk,1.9*bulk,tint(color,-4));tendon([hock,foot],[2.1*bulk,1.5*bulk],color);
+ if(['dragon','wyvern','lizard','hydra'].includes(kind)){mesh.material('scales');
+  mesh.pelt([[hip[0],hip[1],hip[2],(hind?4.2:3.4)*bulk,(hind?4.2:3.4)*bulk],[knee[0],knee[1],knee[2],2.5*bulk,2.5*bulk],[hock[0],hock[1],hock[2],2*bulk,2*bulk],[foot[0],foot[1],foot[2]+.4,1.5*bulk,1.5*bulk]],color,{axis:'z',rows:8,cols:9,flow:-1,lift:.26,grow:.07,shade:8,seed:offset*3+side*11});}
+ for(let j=0;j<2;j++)seg([hip[0]+(hind?1.4:-1.2),side*(width+1.5),hip[2]-j*2.6-1],[knee[0]+(hind?.6:-.4),side*(width+1.9),knee[2]+2.4-j*2],tint(color,-15),.4);if(hooves){box(foot[0]+.6,foot[1],.5+gait.lift,2.5,1.8,2.5,'#403f35');seg([foot[0]+3,foot[1],.7+gait.lift],[foot[0]+3,foot[1],2.7+gait.lift],'#252d29',.45);}else{spine([[foot[0]-1,foot[1],2+gait.lift,1.8,1.5],[foot[0]+2,foot[1],1.8+gait.lift,2.4,1.3],[foot[0]+3.5,foot[1],1.4+gait.lift,1.8,.7]],tint(color,-9));claw(foot[0]+3,foot[1],1.8+gait.lift);}}};
  const dragonWings=(x,z,span,color)=>{for(const side of [-1,1]){const flap=(action==='walk'||action==='walkReady')?walk:Math.sin(frame*Math.PI/3)*.22,root=[x+4,side*5,z],elbow=[x+4,side*span*.42,z+15+flap*3],tip=[x-5,side*span,z+17+flap*8],fingers=[[x-17,side*span*.82,z+1+flap*5],[x-22,side*span*.52,z-2+flap*2],[x-17,side*span*.24,z-4],[x-7,side*6,z-4]],leading=[elbow,tip];
  tendon([root,elbow,tip],[2.7,2,0.3],tint(color,23));const nodes=[tip,...fingers];for(let j=0;j<nodes.length-1;j++){const a=nodes[j],b=nodes[j+1],scallop=a.map((q,k)=>(q+b[k])*.5+(k===0?3:k===2?2:0));face([elbow,a,scallop,b],tint(color,j%2?-11:-4));seg(elbow,b,tint(color,24),j===3?1.4:1.1);seg(a,scallop,tint(color,8),.5);seg(scallop,b,tint(color,8),.5);}face([root,elbow,fingers[3]],tint(color,-9));for(let j=0;j<fingers.length-1;j++)for(const t of [.38,.68]){const a=elbow.map((v,k)=>v+(fingers[j][k]-v)*t),b=elbow.map((v,k)=>v+(fingers[j+1][k]-v)*t);seg(a,b,tint(color,-23),.35);}horn(elbow,[elbow[0]+3,elbow[1]+side*1.5,elbow[2]+5],'#cbb78f',1.4);
  }};
  const weapon=(type,hand,color='#aebbb4')=>{const [x,y,z]=hand,rest=!att&&!ready;if(type==='none')return;const release=p=>{if(att&&phase===2)ctx.canvas.weaponMuzzle={x:p[0],y:p[1],z:p[2]};};
- if(type==='potion'){release(hand);orb(x,y,z,2,2,3,'#a795ba');seg([x,y,z+2],[x,y,z+5],'#c8c0a5',1.5);return;}if(type==='sword'||type==='axe'||type==='club'||type==='spear'){const end=type==='spear'?[x+(rest?2:ready?19:[12,4,27,21][phase]),y,z+(rest?25:ready?8:[16,20,4,8][phase])]:[x+(rest?3:ready?9:[5,-15,23,14][phase]),y+(rest||ready?0:[0,-3,5,2][phase]),z+(rest?-12:ready?17:[16,24,-4,8][phase])];seg(hand,end,type==='sword'?'#7b8179':'#8b7653',type==='club'?3:1.6);
+ if(type==='potion'){release(hand);orb(x,y,z,2,2,3,'#a795ba');seg([x,y,z+2],[x,y,z+5],'#c8c0a5',1.5);return;}if(type==='sword'||type==='axe'||type==='club'||type==='spear'){const end=type==='spear'?[x+(rest?2:ready?19:[14,2,32,21][phase]),y,z+(rest?25:ready?8:[18,24,2,8][phase])]:[x+(rest?3:ready?9:[3,-19,28,14][phase]),y+(rest||ready?0:[0,-4,6,2][phase]),z+(rest?-12:ready?17:[18,28,-6,8][phase])];seg(hand,end,type==='sword'?'#7b8179':'#8b7653',type==='club'?3:1.6);
  if(type==='sword'){const dx=end[0]-x,dz=end[2]-z,len=Math.hypot(dx,dz),nx=-dz/len,nz=dx/len,base=[x+dx*.13,y,z+dz*.13],tip=[end[0]+dx*.15,y,end[2]+dz*.15],wide=1.7;mesh.material('metal');for(const side of [-1,1]){mesh.face([[base[0]+nx*wide,y,base[2]+nz*wide],[base[0],y+side*.6,base[2]],[tip[0],y,tip[2]]],side===1?'#c5d0c2':'#8c9e98');mesh.face([[base[0]-nx*wide,y,base[2]-nz*wide],[tip[0],y,tip[2]],[base[0],y+side*.6,base[2]]],side===1?'#a6b7b0':'#798e8b');}seg([x+nx*3.3,y,z+nz*3.3],[x-nx*3.3,y,z-nz*3.3],'#b49e6e',1.4);orb(x-dx*.17,y,z-dz*.17,1,1,1,'#c4b481');}
  else if(type==='axe'){const vertices=[[end[0]-4.5,end[2]+5],[end[0]+1,end[2]+6],[end[0]+6,end[2]+3],[end[0]+7,end[2]-2],[end[0]+1,end[2]-4],[end[0]-4.5,end[2]-2]];mesh.material('metal');for(const side of [-1,1])mesh.face(vertices.map(([xx,zz])=>[xx,y+side*.8,zz]),side>0?'#b4c0b6':'#768b83');for(let j=0;j<vertices.length;j++){const a=vertices[j],b=vertices[(j+1)%vertices.length];mesh.face([[a[0],y-.8,a[1]],[b[0],y-.8,b[1]],[b[0],y+.8,b[1]],[a[0],y+.8,a[1]]],'#d0d3bd');}box(end[0]-2,y,end[2]-2,1.4,1.6,5,'#687b74');}
  else if(type==='spear'){const dx=end[0]-x,dz=end[2]-z,len=Math.hypot(dx,dz),nx=-dz/len,nz=dx/len,tip=[end[0]+dx/len*7,y,end[2]+dz/len*7];for(const side of [-1,1]){face([[end[0]+nx*2,y,end[2]+nz*2],tip,[end[0],y+side*.55,end[2]-1]],side>0?'#cbd2ba':'#899d94');face([[end[0]-nx*2,y,end[2]-nz*2],[end[0],y+side*.55,end[2]-1],tip],side>0?'#a8b7a4':'#758d86');}seg([end[0]-dx/len*3,y,end[2]-dz/len*3],end,'#b6a779',2.1);}
  else{tendon([[end[0]-(end[0]-x)*.3,y,end[2]-(end[2]-z)*.3],end,[end[0]+(end[0]-x)*.08,y,end[2]+(end[2]-z)*.08]],[2.4,4,3.4],'#82755d','wood');for(const side of [-1,1])horn([end[0],y+side*2.6,end[2]],[end[0]+2,y+side*5,end[2]+2],'#b5b39a',1.2);}
  }else if(type==='bow'){release([x+4,y,z]);const bx=x,bz=z+(att?0:-2),top=[bx,y,bz+10],bottom=[bx,y,bz-10],mid=[bx+4,y,bz];seg(top,mid,'#b79c66',1.4);seg(mid,bottom,'#a88e5b',1.4);const pull=[bx-(att&&phase<2?(phase===0?3:10):0),y,bz];seg(top,pull,'#d5c9a5',.6);seg(bottom,pull,'#d5c9a5',.6);if(att&&phase<2)seg(pull,[bx+9,y,bz],'#d4c6a1',.75);
  }else if(type==='staff'){release([x,y,z+18]);seg([x,y,3],[x,y,z+17],'#8d8064',1.8);orb(x,y,z+18,2.5,2.5,3.5,team);for(const side of [-1,1])horn([x,y+side*2,z+15],[x,y+side*4,z+20],'#c5b080',1);
- }else if(type==='rock'){release([x+3,y,z]);orb(x+3,y,z,5,5,5,'#9c9f8c');}
- else if(type==='sling'){release([x+5,y,z+7]);seg([x,y,z],[x+5,y,z+(att?7:-8)],'#ae996b',.8);orb(x+5,y,z+(att?7:-8),1.5,1,1,'#a3a38c');}
- else{const length=type==='rocket'?20:type==='heavy'?18:type==='crossbow'?10:14,tip=[x+length,y,z+(att||ready?0:-5)];release(tip);seg([x-4,y,z+1],tip,type==='rocket'?'#768b79':'#5d706b',type==='rocket'?5:type==='heavy'?3.7:2.2);box(x+2,y,z-1.8,4,1.65,3.5,'#4b615c');box(x-4,y,z-.5,2.3,1.5,2.5,'#596c62');seg([x+1,y,z-1],[x-.5,y,z-5],'#384b46',2);if(type!=='crossbow'&&type!=='rocket'){box(x+4,y,z-5.5,1.3,1.1,4,'#334a43');seg([x+2,y,z+3],[x+7,y,z+3],'#a2aea0',1.15);for(let j=0;j<3;j++)seg([x+7+j*1.5,y-1,z-1.5],[x+7+j*1.5,y+1,z-1.5],'#9da89a',.55);}if(type==='crossbow')seg([x+7,y-7,z],[x+7,y+7,z],'#9d875e',2);if(type==='heavy')for(const side of [-1,1])seg([x+7,y+side*1.7,z],[tip[0],tip[1]+side*1.7,tip[2]],'#9ba99c',.8);if(att&&phase===2&&type!=='crossbow')orb(...tip,3,2,2,'#edca79');}
+ }else if(type==='rock'){release([x+3,y,z]);const cx=x+3;mesh.material('rock');mesh.orb(cx,y,z,4.3,4.1,3.9,'#9c9f8c');
+ for(let j=0;j<7;j++){const a=j*Math.PI*2/7,b=a+Math.PI*2/7,ring=(t,r,zz)=>[cx+Math.cos(t)*r,y+Math.sin(t)*r*.94,z+zz];
+  mesh.face([ring(a,2.6,3.6),ring(b,2.6,3.6),ring(b,4.9,.2),ring(a,4.9,.2)],j%2?'#a9ab97':'#8e9180');
+  mesh.face([ring(a,4.9,.2),ring(b,4.9,.2),ring(b,3,-3.7),ring(a,3,-3.7)],j%2?'#878a78':'#73776a');
+  mesh.seg(ring(a,4.9,.2),ring(b,4.9,.2),'#696d61',.3);}}
+ else if(type==='sling'){
+ // Paired cords from the fist to a leather pouch: slack at rest, whirled through the throw.
+ const arc=att?[-.55,.7,2.15,1.35][phase]:-1.2,reach=att?10:7,px=x+Math.cos(arc)*reach,pz=z+Math.sin(arc)*reach;
+ release([px+2,y,pz]);
+ mesh.material('cloth');for(const dy of [-.9,.9])mesh.seg([x+.8,y+dy*.45,z+.8],[px,y+dy,pz],'#cbb98e',.45);
+ mesh.material('leather');
+ mesh.face([[px-1.6,y-1.3,pz+1.1],[px+1.6,y-1.3,pz+.9],[px+1.6,y+1.3,pz+.9],[px-1.6,y+1.3,pz+1.1]],'#7a5c3e');
+ mesh.face([[px-1.6,y-1.3,pz+1.1],[px+1.6,y-1.3,pz+.9],[px+1.1,y,pz-1.3],[px-1.3,y,pz-1.2]],'#63492f');
+ mesh.face([[px-1.6,y+1.3,pz+1.1],[px+1.1,y,pz-1.3],[px+1.6,y+1.3,pz+.9]],'#8d6c49');
+ if(!att||phase<2)orb(px,y,pz,1.2,1.2,1.1,'#9b9a8c');
+}
+ else{const length=type==='rocket'?20:type==='heavy'?18:type==='crossbow'?10:14,tip=[x+length,y,z+(att||ready?0:-5)];release(tip);seg([x-4,y,z+1],tip,type==='rocket'?'#768b79':'#5d706b',type==='rocket'?5:type==='heavy'?3.7:2.2);box(x+2,y,z-1.8,4,1.65,3.5,'#4b615c');box(x-4,y,z-.5,2.3,1.5,2.5,'#596c62');seg([x+1,y,z-1],[x-.5,y,z-5],'#384b46',2);if(type!=='crossbow'&&type!=='rocket'){box(x+4,y,z-5.5,1.3,1.1,4,'#334a43');seg([x+2,y,z+3],[x+7,y,z+3],'#a2aea0',1.15);for(let j=0;j<3;j++)seg([x+7+j*1.5,y-1,z-1.5],[x+7+j*1.5,y+1,z-1.5],'#9da89a',.55);}if(type==='crossbow')seg([x+7,y-7,z],[x+7,y+7,z],'#9d875e',2);if(type==='heavy')for(const side of [-1,1])seg([x+7,y+side*1.7,z],[tip[0],tip[1]+side*1.7,tip[2]],'#9ba99c',.8);if(att&&phase===2&&type!=='crossbow'){orb(...tip,4,3,3,'#edca79');orb(tip[0]+2,tip[1],tip[2],2.5,2.5,2,'#f5e8b0');}if(att&&(phase===1||phase===2)&&type==='heavy'){orb(...tip,3.5,3,2.5,'#edca79');orb(tip[0]+1.5,tip[1],tip[2],2,2,1.5,'#f5e8b0');}}
  };
  const shield=(x,y,z,color=team,large=false)=>{color=uniform(d,f)[0];const w=large?7:5,h=large?10:7,ring=[[x,y-w,z+h-2],[x,y-w,z-h+2],[x,y,z-h-3],[x,y+w,z-h+2],[x,y+w,z+h-2],[x,y,z+h+1]];mesh.material('metal');for(let j=0;j<ring.length;j++){mesh.face([ring[j],ring[(j+1)%ring.length],[x+3,y,z]],j%2?tint(color,-9):color);mesh.seg(ring[j],ring[(j+1)%ring.length],'#b6b099',.9);}mesh.orb(x+3.2,y,z,1.5,2.2,2.2,'#c5b284');for(const side of [-1,1]){mesh.seg([x+1.8,y+side*3,z+4],[x+2.5,y+side*2,z-3],tint(color,35),.6);}root.FractureDetailArt?.emblem(mesh,[x+3.4,y,z],large?3.9:2.8,f.id);};
  if(kind==='vehicle'){
@@ -116,9 +154,9 @@ function render(ctx,d,f,angle,action,frame){
  if(d.name==='Acid Spitter'){spine([[-21,0,17,3,4],[-15,0,24,8,10],[-7,0,25,8.2,9],[-2,0,20,3,4]],'#83975c','chitin');for(const side of [-1,1])for(let j=0;j<3;j++)seg([-18+j*5,side*5,26],[-15+j*5,side*7,19],'#c1cc8a',1);}
  if(d.name==='Royal Guard'){spine([[-14,0,22,7,5],[-8,0,27,11,8],[0,0,27,9,8],[8,0,24,6,5]],'#796142','chitin');for(const side of [-1,1]){face([[1,side*3,29],[-2,side*7,40],[-7,side*10,30]],'#ccb879');horn([13,side*4,24],[18,side*8,35],'#d7c69d',2);}}
  if(d.worker){for(const side of [-1,1])seg([16,side*4,16],[21,side*6,work?12+phase*3:13],'#c7b487',2);orb(-12,0,19,6,5,3,tint(col,17));}
- if(d.role==='heavy'){for(let j=0;j<4;j++)orb(-11+j*5,0,21,5,10,3,tint(col,j%2?10:-13));}
- if(d.role==='rifle'||d.name==='Spitter'){orb(-8,0,23,8,6,6,fungal?'#9eb77c':'#b2b86d');seg([4,0,21],[20,0,21],col,3);orb(20,0,21,1,2,2,'#3b4931');}
- if(d.role==='siege'){orb(-9,0,23,14,9,9,col);for(const side of d.name==='Bombardier Caste'?[-1,1]:[0]){const end=d.name==='Bombardier Caste'?[4,side*4,38]:[18,0,26];seg([-3,side*4,25],end,tint(col,15),5);orb(...end,2,2,2,'#354333');}}
+ if(d.role==='heavy'){for(let j=0;j<4;j++){const x=-11+j*5;spine([[x-2.8,0,21,7.5,2],[x-1,0,21.4,9.5,3.2],[x+2.3,0,21,8.8,2.6]],tint(col,j%2?5:-7),'chitin',16);}}
+ if(d.role==='rifle'||d.name==='Spitter'){spine([[-16,0,23,1.3,1.2],[-12,0,24,5.1,4.7],[-5,0,24,5.7,5],[-1,0,23,2.7,2.8]],fungal?'#9eb77c':'#92995c','chitin',18);seg([4,0,21],[20,0,21],col,3);orb(20,0,21,1,2,2,'#3b4931');}
+ if(d.role==='siege'){spine([[-23,0,22,2,2],[-18,0,24,6.5,6.2],[-7,0,25,8.5,7], [2,0,23,5,4.7],[5,0,22,2.2,2.3]],col,'chitin',18);for(const side of d.name==='Bombardier Caste'?[-1,1]:[0]){const end=d.name==='Bombardier Caste'?[4,side*4,38]:[18,0,26];seg([-3,side*4,25],end,tint(col,15),5);orb(...end,2,2,2,'#354333');}}
  if(d.role==='aa'){seg([4,0,22],[27,0,34],tint(col,30),3);for(const side of [-1,1])horn([6,side*4,20],[14,side*10,31],'#d0bd8c',2);}
  if(d.role==='elite'){for(const side of [-1,1]){horn([0,side*5,20],[-6,side*10,35],'#cbb47e',2);seg([10,side*4,20],[23,side*7,23+wind*4],tint(col,27),3);}}
  if(d.role==='stealth'){for(const side of [-1,1])orb(-13,side*7,16,4,3,5,'#b3a66a');}
@@ -130,21 +168,49 @@ function render(ctx,d,f,angle,action,frame){
  if(d.name==='Familiar')mesh.ownership([{x:[-5,-1],y:[-7,7],z:[8,20]}]);
  if(kind==='hydra')mesh.ownership([{x:[-8,-3],y:[-13,13],z:[16,30]},{x:[5,14],y:[-10,10],z:[29,32]}]);
  legs4(kind==='wyvern'?7:length*.65,small?3.8:6.3,z,col,false,kind==='wyvern');
- spine([[-length,0,z-1,broad*.35,3],[-length*.76,0,z,broad*.79,z*.38],[-length*.36,0,z-1,broad*.86,z*.36],[length*.05,0,z-2,broad*.73,z*.32],[length*.48,0,z+.4,broad,z*.43],[length*.78,0,z+1,broad*.82,z*.4],[length*.9,0,z+2,broad*.42,z*.26]],col);
- const tl=small?16:26;spine([[-length+2,0,z-1,broad*.52,3.5],[-length-tl*.25,1,z*.75,broad*.37,2.8],[-length-tl*.52,2+walk,z*.47,broad*.23,1.7],[-length-tl*.8,4+walk*2,z*.25,.8,.8],[-length-tl,5+walk*3,3,.12,.15]],col);
+ const bodyRings=[[-length,0,z-1,broad*.35,3],[-length*.76,0,z,broad*.79,z*.38],[-length*.36,0,z-1,broad*.86,z*.36],[length*.05,0,z-2,broad*.73,z*.32],[length*.48,0,z+.4,broad,z*.43],[length*.78,0,z+1,broad*.82,z*.4],[length*.9,0,z+2,broad*.42,z*.26]];
+ spine(bodyRings,col);
+ const tl=small?16:26,tailRings=[[-length+2,0,z-1,broad*.52,3.5],[-length-tl*.25,1,z*.75,broad*.37,2.8],[-length-tl*.52,2+walk,z*.47,broad*.23,1.7],[-length-tl*.8,4+walk*2,z*.25,.8,.8],[-length-tl,5+walk*3,3,.12,.15]];
+ spine(tailRings,col);
+ // Scaled animals are clad in individual overlapping scales from nose to tail tip, not a patterned skin.
+ const scaly=['dragon','wyvern','lizard','hydra'].includes(kind),plated=scaly||kind==='shellbeast';
+ if(plated){mesh.material(kind==='shellbeast'?'chitin':'scales');
+  mesh.pelt(bodyRings,col,{rows:small?10:16,cols:small?13:20,flow:-1,lift:small?.3:.46,grow:.1,shade:9,seed:3});
+  mesh.pelt(tailRings,col,{rows:small?8:13,cols:small?10:15,flow:-1,lift:small?.24:.36,grow:.08,shade:9,seed:11});
+ }
  // Broad shoulder blades and haunches merge into the chest and pelvis, above articulated elbows/hocks.
- for(const side of [-1,1]){limb([length*.3,side*broad*.74,z+4],[length*.65,side*broad*.78,z-1],tint(col,-3),small?5:7.2);limb([-length*.65,side*broad*.65,z+3],[-length*.4,side*(broad*.8),z-1],tint(col,2),small?5:8);}
- if(kind==='hydra'){for(let j=-1;j<=1;j++){const zz=42-Math.abs(j)*4;tendon([[5,j*3,22],[8,j*5,30],[12,j*8,zz-1],[18,j*10,zz]],[4.9,4.3,3.5,3.1],col);muzzle(18,j*10,zz,col,6);for(const side of [-1,1])horn([15,j*10+side*3,zz+3],[10,j*10+side*6,zz+7],'#c2b58f',1.4);}}
- else{const headZ=z+(kind==='cat'?6:kind==='hound'?9:13)+(att?wind*3:0);tendon([[length*.57,0,z+3],[length*.8,0,z+(kind==='cat'?4:kind==='hound'?7:9)],[length+1,0,headZ-1],[length+5,0,headZ]],[small?3.5:6.2,small?3:5.1,small?2.7:3.9,small?2.2:3.5],col);muzzle(length+5,0,headZ,col,kind==='hound'?8:small?5:8,kind==='hound'||kind==='cat');
+ for(const side of [-1,1]){limb([length*.3,side*broad*.74,z+4],[length*.65,side*broad*.78,z-1],tint(col,-3),small?5:7.2);limb([-length*.65,side*broad*.65,z+3],[-length*.4,side*(broad*.8),z-1],tint(col,2),small?5:8);
+  // Scapula, deltoid and haunch masses stand proud of the barrel so the legs read as attached rather than pinned on.
+  const sy=side*broad*.86,bz=z*(small?.26:.3);
+  orb(length*.52,sy,z+2.4,broad*.42,broad*.3,bz,tint(col,8));
+  orb(length*.34,sy*.96,z-2.4,broad*.32,broad*.26,bz*.78,tint(col,-7));
+  orb(-length*.62,sy*.98,z+1.6,broad*.48,broad*.32,bz*1.08,tint(col,5));
+  orb(-length*.42,sy*.92,z-3,broad*.32,broad*.25,bz*.8,tint(col,-8));
+  // Rib and flank seams give the barrel a described surface instead of a smooth tube.
+  for(let j=0;j<(small?3:5);j++){const x=length*.24-j*length*(small?.3:.2);
+   seg([x,side*broad*.72,z+bz*.92],[x-1.4,side*broad*.9,z-bz*.62],tint(col,-14),small?.3:.42);}
+ }
+ if(kind==='hydra'){for(let j=-1;j<=1;j++){const zz=42-Math.abs(j)*4,hp=[[5,j*3,22],[8,j*5,30],[12,j*8,zz-1],[18,j*10,zz]],hr=[4.9,4.3,3.5,3.1];tendon(hp,hr,col);
+  mesh.material('scales');mesh.pelt(hp.map((p,i)=>[p[0],p[1],p[2],hr[i],hr[i]]),col,{rows:9,cols:12,flow:-1,lift:.32,grow:.08,shade:9,seed:31+j*7});muzzle(18,j*10,zz,col,6);for(const side of [-1,1])horn([15,j*10+side*3,zz+3],[10,j*10+side*6,zz+7],'#c2b58f',1.4);}}
+ else{const headZ=z+(kind==='cat'?6:kind==='hound'?9:13)+(att?wind*3:0);
+ const neckPts=[[length*.57,0,z+3],[length*.8,0,z+(kind==='cat'?4:kind==='hound'?7:9)],[length+1,0,headZ-1],[length+5,0,headZ]],neckR=[small?3.5:6.2,small?3:5.1,small?2.7:3.9,small?2.2:3.5];
+ tendon(neckPts,neckR,col);
+ if(['dragon','wyvern','lizard','hydra'].includes(kind)){mesh.material('scales');
+  mesh.pelt(neckPts.map((p,i)=>[p[0],p[1],p[2],neckR[i],neckR[i]]),col,{rows:small?6:9,cols:small?9:13,flow:-1,lift:small?.22:.34,grow:.08,shade:9,seed:21});}
+ muzzle(length+5,0,headZ,col,kind==='hound'?8:small?5:8,kind==='hound'||kind==='cat');
  if(kind==='chimera'){for(const side of [-1,1])for(let j=0;j<5;j++)face([[length-1-j,side*(4+j*.45),z+14-j],[length-6-j,side*(7+j*.2),z+10-j],[length-1-j,side*5,z+7-j]],tint(col,j%2?-24:-9));tendon([[0,5,24],[2,7,33],[7,9,40]],[4,3.2,2.7],'#a19b7b');muzzle(7,9,40,'#a19b7b',4);for(const side of [-1,1])tendon([[5,9+side*3,44],[1,9+side*6,47],[-1,9+side*5,43],[1,9+side*4,41]],[1.8,1.5,.9,.12],'#d1c09a','bone');}
  }
  if(dragon){for(let j=0;j<6;j++){const x=-length*.7+j*length*.25,w=broad*(.6+Math.sin(j*Math.PI/6)*.24);face([[x-2,-w,z-4.5],[x+1,-w,z-5],[x+2,0,z-7],[x+1,w,z-5],[x-2,w,z-4.5],[x-1,0,z-6.5]],tint(col,18+j%2*7));}
  for(const side of [-1,1]){for(let j=0;j<4;j++){const x=-length*.5+j*length*.32;face([[x-2,side*broad*.8,z+3],[x+2,side*broad*.91,z+2],[x+1,side*(broad+.2),z-.6],[x-2,side*broad*.86,z+1]],tint(col,j%2?-9:5));}tendon([[length+1,side*3,z+16],[length-3,side*5,z+20],[length-8,side*6,z+20.5]],[2.1,1.3,.06],'#c9b991','bone');horn([length+1,side*4.2,z+11],[length-3,side*7,z+10],'#bcaa82',1.2);}
  for(let j=0;j<7;j++){const x=-length-10+j*(length*1.8+10)/6,zz=x< -length?z*.65:z+6.7;face([[x-2,0,zz],[x-3,0,zz+(ancient?6:4.6)],[x+2.5,0,zz+.2]],'#b6a27a');}
- if(dragon){for(const side of [-1,1])for(let row=0;row<3;row++)for(let j=0;j<6;j++){
- const x=-length*.72+j*length*.25+(row%2)*1.2,y=side*(broad*.43+row*broad*.19),zz=z+5.9-row*1.15;
+ if(dragon){for(const side of [-1,1])for(let row=0;row<5;row++)for(let j=0;j<7;j++){
+ const x=-length*.78+j*length*.23+(row%2)*1.2,y=side*(broad*.4+row*broad*.15),zz=z+5.9-row*1.75;
  mesh.material('scales');mesh.face([[x-1.6,y,zz],[x,y-side*1.4,zz+.7],[x+1.7,y,zz],[x-.1,y+side*1.6,zz-.6]],tint(col,5+row*3));
-}}
+}
+ // Transverse belly scutes: the reptile underside is plated across the barrel instead of continuing the flank.
+ if(!small)for(let j=0;j<6;j++){const x=-length*.5+j*length*.22,w=broad*(.52+Math.sin(j*Math.PI/6)*.16);
+  mesh.material('scales');mesh.face([[x-1.5,-w,z-z*.3],[x+1.5,-w*.94,z-z*.31],[x+1.5,w*.94,z-z*.31],[x-1.5,w,z-z*.3]],tint(col,j%2?20:11));
+  mesh.seg([x-1.7,-w,z-z*.29],[x-1.7,w,z-z*.29],tint(col,-16),.35);}}
  if(d.air)dragonWings(-2,z+6,ancient?37:mature?33:small?23:30,(ancient?'#9699b3':mature?'#704136':small?'#d3ab70':tint(col,-19)));
  if(/Armored/.test(d.name)||kind==='lizard'){for(let j=0;j<4;j++){const x=-length*.6+j*length*.4;spine([[x-2.2,0,z+2,broad+1,4.2],[x,0,z+2,broad+1.5,5.3],[x+2,0,z+2,broad+.7,4.5]],'#7b877e','metal',10);for(const side of [-1,1])horn([x,side*(broad+1),z+3],[x-2,side*(broad+4),z+6],'#c1b99d',1.5);}}
  if(d.name==='Drake'){for(let j=0;j<4;j++)horn([-9+j*6,0,z+7],[-12+j*6,0,z+14-j*.6],'#c6ad7b',2);}
@@ -154,6 +220,10 @@ function render(ctx,d,f,angle,action,frame){
  if(att&&phase===2&&d.range>2)orb(length+16,0,z+9,5,3,3,'#e2a767');}
  if(kind==='hydra'){for(let j=-1;j<=1;j++)for(let k=0;k<5;k++){const zz=27+k*2.3,xx=7+k*1.3,yy=j*(5+k*.8);mesh.material('scales');mesh.face([[xx+3,yy-2,zz],[xx+3.5,yy,zz-1],[xx+3,yy+2,zz],[xx+2.5,yy,zz+1.5]],'#a3aa78');}}
  if(kind==='chimera'){for(const side of [-1,1])for(let j=0;j<7;j++)tendon([[length-3-j,side*(4+j*.2),z+12-j*.8],[length-7-j,side*(7+j*.3),z+8-j*.8],[length-5-j,side*(5+j*.3),z+4-j*.4]],[1.7,1.1,.1],j%2?'#806044':'#c5a16c','fur');}
+ // Layered coat: overlapping tufts break up the flank of the furred beasts the way scale rows break up the dragons.
+ if(['hound','cat','chimera'].includes(kind))for(const side of [-1,1])for(let row=0;row<3;row++)for(let j=0;j<6;j++){
+  const x=length*.3-j*length*.19+(row%2)*1.1,y=side*(broad*.46+row*broad*.17),zz=z+4.4-row*2.2;
+  mesh.material('fur');mesh.face([[x+2.2,y,zz+.3],[x-1.1,y-side*1.1,zz+1.1],[x-2.6,y*1.04,zz-.9],[x-1.1,y+side*1.2,zz-.2]],tint(col,row%2?-13:7));}
  if(kind==='hound'){for(const side of [-1,1])for(let j=0;j<5;j++)face([[5-j*3,side*3,z+7],[2-j*3,side*5,z+10],[j*-3,side*4,z+3]],j%2?'#8e513c':'#57433b');for(const side of [-1,1])horn([length+2,side*3,z+16],[length-5,side*6,z+20],'#b99870',1.6);}
  if(kind==='shellbeast'){for(let j=0;j<5;j++){const x=-length+3+j*5;spine([[x-3,0,z+3,8.6,5],[x,0,z+4,10.3,8],[x+2.7,0,z+3,9,5]],tint(col,j%2?7:-6),'chitin',10);for(const side of [-1,1])horn([x,side*9,z+5],[x-3,side*13,z+8],'#c9bd96',1.9);}}
  if(d.name==='Familiar'){mesh.material('glow');mesh.face([[27,6,30],[29,6,27],[27,6,24],[25,6,27]],'#bba6d0');mesh.face([[27,6,30],[27,8,27],[27,6,24],[27,4,27]],'#8f86b4');if(att&&phase===2)mesh.orb(27,6,27,2.4,2.4,2.4,'#d2c1e3');}
@@ -187,21 +257,63 @@ function render(ctx,d,f,angle,action,frame){
  let cloth=({human:d.role==='heavy'?'#48565a':d.role==='scout'||d.role==='stealth'?'#53604c':'#586965',wizard:'#686397',elf:'#50856b',dwarf:'#777f7c',orc:'#786d53',vampire:'#594658',ghoul:'#756e68',skeleton:'#6b7780',satyr:'#b09a69',minotaur:'#967e57',draconian:'#967952',reptilian:'#7c885d',kobold:'#a18b5d',goblin:'#82794f',demon:'#755c4f',imp:'#9a7152',treant:'#7c8b63'})[kind]||tint(team,-22);
  const outfit=uniform(d,f);
  if(outfit)cloth=outfit[0];else{if(d.worker)cloth=tint(cloth,10);if(d.role==='support')cloth=tint(cloth,24);if(d.role==='stealth')cloth=tint(cloth,-25);}
+ if(kind==='reptilian'&&!d.worker)cloth='#2f3835';
 
- const h=huge?43:bull?37:wolf?34:ape?apeForm[0]:small?25:short?29:40,width=huge?9:ape?apeForm[1]:bull?7:wolf?6:short?6:small?3.5:d.role==='heavy'?5.8:d.role==='scout'?3.9:4.5,zz=centaur?13:kind==='broom'?11:0,robe=['wizard','vampire'].includes(kind)||/Mage|Sage|Seer|Healer|Flamecaster/.test(d.name),armor=d.role==='heavy'||d.role==='elite'||/Shieldbearer|Knight|Legionnaire|Guard/.test(d.name)||kind==='human'&&!d.worker&&d.role!=='support',swing=(action==='heal'?[2,4,6,4][phase]:work?[3,16,1,4][phase]:att?[6,17,7,6][phase]:ready?8:0),bent=wolf||ape||huge?4:0;
+ const h=huge?43:bull?37:wolf?34:ape?apeForm[0]:small?25:short?29:40,width=huge?9:ape?apeForm[1]:bull?7:wolf?6:short?6:small?3.5:d.role==='heavy'?5.8:d.role==='scout'?3.9:4.5,zz=centaur?13:kind==='broom'?11:0,robe=['wizard','vampire'].includes(kind)||/Mage|Sage|Seer|Healer|Flamecaster/.test(d.name),armor=d.role==='heavy'||d.role==='elite'||/Shieldbearer|Knight|Legionnaire|Guard/.test(d.name)||kind==='human'&&!d.worker&&d.role!=='support',swing=(action==='heal'?[2,4,6,4][phase]:action==='gatherOil'&&d.worker?[2,10,16,8][phase]:action==='gather'&&d.worker?[6,28,-4,2][phase]:work?[3,16,1,4][phase]:att?[10,24,-2,6][phase]:ready?8:0),bent=wolf||ape||huge?4:0;
  mesh.ownership([{x:[-width*1.8,width*1.8],y:[-width*1.5,width*1.5],z:[zz+h*.48,zz+h*.57]},{x:[-width,width],y:[-width*1.5,width*1.5],z:[zz+h*.79,zz+h*.84]}],armor?['cloth','paint']:null);
- if(centaur){legs4(9,5.4,16,'#9c8262',true,false,-6);spine([[-23,0,16,2.5,3.8],[-18,0,17,6.6,7],[-10,0,16,6.4,6.5],[-3,0,17,6.1,7.3],[2,0,19,5.5,8],[5,0,21,3.4,5]],'#9c8262','fur');tendon([[-22,0,19],[-26,0,13],[-28,1+walk,5]],[2.3,2,1],'#665747','fur');for(const side of [-1,1]){limb([-17,side*5,20],[-12,side*6,14],'#9c8262',7);limb([1,side*4,23],[3,side*5,15],'#9c8262',6);}}
+ if(centaur){legs4(9,5.4,16,'#9c8262',true,false,-6);spine([[-23,0,16,2.5,3.8],[-18,0,17,6.6,7],[-10,0,16,6.4,6.5],[-3,0,17,6.1,7.3],[2,0,19,5.5,8],[5,0,21,3.4,5]],'#9c8262','fur');tendon([[-22,0,19],[-26,0,13],[-28,1+walk,5]],[2.3,2,1],'#665747','fur');for(const side of [-1,1]){limb([-17,side*5,20],[-12,side*6,14],'#9c8262',7);limb([1,side*4,23],[3,side*5,15],'#9c8262',6);
+ // Shoulder and haunch masses stand proud of the barrel, with flank seams at the same density as the beasts.
+ orb(2,side*5.5,18.5,3.3,2.1,5,'#a98d6b');orb(-17,side*5.3,18,3.7,2.3,5.4,'#a48866');
+ for(let j=0;j<5;j++)seg([-2-j*3.3,side*5.3,21],[-3.4-j*3.3,side*6.4,14.2],'#7e6950',.4);}
+ // A saddle blanket draped over the spine and down both flanks, with a fringed hem.
+ const bar=[[-16,6.6,23.6],[-11,6.5,22.9],[-6,6.2,23.4],[-1,5.9,25.2],[3,5.2,26.6]];
+ mesh.material('cloth');
+ for(let j=0;j<bar.length-1;j++){const [xa,ya,za]=bar[j],[xb,yb,zb]=bar[j+1],sh=j%2?9:-8;
+  mesh.face([[xa,-ya*.5,za+.5],[xb,-yb*.5,zb+.5],[xb,yb*.5,zb+.5],[xa,ya*.5,za+.5]],tint(cloth,sh+9));
+  for(const side of [-1,1]){
+   mesh.face([[xa,side*ya*.5,za+.5],[xb,side*yb*.5,zb+.5],[xb,side*(yb+.6),zb-4.6],[xa,side*(ya+.6),za-4.6]],tint(cloth,sh));
+   mesh.face([[xa,side*(ya+.6),za-4.6],[xb,side*(yb+.6),zb-4.6],[xb,side*(yb+.2),zb-9.4],[xa,side*(ya+.2),za-9.4]],tint(cloth,sh-12));
+   mesh.seg([xa,side*(ya+.3),za-9.4],[xb,side*(yb+.3),zb-9.4],tint(cloth,22),.4);
+   for(const t of [.25,.75]){const x=xa+(xb-xa)*t,yy=ya+(yb-ya)*t,zz=za+(zb-za)*t;
+    mesh.seg([x,side*(yy+.25),zz-9.4],[x-.3,side*(yy+.45),zz-11.9],tint(cloth,j%2?17:-14),.32);}
+  }
+ }}
  else if(kind==='gorgon'){for(let j=0;j<5;j++)orb(-j*4,Math.sin(j)*5,3+j,5,5,4,'#8e9f72');}
- else{for(const side of [-1,1]){const gait=(action==='walk'||action==='walkReady')?root.FractureMotion.step(frame,side<0?.5:0,small?5.5:7.5):{x:0,lift:0},stride=gait.x,footLift=gait.lift,hoof=kind==='satyr'||bull,digit=wolf||harpy||kind==='gargoyle'||hoof,legColor=wolf||ape||huge||hoof?skin:tint(cloth,-17),hip=[-bent*.3,side*3.5,zz+h*.45],knee=[(digit?3.2:-bent)-stride*.5,side*4.3,zz+(digit?11:9)+footLift*.45],ankle=[stride+(digit?-2.7:0),side*4.4,zz+(digit?5:3)+footLift];
- limb(hip,knee,legColor,huge?8:bull||wolf?6.5:ape?apeForm[1]*.85:4.8);orb(...knee,huge?2.8:2,huge?2.4:1.8,huge?2.8:2,tint(legColor,4));limb(knee,ankle,tint(legColor,-5),huge?6:digit?4.1:4);if(digit)tendon([ankle,[stride+.7,side*4.4,zz+2+footLift]],[1.8,1.6],legColor);if(hoof){box(stride+1,side*4.4,zz+.5+footLift,2.7,2.1,2.8,'#454d41');seg([stride+3.6,side*4.4,zz+.6+footLift],[stride+3.6,side*4.4,zz+2.9+footLift],'#28352d',.45);}else{spine([[stride-1,side*4.4,zz+1.8+footLift,1.9,1.4],[stride+1.5,side*4.4,zz+1.8+footLift,2.1,1.5],[stride+3.4,side*4.4,zz+1.2+footLift,1.7,.8]],wolf||harpy?skin:'#3e4b43');if(wolf||harpy||demon)claw(stride+3,side*4.4,zz+2+footLift);}}}
+ else{for(const side of [-1,1]){const gait=(action==='walk'||action==='walkReady')?root.FractureMotion.step(frame,side<0?.5:0,small?5.5:7.5):{x:0,lift:0},stride=gait.x,footLift=gait.lift,hoof=kind==='satyr'||bull,digit=wolf||harpy||kind==='gargoyle'||hoof,legColor=wolf||ape||huge||hoof||kind==='gargoyle'?skin:tint(cloth,-17),hip=[-bent*.3,side*3.5,zz+h*.45],knee=[(digit?3.2:-bent)-stride*.5,side*4.3,zz+(digit?11:9)+footLift*.45],ankle=[stride+(digit?-2.7:0),side*4.4,zz+(digit?5:3)+footLift];
+ limb(hip,knee,legColor,huge?8.8:bull||wolf?7.3:ape?apeForm[1]*.96:5.5);orb(...knee,huge?2.8:2,huge?2.4:1.8,huge?2.8:2,tint(legColor,4));limb(knee,ankle,tint(legColor,-5),huge?6.5:digit?4.7:4.6);if(digit)tendon([ankle,[stride+.7,side*4.4,zz+2+footLift]],[1.8,1.6],legColor);if(hoof){box(stride+1,side*4.4,zz+.5+footLift,2.7,2.1,2.8,'#454d41');seg([stride+3.6,side*4.4,zz+.6+footLift],[stride+3.6,side*4.4,zz+2.9+footLift],'#28352d',.45);}else{spine([[stride-1,side*4.4,zz+1.8+footLift,1.9,1.4],[stride+1.5,side*4.4,zz+1.8+footLift,2.1,1.5],[stride+3.4,side*4.4,zz+1.2+footLift,1.7,.8]],wolf||harpy?skin:'#3e4b43');if(wolf||harpy||demon)claw(stride+3,side*4.4,zz+2+footLift);}}}
  if(robe)face([[-2,-width,h-7+zz],[-2,width,h-7+zz],[-5,width+3,zz+4],[-7,-width-3,zz+4]],tint(cloth,-17));
- const bare=ape||wolf||bull||huge||kind==='satyr',bodyColor=bare?skin:cloth;
- loft([[-bent*.4,0,h*.43+zz,width*.62,width*.78],[-bent*.35,0,h*.54+zz,width*.64,width*.74],[-bent*.35,0,h*.72+zz,width*.85,width*1.14],[-bent*.2,0,h*.83+zz,width*.72,width*1.06],[0,0,h*.91+zz,width*.38,width*.37]],bodyColor,bare?furKinds.includes(kind)?'fur':'skin':'cloth');
+ const bare=ape||wolf||bull||huge||kind==='satyr'||kind==='gargoyle',bodyColor=bare?skin:cloth;
+ const hide=kind==='gargoyle'?'stone':furKinds.includes(kind)?'fur':'skin';
+ loft([[-bent*.4,0,h*.43+zz,width*.62,width*.78],[-bent*.35,0,h*.54+zz,width*.64,width*.74],[-bent*.35,0,h*.72+zz,width*1.02,width*1.17],[-bent*.2,0,h*.83+zz,width*.87,width*1.08],[0,0,h*.91+zz,width*.38,width*.37]],bodyColor,bare?hide:'cloth');
  // Chest, shoulder and abdominal planes read as anatomy instead of a single round torso.
  if(bare){for(const side of [-1,1]){orb(width*.45-bent*.2,side*width*.48,h*.73+zz,width*.48,width*.52,h*.095,tint(skin,5));orb(-bent*.2,side*width,h*.79+zz,width*.5,width*.46,h*.1,tint(skin,-3));}for(let j=0;j<2;j++)orb(width*.56-bent*.4,0,h*(.56+j*.065)+zz,width*.28,width*.48,h*.04,tint(skin,-4));}
+ // Heavy backs: neck column, trapezius slopes, scapulae and latissimus tie the head and shoulders into the mass.
+ if(huge){const bk=furKinds.includes(kind)?'fur':'skin';
+  loft([[-bent*.15,0,h*.88+zz,width*.32,width*.34],[-bent*.1,0,h*.95+zz,width*.27,width*.29],[-.2,0,h+zz-3.5,width*.25,width*.27]],tint(skin,-3),bk);
+  orb(-width*.78,0,h*.72+zz,width*.47,width*.88,h*.16,tint(skin,-12));
+  for(const side of [-1,1]){
+   loft([[-bent*.2,side*width*.22,h*.93+zz,width*.32,width*.28],[-bent*.15,side*width*.62,h*.85+zz,width*.4,width*.33],[-bent*.1,side*(width+.4),h-6+zz,width*.5,width*.4]],tint(skin,-6),bk);
+   orb(-width*.5-bent*.2,side*width*.52,h*.82+zz,width*.4,width*.44,h*.1,tint(skin,-9));
+   orb(-width*.7,side*width*.42,h*.6+zz,width*.32,width*.48,h*.12,tint(skin,-8));
+  }
+ }
  else{for(const side of [-1,1])seg([width*.63,side*width*.7,h*.5+zz],[width*.76,side*width*.63,h*.72+zz],tint(cloth,-20),.45);seg([width*.85,0,h*.57+zz],[width*.85,0,h*.8+zz],tint(cloth,19),.55);}
  if(robe){loft([[-2,0,zz+4,width*.85,width+2],[-1,0,h*.4+zz,width*.7,width*.85],[0,0,h*.57+zz,width*.68,width*.9]],cloth);for(let j=0;j<10;j++){const a=j*Math.PI/5;seg([-2+Math.cos(a)*width*.83,Math.sin(a)*(width+2),zz+4],[-1+Math.cos(a)*width*.68,Math.sin(a)*width*.85,h*.4+zz],tint(cloth,j%2?13:-15),.65);}}
-if(d.campaignEmperor){cloth='#694f6e';mesh.material('cloth');face([[-4,-6,30],[-5,6,30],[-10,8,5],[-12,-8,5]],cloth);}if(wolf){orb(-3,0,h-6,width+1.5,7,8,tint(skin,-18));orb(1,0,h-2,5,5,6,skin);for(const side of [-1,1]){orb(-4,side*5,h-4,4,3,7,tint(skin,-22));for(let j=0;j<5;j++)face([[-2-j*.7,side*(4+j*.5),h-j],[-6-j*.5,side*(5+j*.6),h-5-j],[-1-j*.4,side*(5+j*.3),h-4-j]],tint(skin,j%2?-17:12));}tail(-4,14,16,skin);for(let j=0;j<6;j++)face([[-5,j%2?6:-6,h-6-j],[-8,j%2?8:-8,h-12-j],[-3,j%2?5:-5,h-10-j]],tint(skin,j%2?-22:7));}
+if(d.campaignEmperor){cloth='#694f6e';mesh.material('cloth');face([[-4,-6,30],[-5,6,30],[-10,8,5],[-12,-8,5]],cloth);}if(wolf){
+ // The lycan shoulder mass sits below the jaw line and a modeled neck carries the head clear of it.
+ orb(-3,0,h-10,width+1.4,6.4,5.4,tint(skin,-18));
+ loft([[1,0,h-8.5,3.4,3.6],[2,0,h-5.5,3,3.2],[2.3,0,h-2.6,2.6,2.8]],tint(skin,-4),'fur');
+ for(const side of [-1,1]){
+  orb(-3.6,side*(width-.6),h-9,3.7,2.9,4.4,tint(skin,-22));
+  orb(-5,side*width*.6,h-12.5,3.3,3,3.4,tint(skin,-11));
+  // Ruff tufts sweep back and down from the neck so the mane frames the skull instead of covering it.
+  for(let j=0;j<6;j++)face([[.4-j*.5,side*(3.2+j*.72),h-5.4-j*.6],[-6.2-j*.6,side*(4.4+j*.86),h-9.5-j*1.3],[-1.6-j*.45,side*(4+j*.62),h-10.6-j]],tint(skin,j%2?-19:11));
+ }
+ tail(-4,14,16,skin);
+ for(let j=0;j<6;j++)face([[-5,j%2?6:-6,h-8-j],[-8,j%2?8:-8,h-14-j],[-3,j%2?5:-5,h-12-j]],tint(skin,j%2?-22:7));
+ // Chest and flank fur seams give the lycan the same coat density as the four-legged beasts.
+ for(const side of [-1,1])for(let j=0;j<4;j++)seg([width*.74-bent*.35,side*(width*.42+j*.5),h*.74-j*2.3],[width*.5-bent*.35,side*(width*.9),h*.58-j*2.5],tint(skin,-16),.42);
+}
  if(armor){mesh.material(kind==='human'?'paint':'metal');mesh.loft([[-.4,0,h*.57+zz,width*.76,width*.86],[-.5,0,h*.74+zz,width*.98,width*1.13],[-.6,0,h*.85+zz,width*.76,width*.91]],tint(cloth,22),10);
  face([[width*.7,-width*.6,h*.85+zz],[width*.8,width*.6,h*.85+zz],[width+1,width*.5,h*.65+zz],[width+1,0,h*.59+zz],[width+1,-width*.5,h*.65+zz]],tint(cloth,25));
  seg([width+1,0,h*.62+zz],[width*.75,0,h*.82+zz],tint(cloth,48),.7);
@@ -239,6 +351,11 @@ for(const side of [-1,1]){mesh.material('metal');const shoulder=d.role==='heavy'
   }
   if(d.worker){mesh.material('cloth');mesh.box(-5,0,h*.44+zz,2.2,3.8,8,'#827557');mesh.material('metal');for(let j=0;j<3;j++){mesh.seg([-7,-2+j*2,h*.46+zz],[-7,-2+j*2,h*.7+zz],'#bac2ac',.7);mesh.box(-7,-2+j*2,h*.69+zz,.6,1,1.5,'#677a72');}}
  }
+ if(kind==='reptilian'&&!d.worker){
+  mesh.material('metal');for(const side of [-1,1]){const kg=(action==='walk'||action==='walkReady')?root.FractureMotion.step(frame,side<0?.5:0,7.5):{x:0,lift:0};mesh.box(kg.x*.3-1,side*4.2,5+kg.lift*.3,1.5,1.3,5.5,'#262e30');mesh.orb(kg.x*.3+.5,side*4.2,10+kg.lift*.3,1.6,1.4,1.7,'#333b3d');}
+  mesh.material('cloth');for(const side of [-1,1]){for(let j=0;j<2;j++){mesh.box(width*.88,side*(1.2+j*1.5),h*.55+zz,.75,.65,3.4,'#252d2f');mesh.seg([width*1.06,side*(.6+j*1.5),h*.63+zz],[width*1.06,side*(1.8+j*1.5),h*.63+zz],'#5e6e63',.35);}mesh.seg([-width*.65,side*width*.58,h*.75+zz],[-width*.65,side*width*.58,h*.48+zz],'#3d4a44',.7);}
+  mesh.material('cloth');face([[-width*.7,-width*1.3,h*.82+zz],[-width*.7,width*1.3,h*.82+zz],[-width-6,width*1.5,h*.42+zz],[-width-6,-width*1.5,h*.42+zz]],'#5c6b4e');for(let j=0;j<3;j++)mesh.seg([-width-j*1.8,-width*1.2+j*.3,h*(.74-j*.09)+zz],[-width-j*1.8,width*1.2-j*.3,h*(.74-j*.09)+zz],'#4a5842',.5);
+ }
  if(kind==='elf'&&!armor){
   mesh.material('cloth');mesh.loft([[-2,0,h*.49+zz,width*.65,width*.8],[-1,0,h*.73+zz,width*.81,width*1.1],[0,0,h*.87+zz,width*.4,width*.6]],cloth,12);
   for(const side of [-1,1]){mesh.seg([width*.67,side*width*.7,h*.73+zz],[width*.54,side*width*.65,h*.49+zz],'#b1b28a',.6);for(let j=0;j<3;j++)mesh.face([[width*.78,side*(2+j*.3),h*.76+zz-j*2],[width*.83,side*(4+j*.2),h*.74+zz-j*2],[width*.8,side*(2+j*.3),h*.71+zz-j*2]],'#839e70');}
@@ -269,19 +386,25 @@ for(const side of [-1,1]){mesh.material('metal');const shoulder=d.role==='heavy'
  }
  let hands=[];for(const side of [-1,1]){const bowPose=(att||ready)&&/Archer/.test(d.name),ranged=d.range>2&&!/Thrower|Slinger|Hexer/.test(d.name),alert=att||ready;
  const restHand=[2-((action==='walk'||action==='walkReady')?root.FractureMotion.step(frame,side<0?.5:0,small?5.5:7.5).x*.42:0),side*(width+2),zz+h*.36];
- const hand=bowPose?[side===1?18:att?[15,8,18,15][phase]:15,4,zz+h*.7]:alert&&ranged?[side===1?8:16,4,zz+h*.69+(att&&phase===2?-1:0)]:alert?[ready?9:[7,-1,18,12][phase],side*(width+2),zz+h*.55+swing]:work?[8,side*(width+2),zz+h*.55+swing]:restHand;
+ const hand=bowPose?[side===1?18:att?[15,8,18,15][phase]:15,4,zz+h*.7]:alert&&ranged?[side===1?8:(att?[14,10,19,14][phase]:16),4,zz+h*.69+(att?[1,2,-2,0][phase]:0)]:alert?[ready?9:[5,-4,22,12][phase],side*(width+2),zz+h*.55+swing]:work?[8,side*(width+2),zz+h*.55+swing]:restHand;
  if(side===-1&&(/Shield|Guardian|Knight|Legionnaire|Flameguard/.test(d.name)||['Spellguard','Spear Warrior','Greater Demon'].includes(d.name))){hand[0]=3;hand[1]=-width-3;hand[2]=h*.6+zz;}
  // The free hand reaches the nose/mouth; the weapon hand keeps its equipment.
  if(gesture&&side===-1){const target=[bent+(action==='scratch'?4.6:5.7),action==='scratch'?-1:0,zz+h+(action==='scratch'?.6:-1.8)];for(let j=0;j<3;j++)hand[j]+=(target[j]-hand[j])*gestureLift;}
- const elbow=bowPose?[side===1?10:2,side===1?7:-7,zz+h*.69]:[bent+2+(hand[0]-2)*.45,side*(width+3),zz+h*.52+(gesture&&side===-1?gestureLift*h*.18:alert?h*.06:0)];limb([0,side*width,h-7+zz],elbow,ape||wolf||bull||huge?skin:cloth,huge?7.8:ape?apeForm[1]*.92:wolf||bull?6.6:small?3.7:4.6);orb(...elbow,huge?2.8:1.9,huge?2.8:1.8,huge?2.8:1.9,ape||wolf||bull||huge?skin:cloth);limb(elbow,hand,skin,huge?6.5:wolf?5.5:ape?apeForm[1]*.69:bull?4.8:small?3.2:3.8);if(armor){const cuff=hand.map((v,i)=>v*.55+elbow[i]*.45);seg(cuff,hand,tint(cloth,18),3.4);}orb(...hand,wolf?2.3:1.25,wolf?2:1.25,wolf?2.4:1.45,skin);hands.push(hand);
+ const elbow=bowPose?[side===1?10:2,side===1?7:-7,zz+h*.69]:[bent+2+(hand[0]-2)*.45,side*(width+3),zz+h*.52+(gesture&&side===-1?gestureLift*h*.18:alert?h*.06:0)];limb([0,side*width,h-7+zz],elbow,bare?skin:cloth,huge?7.8:ape?apeForm[1]*.92:wolf||bull?6.6:small?3.7:4.6);orb(...elbow,huge?2.8:1.9,huge?2.8:1.8,huge?2.8:1.9,bare?skin:cloth);limb(elbow,hand,skin,huge?6.5:wolf?5.5:ape?apeForm[1]*.69:bull?4.8:small?3.2:3.8);if(armor){const cuff=hand.map((v,i)=>v*.55+elbow[i]*.45);seg(cuff,hand,tint(cloth,18),3.4);}orb(...hand,wolf?2.3:1.25,wolf?2:1.25,wolf?2.4:1.45,skin);hands.push(hand);
  if(!wolf&&!demon&&!huge&&!ape){const forward=hand.map((v,i)=>v+(v-elbow[i])*.18);mesh.material(armor?'metal':'skin');for(let k=-1;k<=1;k++)mesh.seg([hand[0]+.6,hand[1]+k*.65,hand[2]-.3],[forward[0]+.7,forward[1]+k*.65,forward[2]-.8],armor?tint(cloth,40):tint(skin,-5),.65);mesh.material('skin');mesh.seg([hand[0]+.5,hand[1]-side*1.2,hand[2]+.5],[hand[0]+1.6,hand[1]-side*1.1,hand[2]-.5],skin,.8);}
  if(wolf||demon||kind==='treant')claw(...hand);}
  const hx=bent+1,hz=h+zz,headPart={origin:[hx,0,hz-4],scale:(wolf||bull)? .92 : ape? .88 : (small||short)? .84 : .76};mesh.part=headPart;
  if(wolf)muzzle(hx+1,0,hz,skin,9,true);
  else if(bull){muzzle(hx,0,hz,skin,6);for(const side of [-1,1]){horn([hx,side*3,hz+4],[hx-2,side*9,hz+8],'#d8c8a0',3);horn([hx-2,side*9,hz+8],[hx+2,side*12,hz+13],'#e0d1b0',2);}}
- else if(['reptilian','draconian','kobold'].includes(kind)){muzzle(hx,0,hz,skin,small?4:6);mesh.part=null;tail(-3,12,d.campaignTailShed?3:small?12:18,skin);mesh.part=headPart;if(d.campaignEmperor){mesh.material('metal');orb(hx,0,hz+4,4,4,.8,'#bda36c');for(let k=0;k<5;k++){const a=k*Math.PI*2/5;horn([hx+Math.cos(a)*3,Math.sin(a)*3,hz+4],[hx+Math.cos(a)*3,Math.sin(a)*3,hz+9],'#dac47e',1.1);}}for(let j=0;j<(d.name==='Kobold Scout'?2:4);j++)face([[hx-3,0,hz+3-j],[hx-7,0,hz+(d.name==='Kobold Slinger'?7:11)-j*2],[hx-1,0,hz+4-j]],outfit?outfit[1]:'#b8a77a');}
+ else if(['reptilian','draconian','kobold'].includes(kind)){muzzle(hx,0,hz,skin,small?4:6);mesh.part=null;tail(-3,12,d.campaignTailShed?3:small?12:18,skin);mesh.part=headPart;if(d.campaignEmperor){mesh.material('metal');orb(hx,0,hz+4,4,4,.8,'#bda36c');for(let k=0;k<5;k++){const a=k*Math.PI*2/5;horn([hx+Math.cos(a)*3,Math.sin(a)*3,hz+4],[hx+Math.cos(a)*3,Math.sin(a)*3,hz+9],'#dac47e',1.1);}}for(let j=0;j<(d.name==='Kobold Scout'?2:4);j++)face([[hx-3,0,hz+3-j],[hx-7,0,hz+(d.name==='Kobold Slinger'?7:11)-j*2],[hx-1,0,hz+4-j]],outfit?outfit[1]:'#b8a77a');if(kind==='reptilian'&&!d.worker){mesh.material('metal');loft([[hx-1.5,0,hz+1.5,5,4.6],[hx-2,0,hz+4.5,4.6,4.3],[hx-2.5,0,hz+6.2,2.4,2.6]],'#2d3335','metal');mesh.material('glass');face([[hx+3.2,-3.2,hz+3.2],[hx+3.2,3.2,hz+3.2],[hx+2.8,3.4,hz-.5],[hx+2.8,-3.4,hz-.5]],'#4b6868');seg([hx+3.2,-3.3,hz+3.2],[hx+3.2,3.3,hz+3.2],'#1e2a2a',.6);}}
  else{orb(hx-.5,0,hz+.5,small?3.5:huge?5.5:3.7,small?3:huge?4.7:3.3,huge?5.5:4.5,skin);loft([[hx+.8,0,hz-4,2.1,2.2],[hx+1.6,0,hz-1.5,2.9,3],[hx+.8,0,hz+1.5,2.8,3]],skin,'skin',8);orb(hx+3.8,0,hz-.2,ape?3:1.45,ape?2.8:1.1,ape?2:1.8,tint(skin,8));for(const side of [-1,1]){orb(hx+2.6,side*2.6,hz-.5,1.5,.8,1.4,tint(skin,9));seg([hx+2.7,side*.9,hz+2],[hx+3,side*3,hz+1.9],tint(skin,-25),.9);}
 if(kind==='cyclops')eye(hx+4.5,0,hz+1,'#e0d9b7');else for(const side of [-1,1])eye(hx+3,side*2.4,hz+1,kind==='vampire'||kind==='skeleton'?'#ce9f89':'#354239');
+ if(huge){
+  // Heavy brow ridge, broad lower jaw and a set chin give the big creatures a menacing, readable face.
+  for(const side of [-1,1])face([[hx+3.5,side*.2,hz+2.7],[hx+4,side*3.4,hz+2.1],[hx+3.3,side*3.1,hz+.8],[hx+3,side*.2,hz+1.1]],tint(skin,-15));
+  loft([[hx+2.3,0,hz-3.6,2.7,2.9],[hx+3.7,0,hz-1.9,3.3,3.4],[hx+2.1,0,hz-.1,2.5,2.7]],tint(skin,-5),'skin',10);
+  orb(hx+3,0,hz-3.4,1.1,2.5,1,tint(skin,-11),'skin');
+ }
  if(['elf','goblin','orc'].includes(kind))for(const side of [-1,1])face([[hx,side*3,hz+2],[hx-2,side*(small?9:7),hz+5],[hx,side*3,hz-1]],skin);
  if(short){orb(hx+2,0,hz-5,4,3,5,'#8b7b62');for(let j=-1;j<=1;j++)seg([hx+4,j*2,hz-2],[hx+4,j*2,hz-9],'#b7a382',1);}
  if(kind==='orc'||kind==='troll')for(const side of [-1,1])horn([hx+4,side*2,hz-3],[hx+5,side*2,hz+1],'#d9cfaa',1.3);
@@ -332,8 +455,47 @@ if(kind==='cyclops')eye(hx+4.5,0,hz+1,'#e0d9b7');else for(const side of [-1,1])e
  if(stone)for(let j=0;j<4;j++)seg([4,-5,16+j*7],[5,5,16+j*7],j%2?team:'#596a61',1.5);
  if(kind==='treant'){for(const side of [-1,1]){seg([-2,side*4,hz],[-5,side*10,hz+16],'#7f8467',3);seg([-5,side*10,hz+16],[0,side*17,hz+20],'#9d9c77',1.5);orb(-5,side*12,hz+13,6,5,4,'#768c64');}}
  if(d.air&&(harpy||demon))wings(-2,h-7,harpy?30:33,harpy?'#aa9a7a':tint(skin,-14),harpy);
+ if(harpy){
+  // Breast plumage, a feathered collar and scaled shanks make the harpy read as part bird rather than a winged person.
+  for(let row=0;row<4;row++)for(let j=-2;j<=2;j++){const zz=h*.78-row*2.5,yy=j*2.1+(row%2)*1.05;
+   face([[width*1.1,yy-1.5,zz+1.5],[width*1.12,yy+1.5,zz+1.2],[width*.84,yy+1.3,zz-2.4],[width*.82,yy-1.3,zz-2.2]],tint(cloth,row%2?17:-12));}
+  for(const side of [-1,1])for(let j=0;j<4;j++)face([[1,side*(width*.45),h-5.5-j*1.6],[-3.6,side*(width+1.8),h-8.5-j*2],[-.8,side*(width*.85),h-10.5-j*1.7]],tint(cloth,j%2?19:-13));
+  // Short covert tufts over the rump; a long tail fan only foreshortens into a sliver at this camera angle.
+  for(let j=-2;j<=2;j++)face([[-width*.76,j*1.5,h*.56],[-width*.86,j*1.5+1.2,h*.54],[-width*.9-5,j*2.1+1.1,h*.48-2.4],[-width*.86-5,j*2.1-1.1,h*.49-2.2]],tint(cloth,j%2?9:-15));
+  for(const side of [-1,1]){const gait=(action==='walk'||action==='walkReady')?root.FractureMotion.step(frame,side<0?.5:0,7.5):{x:0,lift:0};
+   for(let j=0;j<5;j++)seg([gait.x*.3-1.4,side*4.4,9.5-j*1.5+gait.lift],[gait.x*.3+1.1,side*4.4,9-j*1.5+gait.lift],tint(skin,j%2?-22:12),.5);}
+ }
+ if(kind==='gargoyle'){
+  // Chiselled chest and abdomen courses plus a carved spinal ridge: the body is masonry, not a cast shell.
+  mesh.material('stone');
+  for(let j=0;j<4;j++)mesh.face([[width*.84,-width*.56,h*.78-j*2.6],[width*.86,width*.56,h*.78-j*2.6],[width*.74,width*.5,h*.72-j*2.6],[width*.72,-width*.5,h*.72-j*2.6]],tint(skin,j%2?12:-9));
+  for(let j=0;j<5;j++)mesh.face([[-width*.78,-1.6,h*.84-j*3],[-width*.78,1.6,h*.84-j*3],[-width*.95,1.1,h*.79-j*3],[-width*.95,-1.1,h*.79-j*3]],tint(skin,j%2?-16:9));
+  for(const side of [-1,1])for(let j=0;j<3;j++)mesh.seg([width*.62,side*(width*.3+j*1.5),h*.74],[width*.44,side*(width*.86),h*.56],tint(skin,-20),.42);
+ }
  if(kind==='broom'){seg([-23,0,zz+4],[24,0,zz+4],'#a88f60',2);for(let j=-3;j<=3;j++)seg([-15,j,zz+4],[-27,j*1.5,zz+2],'#bcab76',1);}
- if(d.worker){box(-5,0,h*.5+zz,3.5,4,8,kind==='human'?'#8b8769':tint(cloth,-15));const hand=hands[1];seg(hand,[hand[0]+4,hand[1],hand[2]+9],'#a08d62',1.5);seg([hand[0]-1,hand[1],hand[2]+9],[hand[0]+10,hand[1],hand[2]+9],'#b0beb1',2);}
+ if(d.role==='scout'&&!d.worker&&!d.air&&!d.naval&&!centaur&&!harpy&&!huge&&!['broom','gorgon','orb','brain'].includes(kind)){
+  // Ranger kit: a slung satchel under a chest strap and a rolled blanket lashed across the back.
+  const sat=tint(cloth,-18);
+  box(-3.4,width*.78,h*.38+zz,1.7,2.2,3.8,sat);
+  mesh.material('cloth');mesh.seg([-2.4,width*.82,h*.46+zz],[1.8,-width*.6,h*.74+zz],tint(sat,-14),.8);
+  mesh.wedge([-width*.86,-width*.95,h*.76+zz],[-width*.86,width*.95,h*.76+zz],1.3,1.3,1.3,1.3,tint(cloth,-13));
+  for(const side of [-1,1])mesh.seg([-width*1.2,side*width*.5,h*.76+zz],[-width*.5,side*width*.5,h*.76+zz],tint(sat,-8),.4);
+ }
+ if(d.worker){
+  // Frame pack with shoulder straps and a carried load, and a forged pick instead of a plain bar.
+  const packC=kind==='human'?'#8b8769':tint(cloth,-15),packZ=h*.5+zz;
+  box(-5,0,packZ,3.5,4,8,packC);
+  mesh.material('cloth');for(const side of [-1,1])mesh.seg([-4,side*2.4,packZ+7],[1.6,side*(width*.7),packZ+.5],tint(packC,-26),.95);
+  for(let j=0;j<3;j++)orb(-5.2,-2+j*2,packZ+8.5+(j%2)*.6,1.25,1.15,1,j%2?'#8a7f66':'#6f6a58');
+  const hand=hands[1],hy=hand[1],headZ=hand[2]+9.5,hx=hand[0]+3.2,ironC='#59616a',steelC='#93a2ac';
+  mesh.material('wood');mesh.loft([[hand[0]-.6,hy,hand[2]-3.4,1.1,1.1],[hand[0]-.1,hy,hand[2]-.4,1.35,1.35],[hx-.6,hy,headZ-4.2,.95,.95],[hx,hy,headZ+1.1,.8,.8]],'#8a7247',9);
+  seg([hand[0]-.5,hy,hand[2]-3.6],[hand[0]-.2,hy,hand[2]+1.3],'#43301f',1.6);
+  box(hx,hy,headZ-1.4,1.45,1.45,2.7,ironC);
+  mesh.material('metal');
+  mesh.wedge([hx-.8,hy,headZ],[hx-7.2,hy,headZ+1.7],1.25,1.4,.22,.26,steelC);
+  mesh.wedge([hx+.8,hy,headZ-.15],[hx+3.9,hy,headZ-.45],1.2,1.4,1.1,1.7,steelC);
+  mesh.wedge([hx+3.9,hy,headZ-.45],[hx+4.5,hy,headZ-.45],1.1,1.7,1,1.55,'#c3ccd0');
+ }
  else if(!wolf&&!harpy&&!['golem','horror','treant','husk'].includes(kind)){
  let tool=/Archer/.test(d.name)?'bow':/Crossbow/.test(d.name)?'crossbow':/Spear|Javelin|Lancer/.test(d.name)?'spear':/Slinger/.test(d.name)?'sling':/Club|Stone Thrower/.test(d.name)?'club':/Berserker|Minotaur|Orc Warrior/.test(d.name)?'axe':d.role==='support'||kind==='wizard'||/Spellweaver|Seer|Flamecaster|Subjugator/.test(d.name)?'staff':d.role==='aa'?'rocket':d.role==='heavy'&&!['dwarf','orc','ape'].includes(kind)?'heavy':d.range<1.2?'sword':'rifle';
  const kit={'Kobold Scout':'spear','Medic':'none','Centaur Scout':'spear','Gargoyle':'rock','Goblin Sapper':'potion','Spellguard':'staff','Duelist':'sword','Wardbreaker':'staff','Vampire Operative':'crossbow','Vampire Marksman':'rifle','Imp Scout':'sling','Imp Skirmisher':'spear','Siege Fiend':'staff','Tormentor':'spear','Archdemon':'axe','Greater Demon':'axe','Infernal Guard':'spear','Skink Scout':'spear','Kobold Scout':'spear','Goblin Scout':'sling','Troll Brute':'club','Troll Siege Breaker':'rock','Draconian Flameguard':'staff','Dragon Sage':'staff','Blood Mage':'staff','Silverback Champion':'club','Shieldback':'club','Dwarf Shieldbearer':'axe','Undead Knight':'sword'};tool=kit[d.name]||tool;

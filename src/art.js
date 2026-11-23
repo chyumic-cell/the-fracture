@@ -83,7 +83,7 @@ class Art{
  }
  tree(e,theme){
  const special=root.FractureEnvironmentArt?.tree(e,theme,this);if(special)return special;theme=typeof theme==='string'?theme:theme?.theme;
- const key='tree4_'+theme+'_'+e.variant;if(this.cache.has(key))return this.cache.get(key);
+ const key='tree5_'+theme+'_'+e.variant;if(this.cache.has(key))return this.cache.get(key);
  const c=canvas(96,112),ctx=c.getContext('2d'),M=new root.FractureSpriteMesh(ctx,0,false,{originX:48,originY:95,logicalWidth:96}),v=e.variant,rand=(j,k)=>hash(j,v,k),wide=v%3===2,spread=v%3===0?1.22:v%3===1?1:1.36,flatten=wide?.88:1,lean=(rand(1,73)-.5)*8,leaf=theme==='Morvane'?'#576254':theme==='Elyndra'?'#637849':'#657245',wood=theme==='Morvane'?'#72695b':'#80694c';
  const limb=(a,b,w)=>{M.material('wood');M.limb(a,b,wood,w);},trunk=(rings)=>{M.material('wood');M.loft(rings,wood,9);};
  trunk([[0,0,0,5.3,4.8],[lean*.2,1,9,3.8,3.4],[lean*.4,0,25,3.1,2.8],[lean,-1,41,2.2,1.8],[lean+1,-3,58,1,1]]);
@@ -91,8 +91,12 @@ class Art{
  const crowns=[[-14,2,47,wide?14:12,11,12],[15,4,49,wide?14:12,11,13],[-9,-13,56,12,11,13],[11,-11,62,11,10,13],[1,9,61,14,12,13],[-6,0,72,12,11,11],[18,-4,55,10,10,10],[-19,-5,59,10,9,11]].map(([x,y,z,rx,ry,rz])=>[x*spread,y*(wide?1.15:1),z*flatten,rx*(wide?1.05:1),ry,rz*.9]);
  for(let j=0;j<crowns.length;j++){const [x,y,z]=crowns[j];limb([lean*.35,0,24+j%3*5],[x*.57,y*.62,z-15],3.6-j%3*.5);limb([x*.57,y*.62,z-15],[x+lean,y,z],2);if(j%2===0)limb([x*.57,y*.62,z-15],[x+lean+6,y-3,z-3],1.4);}
  // Ragged, overlapping leaf masses keep a connected canopy with openings around the forks.
- const crown=(x,y,z,rx,ry,rz,col,j)=>{const rings=[-.85,-.35,.25,.72,1].map((t,k)=>Array.from({length:9},(_,q)=>{const a=q*Math.PI*2/9,r=([.4,.92,1,.65,.06][k])*(.87+rand(j*17+q,k+81)*.24);return[x+Math.cos(a)*rx*r,y+Math.sin(a)*ry*r,z+t*rz];}));M.material('fur');M.rings(rings,col,true);};
- for(let j=0;j<crowns.length;j++){let [x,y,z,rx,ry,rz]=crowns[j];x+=lean;z+=(rand(j,101)-.5)*5;crown(x,y,z,rx,ry,rz,tint(leaf,(j%3-1)*9-4),j);for(let k=0;k<8;k++){const a=k*2.4+j,xx=x+Math.cos(a)*rx*.77,yy=y+Math.sin(a)*ry*.77,zz=z+rz*.25+rand(j*8+k,109)*5;crown(xx,yy,zz,3+rand(j+k,110)*2.2,3+rand(j+k,111)*2.3,3+rand(j+k,112)*2.2,tint(leaf,(k%3-1)*10+8),j*11+k+30);}}
+ const crownZ=crowns.map(cr=>cr[2]),lowZ=Math.min(...crownZ),highZ=Math.max(...crownZ);
+ for(let j=0;j<crowns.length;j++){let [x,y,z,rx,ry,rz]=crowns[j];x+=lean;
+  const sun=(z-lowZ)/Math.max(1,highZ-lowZ);
+  M.foliage(x,y,z,rx,ry,rz,tint(leaf,Math.round(-13+sun*25+(j%3-1)*5)),j+v*17);}
+ // Shaded under-leaf hanging below the main masses closes the canopy from beneath.
+ for(let j=0;j<3;j++){const [x,y,z,rx,ry]=crowns[j*2];M.foliage(x+lean,y,z-rx*.85,rx*.82,ry*.82,7,tint(leaf,-24),90+j+v*5);}
  // A few bark ridges and bare twigs reinforce the trunk's twist at normal map scale.
  M.material('wood');for(let j=0;j<3;j++){const y=-2+j*2;M.seg([1,y,3],[lean*.4+2,y,24],tint(wood,j%2?17:-20),.6);M.seg([lean*.4+2,y,24],[lean+1,y-1,39],tint(wood,-17),.55);}
  M.finish();ctx.save();ctx.globalCompositeOperation='destination-over';ellipse(ctx,48,95,22,7,'#15201945');ctx.restore();this.cache.set(key,c);return c;
@@ -272,13 +276,13 @@ class Art{
  keepUnit(key,c){while(this.unitArchiveBytes>64*1024*1024){const k=this.unitArchive.keys().next().value;this.unitArchiveBytes-=this.unitArchive.get(k).pixels.data.byteLength;this.unitArchive.delete(k);}this.unitKeys??=new Set();if(!this.cache.has(key))this.archiveUnit(key,c);this.unitKeys.delete(key);this.unitKeys.add(key);this.cache.set(key,c);while(this.unitKeys.size>160){const oldest=this.unitKeys.values().next().value;this.unitKeys.delete(oldest);this.cache.delete(oldest);}return c;}
 
  unit(d,f,angle,action,frame,occupancy=0){
- if(['attack','gather','build','heal','scratch','yawn'].includes(action))frame%=4;
+ if(['attack','gather','gatherOil','build','heal','scratch','yawn'].includes(action))frame%=4;
  if(action==='dead'||action==='ready'||action==='idle'&&!d.air&&d.faction!=='symbiotes')frame=0;
  // Legacy fallback drawing below is retained for offline compatibility. Actual
  // units use the mesh renderers above it, including their modeled gestures.
  if(action==='idle'&&d.faction==='symbiotes')frame=((frame%6)+6)%6;
  const idleFrame=0;
- const dir=((Math.round(angle/(Math.PI/4))%8)+8)%8,key=['u',d.id,dir,action,frame,Math.ceil(occupancy/3.4)].join();if(this.cache.has(key))return this.keepUnit(key,this.cache.get(key));const archived=this.restoreUnit(key);if(archived)return archived;if(this.liveRendering&&this.deferUnit){const pending=this.deferUnit(key,d,f,dir*Math.PI/4,action,frame,occupancy);if(pending)return pending;}const c=canvas(336,336),ctx=c.getContext('2d'),a=dir*Math.PI/4,ca=Math.cos(a),sa=Math.sin(a),walk=action==='walk'?Math.sin(frame/6*Math.PI*2):0,attack=action==='attack',working=['gather','build'].includes(action),dead=action==='dead';
+ const dir=((Math.round(angle/(Math.PI/4))%8)+8)%8,key=['u',d.id,dir,action,frame,Math.ceil(occupancy/3.4)].join();if(this.cache.has(key))return this.keepUnit(key,this.cache.get(key));const archived=this.restoreUnit(key);if(archived)return archived;if(this.liveRendering&&this.deferUnit){const pending=this.deferUnit(key,d,f,dir*Math.PI/4,action,frame,occupancy);if(pending)return pending;}const c=canvas(336,336),ctx=c.getContext('2d'),a=dir*Math.PI/4,ca=Math.cos(a),sa=Math.sin(a),walk=action==='walk'?Math.sin(frame/6*Math.PI*2):0,attack=action==='attack',working=['gather','gatherOil','build'].includes(action),dead=action==='dead';
  const meleeSwing=attack?[0,.85,1,.4][frame%4]:working?[0,.7,1,.35][frame%4]:0;
  const lift=attack?[3,18,12,2][frame%4]:working?[3,17,23,8][frame%4]:0;
  const idlePhase=idleFrame/48;

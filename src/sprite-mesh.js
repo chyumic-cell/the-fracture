@@ -4,7 +4,8 @@
 const norm=v=>{const l=Math.hypot(...v)||1;return v.map(x=>x/l)},cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],sub=(a,b)=>a.map((x,i)=>x-b[i]),dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
 const mod=(a,b)=>(a%b+b)%b;
 const mats={rock:[.04,9,3.1],slate:[.06,11,2.3],paint:[.2,26,1.6],metal:[.85,55,2.5],cloth:[.02,7,2],skin:[.12,16,1],fur:[.03,7,3.2],stone:[.03,8,4.1],chitin:[.55,37,2],wood:[.06,13,3],bone:[.12,22,1.3],glow:[0,1,0],glass:[1,76,.5]};
-mats.mold=[.045,9,2.6];mats.scales=[.38,34,.8];mats.brick=[.035,9,1.8];mats.cinderblock=[.025,8,2.1];mats.concrete=[.03,10,1.6];mats.bio=[.72,48,.6];mats.mail=[.6,34,.6];mats.leather=[.13,19,1.2];
+mats.leaf=[.08,12,.35];
+mats.mold=[.045,9,2.6];mats.scales=[.38,34,.8];mats.brick=[.035,9,1.8];mats.cinderblock=[.025,8,2.1];mats.concrete=[.03,10,1.6];mats.bio=[.06,11,1.5];mats.mail=[.6,34,.6];mats.leather=[.13,19,1.2];
 const materialIds=Object.fromEntries(Object.keys(mats).map((m,i)=>[m,i+1]));
 class SpriteMesh{
  constructor(ctx,angle=0,dead=false,options={}){this.ctx=ctx;this.w=ctx.canvas.width;this.h=ctx.canvas.height;this.scale=this.w/(options.logicalWidth||112);this.ox=options.originX??56;this.oy=options.originY??87;this.ca=Math.cos(angle);this.sa=Math.sin(angle);this.dead=dead;this.image=ctx.createImageData(this.w,this.h);const count=this.w*this.h;this.depth=new Float32Array(count).fill(-Infinity);this.xyz=new Float32Array(count*3);this.lit=new Uint8Array(count);this.surfaceMaterial=new Uint8Array(count);this.normalZ=new Float32Array(count);this.colors=new Map();this.light=norm([-.9,.65,1.55]);this.eye=norm([1,1,.8]);this.half=norm(this.light.map((x,i)=>x+this.eye[i]));this.su=norm([this.light[1],-this.light[0],0]);this.sv=cross(this.light,this.su);this.sw=options.logicalWidth?384:256;this.ss=options.logicalWidth?1.65:2;this.shadow=new Float32Array(this.sw*this.sw).fill(-Infinity);this.mat='paint';this.detail=options.detail!==false;}
@@ -12,8 +13,8 @@ class SpriteMesh{
   this.unit=d;this.modelScale=d.naval?(d.faction==='symbiotes'&&d.navalRole==='siege'?.79:.82):d.bomber?.9:['Infernal Guard','Satyr Javelin Thrower'].includes(d.name)?.9:1;this.action=action;this.frame=frame;
   const moving=action==='walk'||action==='walkReady',air=!!d.air,heavy=['tank','siege','giant'].includes(d.role),phase=frame%4,t=frame*Math.PI/3;
   this.motion={bob:moving?(air?Math.sin(t)*.7:-Math.cos(t*2)*(heavy?.35:.65)):air&&action==='idle'?Math.sin(t)*.6:0,
-   shift:action==='attack'&&!d.air&&!d.naval?[-1.8,-3.4,0,1.7][phase]:['gather','build'].includes(action)?[.3,-.8,1.5,.5][phase]:moving&&!air?.5:0,
-   lean:moving&&!air?.018:action==='attack'&&!d.air&&!d.naval?[.025,-.07,0,.04][phase]:['gather','build'].includes(action)?[.01,-.025,.05,.02][phase]:0,
+   shift:action==='attack'&&!d.air&&!d.naval?[-3.2,-5.8,1.2,2.4][phase]:action==='gather'&&d.worker?[1.2,-2.5,4.2,.8][phase]:action==='gatherOil'&&d.worker?[.4,.8,-.6,.2][phase]:['gather','gatherOil','build'].includes(action)?[.3,-.8,1.5,.5][phase]:moving&&!air?.5:0,
+   lean:moving&&!air?.018:action==='attack'&&!d.air&&!d.naval?[.04,-.11,.015,.06][phase]:action==='gather'&&d.worker?[.02,-.06,.09,.03][phase]:action==='gatherOil'&&d.worker?[.01,.02,-.02,.01][phase]:['gather','gatherOil','build'].includes(action)?[.01,-.025,.05,.02][phase]:0,
    sway:moving&&!air&&!heavy?Math.sin(t)*.45:0};return this;
  }
  ownership(zones,materials=null){this.ownerZones=zones;this.ownerMaterials=materials?.map(m=>materialIds[m]);return this;}
@@ -40,10 +41,16 @@ class SpriteMesh{
   pattern=seam?-15:(u<.42||v<.42?5:0)+(Math.floor(mx*2+my*.3)%7===0?1.5:0);
   // Sparse chips and streaks, not uniform television noise.
   if(seed%149===0)pattern+=16;if(seed%211===0)pattern-=12;
+  if(this.unit){pattern*=.24;grain*=.35;} // Unit panel joints are modeled; avoid a painted grid over faces and armor.
  }
  if(mat==='mold'){
-  const patch=Math.sin(mx*.81+Math.sin(mz*.49)*2.3)*Math.sin(my*.93+mz*.62),thread=Math.sin(mx*3.8+my*2.1+Math.sin(mz*1.8)*1.7);
-  pattern=patch<-.32?-17:patch>.28?9:0;pattern+=thread>.92?6:0;if(seed%19===0)pattern-=14;
+  // Root bark under a mycelial web and dry mould blooms, matching the bio surface at unit scale.
+  const patch=Math.sin(mx*.81+Math.sin(mz*.49)*2.3)*Math.sin(my*.93+mz*.62);
+  const web=Math.abs(Math.sin(mx*.74+Math.sin(my*.52+mz*.33)*2.2)*Math.sin(mz*.63+Math.sin(mx*.41)*1.5));
+  pattern=patch<-.32?-15:patch>.28?8:0;
+  if(web<.06)pattern+=17;else if(web<.13)pattern+=8;
+  pattern+=Math.sin(along*2.2+mz*.18)*2;
+  if(seed%19===0)pattern-=12;if(seed%67===0)pattern+=7;
  }
  if(mat==='cloth'){const fold=Math.sin(along*1.5+mz*.14);pattern=fold*2.4+((Math.floor(along*6)+Math.floor(mz*6))%2?.65:-.65);}
  if(mat==='wood'){const knot=Math.sin(mz*.16+Math.sin(along*.21)*2);pattern=Math.sin(along*3+knot*1.4)*3.5+Math.sin(along*.7+knot)*2.5;if(mod(along,5.8)<.15)pattern-=12;}
@@ -63,10 +70,16 @@ class SpriteMesh{
  }
  if(mat==='concrete'){pattern=Math.sin(mx*.18+my*.14+mz*.1)*3;if(seed%29===0)pattern-=9;if(Math.abs(nz)<.7){const u=mod(along,23),v=mod(mz,19);if(u<.22||v<.22)pattern-=13;if(Math.abs(u-2)<.5&&Math.abs(v-2)<.5)pattern-=17;}}
  if(mat==='bio'){
-  // Wet membranes, branching veins and shallow translucent-looking vesicles.
-  const vein=mod(along*.75+Math.sin(mz*.28)*2+Math.sin(my*.4),7),blister=Math.sin(mx*.61)*Math.sin(my*.57+mz*.23)*Math.sin(mz*.73);
-  pattern=vein<.22?-21:vein<.5?10:Math.sin(along*.21+mz*.4)*5;
-  pattern+=blister>.53?(blister-.53)*48:blister<-.57?-9:0;grain=0;
+  // Between plant and fungus: woody root grain running along the form, a pale mycelial network
+  // branching across it, and dry mould patches. Matte and powdery, never wet or vascular.
+  const grainLine=Math.sin(along*2.6+Math.sin(mz*.31)*1.9)*2.6+Math.sin(along*.9+mz*.11)*1.7;
+  const cord=Math.abs(Math.sin(mx*.47+Math.sin(my*.38+mz*.22)*2.4)*Math.sin(mz*.41+Math.sin(mx*.29)*1.7));
+  const patch=Math.sin(mx*.52+Math.sin(mz*.37)*1.6)*Math.sin(my*.61+mz*.28);
+  pattern=grainLine;
+  if(cord<.07)pattern+=19;else if(cord<.15)pattern+=9;
+  pattern+=patch>.42?7:patch<-.46?-11:0;
+  if(seed%53===0)pattern+=6;if(seed%89===0)pattern-=8;
+  grain*=.45;
  }
  if(mat==='rock'){const strata=mz*.19+Math.sin(mx*.21+my*.13)*1.4,seam=mod(strata,4);pattern=Math.sin(mx*.33+my*.41+mz*.27)*4+(seam<.13?-14:seam<.32?7:0);if(seed%163===0)pattern-=15;}
  if(mat==='slate'){const u=mod(along+Math.floor(mz/3)*2.5,5),v=mod(my+mx*.12,4);pattern=v<.3?-14:v<.65?9:u<.18?-6:Math.sin(along*.4+mz)*2;}
@@ -81,15 +94,36 @@ class SpriteMesh{
  if(mat==='skin')pattern=Math.sin(mx*.27+my*.33+mz*.18)*2.5;
  if(mat==='bone')pattern=Math.sin(along*4+mz*.15)*1.2;
  if(mat==='glass'){pattern=Math.max(0,Math.sin(along*.15+mz*.19))**14*24;grain=0;}
- const k=i*4,amb=.4+Math.max(0,nz)*.08;
- for(let j=0;j<3;j++){const warm=j===0?1.06:j===1?1.015:.91,ambient=j===2?1.18:j===0?.93:1.02;data[k+j]=Math.max(0,Math.min(255,Math.round(glow?col[j]*1.12:(col[j]*(amb*ambient+diff*.85*warm)+spec+grain+pattern))));}data[k+3]=255;this.surfaceMaterial[i]=materialIds[mat];this.lit[i]=glow?0:Math.round(diff*255);this.normalZ[i]=nz;this.xyz[i*3]=wa[0]*u+wb[0]*v+wc[0]*w;this.xyz[i*3+1]=wa[1]*u+wb[1]*v+wc[1]*w;this.xyz[i*3+2]=wa[2]*u+wb[2]*v+wc[2]*w;
+ // Sky fill and restrained directional light preserve material color in shadow.
+ if(mat==='leaf'){pattern=Math.sin(mx*2.8+my*1.9)*3+Math.sin(mz*3.1)*2;grain*=.18;}
+ // Weathering belongs to the model surface, not the screen or team-color mask.
+ // Edge relief gives masonry a lit lip and shaded recess instead of flat lines.
+ if(['stone','brick','cinderblock'].includes(mat)){
+  const bh=mat==='brick'?3:mat==='cinderblock'?5.8:6.5,bw=mat==='brick'?7.2:mat==='cinderblock'?12:14;
+  const wall=Math.abs(nz)<.65,vertical=wall?mz:my,horizontal=wall?along:mx;
+  const row=Math.floor(vertical/bh),u=mod(horizontal+(row%2)*bw*.5,bw),v=mod(vertical,bh),joint=mat==='brick'?.28:.4;
+  if(u>joint&&v>joint){
+   const lip=Math.min(u-joint,v-joint),back=Math.min(bw-u,bh-v);
+   pattern+=lip<.55?(1-lip/.55)*7:back<.45?-(1-back/.45)*7:0;
+  }
+  // Irregular moisture staining at foundations and subtle mineral mottling.
+  const damp=Math.max(0,1-Math.max(0,mz)/7);
+  pattern-=damp*(5+Math.max(0,Math.sin(horizontal*.41))*7);
+  pattern+=Math.sin(mx*.63+Math.sin(my*.38)+mz*.8)*1.8;
+ }
+ if(mat==='wood'){
+  const ring=along+Math.sin(mz*.15)*.5,knot=Math.exp(-Math.pow(mod(mz+along*1.7,19)-9.5,2)*.55);
+  pattern+=Math.sin(ring*5+knot*3)*2.2-knot*4;
+ }
+ const k=i*4,amb=.30+Math.max(0,nz)*.18;
+ for(let j=0;j<3;j++){const warm=j===0?1.06:j===1?1.015:.91,ambient=j===2?1.18:j===0?.93:1.02;data[k+j]=Math.max(0,Math.min(255,Math.round(glow?col[j]*1.12:(col[j]*(amb*ambient+diff*.72*warm)+spec*.72+grain+pattern))));}data[k+3]=255;this.surfaceMaterial[i]=materialIds[mat];this.lit[i]=glow?0:Math.round(diff*255);this.normalZ[i]=nz;this.xyz[i*3]=wa[0]*u+wb[0]*v+wc[0]*w;this.xyz[i*3+1]=wa[1]*u+wb[1]*v+wc[1]*w;this.xyz[i*3+2]=wa[2]*u+wb[2]*v+wc[2]*w;
  }
  }
  shadowTriangle(a,b,c){const det=(b[1]-c[1])*(a[0]-c[0])+(c[0]-b[0])*(a[1]-c[1]);if(Math.abs(det)<.02)return;const x0=Math.max(0,Math.floor(Math.min(a[0],b[0],c[0]))),x1=Math.min(this.sw-1,Math.ceil(Math.max(a[0],b[0],c[0]))),y0=Math.max(0,Math.floor(Math.min(a[1],b[1],c[1]))),y1=Math.min(this.sw-1,Math.ceil(Math.max(a[1],b[1],c[1])));for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const u=((b[1]-c[1])*(x+.5-c[0])+(c[0]-b[0])*(y+.5-c[1]))/det,v=((c[1]-a[1])*(x+.5-c[0])+(a[0]-c[0])*(y+.5-c[1]))/det,w=1-u-v;if(u<0||v<0||w<0)continue;const z=a[2]*u+b[2]*v+c[2]*w,i=y*this.sw+x;if(z>this.shadow[i])this.shadow[i]=z;}}
  face(v,color){for(let j=1;j<v.length-1;j++)this.triangle(v[0],v[j],v[j+1],color);}
  orb(x,y,z,rx,ry,rz,color){const lat=Math.max(5,Math.min(10,Math.ceil(Math.max(rx,ry,rz)))),lon=lat*2;for(let j=0;j<lat;j++){const row=[];for(let i=0;i<=lon;i++){const a=i*Math.PI*2/lon;for(const k of [j,j+1]){const b=-Math.PI/2+k*Math.PI/lat,n=[Math.cos(b)*Math.cos(a),Math.cos(b)*Math.sin(a),Math.sin(b)];row.push({v:[x+rx*n[0],y+ry*n[1],z+rz*n[2]],n:norm([n[0]/rx,n[1]/ry,n[2]/rz])});}}for(let i=0;i<lon;i++){const a=row[i*2],b=row[i*2+1],c=row[i*2+2],d=row[i*2+3];this.triangle(a.v,b.v,c.v,color,[a.n,b.n,c.n]);this.triangle(c.v,b.v,d.v,color,[c.n,b.n,d.n]);}}}
  // Tapered limbs have a proper muscle belly and narrower joints.
- limb(a,b,color,width=3){const axis=norm(sub(b,a)),u=norm(cross(axis,Math.abs(axis[2])<.9?[0,0,1]:[0,1,0])),v=cross(axis,u),r=width*.55;const rings=[0,.24,.62,1].map((t,k)=>Array.from({length:10},(_,i)=>{const an=i*Math.PI/5;return a.map((q,j)=>q+(b[j]-q)*t+(u[j]*Math.cos(an)+v[j]*Math.sin(an))*r*[.7,1.12,.95,.6][k]);}));this.rings(rings,color,true);}
+ limb(a,b,color,width=3){const axis=norm(sub(b,a)),u=norm(cross(axis,Math.abs(axis[2])<.9?[0,0,1]:[0,1,0])),v=cross(axis,u),r=width*.55;const rings=[0,.18,.42,.7,1].map((t,k)=>Array.from({length:10},(_,i)=>{const an=i*Math.PI/5;return a.map((q,j)=>q+(b[j]-q)*t+(u[j]*Math.cos(an)+v[j]*Math.sin(an))*r*[.82,1.12,1.08,.85,.62][k]);}));this.rings(rings,color,true);}
  seg(a,b,color,width=2){const axis=norm(sub(b,a)),u=norm(cross(axis,Math.abs(axis[2])<.9?[0,0,1]:[0,1,0])),v=cross(axis,u),r=width*.58,sides=8;const rings=[a,b].map((p,k)=>Array.from({length:sides},(_,i)=>{const an=i*Math.PI*2/sides;return p.map((q,j)=>q+(u[j]*Math.cos(an)+v[j]*Math.sin(an))*r*(k?.83:1));}));this.rings(rings,color,true);}
  rings(rings,color,smooth=false){const count=rings[0].length;let normals;if(smooth){normals=rings.map((ring,k)=>{const center=ring.reduce((c,v)=>c.map((x,j)=>x+v[j]/count),[0,0,0]);return ring.map((p,i)=>{const tangent=sub(ring[(i+1)%count],ring[(i+count-1)%count]),vertical=sub(rings[Math.min(k+1,rings.length-1)][i],rings[Math.max(k-1,0)][i]);let n=norm(cross(tangent,vertical));if(dot(n,sub(p,center))<0)n=n.map(x=>-x);return n;});});}for(let k=0;k<rings.length-1;k++){const a=rings[k],b=rings[k+1];for(let i=0;i<count;i++){const n=(i+1)%count;if(smooth){this.triangle(a[i],b[i],a[n],color,[normals[k][i],normals[k+1][i],normals[k][n]]);this.triangle(a[n],b[i],b[n],color,[normals[k][n],normals[k+1][i],normals[k+1][n]]);}else this.face([a[i],a[n],b[n],b[i]],color);}}this.face([...rings[0]].reverse(),color);this.face(rings[rings.length-1],color);}
  loft(rings,color,sides=12){this.rings(rings.map(([x,y,z,rx,ry])=>Array.from({length:sides},(_,i)=>[x+Math.cos(i*Math.PI*2/sides)*rx,y+Math.sin(i*Math.PI*2/sides)*ry,z])),color,true);}
@@ -102,7 +136,63 @@ class SpriteMesh{
   if(w>10)for(let j=-2;j<=2;j++)this.face([[x-ww*.65,y+j*ll*.28,top+.12],[x+ww*.65,y+j*ll*.28,top+.12],[x+ww*.65,y+j*ll*.28+.35,top+.12],[x-ww*.65,y+j*ll*.28+.35,top+.12]],dark);
  }
  }
+ // Branchlets carry folded leaf blades: actual depth-tested geometry with gaps.
+ foliage(x,y,z,rx,ry,rz,color,seed=1){
+  const col=this.color(color),shade=n=>'#'+col.map(v=>Math.max(0,Math.min(255,Math.round(v+n))).toString(16).padStart(2,'0')).join('');
+  const random=k=>{const v=Math.sin(k*127.1+seed*311.7)*43758.5453;return v-Math.floor(v);};
+  for(let j=0;j<19;j++){
+   const a=j*2.399963,reach=Math.sqrt((j+.5)/19),bx=x+Math.cos(a)*rx*reach,by=y+Math.sin(a)*ry*reach,bz=z+(random(j)-.35)*rz;
+   this.material('wood');this.seg([x,y,z-rz*.5],[bx,by,bz],shade(-35),.32);
+   for(let k=0;k<8;k++){
+    const angle=a+k*2.17,spread=1.6+random(j*8+k+30)*2.5,cx=bx+Math.cos(angle)*spread,cy=by+Math.sin(angle)*spread,cz=bz+(random(j*8+k+91)-.25)*3;
+    const dx=Math.cos(angle),dy=Math.sin(angle),length=1.8+random(j*8+k+52)*1.9,width=length*.48;
+    // Each blade carries its own pitch and roll, so the canopy catches the light unevenly instead of reading as one flat plane.
+    const pitch=(random(j*8+k+140)-.44)*2.7,roll=(random(j*8+k+203)-.5)*2.3;
+    const base=[cx-dx*length*.6,cy-dy*length*.6,cz-pitch*.35],tip=[cx+dx*length,cy+dy*length,cz+.5+pitch],ridge=[cx,cy,cz+.7];
+    // Blades deep inside the crown sit in the shade of the mass above them.
+    const occl=Math.max(-1,Math.min(1,(cz-z)/(rz||1))),vary=(random(j*8+k+71)-.5)*23+occl*15;
+    this.material('leaf');
+    this.face([base,[cx-dy*width,cy+dx*width,cz+roll],tip,ridge],shade(vary-5));
+    this.face([base,ridge,tip,[cx+dy*width,cy-dx*width,cz-.3-roll]],shade(vary-15));
+   }
+  }
+ }
  cylinder(x,y,z,r,h,color,sides=16,topR=r){this.loft([[x,y,z,r,r],[x,y,z+h,topR,topR]],color,sides);}
+ // Overlapping plates laid over a tube: scale armour, scutes or contour feathers.
+ // stations are [a,b,c,r1,r2] cross-sections matching the spine()/loft() layouts, so a body can be
+ // plated with the same numbers that built it. Each plate sits on the surface with its trailing edge
+ // lifted, so the coat reads as many separate overlapping pieces rather than a patterned skin.
+ pelt(stations,color,opts={}){
+  const {rows=9,cols=14,axis='x',feather=false,seed=1,lift=.5,grow=.18,shade=11,flow=-1,arc=Math.PI*2,start=0,skip=null,narrow=1}=opts;
+  const rnd=k=>{const v=Math.sin(k*127.1+seed*311.7)*43758.5453;return v-Math.floor(v);};
+  const col=this.color(color),tone=n=>'#'+col.map(v=>Math.max(0,Math.min(255,Math.round(v+n))).toString(16).padStart(2,'0')).join('');
+  const mix=(a,b,t)=>a+(b-a)*t;
+  const at=t=>{const u=Math.max(0,Math.min(.99999,t))*(stations.length-1),i=Math.floor(u),fr=u-i,a=stations[i],b=stations[Math.min(stations.length-1,i+1)];
+   return [mix(a[0],b[0],fr),mix(a[1],b[1],fr),mix(a[2],b[2],fr),mix(a[3],b[3],fr),mix(a[4],b[4],fr)];};
+  const put=(s,ang,extra)=>{const u=Math.cos(ang)*(s[3]+extra),v=Math.sin(ang)*(s[4]+extra);
+   return axis==='x'?[s[0],s[1]+u,s[2]+v]:[s[0]+u,s[1]+v,s[2]];};
+  for(let r=0;r<rows;r++){
+   const t0=r/rows,t1=(r+1)/rows,tm=(t0+t1)*.5,s0=at(t0),s1=at(t1),sm=at(tm);
+   const root=flow<0?s1:s0,free=flow<0?s0:s1;
+   for(let c=0;c<cols;c++){
+    if(skip&&skip(r,c))continue;
+    const off=(r%2)*.5,a0=start+(c+off)*arc/cols,a1=start+(c+1+off)*arc/cols,am=(a0+a1)*.5;
+    const wob=(rnd(r*53+c*7)-.5),hue=(rnd(r*17+c*31)-.5);
+    const spread=(a1-a0)*.5*narrow;
+    const reach=grow+lift*(feather?1.5:1)*(1+wob*.25);
+    const base=put(root,am,grow),left=put(sm,am-spread,grow+lift*.3),right=put(sm,am+spread,grow+lift*.3);
+    const tipL=put(free,am-spread*.42,reach),tipR=put(free,am+spread*.42,reach);
+    this.face([base,left,tipL,tipR,right],tone(hue*shade*2+(feather?-3:0)));
+    if(feather)this.seg(base,put(free,am,reach),tone(hue*shade+14),.28);
+   }
+  }
+ }
+ // A closed tapered box between two points, for forged heads, spikes, blades and wedges in any direction.
+ wedge(a,b,wa,ha,wb,hb,color){
+  const ax=norm(sub(b,a)),up=Math.abs(ax[2])>.92?[1,0,0]:[0,0,1],s=norm(cross(ax,up)),u=cross(ax,s);
+  const ring=(p,w,h)=>[[-1,-1],[1,-1],[1,1],[-1,1]].map(([q,r])=>[p[0]+s[0]*q*w+u[0]*r*h,p[1]+s[1]*q*w+u[1]*r*h,p[2]+s[2]*q*w+u[2]*r*h]);
+  this.rings([ring(a,wa,ha),ring(b,wb,hb)],color);
+ }
  finish(){if(this.unit)root.FractureDetailArt?.unit(this,this.unit);const data=this.image.data,depth=this.depth,s=this.scale,sw=this.sw;for(let y=1;y<this.h-1;y++)for(let x=1;x<this.w-1;x++){const i=y*this.w+x;if(!data[i*4+3])continue;let shade=1;const px=this.xyz[i*3],py=this.xyz[i*3+1],pz=this.xyz[i*3+2],sx=Math.round(sw*.5+(px*this.su[0]+py*this.su[1]+pz*this.su[2])*this.ss),sy=Math.round(sw*.65-(px*this.sv[0]+py*this.sv[1]+pz*this.sv[2])*this.ss),sd=px*this.light[0]+py*this.light[1]+pz*this.light[2];if(sx>0&&sy>0&&sx<sw-1&&sy<sw-1&&this.lit[i]>0){let occluded=0;for(const [dx,dy]of [[0,0],[1,0],[0,1],[-1,0],[0,-1]])if(this.shadow[(sy+dy)*sw+sx+dx]>sd+1.25)occluded++;shade-=occluded*.065*(.4+this.lit[i]/425);}
  let cavity=0;for(const [dx,dy]of [[-2,0],[2,0],[0,-2],[0,2],[-3,-3],[3,-3]]){const xx=x+Math.round(dx*s*.6),yy=y+Math.round(dy*s*.6);if(xx<0||yy<0||xx>=this.w||yy>=this.h)continue;const dz=depth[yy*this.w+xx]-depth[i];if(dz>1.3&&dz<10)cavity+=.017;}shade-=Math.min(.1,cavity);if(!data[(i-1)*4+3]||!data[(i+1)*4+3]||!data[(i-this.w)*4+3]||!data[(i+this.w)*4+3])shade*=.86;for(let k=0;k<3;k++)data[i*4+k]=Math.round(data[i*4+k]*shade);}
  this.ctx.putImageData(this.image,0,0);
@@ -111,7 +201,7 @@ class SpriteMesh{
   const d=this.unit,n=d.name,animal=/Dragon|Drake|Wyvern|Beast|Prowler|Spitter|Chimera|Hydra|Hellhound|Familiar/.test(n),machine=d.faction==='machines'||/Tank|Vehicle|Artillery|Gunship|Aircraft|Walker|Crawler|Ram|Catapult/.test(n),bug=d.faction==='insects';
   const zones=this.ownerZones||(n==='Broom Rider'?[{x:[-6,7],y:[-7,7],z:[21,24]}]:bug?[{x:[-11,-6],y:[-14,14],z:[15,42]}]:machine?[{x:[-9,-4],y:[-20,20],z:[11,50]},{x:[4,8],y:[-20,20],z:[11,50]}]:animal?[{x:[-8,-3],y:[-13,13],z:[20,55]}]:[{x:[-12,12],y:[-12,12],z:[20,24]}]);
   const marks=[];let x0=this.w,y0=this.h,x1=0,y1=0;
-  for(let i=0;i<this.w*this.h;i++){if(!data[i*4+3])continue;const wx=this.xyz[i*3],wy=this.xyz[i*3+1],z=this.xyz[i*3+2]/(this.dead?.16:1)/(this.modelScale||1),x=(wx*this.ca+wy*this.sa)/(this.modelScale||1),y=(-wx*this.sa+wy*this.ca)/(this.modelScale||1);if(this.ownerMaterials&&!this.ownerMaterials.includes(this.surfaceMaterial[i]))continue;if(!zones.some(q=>x>=q.x[0]&&x<=q.x[1]&&y>=q.y[0]&&y<=q.y[1]&&z>=q.z[0]&&z<=q.z[1]))continue;const px=i%this.w,py=Math.floor(i/this.w);x0=Math.min(x0,px);y0=Math.min(y0,py);x1=Math.max(x1,px);y1=Math.max(y1,py);marks.push([px,py,.48+this.lit[i]/255*.62]);}
+  for(let i=0;i<this.w*this.h;i++){if(!data[i*4+3])continue;const wx=this.xyz[i*3],wy=this.xyz[i*3+1],z=this.xyz[i*3+2]/(this.dead?.16:1)/(this.modelScale||1),x=(wx*this.ca+wy*this.sa)/(this.modelScale||1),y=(-wx*this.sa+wy*this.ca)/(this.modelScale||1);if(this.ownerMaterials&&!this.ownerMaterials.includes(this.surfaceMaterial[i]))continue;if(!zones.some(q=>x>=q.x[0]&&x<=q.x[1]&&y>=q.y[0]&&y<=q.y[1]&&z>=q.z[0]&&z<=q.z[1]))continue;const px=i%this.w,py=Math.floor(i/this.w);x0=Math.min(x0,px);y0=Math.min(y0,py);x1=Math.max(x1,px);y1=Math.max(y1,py);const luminance=(data[i*4]*.2126+data[i*4+1]*.7152+data[i*4+2]*.0722)/255;marks.push([px,py,Math.max(.25,Math.min(.98,.24+luminance*.83))]);}
   if(marks.length){const w=x1-x0+1,h=y1-y0+1,region=this.ctx.getImageData(x0,y0,w,h);this.ctx.canvas.ownerPaint={x:x0,y:y0,data:region,indices:marks.map(p=>((p[1]-y0)*w+p[0]-x0)*4),light:marks.map(p=>p[2])};root.FractureArt?.paintOwner(this.ctx.canvas,'#6eb8c6');}
  }
  }
@@ -133,7 +223,7 @@ root.FractureMotion={
    return{action:'idle',frame:d.faction==='symbiotes'?Math.floor(time*3+(u.id||0)*.71)%6:0};
   }
   if(d.faction==='symbiotes'&&u.action==='idle')return{action:'idle',frame:Math.floor(time*3+(Number(u.id)||0)*.71)%6};
-  return{action:u.action==='walk'&&!d.air&&!d.naval&&!d.worker&&time-(u.combatReadyAt??-100)<5?'walkReady':u.action,frame:Math.floor(d.air&&u.action==='idle'?time*6:u.action==='heal'?time*5:u.phase||0)%(['gather','build','heal'].includes(u.action)?4:6)};
+  return{action:u.action==='walk'&&!d.air&&!d.naval&&!d.worker&&time-(u.combatReadyAt??-100)<5?'walkReady':u.action,frame:Math.floor(d.air&&u.action==='idle'?time*6:u.action==='heal'?time*5:u.phase||0)%(['gather','gatherOil','build','heal'].includes(u.action)?4:6)};
  },
  step(frame,offset=0,reach=7.5){const t=((frame/6+offset)%1+1)%1,stance=.58;if(t<stance)return{x:reach*(1-2*t/stance),lift:0,planted:true};const q=(t-stance)/(1-stance),ease=q*q*(3-2*q);return{x:reach*(-1+2*ease),lift:Math.sin(q*Math.PI)*3.3,planted:false};}};
 root.FractureSpriteMesh=SpriteMesh;

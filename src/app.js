@@ -43,6 +43,16 @@ function selected(){return selection.map(id=>game.entity(id)).filter(Boolean);}f
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;toastUntil=performance.now()+3300;}
 
 function execute(result){if(result&&!result.ok)toast(result.reason);uiAt=0;}
+const BATCH=5;
+// Shift-click repeats a queue or purchase up to five times and stops at the first refusal,
+// so a partly affordable batch still places everything it can.
+function batch(ev,act){
+ const times=ev&&ev.shiftKey?BATCH:1;let placed=0,last=null;
+ for(let i=0;i<times;i++){last=act();if(last&&last.ok===false)break;placed++;}
+ if(placed&&last&&last.ok===false){toast(placed+' added, then: '+last.reason);uiAt=0;return;}
+ if(placed>1){toast(placed+' added');uiAt=0;return;}
+ execute(last);
+}
 
 function price(cost){return cost.map((v,i)=>v?`${v} ${['ore','oil','aether','rift'][i]}`:'').filter(Boolean).join('\u00B7');}
 
@@ -70,7 +80,7 @@ function pick(x,y){let best=null,score=Infinity;for(const e of game.entities){if
 
 function drawGround(){const n=game.n,v=viewport();if(terrain.draw){terrain.draw(ctx,cam,zoom,v);return;}ctx.drawImage(terrain,(-n*24-48-cam.x)*zoom+v.w/2,(-40-cam.y)*zoom+v.h/2+v.top,terrain.width*zoom,terrain.height*zoom);}
 
-function drawCorpse(ctx,e,p){const d=D.units[e.type],f=D.factions[e.campaignFaction||game.players[e.owner].faction],vs=unitScale(d),age=Math.max(0,(e.max||10)-e.time),fall=Math.min(1,age/.55);ctx.save();ctx.translate(p.x,p.y);ctx.scale(zoom,zoom);ctx.globalAlpha=Math.min(1,e.time/2);if(fall<1){const k=fall*fall*(3-2*fall);ctx.scale(1-.38*k,1-.62*k);ctx.rotate(k*Math.PI/2);ctx.drawImage(FractureArt.paintOwner(art.unit(d,f,e.face,'idle',0),colors[e.owner]||'#a4b17d'),-44.8*vs,-69.6*vs,89.6*vs,89.6*vs);}else{ctx.drawImage(FractureArt.paintOwner(art.unit(d,f,e.face,'dead',0),colors[e.owner]||'#a4b17d'),-44.8*vs,-69.6*vs,89.6*vs,89.6*vs);}ctx.restore();}
+function drawCorpse(ctx,e,p){const d=D.units[e.type],f=D.factions[e.campaignFaction||game.players[e.owner].faction],vs=unitScale(d),age=Math.max(0,(e.max||10)-e.time),fall=Math.min(1,age/.7);ctx.save();ctx.translate(p.x,p.y);ctx.scale(zoom,zoom);ctx.globalAlpha=Math.min(1,e.time/2);if(fall<1){const recoil=Math.min(1,fall/.2),buckle=Math.max(0,Math.min(1,(fall-.15)/.3)),slam=Math.max(0,Math.min(1,(fall-.45)/.55)),sr=recoil*recoil,sb=buckle*buckle*(3-2*buckle),ss=slam*slam;const tipDir=e.face>=2&&e.face<=5?-1:1;ctx.translate(tipDir*sr*2.5,-sr*3+sb*6+ss*4);ctx.rotate((sr*.12+sb*.35+ss*.55)*tipDir);ctx.scale(1+sr*.06-ss*.28,1-sb*.18-ss*.42);ctx.drawImage(FractureArt.paintOwner(art.unit(d,f,e.face,'idle',0),colors[e.owner]||'#a4b17d'),-44.8*vs,-69.6*vs,89.6*vs,89.6*vs);}else{ctx.drawImage(FractureArt.paintOwner(art.unit(d,f,e.face,'dead',0),colors[e.owner]||'#a4b17d'),-44.8*vs,-69.6*vs,89.6*vs,89.6*vs);}ctx.restore();}
 const cliffClipCache=new WeakMap();
 function clipForegroundTerrain(e,wallMasks){
  const d=game.def(e);if(!['unit','resource','tree','building'].includes(e.kind)||d?.air||e.pendingSite)return;
@@ -222,7 +232,7 @@ function updateUI(){if(!playing)return;const p=game.players[0],f=D.factions[p.fa
 
  if(tab==='build'){for(const b of f.buildings.filter(b=>!game.campaign||!FractureCampaign.restriction(game,b,'building'))){const missing=game.missing(0,b),disabled=!workers().length||!game.affordable(0,b.cost)||missing.length;button(b.name,price(b.cost),()=>{buildType=b.id;mode=null;toast('Place '+b.name+'. Right-click cancels.');},disabled,b.name+'\n'+FractureHelp.building(b,f)+'\n\n'+price(b.cost)+'\n'+b.time+' seconds'+(missing.length?'\nRequires '+missing.join(', '):'')+(!workers().length?'\nSelect a worker.':''),{kind:'building',def:b});}}
 
- if(['train','research'].includes(tab)){if(!e||e.kind!=='building'||e.owner!==0){$('actions').innerHTML='<div class="hint">Select one of your buildings to see its units and technologies. Each production branch has its own requirements.</div>';}else if(tab==='train'){const options=f.units.filter(u=>u.building===e.type&&(!game.campaign||!FractureCampaign.restriction(game,u,'unit')));for(const u of options){const miss=game.missing(0,u,e),disabled=e.progress<1||miss.length||!game.affordable(0,u.cost)||p.special<(u.special||0)||game.population(0)+u.pop>game.capacity(0);button(u.name,price(u.cost)+(u.special?' \u00B7 '+u.special+' '+f.counter:''),()=>execute(game.queue(e.id,u.id)),disabled,`${u.name}\n${FractureHelp.unit(u)}\n\nHP ${u.hp} \u00B7 damage ${u.damage} \u00B7 range ${u.range}\n${u.pop} population \u00B7 ${u.time}s\n${price(u.cost)}${miss.length?'\nRequires '+miss.join(', '):''}`+(game.population(0)+u.pop>game.capacity(0)?'\nBuild more population housing.':''),{kind:'unit',def:u});}if(!options.length)$('actions').innerHTML='<div class="hint">This building does not train units. Open TECH to view available research.</div>';}
+ if(['train','research'].includes(tab)){if(!e||e.kind!=='building'||e.owner!==0){$('actions').innerHTML='<div class="hint">Select one of your buildings to see its units and technologies. Each production branch has its own requirements.</div>';}else if(tab==='train'){const options=f.units.filter(u=>u.building===e.type&&(!game.campaign||!FractureCampaign.restriction(game,u,'unit')));for(const u of options){const miss=game.missing(0,u,e),disabled=e.progress<1||miss.length||!game.affordable(0,u.cost)||p.special<(u.special||0)||game.population(0)+u.pop>game.capacity(0);button(u.name,price(u.cost)+(u.special?' \u00B7 '+u.special+' '+f.counter:''),ev=>batch(ev,()=>game.queue(e.id,u.id)),disabled,`${u.name}\n${FractureHelp.unit(u)}\n\nHP ${u.hp} \u00B7 damage ${u.damage} \u00B7 range ${u.range}\n${u.pop} population \u00B7 ${u.time}s\n${price(u.cost)}${miss.length?'\nRequires '+miss.join(', '):''}`+(game.population(0)+u.pop>game.capacity(0)?'\nBuild more population housing.':'')+'\nShift-click queues five.',{kind:'unit',def:u});}if(!options.length)$('actions').innerHTML='<div class="hint">This building does not train units. Open TECH to view available research.</div>';}
 
  else{for(const r of f.research.filter(r=>r.building===e.type)){const done=p.tech.includes(r.id),queued=game.entities.some(b=>b.owner===0&&b.queue?.some(q=>q.type===r.id)),miss=game.missing(0,r);button(r.name,done?'COMPLETED':queued?'RESEARCHING':price(r.cost),()=>execute(game.queue(e.id,r.id,'research')),done||queued||miss.length||!game.affordable(0,r.cost)||e.progress<1,`${r.name}\n${r.kind==='weapons'?'+12% damage per level':r.kind==='armor'?'+2 armor per level':r.kind==='economy'?'+30% gathering rate':r.kind==='training'?'+20% training speed in this building':r.kind==='range'?'+15% range for units from this building':r.kind==='endurance'?'+31.5 seconds flight endurance after refueling':r.kind==='healing'?'+4 healing per second':'Unlocks advanced branch units'}\n${r.time}s \u00B7 ${price(r.cost)}${miss.length?'\nRequires '+miss.join(', '):''}`);}
 
@@ -231,7 +241,7 @@ function updateUI(){if(!playing)return;const p=game.players[0],f=D.factions[p.fa
  if(d?.kind==='neutral'){button('Recruit volunteer','120 Ore · 30 Aetherite',()=>execute(game.recruitNeutral(e.id)),(e.recruits?.[0]||0)>=2,'Bring a unit within six tiles. Recruit up to two local volunteers per settlement; normal population limits apply.');$('selection').lastElementChild.lastElementChild.textContent='Neutral refuge · '+(2-(e.recruits?.[0]||0))+' volunteers available. Bring a unit nearby to recruit.';}
  if(e?.owner===0&&d?.transport){$('selection').lastElementChild.lastElementChild.textContent='Passengers '+game.transportLoad(e).length+' / '+d.transport+' \u00B7 U to unload'+(d.air?' | Endurance '+Math.ceil(e.flight||0)+' / '+Math.ceil(game.flightEndurance(e))+'s'+(e.returning?' - returning':''):'');}
  if(e?.owner===0&&d?.kind==='deepMine'){$('selection').lastElementChild.lastElementChild.textContent='Loading area: '+Math.floor(e.stockpile||0)+' / 144 · '+game.entities.filter(u=>u.order?.kind==='extract'&&u.order.target===e.id).length+' workers assigned';}if(e?.owner===0&&d?.kind==='deepMine')button('Assign workers','RIGHT-CLICK',()=>{const idle=game.entities.filter(u=>u.owner===0&&u.kind==='unit'&&game.def(u).worker&&!u.order).slice(0,4);game.order(idle.map(u=>u.id),{kind:'extract',target:e.id});toast(idle.length?'Assigned '+idle.length+' idle workers.':'Select workers and right-click this mine.');},false,'Workers enter the mine, bring six resources to the loading area, and haul them to a collection building. With a group, miners and haulers divide the work.');
- if(e?.owner===0&&['market','dock'].includes(d?.kind))for(let ri=0;ri<4;ri++)button('Buy '+names[ri],'20 credits \u2192 10',()=>execute(game.exchange(0,ri)),(p.tradeCredits||0)<20,'Spend trade-only credits on ten '+names[ri]+'. Credits cannot pay directly for military production.');
+ if(e?.owner===0&&['market','dock'].includes(d?.kind))for(let ri=0;ri<4;ri++)button('Buy '+names[ri],'20 credits \u2192 10',ev=>batch(ev,()=>game.exchange(0,ri)),(p.tradeCredits||0)<20,'Spend trade-only credits on ten '+names[ri]+'. Shift-click buys five lots for 100 credits. Credits cannot pay directly for military production.');
  // Destructive actions live behind a separate disclosure, only in Orders.
  let management=$('selectionManagement');
  if(tab==='orders'&&list.some(v=>v.owner===0&&['unit','building'].includes(v.kind))){
@@ -310,7 +320,18 @@ async function launchMatch(create){if(loading)return;loading=true;$('loading').h
 const rememberedEnvironments={Kareth:'varied',Elyndra:'aetherland',Morvane:'hell'};
 $('theme').onchange=()=>{const theme=$('theme').value;$('environment').replaceChildren(...FractureEnvironments.choices(theme).map(e=>new Option(e.name,e.id)));$('environment').value=rememberedEnvironments[theme];};
 $('environment').onchange=()=>{rememberedEnvironments[$('theme').value]=$('environment').value;};
-$('start').onclick=()=>{const ids=Object.keys(D.factions),n=$('players').value==='team'?4:Number($('players').value),fs=[$('faction').value,$('opponent').value];
+// The strategist is opt-in and online. The browser field is cleared immediately
+// after it reaches the local server, and is intentionally never part of match data.
+if(![...$('difficulty').options].some(option=>option.value==='openrouter'))$('difficulty').add(new Option('OpenRouter Strategist · online','openrouter'));
+const routerKeyLabel=document.createElement('label'),routerKey=document.createElement('input');
+routerKeyLabel.textContent='OPENROUTER KEY · SESSION ONLY';routerKey.id='openrouterKey';routerKey.type='password';routerKey.autocomplete='off';routerKey.placeholder='Paste key for online strategist';routerKeyLabel.append(routerKey);$('startingResources').parentElement.parentElement.insertBefore(routerKeyLabel,$('startingResources').parentElement.nextSibling);
+$('start').onclick=async()=>{if($('difficulty').value==='openrouter'){
+ const key=$('openrouterKey').value.trim();
+ if(!key){toast('Paste an OpenRouter key to use the online strategist.');return;}
+ try{const response=await fetch('/api/openrouter/key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key})});if(!response.ok)throw Error('key rejected');$('openrouterKey').value='';}
+ catch{toast('The local server could not accept that OpenRouter key.');return;}
+ }
+ const ids=Object.keys(D.factions),n=$('players').value==='team'?4:Number($('players').value),fs=[$('faction').value,$('opponent').value];
 for (let i = 2; i < n; i++) {
   fs.push($('opponent' + i).value);
 }

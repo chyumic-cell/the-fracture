@@ -1,16 +1,17 @@
 'use strict';
 // Symbiotes are a distributed weave of vascular strands inhabiting fused bodies.
 (function(root){
-const BASE={body:'#51404e',deep:'#302b36',shadow:'#3d303e',tissue:'#78545e',strand:'#ae8b82',thread:'#9575ab',violet:'#bb8cdd',core:'#ead8ff',plate:'#4d4658'};
+// Between plant and fungus: root-bark bodies, pale mycelial threads and dry mould blooms.
+const BASE={body:'#5a5f4e',deep:'#373b31',shadow:'#464b3e',tissue:'#777e63',strand:'#cfc9aa',thread:'#a8a584',violet:'#d2c7a6',core:'#e9e3c7',plate:'#51584b'};
 // Shared vascular anatomy, distinct host tissue and signaling colors by battlefield role.
 const hostPalettes={
- Harvester:['#746649','#a89463','#ccb98c','#9b8768'],Prowler:['#41595e','#557a7a','#97b4ac','#6b98a1'],
- Talon:['#6b4147','#96545a','#d8c4a6','#b68288'],'Spore Dart':['#526e5b','#6d9972','#bdd3a1','#8ab09a'],
- Listener:['#685580','#8b72a2','#cec3dc','#a895c5'],Husk:['#8a7e77','#a3968a','#d5c7b4','#8c7c97'],
- Stalker:['#3a4052','#555f77','#9ba9bc','#6a7c9b'],Spitter:['#7b6242','#a58c52','#dec48b','#aa9373'],
- Brute:['#744b43','#9b6854','#c9a58e','#a67778'],'Carapace Beast':['#4a5b55','#6b7e6e','#b6c0a1','#809c99'],
- 'Spore Flyer':['#58647d','#758ba0','#bacad2','#97a7bd'],'Neural Binder':['#625282','#8b71ac','#d2bce1','#b69cd8'],
- 'Root Colossus':['#555f46','#7b8058','#bdc29b','#929579']
+ Harvester:['#6e7156','#8a8c62','#d6cfae','#b6ad84'],Prowler:['#55665c','#6f8470','#c7d2b4','#9aad92'],
+ Talon:['#6a5c46','#8e7a52','#dccfa8','#c08f52'],'Spore Dart':['#56684f','#728a5e','#cfd9ae','#9db289'],
+ Listener:['#5d6456','#7b8468','#d2cfb0','#a8ab8a'],Husk:['#7a7a68','#97957c','#d9d1b4','#b0a98d'],
+ Stalker:['#4e5750','#68736a','#bcc3ad','#8d9887'],Spitter:['#6f6244','#9a8550','#ded0a0','#c08f4a'],
+ Brute:['#6b5f4b','#8d7a56','#d3c6a2','#b8803f'],'Carapace Beast':['#4f5c4e','#6d7c63','#c3cbaa','#8ea283'],
+ 'Spore Flyer':['#616b5f','#808d72','#cdd4b6','#a2ae92'],'Neural Binder':['#5f6260','#7d8178','#d0cfc2','#a9a2b0'],
+ 'Root Colossus':['#5d6648','#7d8a5a','#c9cfa4','#9aa578']
 };
 function unitPalette(d){const p=hostPalettes[d.name];if(!p)return BASE;const tint=root.FractureArt.tint;return {...BASE,body:p[0],deep:tint(p[0],-22),shadow:tint(p[0],-10),tissue:p[1],strand:p[2],thread:p[3],plate:tint(p[0],10),violet:tint(p[3],35),core:tint(p[2],25)};}
 const norm=v=>{const n=Math.hypot(...v)||1;return v.map(x=>x/n);};
@@ -28,17 +29,17 @@ function kit(M,time=0,C=BASE){
   // An asymmetric, fluted host with collapsed sides, never a sphere with a wire cage.
   const seed=x*.31+y*.27+z*.41,large=Math.max(rx,ry,rz)>7;
   const surface=(t,a,offset=0)=>{
-   const bulge=Math.sqrt(Math.max(.006,1-t*t)),fold=.77+.13*Math.sin(a*3+t*4+seed)+.085*Math.sin(a*7-t*5+seed*.7),waist=1-.17*Math.exp(-(((t-.12)*4)**2));
+   const bulge=Math.sqrt(Math.max(.006,1-t*t)),fold=.86+.085*Math.sin(a*3+t*4+seed)+.045*Math.sin(a*7-t*5+seed*.7),waist=1-.17*Math.exp(-(((t-.12)*4)**2));
    return [x+rx*.1*Math.sin(t*3+seed)+Math.cos(a)*(rx*bulge*fold*waist+offset),y+ry*.08*Math.sin(t*5-seed)+Math.sin(a)*(ry*bulge*fold*.85+offset),z+rz*t-.1*rz*Math.sin(a*2+seed)*bulge];
   };
   const rings=Array.from({length:11},(_,j)=>Array.from({length:16},(_,k)=>surface(-.98+j*.196,k*Math.PI/8)));
   M.material('mold');M.rings(rings,c,true);
   // A connected root network: irregular forks reconnect to neighboring trunks.
   // Embedded ends and lifted bends retain the net idea without a manufactured cage.
-  const rootColor=root.FractureArt.mixColor(C.tissue,C.strand,.78),rootCount=large?Math.min(6,n):3,trunks=[];
+  const rootColor=root.FractureArt.mixColor(C.tissue,C.strand,.37),rootCount=large?Math.min(M.unit?3:6,n):M.unit?1:3,trunks=[];
   for(let j=0;j<rootCount;j++){
    const points=[],a=seed+j*2.399;
-   for(let k=0;k<7;k++){const t=-.83+k*.265,angle=a+Math.sin(k*.87+j*1.23)*.61+Math.sin(k*1.83+j)*.16;points.push(surface(t,angle,k===0||k===6?-.12:large?.85:.35));}
+   for(let k=0;k<7;k++){const t=-.83+k*.265,angle=a+Math.sin(k*.87+j*1.23)*.61+Math.sin(k*1.83+j)*.16;points.push(surface(t,angle,k===0||k===6?-.25:large?.28:.12));}
    const strength=large?Math.min(2.05,.85+rx*.055):.6;
    const radii=[.33,.76,1,.78,.92,.56,.19].map((v,k)=>v*strength*(1+.065*Math.sin(time*2-k*.95+j)));
    cord(points,radii,j%3===0?C.thread:rootColor);trunks.push(points);
@@ -50,7 +51,7 @@ function kit(M,time=0,C=BASE){
    if(large&&j%2===0){const q=trunk[4],aa=seed+j*2.399;cord([q,[q[0]+Math.cos(aa)*2.1,q[1]+Math.sin(aa)*2.1,q[2]+1.1],[q[0]+Math.cos(aa+.55)*3.3,q[1]+Math.sin(aa+.55)*3.3,q[2]+2.9]],[.6,.34,.035],C.strand);}
   }
   // Uneven powdery colonies and torn films cling to folds, leaving dark exposed tissue.
-  const pale=root.FractureArt.mixColor(C.strand,'#a5ad88',.48),count=large?n*3:7;
+  const pale=root.FractureArt.mixColor(C.tissue,'#a5ad88',.28),count=large?n*(M.unit?1:3):M.unit?2:7;
   for(let j=0;j<count;j++){
    const a=j*2.399+seed,t=-.75+((j*.371+seed*.017)%1+1)%1*1.45;
    const path=[];for(let k=0;k<5;k++){const tt=Math.max(-.96,Math.min(.96,t+(k-2)*.105)),aa=a+Math.sin(k*1.7+j)*.13+k*.12;path.push(surface(tt,aa,.22));}
@@ -63,7 +64,7 @@ function kit(M,time=0,C=BASE){
   }
   if(large){
    // Loose mycelium spreads beyond the host silhouette in ragged, hanging bundles.
-   for(let j=0;j<4;j++){
+   for(let j=0;j<(M.unit?1:4);j++){
     const a=j*2.399+seed,t=.56-Math.abs(Math.sin(j*1.91))*.85,start=surface(t,a,.5),sway=Math.sin(time*2+j*.8)*.6;
     const mid=[start[0]+Math.cos(a)*2.1,start[1]+Math.sin(a)*2.1,start[2]-2.4],end=[start[0]+Math.cos(a)*3+sway,start[1]+Math.sin(a)*3,start[2]-Math.min(7,rz*.42)];
     line([start,mid,end],.58,pale,'mold');
@@ -75,18 +76,47 @@ function kit(M,time=0,C=BASE){
  const limb=(a,b,w,c=C.tissue)=>{
   const delta=b.map((q,k)=>q-a[k]),axis=norm(delta),u=norm(Math.abs(axis[2])>.9?[1,0,0]:[-axis[1],axis[0],0]);
   const mid=a.map((q,k)=>q+delta[k]*.48+u[k]*w*.12);
-  cord([a,mid,b],[w*.27,w*.34,w*.18],root.FractureArt.mixColor(c,C.deep,.25));
+  // A continuous flexor/extensor mass supports the host, with smaller superficial roots.
+  const upper=a.map((q,k)=>q+delta[k]*.23+u[k]*w*.13),lower=a.map((q,k)=>q+delta[k]*.73-u[k]*w*.04);
+  cord([a,upper,mid,lower,b],[w*.38,w*.46,w*.43,w*.3,w*.24],root.FractureArt.mixColor(c,C.deep,.17));
+  for(const sign of [-1,1]){
+   const off=u.map(q=>q*w*.28*sign),origin=a.map((q,k)=>q+off[k]*.55),belly=mid.map((q,k)=>q+off[k]),end=b.map((q,k)=>q+off[k]*.4);
+   cord([origin,belly,end],[w*.18,w*.23,w*.1],root.FractureArt.mixColor(c,C.body,.35));
+  }
   for(const side of [-1,1]){const off=u.map(v=>v*w*.19*side),pts=[a.map((q,k)=>q+off[k]),mid.map((q,k)=>q+off[k]*1.5),b];line(pts,Math.max(.32,w*.065),side<0?C.thread:C.strand,'mold');const q=pts[1];line([q,[q[0]+off[0]*1.5,q[1]+off[1]*1.5,q[2]-w*.5]],.25,C.strand,'mold');}
  };
  // Structural tissue joins are drawn into both host and appendage, not floating decoration.
  const graft=(a,b,w=3)=>{
   const mid=a.map((q,k)=>(q+b[k])*.5+(k===2?1:0));
-  cord([a,mid,b],[w*.55,w*.4,w*.48],C.body);
+  cord([a,mid,b],[w*.67,w*.56,w*.58],C.body);
   const axis=norm(b.map((q,k)=>q-a[k])),side=norm(Math.abs(axis[2])>.9?[1,0,0]:[-axis[1],axis[0],0]);
   for(const sign of [-1,1]){const offset=side.map(v=>v*w*.35*sign),aa=a.map((q,k)=>q+offset[k]),bb=b.map((q,k)=>q+offset[k]*.6);line([aa,mid.map((q,k)=>q+offset[k]),bb],.44,C.strand,'mold');}
  };
- const hand=(p,spread=3,reach=7,up=0)=>{weave(...p,2.8,3.1,2.7,C.body,3);for(let j=-1;j<=1;j++){const end=[p[0]+reach,p[1]+j*spread,p[2]+up];cord([p,[p[0]+reach*.54,p[1]+j*spread*.8,p[2]+up+2],end],[1.1,.7,.12],j%2?C.thread:C.strand);}};
- const head=(x,y,z,s=1)=>{graft([x-7*s,y,z-8*s],[x-1*s,y,z-3*s],3.1*s);weave(x,y,z,4.7*s,3.8*s,5.4*s,C.body,4);orb(x+3*s,y,z-1.7*s,2.6*s,3.1*s,1.4*s,C.deep);for(const side of [-1,1]){node(x+3.8*s,y+side*2.7*s,z+1.3*s,.9*s);cord([[x-1,y+side*3*s,z+2*s],[x-5*s,y+side*5*s,z+6*s],[x-9*s,y+side*4*s,z+7*s]],[.9*s,.6*s,.08],C.thread);}cord([[x+3*s,y-2.6*s,z-3*s],[x+5*s,y,z-4.5*s],[x+3*s,y+2.6*s,z-3*s]],[1.1*s,.8*s,.6*s],C.strand);};
+ const hand=(p,spread=3,reach=7,up=0)=>{
+  // Flattened metacarpal pad and hooked digits share embedded knuckle roots.
+  cord([[p[0]-2,p[1],p[2]+.4],p,[p[0]+2.4,p[1],p[2]-.3]],[1.7,2,1.3],C.body);
+  for(let j=-1;j<=1;j++){
+   const base=[p[0]+1,p[1]+j*1.35,p[2]],knuckle=[p[0]+reach*.45,p[1]+j*spread*.7,p[2]+up+1.1],hook=[p[0]+reach*.83,p[1]+j*spread,p[2]+up+.25],tip=[p[0]+reach,p[1]+j*spread,p[2]+up-1.25];
+   cord([base,knuckle,hook,tip],[1.1,.85,.48,.06],root.FractureArt.mixColor(C.tissue,C.strand,.25));
+   line([base,knuckle,hook],.24,C.thread,'mold');
+  }
+ };
+ const head=(x,y,z,s=1)=>{
+  const mix=root.FractureArt.mixColor,skin=mix(C.tissue,C.strand,.34),jaw=mix(C.body,C.tissue,.55);
+  // A single recognizable cranium, face and lower jaw, supported by a short neck.
+  graft([x-3*s,y,z-8*s],[x-.5*s,y,z-3.6*s],3.4*s);
+  M.material('mold');M.loft([[x+.3*s,y,z-3.2*s,2.2*s,2.4*s],[x+.2*s,y,z-.5*s,3.5*s,3.4*s],[x-.6*s,y,z+3*s,3.8*s,3.3*s],[x-1.2*s,y,z+5*s,2.9*s,2.7*s],[x-1.4*s,y,z+5.6*s,1.3*s,1.6*s]],skin,18);
+  M.loft([[x+2.7*s,y,z-4*s,1.5*s,2*s],[x+3*s,y,z-2.8*s,2.5*s,2.8*s],[x+2.7*s,y,z-1.8*s,2.3*s,2.6*s]],jaw,14);
+  // Recessed sockets and brow ridges point in the same direction as the mouth.
+  for(const side of [-1,1]){
+   orb(x+2.8*s,y+side*2.2*s,z+.9*s,1.1*s,.9*s,.85*s,C.deep,'mold');
+   orb(x+3.5*s,y+side*2.35*s,z+.95*s,.35*s,.5*s,.38*s,mix(C.strand,'#d8d3a8',.55),'skin');
+   cord([[x+.3*s,y+side*3*s,z+2*s],[x+2.7*s,y+side*2.5*s,z+2.15*s],[x+3.4*s,y+side*1.5*s,z+1.75*s]],[.65*s,.75*s,.3*s],jaw);
+   cord([[x-2.6*s,y+side*2.1*s,z+3.6*s],[x-3.4*s,y+side*3.1*s,z],[x-2*s,y+side*2.3*s,z-4.8*s]],[.55*s,.45*s,.18*s],C.thread);
+  }
+  M.face([[x+4.8*s,y-1.9*s,z-1.8*s],[x+5.2*s,y,z-1.5*s],[x+4.8*s,y+1.9*s,z-1.8*s],[x+4.6*s,y+1.7*s,z-2.6*s],[x+4.9*s,y,z-2.9*s],[x+4.6*s,y-1.7*s,z-2.6*s]],C.deep);
+  for(const side of [-1,1])cord([[x+4.85*s,y+side*1.3*s,z-1.85*s],[x+4.8*s,y+side*1.2*s,z-2.55*s]],[.22*s,.03*s],C.strand);
+ };
  const ribs=(x,y,z,w,h,count=6)=>{for(let j=0;j<count;j++){const zz=z+j*h/count;for(const side of [-1,1]){const a=[x-2, y+side*w*(.50+Math.sin(j*2.9)*.07),zz+2],b=[x+w*.30,y+side*w*(.62+Math.cos(j*1.8)*.07),zz+Math.sin(j)*1.7],c=[x+w*.53,y+side*w*.23,zz-2.3];line([a,b,c],.68,j%3?C.strand:C.thread,'mold');line([b,[b[0]+1,b[1]+side*1.1,b[2]-2.2],[c[0]-1,c[1]+side*2,c[2]-3.5]],.35,C.thread,'mold');}}};
  const port=(from,width=4,p=[19,0,20])=>{width*=1+.025*Math.sin(time*2+from[2]*.3);graft([from[0]-5,from[1]*.65,from[2]-2],from,width);cord([from,[(from[0]+p[0])*.5,(from[1]+p[1])*.5,Math.max(from[2],p[2])+3],p],[width,width*.78,width*.45],C.tissue);orb(p[0]+.2,p[1],p[2],.7,width*.55,width*.55,C.deep);node(p[0]+.65,p[1],p[2],width*.23);for(const s of [-1,1])line([from,[p[0]-5,p[1]+s*width*.65,p[2]+width*.4],[p[0],p[1]+s*width*.4,p[2]]],.8,C.thread);};
  const roots=(x,y,z,r=20,count=6)=>{for(let j=0;j<count;j++){const a=j*Math.PI*2/count+.25,xx=x+Math.cos(a)*r,yy=y+Math.sin(a)*r*.75;cord([[x+Math.cos(a)*3,y+Math.sin(a)*3,z],[x+(xx-x)*.5,y+(yy-y)*.5,3],[xx,yy,.5]],[2.8,1.8,.2],j%2?C.tissue:C.thread);line([[x,y,z],[xx*.8+x*.2,yy*.8+y*.2,3],[xx+Math.cos(a+.7)*5,yy+Math.sin(a+.7)*4,.5]],.65,C.strand);}};
@@ -97,6 +127,8 @@ function renderUnit(ctx,d,f,angle,action,frame){if(action==='walkReady')action='
  if(f.id!=='symbiotes')return false;
  const C=unitPalette(d);
  const M=new root.FractureSpriteMesh(ctx,angle,action==='dead').pose(d,action,frame),K=kit(M,action==='dead'?0:frame*Math.PI/3,C),{orb,line,cord,node,weave,limb,hand,head,ribs,port,roots,halo,graft}=K;
+ // Narrow ownership markings on host tissue preserve readable player color without neon body bands.
+ M.ownership([{x:[-3,4],y:[-10,10],z:[18,20]},{x:[-6,-3],y:[-7,7],z:[26,30]}],['mold']);
  const moving=action==='walk',attack=action==='attack',work=action==='gather'||action==='build',phase=frame%4,walk=moving?Math.sin(frame*Math.PI/3):0,pulse=Math.sin(frame*Math.PI/3),reach=attack?[0,5,11,3][phase]:work?[0,5,-3,2][phase]:0,n=d.name;
  const arm=(side,shoulder,elbow,palm,w=4)=>{graft([shoulder[0]-1,0,shoulder[2]-3],shoulder,w);limb(shoulder,elbow,w);limb(elbow,palm,w*.82);hand(palm,w*.5,5,attack?1:-2);};
  const feet=(height,width=4,bulk=4)=>{for(const s of [-1,1]){const stride=walk*s*4,hip=[-1,s*width,height],knee=[-3-stride*.5,s*(width+.5),height*.52],foot=[stride+1,s*(width+1.3),2];graft([0,0,height+3],hip,bulk*.85);limb(hip,knee,bulk);limb(knee,foot,bulk*.76);cord([foot,[foot[0]+4,s*(width+1.6),1],[foot[0]+7,s*(width+2),.7]],[2.1,1.4,.14],C.tissue);}};
@@ -117,7 +149,7 @@ function renderUnit(ctx,d,f,angle,action,frame){if(action==='walkReady')action='
  for(const s of [-1,1]){const elbow=[-1,s*16,29+flap],tip=[-10,s*31,20+flap],edge=[[-22,s*23,13+flap*.6],[-24,s*13,12],[-17,s*5,15]];cord([[5,s*3,25],elbow,tip],[3.5,2,.12],C.tissue);M.material('cloth');M.face([[4,s*3,22],elbow,tip,...edge],C.shadow);for(let j=0;j<edge.length;j++){line([elbow,[-10,s*(11+j*5),19+flap*.4],edge[j]],1.1,j%2?C.thread:C.strand);node(edge[j][0],edge[j][1],edge[j][2],.8);}for(let j=0;j<4;j++)line([[2,s*(6+j*4),23+flap*.5],[-7,s*(9+j*4),19+flap*.5],[-17,s*(8+j*4),15]],.65,C.thread);}
  for(let j=-1;j<=1;j++)cord([[-12,j*3,20],[-24,j*5,10],[-30,j*7+walk*2,7],[-34,j*8,11]],[1.5,1,.5,.06],C.strand);node(0,0,28,2);
  }else if(n==='Neural Binder'){
- graft([-2,0,22],[-1,0,40],4);weave(-2,0,24,6,6,10,C.shadow,5);weave(-1,0,40,7,6,8,C.body,6);node(4,0,42,3.4);
+ graft([-2,0,22],[-1,0,40],4);weave(-2,0,24,6,6,10,C.shadow,5);weave(-1,0,38,7,6,7,C.body,4);head(4,0,46,.92);node(3,-3,38,1.8);
  for(const s of [-1,1]){graft([-2,0,25],[0,s*5,29],2.8);cord([[-2,s*3,18],[-7,s*7,10],[-11,s*10,4],[-18,s*14,7+pulse]],[2.1,1.4,.7,.08],C.thread);cord([[0,s*5,29],[6,s*13,33+reach*.3],[17,s*11,23]],[2,1.3,.5],C.tissue);hand([17,s*11,23],2,6,2);line([[-2,s*4,43],[-8,s*14,50],[-13,s*18,41],[-9,s*16,27]],1.1,C.strand);node(-11,s*16,42,1.5);}
  halo(-3,0,39,15,'yz',C.thread,1.15);for(let j=0;j<6;j++){const a=j*Math.PI/3;line([[-3,Math.cos(a)*15,39+Math.sin(a)*15],[-1,Math.cos(a+.4)*3.5,40+Math.sin(a+.4)*4.5]],.6,C.strand);}port([2,0,28],2.8);node(5,0,27,1.5);
  }else if(n==='Root Colossus'){
@@ -130,9 +162,9 @@ function renderUnit(ctx,d,f,angle,action,frame){if(action==='walkReady')action='
  }else{
  const harvester=n==='Harvester',husk=n==='Husk',stalker=n==='Stalker',talon=n==='Talon',listener=n==='Listener',dart=n==='Spore Dart',h=harvester?26:husk?29:stalker?36:listener?40:34,w=stalker?8:harvester?5:husk?4.5:5.7;
  feet(h*.43,harvester?4:stalker?6:4.4,stalker?6:harvester?4.3:3.8);
- weave(-1,0,h*.68,w,w*.9,h*.28,C.body,5);ribs(w*.1,0,h*.52,w,h*.3,5);head(2,0,h+2,stalker?1.1:harvester?.88:1);node(w*.63,-w*.35,h*.73,harvester?1.3:1.65);
- for(const s of [-1,1]){const shoulder=[0,s*w,h*.85],elbow=[4+reach*.35,s*(w+3),h*.57],palm=[8+reach*.6,s*(w+2),harvester?9:husk?8:h*.45];arm(s,shoulder,elbow,palm,stalker?6.4:3.8);}
- if(harvester){weave(-6,0,22,5,7,8,C.shadow,5);for(const s of [-1,1]){cord([[-3,s*5,24],[4,s*9,16],[12+reach,s*6,9]],[1.8,1.2,.2],C.strand);hand([12+reach,s*6,9],2,5,work?-3:1);}node(-8,-5,24,1.8);}
+ weave(-1,0,h*.68,w,w*.9,h*.28,C.body,5);ribs(w*.1,0,h*.52,w,h*.3,5);head(3,0,h+2,stalker?1.15:harvester?1:1.08);node(w*.63,-w*.35,h*.73,harvester?1.3:1.65);
+ for(const s of [-1,1]){const shoulder=[0,s*w,h*.85],elbow=[3+reach*.35,s*(w+5),h*.59],palm=[8+reach*.6,s*(w+4),harvester?9:husk?8:h*.43];arm(s,shoulder,elbow,palm,stalker?6.4:4.6);}
+ if(harvester){weave(-6,0,22,5,7,8,C.shadow,4);for(const s of [-1,1])cord([[-5,s*4,25],[-4,s*5,21],[-2,s*4,17]],[.65,.5,.12],C.tissue);node(-8,-5,24,1.4);}
  if(talon){for(const s of [-1,1]){const x=10+reach*.6;cord([[x,s*8,17],[x+4,s*11,28],[x+7+reach*.2,s*10,39],[x+10,s*7,43]],[2.8,2,1.1,.08],C.strand);line([[x-1,s*8,18],[x+1,s*9,30],[x+7,s*9,39]],.9,C.thread);}}
  if(dart){weave(-6,-3,25,6,6,11,C.tissue,4);for(let j=0;j<3;j++)node(-9,-4+j*3,28+j,1.4);port([3,5,24],3.4);for(const s of [-1,1])cord([[-5,s*4,29],[-10,s*5,37],[-13,s*6,38]],[1.3,.8,.06],C.thread);}
  if(listener){for(const s of [-1,1]){cord([[-2,s*4,35],[-7,s*13,46],[-9,s*17,47],[-10,s*20,39]],[1.7,1.1,.7,.1],C.thread);for(let j=0;j<5;j++){const yy=s*(7+j*2.7),zz=43+Math.sin(j*.65)*5;line([[-2,s*3,33],[-7,yy,zz],[-9,s*(10+j*2),37]],.7,C.strand);if(j%2===0)node(-7,yy,zz,.9);}}port([2,4,28],2.6);}

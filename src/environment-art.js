@@ -3,7 +3,7 @@
 (function(root){
 function tree(e,options,art){
  const E=root.FractureEnvironments,o=typeof options==='string'?{theme:options}:options||{},kind=E.scenery(o,e.x,e.y);if(kind==='temperate')return null;
- const variant=(e.variant||0)%4,key='environment-tree2_'+kind+'_'+variant;if(art.cache.has(key))return art.cache.get(key);
+ const variant=(e.variant||0)%4,key='environment-tree3_'+kind+'_'+variant;if(art.cache.has(key))return art.cache.get(key);
  const c=document.createElement('canvas');c.width=96;c.height=112;const ctx=c.getContext('2d'),M=new root.FractureSpriteMesh(ctx,0,false,{originX:48,originY:95,logicalWidth:96}),{hash}=root.FractureSim,rand=(a,b)=>hash(a,variant+19,b),tint=root.FractureArt.tint;
  if(kind==='hell'||kind==='moon'){
   const hell=kind==='hell',base=hell?'#813c36':'#929292';M.material('rock');
@@ -22,11 +22,21 @@ function tree(e,options,art){
  }else if(kind==='arctic'||kind==='aetherland'){
   const snowy=kind==='arctic',bark=snowy?'#72706a':'#60432d',needles=snowy?'#4c6467':'#294c38';
   const height=64+variant*5;M.material('wood').loft([[0,0,0,4,4],[0,0,height*.7,2,2],[0,0,height,1,1]],bark,7);
-  for(let tier=0;tier<5;tier++){const z=14+tier*11,r=24-tier*4+(variant%2?2:0),top=z+24;
+  for(let tier=0;tier<6;tier++){const z=14+tier*11,r=Math.max(4,24-tier*4)+(variant%2?2:0),top=z+24;
    const ring=(radius,zz,phase=0)=>Array.from({length:12},(_,i)=>{const a=i*Math.PI/6+tier*.13,rr=radius*(i%2?.74:1)*(.85+rand(i+tier*12,39)*.24);return[Math.cos(a)*rr,Math.sin(a)*rr*.8,zz+(i%2?2:0)+phase+rand(i+tier*12,54)*2];});
-   M.material('fur').rings([ring(r,z),ring(r*.78,z+6),ring(.1,top)],tint(needles,tier%2?5:-3));
-   if(snowy)M.material('rock').rings([ring(r*.85,z+5),ring(r*.6,z+11),ring(.15,top+.8)],'#dce8eb');
+   M.material('leaf');for(let branch=0;branch<11;branch++){const a=branch*2.399+tier*.3,rr=r*(.68+rand(branch+tier*11,92)*.32),tip=[Math.cos(a)*rr,Math.sin(a)*rr*.8,z+rand(branch,97)*3];M.material('wood').seg([0,0,z+9],tip,bark,.65);for(let twig=0;twig<5;twig++){const t=.25+twig*.15,cx=tip[0]*t,cy=tip[1]*t,cz=z+9*(1-t),w=(1-t)*r*.27;M.material('leaf');for(const side of [-1,1])M.face([[cx,cy,cz],[cx-Math.sin(a)*w*side,cy+Math.cos(a)*w*side,cz-2],[tip[0],tip[1],tip[2]]],tint(needles,branch%3*6));}}
+   if(snowy){M.material('rock');
+    for(let j=0;j<9;j++){const a=j*2.399+tier*.41,rr=r*(.34+rand(j+tier*9,61)*.56),cx=Math.cos(a)*rr,cy=Math.sin(a)*rr*.8,cz=z+7+rand(j+tier*9,83)*4;
+     M.orb(cx,cy,cz,2.6+rand(j,17)*2.2,2.2+rand(j,23)*1.9,1.1+rand(j,29)*.9,j%2?'#dce8eb':'#c7d8dd');}
+    M.orb(0,0,z+10.5,r*.3,r*.26,1.9,'#d6e4e8');
+    if(tier===5)M.orb(0,0,height-1,2.6,2.3,2.6,'#e4eef0');}
    for(let j=0;j<6;j++){const a=j*Math.PI/3+tier*.13,dx=Math.cos(a),dy=Math.sin(a),tip=[dx*r,dy*r*.8,z+1];M.material('wood').seg([0,0,z+8],tip,bark,.7);for(const side of [-1,1]){const end=[tip[0]-dx*3-dy*side*3,tip[1]-dy*3+dx*side*3,tip[2]+3];M.material('fur').seg(tip,end,snowy?'#445d5f':'#3d6948',1.3);if(snowy)M.material('rock').seg([tip[0],tip[1],tip[2]+1],[end[0],end[1],end[2]+.6],'#cedee0',.8);}}
+   // Unsnowed pines carry a second set of boughs with hanging fronds; snow already closes the gaps on the arctic tree.
+   if(!snowy)for(let j=0;j<6;j++){const a=j*Math.PI/3+tier*.13+.52,dx=Math.cos(a),dy=Math.sin(a),tip=[dx*r*.93,dy*r*.75,z+2.5],shoulder=[0,0,z+8.5];
+    M.material('wood').seg(shoulder,tip,bark,.6);
+    for(let k=1;k<=6;k++){const t=k/7,cx=tip[0]*t,cy=tip[1]*t,cz=shoulder[2]+(tip[2]-shoulder[2])*t,w=(1-t*.7)*r*.21;
+     M.material('leaf');
+     for(const side of [-1,1])M.face([[cx,cy,cz],[cx-Math.sin(a)*w*side+dx*1.5,cy+Math.cos(a)*w*side+dy*1.5,cz-2.5],[cx+dx*4.8,cy+dy*4.8,cz-1.2]],tint(needles,(k+j)%3*7-5));}}
   }
   for(let j=0;j<5;j++){const a=j*1.26;M.material('wood').seg([0,0,5],[Math.cos(a)*10,Math.sin(a)*10,1],bark,2);}
  }else if(kind==='dreadhollow'){
@@ -48,8 +58,8 @@ function tree(e,options,art){
   for(let j=0;j<7;j++){
    const a=j*2.399+variant*.3,reach=13+(j%3)*3,x=Math.cos(a)*reach,y=Math.sin(a)*reach*.75,z=height-8+(j%3)*7;
    M.material('wood').seg([0,0,19+j*3],[x*.6,y*.6,z-5],bark,2.6);M.seg([x*.6,y*.6,z-5],[x,y,z],bark,1.4);
-   M.material('fur').loft([[x,y,z-5,6,5],[x+1,y,z,11,8],[x,y,z+6,7,6],[x-1,y,z+10,2,2]],tint(leaf,j%3*7),10);
-   for(let k=0;k<4;k++){const aa=a+k*1.8,xx=x+Math.cos(aa)*6,yy=y+Math.sin(aa)*5;M.loft([[xx,yy,z+1,2,2],[xx,yy,z+5,4.5,3.5],[xx,yy,z+8,.7,.7]],tint(leaf,12+k*3),7);}
+   M.foliage(x,y,z+2,11,8,8,tint(leaf,j%3*7),j+variant*17);
+   for(let k=0;k<4;k++){const aa=a+k*1.8,xx=x+Math.cos(aa)*6,yy=y+Math.sin(aa)*5;M.material('wood').seg([x,y,z],[xx,yy,z+4],bark,.45);}
    if(star){const bud=[x+2,y,z+7];M.material('wood').seg([x,y,z+4],bud,bark,.65);M.material('glow').orb(...bud,1.3,1.1,1.8,'#b2dedb');M.material('cloth').face([[x,y,z+8],[x+5,y+1,z+12],[x+2,y+3,z+5]],'#b8cfda');}
   }
   for(let j=0;j<5;j++){const a=j*1.256;M.material('wood').seg([0,0,4],[Math.cos(a)*10,Math.sin(a)*8,1],bark,2.1);}
@@ -59,9 +69,10 @@ function tree(e,options,art){
   for(let j=0;j<8;j++){const a=j*Math.PI/4+.3,dx=Math.cos(a),dy=Math.sin(a),z=height-(palm?0:j%2*2),mid=[6+dx*(palm?15:12),dy*12,z+(palm?8:5)],tip=[6+dx*(palm?27:22),dy*22,z-(palm?7:0)];
    M.material('wood').seg([3,0,palm?height:height*.55],mid,wood,palm?.9:2.2);M.seg(mid,tip,wood,.9);
    if(palm){for(let k=0;k<7;k++){const f=k/7,anchor=mid.map((v,i)=>v+(tip[i]-v)*f),w=(1-f)*5+2;for(const side of [-1,1])M.material('fur').face([anchor,[anchor[0]-dy*w*side-dx*3,anchor[1]+dx*w*side-dy*3,anchor[2]-3],[anchor[0]+dx*4,anchor[1]+dy*4,anchor[2]-2]],j%2?'#8d9160':'#686f4b');}}
-   else{M.material('fur').loft([[tip[0],tip[1],z-3,9,7],[tip[0],tip[1],z+1,13,10],[tip[0]+1,tip[1],z+5,7,5]],j%2?'#85845c':'#72784e',9);for(let k=0;k<5;k++){const an=k*2.4+j,xx=tip[0]+Math.cos(an)*8,yy=tip[1]+Math.sin(an)*6;M.loft([[xx,yy,z+1,3,3],[xx,yy,z+4,5,4],[xx,yy,z+6,2,2]],k%2?'#858b58':'#72794e',7);}}
+   else{M.foliage(tip[0],tip[1],z+1,11.5,9,4.4,j%2?'#85845c':'#72784e',j+variant*13);
+    M.foliage(tip[0]*.72,tip[1]*.72,z+4.5,8,6.5,3.6,j%2?'#8e8d63':'#6b7248',j+41+variant*7);}
   }
-  if(!palm)M.material('fur').loft([[5,0,height-3,9,8],[5,0,height+2,17,14],[5,0,height+6,11,9]],'#7d8155',11);
+  if(!palm){M.foliage(5,0,height+1,16,13,5.2,'#7d8155',77+variant*11);M.foliage(5,0,height+5,11,9,3.8,'#8b8a5f',91+variant*11);}
   if(palm)for(let j=0;j<12;j++)M.material('wood').cylinder(j>7?3:0,0,j*4,3-j*.12,.5,'#b09a71',8);
  }
  M.finish();

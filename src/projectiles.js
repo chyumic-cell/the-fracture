@@ -23,7 +23,7 @@ else if(/Firepot/.test(n))kind='firepot';else if(n==='Hexer')kind='potion';
 else if(/Acid|Bombardier|Siege Termite/.test(n))kind='acid';
 else if(/Spore|Spitter/.test(n)||f.id==='symbiotes'&&/Brute|Beast|Colossus/.test(n))kind='spore';
 else if(f.id==='insects'||/Listener/.test(n))kind='spine';
-else if(/Venom/.test(n)){kind='spine';flavor='venom';}
+else if(/Venom/.test(n)){kind=d.range>2?'bullet':'spine';flavor='venom';}
 else if(/Rocket|Fighter Aircraft|Gunship/.test(n))kind='rocket';
 else if(/Tank|Self-Propelled|Artillery|Nightbreaker/.test(n)&&f.id!=='wizards')kind='shell';
 else if(/Flame|Dragon|Wyvern|Siege Fiend|Archdemon|Greater Demon/.test(n)&&n!=='Dragon Sage')kind='flame';
@@ -31,7 +31,7 @@ else if(f.id==='machines')kind='pulse';
 else if(f.id==='wizards'||/Spellweaver|Seer|Subjugator|Gorgon|Wraith|Ghost|Ancient Vampire|Neural Binder/.test(n))kind='spell';
 else if(f.id==='infernal')kind='flame';
 else if(f.id==='myth')kind='rock';
-if(d.naval&&d.damage>0)kind=({humans:d.navalRole==='scout'?'bullet':d.navalRole==='escort'?'rocket':'shell',reptilians:d.navalRole==='escort'?'spine':'shell',machines:'pulse',primates:d.navalRole==='escort'?'javelin':'rock',insects:d.navalRole==='escort'?'spine':'acid',wizards:'spell',elders:d.navalRole==='scout'?'arrow':'spell',myth:d.navalRole==='escort'?'arrow':'rock',dragons:'firepot',night:d.navalRole==='escort'?'rocket':'shell',infernal:'firepot',symbiotes:d.navalRole==='escort'?'spine':'spore'})[f.id];
+if(d.naval&&d.damage>0)kind=({humans:d.navalRole==='scout'?'bullet':d.navalRole==='escort'?'rocket':'shell',reptilians:d.navalRole==='escort'?'bullet':'shell',machines:'pulse',primates:d.navalRole==='escort'?'javelin':'rock',insects:d.navalRole==='escort'?'spine':'acid',wizards:'spell',elders:d.navalRole==='scout'?'arrow':'spell',myth:d.navalRole==='escort'?'arrow':'rock',dragons:'firepot',night:d.navalRole==='escort'?'rocket':'shell',infernal:'firepot',symbiotes:d.navalRole==='escort'?'spine':'spore'})[f.id];
 if(kind==='spell')flavor=({night:'blood',wizard:'arcane',elder:'rune',myth:'oracle',fungal:'neural'})[f.style]||'arcane';
 let color=categories[kind].color;if(kind==='spell')color=({blood:'#b97e9a',arcane:'#b6a6d1',rune:'#a2c9ae',oracle:'#d4c490',neural:'#afcda2'})[flavor];
 let muzzle={x:27,y:6,z:27};if(d.id==='primates_condor_rider')muzzle={x:20,y:5,z:43};if(/Tank|Fighting Vehicle|Nightbreaker/.test(n))muzzle={x:28,y:0,z:18};if(/Self-Propelled/.test(n))muzzle={x:34,y:0,z:18};if(/Dwarven Artillery/.test(n))muzzle={x:28,y:0,z:20};if(/Catapult|Runic Siege/.test(n))muzzle={x:18,y:0,z:37};if(/Dragon|Wyvern/.test(n)&&n!=='Dragon Sage')muzzle={x:n==='Ancient Dragon'?39:n==='Mature Dragon'?37:32,y:0,z:n==='Dragon Whelp'?23:30};if(f.id==='insects'||f.id==='symbiotes')muzzle={x:19,y:0,z:20};if(f.id==='machines')muzzle={x:26,y:0,z:['tank','giant'].includes(d.role)?30:22};if(/Staff|Spell|Wizard|Hexer|Seer|Sage|Healer|Transfigurer/.test(n))muzzle={x:13,y:6,z:45};if(n==='Hexer')muzzle={x:16,y:6,z:30};

@@ -5,7 +5,7 @@
     {
       "id": "humans_b0",
       "kind": "hq",
-      "pixels": 32601,
+      "pixels": 34531,
       "materials": [
         "cloth",
         "concrete",
@@ -13,26 +13,28 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_b1",
       "kind": "house",
-      "pixels": 27200,
+      "pixels": 29289,
       "materials": [
         "cinderblock",
         "concrete",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_b2",
       "kind": "inf",
-      "pixels": 26546,
+      "pixels": 28974,
       "materials": [
         "cinderblock",
         "cloth",
@@ -41,6 +43,7 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone",
         "wood"
       ]
@@ -48,7 +51,7 @@
     {
       "id": "humans_b3",
       "kind": "lab",
-      "pixels": 27592,
+      "pixels": 30028,
       "materials": [
         "cloth",
         "concrete",
@@ -56,13 +59,14 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_b4",
       "kind": "armor",
-      "pixels": 34835,
+      "pixels": 36760,
       "materials": [
         "cloth",
         "concrete",
@@ -70,26 +74,28 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_b5",
       "kind": "air",
-      "pixels": 28334,
+      "pixels": 30470,
       "materials": [
         "cloth",
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_b6",
       "kind": "elite",
-      "pixels": 28221,
+      "pixels": 30582,
       "materials": [
         "cloth",
         "concrete",
@@ -97,50 +103,54 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_b7",
       "kind": "defense",
-      "pixels": 12597,
+      "pixels": 13794,
       "materials": [
         "concrete",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_orewell",
       "kind": "extractor",
-      "pixels": 15819,
+      "pixels": 17730,
       "materials": [
         "cloth",
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_oilwell",
       "kind": "extractor",
-      "pixels": 17048,
+      "pixels": 18812,
       "materials": [
         "cloth",
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_aetherwell",
       "kind": "extractor",
-      "pixels": 16156,
+      "pixels": 18033,
       "materials": [
         "cloth",
         "concrete",
@@ -148,13 +158,14 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "humans_riftwell",
       "kind": "extractor",
-      "pixels": 16948,
+      "pixels": 18763,
       "materials": [
         "cloth",
         "concrete",
@@ -162,6 +173,7 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
@@ -238,24 +250,26 @@
     {
       "id": "reptilians_b0",
       "kind": "hq",
-      "pixels": 31834,
+      "pixels": 33481,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "metal",
-        "stone"
+        "rock",
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "reptilians_b1",
       "kind": "house",
-      "pixels": 22487,
+      "pixels": 24695,
       "materials": [
         "bone",
         "cloth",
         "glass",
-        "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -263,13 +277,14 @@
     {
       "id": "reptilians_b2",
       "kind": "inf",
-      "pixels": 25996,
+      "pixels": 27933,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "metal",
         "paint",
+        "rock",
         "stone",
         "wood"
       ]
@@ -277,24 +292,27 @@
     {
       "id": "reptilians_b3",
       "kind": "lab",
-      "pixels": 28866,
+      "pixels": 30816,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "glow",
         "metal",
-        "stone"
+        "rock",
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "reptilians_b4",
       "kind": "counter",
-      "pixels": 31326,
+      "pixels": 33867,
       "materials": [
         "bone",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -302,12 +320,13 @@
     {
       "id": "reptilians_b5",
       "kind": "armor",
-      "pixels": 24437,
+      "pixels": 26568,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -315,7 +334,7 @@
     {
       "id": "reptilians_b6",
       "kind": "armor",
-      "pixels": 26890,
+      "pixels": 28921,
       "materials": [
         "bone",
         "brick",
@@ -323,6 +342,7 @@
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -330,47 +350,52 @@
     {
       "id": "reptilians_b7",
       "kind": "air",
-      "pixels": 28973,
+      "pixels": 31114,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "reptilians_b8",
       "kind": "elite",
-      "pixels": 32795,
+      "pixels": 34442,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "metal",
-        "stone"
+        "rock",
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "reptilians_b9",
       "kind": "defense",
-      "pixels": 16628,
+      "pixels": 17967,
       "materials": [
         "bone",
         "cloth",
         "glass",
-        "metal",
-        "stone"
+        "rock",
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "reptilians_orewell",
       "kind": "extractor",
-      "pixels": 15375,
+      "pixels": 17419,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -378,11 +403,12 @@
     {
       "id": "reptilians_oilwell",
       "kind": "extractor",
-      "pixels": 16865,
+      "pixels": 18734,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -390,11 +416,12 @@
     {
       "id": "reptilians_aetherwell",
       "kind": "extractor",
-      "pixels": 15902,
+      "pixels": 17855,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -402,11 +429,12 @@
     {
       "id": "reptilians_riftwell",
       "kind": "extractor",
-      "pixels": 16677,
+      "pixels": 18602,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -484,154 +512,166 @@
     {
       "id": "machines_b0",
       "kind": "hq",
-      "pixels": 30778,
+      "pixels": 32911,
       "materials": [
         "concrete",
         "glass",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b1",
       "kind": "house",
-      "pixels": 22151,
+      "pixels": 24417,
       "materials": [
         "concrete",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b2",
       "kind": "depot",
-      "pixels": 21152,
+      "pixels": 23472,
       "materials": [
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b3",
       "kind": "inf",
-      "pixels": 28096,
+      "pixels": 30345,
       "materials": [
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b4",
       "kind": "lab",
-      "pixels": 28231,
+      "pixels": 30404,
       "materials": [
         "concrete",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b5",
       "kind": "armor",
-      "pixels": 29142,
+      "pixels": 31259,
       "materials": [
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b6",
       "kind": "air",
-      "pixels": 26531,
+      "pixels": 28879,
       "materials": [
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b7",
       "kind": "lab",
-      "pixels": 28757,
+      "pixels": 30792,
       "materials": [
         "concrete",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b8",
       "kind": "elite",
-      "pixels": 30598,
+      "pixels": 32800,
       "materials": [
         "concrete",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_b9",
       "kind": "defense",
-      "pixels": 11893,
+      "pixels": 13196,
       "materials": [
         "chitin",
         "concrete",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_orewell",
       "kind": "extractor",
-      "pixels": 15819,
+      "pixels": 17730,
       "materials": [
         "cloth",
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_oilwell",
       "kind": "extractor",
-      "pixels": 17048,
+      "pixels": 18812,
       "materials": [
         "cloth",
         "concrete",
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_aetherwell",
       "kind": "extractor",
-      "pixels": 16156,
+      "pixels": 18033,
       "materials": [
         "cloth",
         "concrete",
@@ -639,13 +679,14 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "machines_riftwell",
       "kind": "extractor",
-      "pixels": 16948,
+      "pixels": 18763,
       "materials": [
         "cloth",
         "concrete",
@@ -653,6 +694,7 @@
         "glow",
         "metal",
         "paint",
+        "rock",
         "stone"
       ]
     },
@@ -1170,23 +1212,26 @@
     {
       "id": "wizards_b0",
       "kind": "hq",
-      "pixels": 36842,
+      "pixels": 38662,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "wizards_b1",
       "kind": "house",
-      "pixels": 27306,
+      "pixels": 29456,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1195,12 +1240,13 @@
     {
       "id": "wizards_b2",
       "kind": "inf",
-      "pixels": 30991,
+      "pixels": 33038,
       "materials": [
         "cloth",
         "glass",
         "metal",
         "paint",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1209,47 +1255,54 @@
     {
       "id": "wizards_b3",
       "kind": "lab",
-      "pixels": 32126,
+      "pixels": 34290,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "wizards_b4",
       "kind": "support",
-      "pixels": 32179,
+      "pixels": 34323,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "wizards_b5",
       "kind": "armor",
-      "pixels": 25607,
+      "pixels": 27908,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "wizards_b6",
       "kind": "armor",
-      "pixels": 27353,
+      "pixels": 29590,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1258,11 +1311,12 @@
     {
       "id": "wizards_b7",
       "kind": "air",
-      "pixels": 28187,
+      "pixels": 30582,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1271,34 +1325,39 @@
     {
       "id": "wizards_b8",
       "kind": "elite",
-      "pixels": 37151,
+      "pixels": 38971,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "wizards_b9",
       "kind": "defense",
-      "pixels": 16071,
+      "pixels": 17505,
       "materials": [
         "cloth",
         "glass",
         "metal",
-        "stone"
+        "rock",
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "wizards_orewell",
       "kind": "extractor",
-      "pixels": 15375,
+      "pixels": 17419,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1306,11 +1365,12 @@
     {
       "id": "wizards_oilwell",
       "kind": "extractor",
-      "pixels": 16865,
+      "pixels": 18734,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1318,11 +1378,12 @@
     {
       "id": "wizards_aetherwell",
       "kind": "extractor",
-      "pixels": 15902,
+      "pixels": 17855,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1330,11 +1391,12 @@
     {
       "id": "wizards_riftwell",
       "kind": "extractor",
-      "pixels": 16677,
+      "pixels": 18602,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1419,10 +1481,11 @@
     {
       "id": "elders_b0",
       "kind": "hq",
-      "pixels": 32114,
+      "pixels": 34038,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1431,9 +1494,10 @@
     {
       "id": "elders_b1",
       "kind": "house",
-      "pixels": 25148,
+      "pixels": 27341,
       "materials": [
         "cloth",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1441,10 +1505,11 @@
     {
       "id": "elders_b2",
       "kind": "depot",
-      "pixels": 30986,
+      "pixels": 33613,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1453,11 +1518,12 @@
     {
       "id": "elders_b3",
       "kind": "inf",
-      "pixels": 28484,
+      "pixels": 30439,
       "materials": [
         "cloth",
         "metal",
         "paint",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1465,11 +1531,12 @@
     {
       "id": "elders_b4",
       "kind": "lab",
-      "pixels": 33444,
+      "pixels": 35377,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1477,12 +1544,13 @@
     {
       "id": "elders_b5",
       "kind": "inf",
-      "pixels": 34641,
+      "pixels": 36622,
       "materials": [
         "cloth",
         "fur",
         "metal",
         "paint",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1491,12 +1559,13 @@
     {
       "id": "elders_b6",
       "kind": "inf",
-      "pixels": 31457,
+      "pixels": 33588,
       "materials": [
         "bone",
         "cloth",
         "metal",
         "paint",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1505,12 +1574,13 @@
     {
       "id": "elders_b7",
       "kind": "armor",
-      "pixels": 28138,
+      "pixels": 30231,
       "materials": [
         "brick",
         "cloth",
         "glow",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1518,10 +1588,11 @@
     {
       "id": "elders_b8",
       "kind": "armor",
-      "pixels": 30865,
+      "pixels": 33004,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1529,11 +1600,12 @@
     {
       "id": "elders_b9",
       "kind": "air",
-      "pixels": 22650,
+      "pixels": 25177,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1541,11 +1613,12 @@
     {
       "id": "elders_b10",
       "kind": "elite",
-      "pixels": 34945,
+      "pixels": 36869,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1554,11 +1627,12 @@
     {
       "id": "elders_b11",
       "kind": "defense",
-      "pixels": 20353,
+      "pixels": 22232,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1567,10 +1641,11 @@
     {
       "id": "elders_orewell",
       "kind": "extractor",
-      "pixels": 15375,
+      "pixels": 17419,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1579,10 +1654,11 @@
     {
       "id": "elders_oilwell",
       "kind": "extractor",
-      "pixels": 16865,
+      "pixels": 18734,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1591,11 +1667,12 @@
     {
       "id": "elders_aetherwell",
       "kind": "extractor",
-      "pixels": 15902,
+      "pixels": 17855,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1604,11 +1681,12 @@
     {
       "id": "elders_riftwell",
       "kind": "extractor",
-      "pixels": 16677,
+      "pixels": 18602,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1692,10 +1770,11 @@
     {
       "id": "myth_b0",
       "kind": "hq",
-      "pixels": 33494,
+      "pixels": 35740,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1703,10 +1782,11 @@
     {
       "id": "myth_b1",
       "kind": "house",
-      "pixels": 25039,
+      "pixels": 27482,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1715,9 +1795,10 @@
     {
       "id": "myth_b2",
       "kind": "depot",
-      "pixels": 31407,
+      "pixels": 33970,
       "materials": [
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1725,11 +1806,12 @@
     {
       "id": "myth_b3",
       "kind": "inf",
-      "pixels": 28314,
+      "pixels": 30483,
       "materials": [
         "cloth",
         "metal",
         "paint",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1738,21 +1820,23 @@
     {
       "id": "myth_b4",
       "kind": "armor",
-      "pixels": 26824,
+      "pixels": 28745,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "myth_b5",
       "kind": "lab",
-      "pixels": 31009,
+      "pixels": 33357,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1760,10 +1844,11 @@
     {
       "id": "myth_b6",
       "kind": "armor",
-      "pixels": 24704,
+      "pixels": 26746,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1771,9 +1856,10 @@
     {
       "id": "myth_b7",
       "kind": "air",
-      "pixels": 26002,
+      "pixels": 28449,
       "materials": [
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1781,11 +1867,12 @@
     {
       "id": "myth_b8",
       "kind": "lab",
-      "pixels": 31032,
+      "pixels": 33357,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1793,10 +1880,11 @@
     {
       "id": "myth_b9",
       "kind": "armor",
-      "pixels": 26493,
+      "pixels": 28812,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -1805,10 +1893,11 @@
     {
       "id": "myth_b10",
       "kind": "elite",
-      "pixels": 34922,
+      "pixels": 37101,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1816,22 +1905,25 @@
     {
       "id": "myth_b11",
       "kind": "defense",
-      "pixels": 20398,
+      "pixels": 22277,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "myth_orewell",
       "kind": "extractor",
-      "pixels": 15375,
+      "pixels": 17419,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1839,10 +1931,11 @@
     {
       "id": "myth_oilwell",
       "kind": "extractor",
-      "pixels": 16865,
+      "pixels": 18734,
       "materials": [
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1850,11 +1943,12 @@
     {
       "id": "myth_aetherwell",
       "kind": "extractor",
-      "pixels": 15902,
+      "pixels": 17855,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1862,11 +1956,12 @@
     {
       "id": "myth_riftwell",
       "kind": "extractor",
-      "pixels": 16677,
+      "pixels": 18602,
       "materials": [
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -1948,24 +2043,26 @@
     {
       "id": "dragons_b0",
       "kind": "hq",
-      "pixels": 34843,
+      "pixels": 36778,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "dragons_b1",
       "kind": "house",
-      "pixels": 23139,
+      "pixels": 25369,
       "materials": [
         "cloth",
         "glow",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -1973,26 +2070,28 @@
     {
       "id": "dragons_b2",
       "kind": "depot",
-      "pixels": 28842,
+      "pixels": 30879,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "dragons_b3",
       "kind": "inf",
-      "pixels": 25804,
+      "pixels": 27867,
       "materials": [
         "bone",
         "chitin",
         "cloth",
         "glow",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -2000,22 +2099,24 @@
     {
       "id": "dragons_b4",
       "kind": "lab",
-      "pixels": 28941,
+      "pixels": 31005,
       "materials": [
         "cloth",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "dragons_b5",
       "kind": "armor",
-      "pixels": 23896,
+      "pixels": 25973,
       "materials": [
         "bone",
         "glow",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -2023,12 +2124,13 @@
     {
       "id": "dragons_b6",
       "kind": "air",
-      "pixels": 30836,
+      "pixels": 33130,
       "materials": [
         "bone",
         "cloth",
         "glow",
         "metal",
+        "rock",
         "stone",
         "wood"
       ]
@@ -2036,48 +2138,52 @@
     {
       "id": "dragons_b7",
       "kind": "lab",
-      "pixels": 28326,
+      "pixels": 30343,
       "materials": [
         "bone",
         "cloth",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "dragons_b8",
       "kind": "elite",
-      "pixels": 39109,
+      "pixels": 41080,
       "materials": [
         "bone",
         "cloth",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "dragons_b9",
       "kind": "defense",
-      "pixels": 14287,
+      "pixels": 15683,
       "materials": [
         "bone",
         "glass",
         "glow",
         "metal",
+        "rock",
         "stone"
       ]
     },
     {
       "id": "dragons_orewell",
       "kind": "extractor",
-      "pixels": 15375,
+      "pixels": 17419,
       "materials": [
         "cloth",
         "glow",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -2085,11 +2191,12 @@
     {
       "id": "dragons_oilwell",
       "kind": "extractor",
-      "pixels": 16865,
+      "pixels": 18734,
       "materials": [
         "cloth",
         "glow",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -2097,12 +2204,13 @@
     {
       "id": "dragons_aetherwell",
       "kind": "extractor",
-      "pixels": 15902,
+      "pixels": 17855,
       "materials": [
         "cloth",
         "glass",
         "glow",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -2110,12 +2218,13 @@
     {
       "id": "dragons_riftwell",
       "kind": "extractor",
-      "pixels": 16677,
+      "pixels": 18602,
       "materials": [
         "cloth",
         "glass",
         "glow",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -2199,25 +2308,28 @@
     {
       "id": "night_b0",
       "kind": "hq",
-      "pixels": 42358,
+      "pixels": 44618,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "night_b1",
       "kind": "house",
-      "pixels": 28948,
+      "pixels": 31526,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -2226,27 +2338,30 @@
     {
       "id": "night_b2",
       "kind": "lab",
-      "pixels": 34394,
+      "pixels": 36824,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "glow",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "night_b3",
       "kind": "inf",
-      "pixels": 33965,
+      "pixels": 36398,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
         "paint",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -2255,7 +2370,7 @@
     {
       "id": "night_b4",
       "kind": "inf",
-      "pixels": 34928,
+      "pixels": 37439,
       "materials": [
         "bone",
         "brick",
@@ -2263,6 +2378,7 @@
         "glass",
         "metal",
         "paint",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -2271,51 +2387,58 @@
     {
       "id": "night_b5",
       "kind": "lab",
-      "pixels": 34287,
+      "pixels": 36571,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "night_b6",
       "kind": "armor",
-      "pixels": 30969,
+      "pixels": 33503,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "night_b7",
       "kind": "air",
-      "pixels": 28994,
+      "pixels": 31152,
       "materials": [
         "brick",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "night_b8",
       "kind": "armor",
-      "pixels": 31968,
+      "pixels": 34338,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "glow",
         "metal",
+        "rock",
         "slate",
         "stone",
         "wood"
@@ -2324,37 +2447,42 @@
     {
       "id": "night_b9",
       "kind": "elite",
-      "pixels": 42525,
+      "pixels": 44771,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "night_b10",
       "kind": "defense",
-      "pixels": 20457,
+      "pixels": 22336,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "night_orewell",
       "kind": "extractor",
-      "pixels": 15375,
+      "pixels": 17419,
       "materials": [
         "brick",
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -2362,11 +2490,12 @@
     {
       "id": "night_oilwell",
       "kind": "extractor",
-      "pixels": 16865,
+      "pixels": 18734,
       "materials": [
         "brick",
         "cloth",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -2374,12 +2503,13 @@
     {
       "id": "night_aetherwell",
       "kind": "extractor",
-      "pixels": 15902,
+      "pixels": 17855,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -2387,12 +2517,13 @@
     {
       "id": "night_riftwell",
       "kind": "extractor",
-      "pixels": 16677,
+      "pixels": 18602,
       "materials": [
         "brick",
         "cloth",
         "glass",
         "metal",
+        "rock",
         "slate",
         "stone"
       ]
@@ -2475,7 +2606,7 @@
     {
       "id": "infernal_b0",
       "kind": "hq",
-      "pixels": 37858,
+      "pixels": 39803,
       "materials": [
         "bone",
         "cloth",
@@ -2489,7 +2620,7 @@
     {
       "id": "infernal_b1",
       "kind": "house",
-      "pixels": 28167,
+      "pixels": 30587,
       "materials": [
         "bone",
         "cloth",
@@ -2504,7 +2635,7 @@
     {
       "id": "infernal_b2",
       "kind": "depot",
-      "pixels": 31352,
+      "pixels": 33941,
       "materials": [
         "glow",
         "metal",
@@ -2516,7 +2647,7 @@
     {
       "id": "infernal_b3",
       "kind": "inf",
-      "pixels": 32378,
+      "pixels": 34771,
       "materials": [
         "bone",
         "cloth",
@@ -2532,7 +2663,7 @@
     {
       "id": "infernal_b4",
       "kind": "inf",
-      "pixels": 34007,
+      "pixels": 36375,
       "materials": [
         "bone",
         "cloth",
@@ -2548,7 +2679,7 @@
     {
       "id": "infernal_b5",
       "kind": "armor",
-      "pixels": 29028,
+      "pixels": 31545,
       "materials": [
         "bone",
         "cloth",
@@ -2563,7 +2694,7 @@
     {
       "id": "infernal_b6",
       "kind": "lab",
-      "pixels": 34009,
+      "pixels": 36166,
       "materials": [
         "bone",
         "cloth",
@@ -2572,13 +2703,14 @@
         "metal",
         "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "infernal_b7",
       "kind": "air",
-      "pixels": 30497,
+      "pixels": 32502,
       "materials": [
         "bone",
         "glow",
@@ -2590,7 +2722,7 @@
     {
       "id": "infernal_b8",
       "kind": "lab",
-      "pixels": 34456,
+      "pixels": 36607,
       "materials": [
         "bone",
         "cloth",
@@ -2599,13 +2731,14 @@
         "metal",
         "rock",
         "slate",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "infernal_b9",
       "kind": "armor",
-      "pixels": 22483,
+      "pixels": 24916,
       "materials": [
         "bone",
         "cloth",
@@ -2619,7 +2752,7 @@
     {
       "id": "infernal_b10",
       "kind": "elite",
-      "pixels": 38091,
+      "pixels": 39989,
       "materials": [
         "bone",
         "cloth",
@@ -2634,20 +2767,21 @@
     {
       "id": "infernal_b11",
       "kind": "defense",
-      "pixels": 16611,
+      "pixels": 17989,
       "materials": [
         "cloth",
         "glass",
         "glow",
         "metal",
         "rock",
-        "stone"
+        "stone",
+        "wood"
       ]
     },
     {
       "id": "infernal_orewell",
       "kind": "extractor",
-      "pixels": 15375,
+      "pixels": 17419,
       "materials": [
         "cloth",
         "glow",
@@ -2660,7 +2794,7 @@
     {
       "id": "infernal_oilwell",
       "kind": "extractor",
-      "pixels": 16865,
+      "pixels": 18734,
       "materials": [
         "cloth",
         "glow",
@@ -2673,7 +2807,7 @@
     {
       "id": "infernal_aetherwell",
       "kind": "extractor",
-      "pixels": 15902,
+      "pixels": 17855,
       "materials": [
         "cloth",
         "glass",
@@ -2687,7 +2821,7 @@
     {
       "id": "infernal_riftwell",
       "kind": "extractor",
-      "pixels": 16677,
+      "pixels": 18602,
       "materials": [
         "cloth",
         "glass",
@@ -2776,135 +2910,149 @@
     {
       "id": "symbiotes_b0",
       "kind": "hq",
-      "pixels": 23320,
+      "pixels": 23080,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b1",
       "kind": "house",
-      "pixels": 13019,
+      "pixels": 12834,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b2",
       "kind": "depot",
-      "pixels": 13482,
+      "pixels": 13845,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b3",
       "kind": "inf",
-      "pixels": 12981,
+      "pixels": 13104,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b4",
       "kind": "lab",
-      "pixels": 14927,
+      "pixels": 14463,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b5",
       "kind": "counter",
-      "pixels": 14797,
+      "pixels": 14936,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b6",
       "kind": "armor",
-      "pixels": 19549,
+      "pixels": 19307,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b7",
       "kind": "air",
-      "pixels": 20418,
+      "pixels": 20308,
       "materials": [
         "bio",
         "cloth",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b8",
       "kind": "elite",
-      "pixels": 19083,
+      "pixels": 19113,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_b9",
       "kind": "defense",
-      "pixels": 6959,
+      "pixels": 6625,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_orewell",
       "kind": "extractor",
-      "pixels": 7584,
+      "pixels": 7723,
       "materials": [
         "bio",
         "glow",
+        "mold",
         "slate"
       ]
     },
     {
       "id": "symbiotes_oilwell",
       "kind": "extractor",
-      "pixels": 8549,
+      "pixels": 8602,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_aetherwell",
       "kind": "extractor",
-      "pixels": 9171,
+      "pixels": 8950,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_riftwell",
       "kind": "extractor",
-      "pixels": 9547,
+      "pixels": 9315,
       "materials": [
         "bio",
-        "glow"
+        "glow",
+        "mold"
       ]
     },
     {
       "id": "symbiotes_wall",
       "kind": "wall",
-      "pixels": 26398,
+      "pixels": 26402,
       "materials": [
         "skin"
       ]
@@ -2981,6 +3129,7 @@
     "glass",
     "glow",
     "metal",
+    "mold",
     "paint",
     "rock",
     "skin",

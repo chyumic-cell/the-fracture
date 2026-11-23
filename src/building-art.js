@@ -10,14 +10,51 @@ const palettes={industrial:['#84989a','#344a55','#b5c2b8','#b9a06a'],machine:['#
 const sourcePalette=palettes[style],livery=root.FractureArt.buildingLivery(d,f),base=root.FractureArt.mixColor(sourcePalette[0],livery.primary,organic?.4:.13),roofColor=root.FractureArt.mixColor(sourcePalette[1],livery.primary,.7),trim=sourcePalette[2],accent=root.FractureArt.mixColor(sourcePalette[3],livery.primary,.5),wallMat=style==='industrial'?(kind==='inf'||kind==='house'?'cinderblock':'concrete'):style==='machine'?'metal':style==='night'?'brick':style==='demon'?'rock':style==='ape'?'wood':'stone';
 const mat=s=>M.material(s),box=(x,y,z,w,l,h,c=base,m=wallMat)=>{mat(m);M.box(x,y,z,w,l,h,c);
  if(industrial&&w>15&&l>12&&h>14){for(let yy=y-l+5;yy<y+l-3;yy+=10){mat('metal');M.face([[x+w+.05,yy-3,z+5],[x+w+.05,yy+3,z+5],[x+w+.05,yy+3,z+h-4],[x+w+.05,yy-3,z+h-4]],tint(c,-7));M.seg([x+w+.25,yy-3,z+5],[x+w+.25,yy-3,z+h-4],tint(c,23),.55);for(const zz of [z+6,z+h-5])M.orb(x+w+.35,yy-2,zz,.35,.4,.4,trim);}M.seg([x+w+.2,y-l+1,z+h-3],[x+w+.2,y+l-1,z+h-3],team,1.6);}
+ if(!organic&&w>11&&l>9&&h>12){
+  // A projecting plinth course and a capping band stop large walls reading as a single blank slab.
+  mat(m);M.box(x,y,z,w+.9,l+.9,2.6,tint(c,-16));M.box(x,y,z+h-2.2,w+.7,l+.7,2.2,tint(c,9));
+  for(const [ax,ay] of [[1,0],[0,1]]){const ex=ax?w+1.05:w*.96,ey=ay?l+1.05:l*.96;
+   M.seg([x+(ax?ex:-ex),y+(ay?ey:-ey),z+2.75],[x+(ax?ex:ex),y+(ay?ey:ey),z+2.75],tint(c,-32),.4);
+   M.seg([x+(ax?ex:-w*.96),y+(ay?ey:-l*.96),z+h-2.45],[x+(ax?ex:w*.96),y+(ay?ey:l*.96),z+h-2.45],tint(c,-30),.4);}
+ }
  },orb=(x,y,z,rx,ry,rz,c=base,m='chitin')=>{mat(m);M.orb(x,y,z,rx,ry,rz,c);},face=(v,c=base,m=wallMat)=>{mat(m);M.face(v,c);},beam=(a,b,c=trim,w=2,m='metal')=>{mat(m);M.seg(a,b,c,w);},tube=(x,y,z,r,h,c=base,m=wallMat,rt=r)=>{mat(m);M.cylinder(x,y,z,r,h,c,16,rt);};
 const ring=(x,y,z,r,thick=1,c=trim)=>{for(let i=0;i<20;i++){const a=i*Math.PI/10,b=(i+1)*Math.PI/10;beam([x+Math.cos(a)*r,y+Math.sin(a)*r,z],[x+Math.cos(b)*r,y+Math.sin(b)*r,z],c,thick);}};
 const plate=(x,y,z,w,l,h,c=base)=>{const v=[[-w,-l,0],[w,-l,0],[w,l,0],[-w,l,0],[-w*.75,-l*.8,h],[w*.75,-l*.8,h],[w*.75,l*.8,h],[-w*.75,l*.8,h]].map(v=>[v[0]+x,v[1]+y,v[2]+z]);for(const q of [[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7],[4,5,6,7]])face(q.map(i=>v[i]),c,style==='machine'?'metal':wallMat);};
-const window=(x,y,z,w=4,h=8,c='#4a8f99')=>{box(x,y,z,w+1,1.2,h+1,trim,'metal');face([[x-w,y+1.3,z+1],[x+w,y+1.3,z+1],[x+w,y+1.3,z+h],[x-w,y+1.3,z+h]],c,'glass');beam([x-w,y+1.5,z+h],[x+w,y+1.5,z+h],'#c4d6cc',.5);beam([x,y+1.5,z],[x,y+1.5,z+h],roofColor,.8);};
+const window=(x,y,z,w=4,h=8,c='#4a8f99')=>{
+ // Deep reveal, dark glazing, sloped stone sill and separate timber/metal framing.
+ const frame=industrial?'metal':'wood',depth=2.4;
+ face([[x-w,y+.12,z],[x+w,y+.12,z],[x+w,y+.12,z+h],[x-w,y+.12,z+h]],tint(c,-35),'glass');
+ for(const side of [-1,1]){box(x+side*(w+.7),y+1,z,.7,1.1,h+.8,trim,frame);face([[x+side*w,y+.2,z],[x+side*w,y+depth,z],[x+side*w,y+depth,z+h],[x+side*w,y+.2,z+h]],tint(trim,-28),wallMat);}
+ box(x,y+1,z+h,w+1.4,1.5,.9,trim,wallMat);box(x,y+1.6,z-.9,w+1.7,2,.9,tint(trim,-8),wallMat);
+ beam([x,y+.65,z],[x,y+.65,z+h],trim,.65,frame);beam([x-w,y+.65,z+h*.55],[x+w,y+.65,z+h*.55],trim,.55,frame);
+ face([[x-w+.6,y+.3,z+h*.65],[x-.6,y+.3,z+h-.7],[x-w+.6,y+.3,z+h-.7]],tint(c,20),'glass');
+};
 const vent=(x,y,z,w=8,l=9)=>{box(x,y,z,w,l,2,roofColor,'metal');for(let j=-l+1;j<l;j+=2.5)beam([x-w+1,y+j,z+2.3],[x+w-1,y+j,z+2.3],trim,.85);};
 const door=(x,y,z,w=9,h=20)=>{box(x,y,z,w+2,1,h+2,trim);face([[x-w,y+1.3,z],[x+w,y+1.3,z],[x+w,y+1.3,z+h],[x-w,y+1.3,z+h]],'#1d2c32','cloth');for(let zz=3;zz<h;zz+=3.7)beam([x-w+.5,y+1.6,z+zz],[x+w-.5,y+1.6,z+zz],tint(roofColor,9),.7);for(const s of [-1,1]){box(x+s*(w+3),y,z,1.4,2,h,base);if(industrial)for(let zz=2;zz<h;zz+=6)face([[x+s*(w+2),y+2.1,z+zz],[x+s*(w+4),y+2.1,z+zz+2],[x+s*(w+4),y+2.1,z+zz+4],[x+s*(w+2),y+2.1,z+zz+2]],'#d2af5c','paint');}};
 const arch=(x,y,z,w,h)=>{face([[x-w,y,z],[x+w,y,z],[x+w,y,z+h-w],[x,y,z+h],[x-w,y,z+h-w]],'#1e292b','cloth');for(const s of [-1,1])box(x+s*(w+1.5),y,z,1.5,2,h-w,trim);for(let j=0;j<10;j++){const a=j*Math.PI/10,b=(j+1)*Math.PI/10;face([[x+Math.cos(a)*w,y+2.1,z+h-w+Math.sin(a)*w],[x+Math.cos(b)*w,y+2.1,z+h-w+Math.sin(b)*w],[x+Math.cos(b)*(w+3.3),y+2.1,z+h-w+Math.sin(b)*(w+3.3)],[x+Math.cos(a)*(w+3.3),y+2.1,z+h-w+Math.sin(a)*(w+3.3)]],j%2?trim:tint(base,12),'stone');}};
-const roof=(x,y,z,w,l,h,c=roofColor)=>{const m=style==='ape'?'wood':industrial?'metal':'slate';face([[x-w,y-l,z],[x+w,y-l,z],[x+w,y,z+h],[x-w,y,z+h]],c,m);face([[x-w,y+l,z],[x-w,y,z+h],[x+w,y,z+h],[x+w,y+l,z]],c,m);face([[x+w,y-l,z],[x+w,y+l,z],[x+w,y,z+h]],base);face([[x-w,y-l,z],[x-w,y,z+h],[x-w,y+l,z]],base);for(const s of [-1,1]){beam([x-w,y+s*l,z],[x+w,y+s*l,z],trim,1.6);for(let yy=3;yy<l;yy+=4.2){const zz=z+h*(1-yy/l);beam([x-w,y+s*yy,zz+.3],[x+w,y+s*yy,zz+.3],tint(c,8),.65,m);}for(let row=0;row<Math.ceil(l/4.2);row++){const ya=row*4.2,yb=Math.min(l,(row+1)*4.2);for(let xx=-w+3+(row%2)*3;xx<w;xx+=6)beam([x+xx,y+s*ya,z+h*(1-ya/l)+.25],[x+xx,y+s*yb,z+h*(1-yb/l)+.25],tint(c,-17),.35,m);}}beam([x-w,y,z+h],[x+w,y,z+h],trim,1.6);};
+const roof=(x,y,z,w,l,h,c=roofColor)=>{const m=style==='ape'?'wood':industrial?'metal':'slate';face([[x-w,y-l,z],[x+w,y-l,z],[x+w,y,z+h],[x-w,y,z+h]],c,m);face([[x-w,y+l,z],[x-w,y,z+h],[x+w,y,z+h],[x+w,y+l,z]],c,m);face([[x+w,y-l,z],[x+w,y+l,z],[x+w,y,z+h]],base);face([[x-w,y-l,z],[x-w,y,z+h],[x-w,y+l,z]],base);for(const s of [-1,1]){beam([x-w,y+s*l,z],[x+w,y+s*l,z],trim,1.6);for(let yy=3;yy<l;yy+=4.2){const zz=z+h*(1-yy/l);beam([x-w,y+s*yy,zz+.3],[x+w,y+s*yy,zz+.3],tint(c,8),.65,m);}for(let row=0;row<Math.ceil(l/4.2);row++){const ya=row*4.2,yb=Math.min(l,(row+1)*4.2);for(let xx=-w+3+(row%2)*3;xx<w;xx+=6)beam([x+xx,y+s*ya,z+h*(1-ya/l)+.25],[x+xx,y+s*yb,z+h*(1-yb/l)+.25],tint(c,-17),.35,m);}}// Overlapping individual roof courses create real eave thickness and self-shadow.
+ for(const side of [-1,1])for(let row=0;row<Math.ceil(l/4.2);row++){
+  const ya=row*4.2,yb=Math.min(l,ya+4.6),step=industrial?8:6;
+  for(let xx=-w-(row%2)*step*.5;xx<w;xx+=step){
+   const left=Math.max(-w,xx),right=Math.min(w,xx+step-.55),za=z+h*(1-ya/l)+.55,zb=z+h*(1-yb/l)+.8;
+   const tile=tint(c,Math.sin(xx*12.7+row*17.1)*8);
+   face([[x+left,y+side*ya,za],[x+right,y+side*ya,za],[x+right,y+side*yb,zb],[x+left,y+side*yb,zb]],tile,m);
+   face([[x+left,y+side*yb,zb],[x+right,y+side*yb,zb],[x+right,y+side*yb,zb-.65],[x+left,y+side*yb,zb-.65]],tint(tile,-24),m);
+  }
+ }
+ beam([x-w,y,z+h+.8],[x+w,y,z+h+.8],trim,1.6);
+ // The lowest course projects past the wall, so the roof casts a real eave line instead of stopping flush.
+ const over=industrial?1.7:2.5;
+ for(const side of [-1,1]){
+  face([[x-w-.6,y+side*l,z+.5],[x+w+.6,y+side*l,z+.5],[x+w+.6,y+side*(l+over),z-1],[x-w-.6,y+side*(l+over),z-1]],tint(c,-5),m);
+  face([[x-w-.6,y+side*(l+over),z-1],[x+w+.6,y+side*(l+over),z-1],[x+w+.6,y+side*(l+over),z-2.3],[x-w-.6,y+side*(l+over),z-2.3]],tint(c,-31),m);
+  face([[x-w-.6,y+side*(l+over),z-2.3],[x+w+.6,y+side*(l+over),z-2.3],[x+w+.6,y+side*l,z-1.4],[x-w-.6,y+side*l,z-1.4]],tint(c,-46),m);
+  beam([x-w-.6,y+side*(l+over),z-1.1],[x+w+.6,y+side*(l+over),z-1.1],tint(trim,-16),.5,m);
+ }
+ for(const sx of [-1,1])for(const sy of [-1,1]){const a=[x+sx*(w+.6),y+sy*(l+over*.45),z-.7],b=[x+sx*(w+.6),y,z+h+.7];
+  face([a,b,[b[0],b[1],b[2]-1.9],[a[0],a[1]-sy*.9,a[2]-1.9]],tint(c,-17),m);beam(a,b,tint(trim,-8),.55,m);}
+ if(industrial)for(const side of [-1,1]){beam([x-w,y+side*(l+1),z],[x+w,y+side*(l+1),z],tint(trim,-22),1.1,'metal');beam([x+w,y+side*(l+1),z],[x+w+1,y+side*(l+1),4],tint(trim,-25),.9,'metal');}
+};
 const stairs=(x,y,z,w,count=6)=>{for(let i=0;i<count;i++)box(x,y+i*3,z,w,2,(count-i)*1.7,trim);};
 const lamp=(x,y,z,c=accent)=>{tube(x,y,z,2,3,trim,'metal');orb(x,y,z+4,1.8,1.8,2.4,c,'glow');};
 const antenna=(x,y,z)=>{beam([x,y,z],[x,y,z+21],trim,1);for(const zz of [8,15])beam([x-5,y,z+zz],[x+5,y,z+zz],trim,.8);lamp(x,y,z+21,'#d78564');};
@@ -27,7 +64,16 @@ const buttress=(x,y,z,h=27)=>{plate(x,y,z,4,7,h,base);box(x,y,z+h,4.5,7.5,2,trim
 const spire=(x,y,z,r=10,h=36)=>{tube(x,y,z,r,h,base,'stone');tube(x,y,z+h-2,r+1.5,3,trim,'stone');tube(x,y,z+h+1,r+3,20,roofColor,'metal',0);beam([x,y,z+h+20],[x,y,z+h+27],trim,1);for(const s of [-1,1])window(x+s*r*.45,y+r*.84,z+h*.4,2,10);};
 const banner=(x,y,z,c=team)=>{beam([x,y,z-20],[x,y,z+5],trim,.85);for(let j=0;j<4;j++){const y1=y+Math.sin(j)*1.1;face([[x+j*2,y1,z],[x+(j+1)*2,y+Math.sin(j+1)*1.1,z-1],[x+(j+1)*2,y+Math.sin(j+1)*1.1,z-13],[x+j*2,y1,z-12]],j%2?tint(c,-9):c,'cloth');}};
 const w=kind==='defense'?22:kind==='extractor'?30:44,l=kind==='defense'?20:kind==='extractor'?25:33;
-if(!organic){box(0,0,0,w+3,l+3,3,tint(base,-22),industrial?'concrete':'stone');for(let j=-w+6;j<w;j+=13)beam([j,-l,3.1],[j,l,3.1],tint(base,-39),.5,'stone');for(let j=-l+5;j<l;j+=11)beam([-w,j,3.1],[w,j,3.1],tint(base,-40),.5,'stone');stairs(0,l+2,0,11,3);}
+if(!organic){const pave=industrial?'concrete':'stone';
+ box(0,0,0,w+6,l+6,1.2,tint(base,-34),pave);
+ box(0,0,1.2,w+3,l+3,2.1,tint(base,-22),pave);
+ for(let j=-w+6;j<w;j+=13)beam([j,-l,3.35],[j,l,3.35],tint(base,-39),.5,'stone');
+ for(let j=-l+5;j<l;j+=11)beam([-w,j,3.35],[w,j,3.35],tint(base,-40),.5,'stone');
+ for(const side of [-1,1]){beam([-w-3,side*(l+3),3.4],[w+3,side*(l+3),3.4],tint(base,-10),.9,pave);beam([side*(w+3),-l-3,3.4],[side*(w+3),l+3,3.4],tint(base,-10),.9,pave);}
+ for(let j=0;j<26;j++){const a=j*2.399,r=1.03+((j*7)%5)*.035,x=Math.cos(a)*(w+7)*r,y=Math.sin(a)*(l+7)*r,sz=1.5+((j*3)%4)*.75;
+  orb(x,y,.35,sz,sz*.8,sz*.5,tint(base,((j*5)%3-1)*9-18),'rock');}
+ for(let j=0;j<10;j++){const a=j*2.399+.9,x=Math.cos(a)*(w+4),y=Math.sin(a)*(l+4);orb(x,y,.3,2.4,2,.55,tint(base,-27),'rock');}
+ stairs(0,l+2,0,11,3);}
 else{orb(0,0,1,w,l,4,roofColor);for(let j=0;j<9;j++){const a=j*Math.PI*2/9,x=Math.cos(a)*w,y=Math.sin(a)*l;beam([x*.45,y*.45,9],[x,y,2],base,3,'chitin');beam([x,y,2],[x*1.12,y*1.1,.8],trim,1,'chitin');}}
 // Shared resource functions are expressed in the civilization's construction material.
 if(kind==='extractor'){

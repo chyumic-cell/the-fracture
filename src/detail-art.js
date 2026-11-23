@@ -106,19 +106,19 @@ function emblem(M,p,size,faction){
 // Mesh additions: real geometry, shaded and depth-tested before sprite baking.
 function humanoid(M,d,s){
  const {kind,h,width:w,zz:z,armor,robe,skin,cloth,hands,head,headPart,action,frame}=s;
- const {tint,face,line,orb}=kit(M),metal=d.faction==='night'?'#84909f':kind==='reptilian'?'#a6a88c':kind==='skeleton'?'#a1a6b0':kind==='elf'?'#b5bdb1':'#b5bcc1',dark=tint(metal,-42),edge=tint(metal,26),trim='#c0a46e';
- const sculpt=(rings,c,material='metal',sides=12)=>{M.material(material);M.loft(rings,c,sides);};
+ const {tint,face,line,orb}=kit(M),metal=kind==='human'?'#687472':d.faction==='night'?'#84909f':kind==='reptilian'?'#a6a88c':kind==='skeleton'?'#a1a6b0':kind==='elf'?'#b5bdb1':'#b5bcc1',dark=tint(metal,-42),edge=tint(metal,26),trim='#c0a46e';
+ const sculpt=(rings,c,material='metal',sides=12)=>{M.material(kind==='human'&&material==='metal'?'paint':material);M.loft(rings,c,sides);};
  const organic=['ape','wolf','minotaur','golem','horror','treant','husk','demon','imp','gargoyle','troll','cyclops'].includes(kind);
  if(armor&&!organic){
   // Curved cuirass: waist, flared ribs, narrowed neck and a pronounced central ridge.
-  sculpt([[0,0,z+h*.54,w*.9,w*.98],[.1,0,z+h*.62,w*1.16,w*1.13],[-.15,0,z+h*.76,w*1.08,w*1.18],[-.2,0,z+h*.86,w*.65,w*.78]],metal);
+  sculpt([[0,0,z+h*.54,w*.9,w*.98],[.1,0,z+h*.62,w*.94,w*1.04],[-.15,0,z+h*.76,w*.93,w*1.08],[-.2,0,z+h*.86,w*.65,w*.78]],metal);
   for(const side of [-1,1]){
    face([[w*.66,side*w*.67,z+h*.85],[w*1.15,side*w*.82,z+h*.68],[w*1.19,0,z+h*.59],[w*1.24,0,z+h*.77]],side>0?metal:tint(metal,-16));
    line([w*1.24,0,z+h*.77],[w*1.19,0,z+h*.59],edge,.45);
    // Three overlapping articulated shoulder lames, with rolled rims and hinge pins.
    for(let j=0;j<3;j++){
-    const sy=side*(w+.55+j*.52),sz=z+h-4.8-j*1.55;
-    sculpt([[-.7,sy,sz-1.5,3-j*.15,2.6],[-.7,sy,sz+.35,3.1-j*.15,2.7],[-1,sy,sz+1.5,2.25,1.8]],j%2?dark:metal);
+    const sy=side*(w+.3+j*.32),sz=z+h-4.8-j*1.55;
+    sculpt([[-.7,sy,sz-1.5,2.45-j*.2,2.05],[-.7,sy,sz+.35,2.55-j*.2,2.15],[-1,sy,sz+1.5,1.9,1.55]],j%2?dark:metal);
     line([1.8,sy-side*1.5,sz-1.4],[1.8,sy+side*2.2,sz-1.4],edge,.45);
     orb(2,sy,sz,.35,.4,.4,trim);
    }
@@ -128,7 +128,7 @@ function humanoid(M,d,s){
     face([[w*.99,y-side*w*.36,top],[w*.99,y+side*w*.4,top],[w*1.02,y+side*w*.48,top-2.2],[w*.97,y-side*w*.36,top-2.2]],j%2?tint(metal,-10):metal);
     line([w*1.03,y-side*w*.35,top-2.1],[w*1.03,y+side*w*.48,top-2.1],edge,.4);
    }
-   const gait=action==='walk'?root.FractureMotion.step(frame,side<0?.5:0,['goblin','kobold','imp'].includes(kind)?5.5:7.5):{x:0,lift:0};
+   const gait=(action==='walk'||action==='walkReady')?root.FractureMotion.step(frame,side<0?.5:0,['goblin','kobold','imp'].includes(kind)?5.5:7.5):{x:0,lift:0};
    const knee=[-gait.x*.5,side*4.3,z+9+gait.lift*.45],ankle=[gait.x,side*4.4,z+3+gait.lift];
    orb(knee[0]+1.1,knee[1],knee[2],1.8,2.05,2.4,metal);
    // The front ridge and side fins make greaves read as forged plates.
@@ -254,31 +254,38 @@ function unit(M,d){
 // them to the same eight-direction sprite/cache format as the rest of the game.
 function figure(ctx,d,f,angle,action,frame){
  const kind=root.FractureIdentity?.identity(d,f);
- if(!['human','dwarf','elf','wizard','vampire','skeleton','reptilian','draconian','kobold','goblin','orc','ghoul','thrall'].includes(kind)||d.faction==='night'||d.campaignEmperor||d.air||d.naval||d.transport||d.role==='merchant')return false;
+ if(!['human','dwarf','elf','wizard','vampire','skeleton','reptilian','draconian','kobold','goblin','orc','ghoul','thrall'].includes(kind)||(d.faction==='night'&&kind!=='vampire')||d.campaignEmperor||d.air||d.naval||d.transport||d.role==='merchant')return false;
  const M=new root.FractureSpriteMesh(ctx,Math.round(angle/(Math.PI/4))*Math.PI/4,action==='dead').pose(d,action,frame);
  const {tint,orb,line,face,box}=kit(M),outfit=root.FractureIdentity.uniform(d,f),cloth=outfit[0],gold='#d6b568',steel='#b8c5d2',silver='#e2e7e9',iron='#505d70',leather='#674530',black='#202838';
  const shot=root.FractureProjectiles.profile(d,f).kind;
  const dwarf=kind==='dwarf',small=['kobold','goblin'].includes(kind),reptile=['reptilian','draconian','kobold'].includes(kind),modern=kind==='human',caster=!modern&&(d.heal||['spell','flame'].includes(shot)||/Mage|Healer|Sage|Seer|Spellweaver|Runesmith/.test(d.name)),armored=!d.worker&&!caster&&!d.heal&&(!(modern&&['scout','stealth'].includes(d.role)))&&(modern||d.role==='heavy'||d.role==='elite'||/Guard|Shield|Knight|Legionnaire|Spearman/.test(d.name)),shielded=/Shield|Guardian|Knight|Legionnaire|Flameguard/.test(d.name)||d.name==='Spellguard';
  const heavy=d.role==='heavy',elite=d.role==='elite',light=['scout','stealth'].includes(d.role),archer=shot==='arrow'||shot==='bolt',width=dwarf?1.13:heavy?1.16:elite?1.07:light?.88:1;
  const skin=reptile?'#859e50':['orc','goblin'].includes(kind)?'#8a9b62':kind==='skeleton'?'#dfd8bd':kind==='ghoul'?'#a9b38d':kind==='vampire'?'#dbd5d3':'#d2ac8a';
- const moving=action==='walk'||action==='walkReady',ready=action==='ready'||action==='walkReady',attack=action==='attack',work=['gather','build','heal'].includes(action),gesture=['scratch','yawn'].includes(action),phase=frame%4,melee=d.range<2,scale=small?.61:dwarf?.69:.83;
+ const moving=action==='walk'||action==='walkReady',ready=action==='ready'||action==='walkReady',attack=action==='attack',work=['gather','gatherOil','build','heal'].includes(action),gesture=['scratch','yawn'].includes(action),phase=frame%4,melee=d.range<2,scale=small?.61:dwarf?.69:.83;
  M.part={origin:[0,0,0],scale};
  M.ownership([{x:[-10,13],y:[-13,13],z:[19*scale,22*scale]},{x:[-10,13],y:[-13,13],z:[38*scale,40*scale]}],['cloth','paint']);
  const loft=(r,c,mat='cloth',sides=16)=>{M.material(mat);M.loft(r,c,sides);};
- const limb=(a,b,w,c,mat='cloth')=>{M.material(mat);M.limb(a,b,c,w);};
+ // Anatomical sections: full muscle bellies taper into wrist/ankle joints.
+ const limb=(a,b,w,c,mat='cloth')=>{
+  const delta=b.map((q,i)=>q-a[i]),length=Math.hypot(...delta)||1,axis=delta.map(q=>q/length),raw=Math.abs(axis[2])>.9?[1,0,0]:[-axis[1],axis[0],0],ul=Math.hypot(...raw)||1,u=raw.map(q=>q/ul),v=[axis[1]*u[2]-axis[2]*u[1],axis[2]*u[0]-axis[0]*u[2],axis[0]*u[1]-axis[1]*u[0]];
+  const sections=[[0,.8],[.2,1.12],[.46,1.04],[.75,.8],[1,.59]],radius=w*.55;
+  const rings=sections.map(([t,r])=>Array.from({length:14},(_,j)=>{const an=j*Math.PI/7;return a.map((q,i)=>q+delta[i]*t+radius*r*(u[i]*Math.cos(an)+v[i]*Math.sin(an)));}));
+  M.material(mat);M.rings(rings,c,true);
+ };
  const tube=(a,b,w,c,mat='metal')=>line(a,b,c,w,mat);
- const shift=attack&&melee?[0,-2,3,1][phase]:0;
+ const shift=attack&&melee?[-1,-4,5,1.5][phase]:attack?[-.5,-1.5,1,.5][phase]:0;
  const shoulder=(side)=>[shift,side*(dwarf?7.8:7.1)*width,41.8+(side>0?.3:-.3)];
  // A fitted pelvis and abdomen are narrower than the ribcage. A shaped neck
  // and jaw replace the stack of round primitives used by the earlier figures.
  for(const side of [-1,1]){
   const gait=moving?root.FractureMotion.step(frame,side<0?.5:0,8.2):{x:attack&&melee?(side>0?3:-2):side>0?1.6:-1.6,lift:0};
   const hip=[-.7,side*3.4,26],knee=[1-gait.x*.32,side*3.8,14.2+gait.lift*.4],ankle=[gait.x,side*4.3,3+gait.lift];
-  limb(hip,knee,dwarf?5.5:4.9,d.worker?leather:cloth);limb(knee,ankle,3.8,d.worker?leather:black,'leather');
+  limb(hip,knee,dwarf?6.6:6.1,d.worker?leather:cloth);limb(knee,ankle,4.65,d.worker?leather:black,'leather');
   // Fitted boot has a sole, toe box, raised ankle and heel.
   loft([[ankle[0]+1.3,ankle[1],.7+gait.lift,3.4,2.3],[ankle[0]+1.5,ankle[1],2.3+gait.lift,3.6,2.3],[ankle[0]-.1,ankle[1],4+gait.lift,2,1.8]],black,'leather',12);
   tube([ankle[0]-1.2,ankle[1],3+gait.lift],[ankle[0]-1,ankle[1],9+gait.lift],2.6,tint(leather,-15),'leather');
-  if(armored){
+  if(modern&&armored){loft([[knee[0]+1.4,knee[1],knee[2]-1.9,.8,1.7],[knee[0]+1.7,knee[1],knee[2],1,1.9],[knee[0]+1.4,knee[1],knee[2]+1.8,.8,1.6]],tint(cloth,-23),'leather',10);}
+  if(armored&&!modern){
    orb(knee[0]+1.8,knee[1],knee[2],2.2,2.5,2.7,steel);
    const v=[[knee[0]+2,knee[1]-2,knee[2]-1],[knee[0]+3,knee[1],knee[2]],[knee[0]+2,knee[1]+2,knee[2]-1],[ankle[0]+2,ankle[1]+1.7,ankle[2]],[ankle[0]+2.8,ankle[1],ankle[2]-.3],[ankle[0]+2,ankle[1]-1.7,ankle[2]]];
    face([v[0],v[1],v[4],v[5]],steel);face([v[1],v[2],v[3],v[4]],iron);tube(v[1],v[4],.45,silver);
@@ -286,7 +293,10 @@ function figure(ctx,d,f,angle,action,frame){
   }
  }
  // Pelvis, tucked abdomen, oval ribcage, sloping clavicles and a visible neck.
- loft([[-.8,0,24,3.5,4.7],[-.8,0,27.5,3.8,5],[-.3,0,31,2.8,3.8],[shift+.2,0,35,3.3*width,5.2*width],[shift+.2,0,38.5,4*width,6.1*width],[shift-.1,0,41.8,3.5*width,5.6*width],[shift-.2,0,44.4,2.3,3.1]],caster?cloth:armored?'#485260':cloth,armored?'mail':'cloth',20);
+ const torsoRings=[[-.8,0,24,3.5,4.7],[-.8,0,27.5,3.8,5],[-.3,0,31,2.8,3.8],[shift-.1,0,35,4.15*width,5.65*width],[shift-.2,0,38.5,4.9*width,6.45*width],[shift-.3,0,41.8,4.15*width,5.95*width],[shift-.2,0,44.4,2.3,3.1]];
+ loft(torsoRings,caster?cloth:armored?'#485260':cloth,armored&&!modern?'mail':'cloth',20);
+ // Reptile civilizations wear scale over the whole trunk: individual plates, not a scale-patterned cloth.
+ if(reptile){M.material('scales');M.pelt(torsoRings,caster?cloth:armored?'#51606d':cloth,{axis:'z',rows:13,cols:15,flow:-1,lift:.36,grow:.05,shade:8,narrow:1.45,seed:17});}
  if(!armored&&!caster)for(const side of [-1,1]){
   orb(shift+2.4,side*2.5,38,1.9,2.8,3.1,tint(cloth,3),'cloth');
   tube([shift+.3,side*1.8,44],[shift+.5,side*6.1,41.4],.75,tint(cloth,14),'cloth');
@@ -305,7 +315,7 @@ function figure(ctx,d,f,angle,action,frame){
   tube([shift+4,-5,41],[shift+4,5,41],.75,gold);
  }else if(armored){
   // Curved cuirass follows the ribs and narrows above the hips. No flat chest box.
-  loft([[0,0,30,3.1,4.2],[shift+.15,0,33,3.7*width,4.8*width],[shift+.25,0,37.5,4.4*width,6.35*width],[shift,0,40.8,4.1*width,5.9*width],[shift-.2,0,43.5,2.65,3.5]],modern?iron:steel,'metal',24);
+  loft([[0,0,30,3.1,4.2],[shift-.1,0,33,4.3*width,5.05*width],[shift,0,37.5,5.35*width,6.7*width],[shift-.1,0,40.8,4.95*width,6.3*width],[shift-.2,0,43.5,2.65,3.5]],modern?cloth:steel,modern?'cloth':'metal',24);
   for(const side of [-1,1]){
    tube([shift+2.8,side*2.8,43],[shift+4.1,side*4.5,39],.5,silver);
    tube([shift+4.1,side*4.5,39],[shift+3.4,side*3.4,32],.45,modern?iron:gold);
@@ -324,12 +334,21 @@ function figure(ctx,d,f,angle,action,frame){
    box(-3.3,side*2.9,31,1,1.9,6,black,'leather');
   }
  }
+ // Tailored vampire garments keep their identity on the fuller anatomical rig.
+ if(kind==='vampire'){
+  for(const side of [-1,1]){
+   face([[shift-1,side*2.5,44],[shift-3,side*5,49],[shift-5,side*6.5,43],[shift-3,side*5,40]],tint(cloth,-22),'cloth');
+   face([[shift+3,side*.5,43],[shift+5.2,side*3.5,38],[shift+4.6,side*.9,34]],tint(cloth,23),'cloth');
+   face([[-3,side*1.5,29],[-3.7,side*5,29],[-6.5,side*7,12],[-5.5,side*2,14]],tint(cloth,-15),'cloth');
+   for(let j=0;j<5;j++)orb(shift+5,side*1.2,32+j*1.5,.2,.25,.25,gold);
+  }
+ }
  // Role-specific kit is attached to the rig, and remains physical geometry at every facing.
  if(modern){
   if(d.worker){box(-5,0,27,3,5,12,'#94683d','leather');for(const y of [-4,4])tube([-8,y,30],[-8,y,43],1.2,steel);tube([5,0,32],[5,0,41],1.2,'#e4c077','cloth');}
   else if(d.heal){box(-5,0,27,3.3,5.3,14,'#d6d7c8','paint');box(-8.4,0,33,.2,3,3,'#2e7b83','paint');box(0,-7,27,3,1.8,7,'#dedcc8','cloth');for(const y of [-6,6])tube([-4,y,31],[-4,y,40],1.4,'#d1dddf');}
   else if(d.role==='aa'){for(const y of [-4,4]){tube([-7,y,24],[-7,y,44],3.8,iron);tube([-7,y,43],[-7,y,46],3.2,steel);}box(0,-7,29,3,2,9,leather,'leather');}
-  else if(heavy){box(-4.7,0,28,2.5,4.5,12,iron);for(const side of [-1,1]){box(-7,side*7,25,3,2,12,steel);orb(shift,side*9,41,2.7,3.3,3.4,steel);}for(let j=0;j<10;j++)tube([-6+j*.6,7,30+j*.8],[-6+j*.6,9,30+j*.8],1,'#bfa56a');}
+  else if(heavy){box(-4.7,0,28,2.5,4.5,12,iron);for(const side of [-1,1]){box(-7,side*7,25,3,2,12,steel);tube([shift-1,side*7.5,42],[shift-1,side*8.3,37],2.6,cloth,'cloth');}for(let j=0;j<10;j++)tube([-6+j*.6,7,30+j*.8],[-6+j*.6,9,30+j*.8],1,'#bfa56a');}
   else if(light){loft([[0,0,31,3.1,4],[shift,0,36,3.9,5.7],[shift,0,40,3.7,5.8],[shift,0,42,2.8,4.3]],'#344b43','cloth');for(const y of [-4,0,4])box(3.8,y*.78,31,.7,1.2,3.8,leather,'leather');box(-5,0,29,2,4,8,cloth,'cloth');if(d.role==='stealth')tube([-4,-6,28],[-4,-6,45],1.2,black);}
  }else{
   if(archer){box(-5,2,27,2.5,3,14,leather,'leather');for(let j=0;j<4;j++){tube([-6,j*.9,35],[-6,j*.9,49],.6,'#c8b284','wood');face([[-6,j*.9,48],[-8,j*.9,45],[-6,j*.9,43]],'#ddd7be','cloth');}}
@@ -344,14 +363,21 @@ function figure(ctx,d,f,angle,action,frame){
  const hands=[];
  for(const side of [-1,1]){
   const gun=!d.worker&&!caster&&['bullet','rocket','bolt','spine','pulse'].includes(shot),bow=shot==='arrow',alert=ready||attack;
-  let hand=gun?[side>0?10:20,4,alert?37:30]:bow?[side>0?17:attack&&phase===1?3:12,side>0?4:-2,alert?37:28]:side>0&&alert?(melee?[[10,8,35],[-7,9,48],[21,5,29],[13,7,36]][ready?0:phase]:[10,7,38]):[3,side*10,28];
+  let hand=gun?[side>0?10:20,4,alert?37:30]:bow?[side>0?17:attack&&phase===1?3:12,side>0?4:-2,alert?37:28]:side>0&&alert?(melee?[[10,8,35],[-11,9,52],[26,4,24],[13,7,36]][ready?0:phase]:[10,7,38]):[3,side*10,28];
   if(side<0&&shielded)hand=[8,-11,32];
   if(work)hand=[8,side*8,[29,43,30,27][phase]];
   if(gesture&&side<0){const amount=[.35,1,1,.35][phase],target=[shift+4,-1,action==='yawn'?49:52];hand=hand.map((v,i)=>v+(target[i]-v)*amount);}
   const sh=shoulder(side),elbow=[(sh[0]+hand[0])*.45-2,side*(8.8*width+Math.abs(hand[1])*.12),(sh[2]+hand[2])*.5-3.8];
-  limb(sh,elbow,heavy?5.1:4.5,armored?'#46505b':cloth,armored?'mail':'cloth');limb(elbow,hand,3.5,armored?iron:skin,armored?'metal':'skin');
+  limb(sh,elbow,heavy?6.1:5.5,armored?'#46505b':cloth,armored&&!modern?'mail':'cloth');limb(elbow,hand,4.3,modern?cloth:armored?iron:skin,modern?'cloth':armored?'metal':'skin');
   if(armored){
-   orb(sh[0]-.25,sh[1],sh[2]-.8,heavy?3.1:2.6,heavy?3.3:2.7,3.1,steel);for(let j=0;j<2;j++)tube([sh[0]+1.9,sh[1]-side*1.4,sh[2]-2-j*1.3],[sh[0]+1.6,sh[1]+side*2.3,sh[2]-3-j*1.3],.5,j?silver:iron);
+   // Open overlapping shoulder plates follow the upper arm instead of spherical caps.
+   const axis=elbow.map((v,i)=>v-sh[i]),len=Math.hypot(...axis),v=axis.map(q=>q/len),u=[1,0,0],cross=[0,v[2],-v[1]];
+   for(let j=0;j<(modern?2:3);j++){
+    const center=sh.map((q,i)=>q+v[i]*(j*1.65-.1)),radius=(heavy?2.85:2.45)-j*.14;
+    const points=Array.from({length:7},(_,k)=>{const t=-Math.PI*.12+k*Math.PI*1.24/6;return center.map((q,i)=>q+radius*(Math.cos(t)*u[i]+Math.sin(t)*cross[i]));});
+    const lower=points.map(q=>q.map((n,i)=>n+v[i]*1.9));
+    for(let k=0;k<6;k++){face([points[k],points[k+1],lower[k+1],lower[k]],modern?tint(cloth,j*5-8):j%2?iron:steel,modern?'cloth':'metal');tube(lower[k],lower[k+1],.3,modern?tint(cloth,18):silver,modern?'cloth':'metal');}
+   }
    orb(...elbow,1.7,1.7,1.8,steel);const cuff=hand.map((v,i)=>v*.67+elbow[i]*.33);tube(cuff,hand,2.6,steel);
   }
   orb(...hand,1.55,1.4,1.8,armored?iron:skin,armored?'metal':'skin');
@@ -359,12 +385,22 @@ function figure(ctx,d,f,angle,action,frame){
   hands.push(hand);
  }
  // Head: a closed jaw/chin, cheeks, brow sockets and attached ears/snout.
+ // Fitted chest equipment sits on the ribcage with straps wrapping onto the back.
+ if(modern&&armored){
+  loft([[shift+.1,0,32,4.4,5],[shift+.3,0,37,5.55*width,6.8*width],[shift,0,40.3,5.2*width,6.4*width]],tint(cloth,-18),'cloth',20);
+  for(const side of [-1,1]){
+   tube([shift+3.6,side*3.4,39.5],[shift,side*4.5,43],1.25,tint(cloth,-27),'cloth');tube([shift,side*4.5,43],[-3.5,side*3.5,34],1.25,tint(cloth,-27),'cloth');
+   for(let j=0;j<2;j++){box(shift+5.3*width,side*(1.4+j*2.3),33,.75,.95,4.4,tint(cloth,8),'cloth');tube([shift+6.1*width,side*(.6+j*2.3),37.1],[shift+6.1*width,side*(2.2+j*2.3),37.1],.3,tint(cloth,30),'cloth');}
+  }
+ }
  const hx=shift+.8,hz=51;
  loft([[hx,0,46.5,1.8,2],[hx+1,0,48,2.6,2.7],[hx+.5,0,51.5,3,3.1],[hx-.3,0,54.5,2.8,2.7],[hx-.8,0,55.8,1.6,1.8]],skin,'skin',14);
  if(reptile){
   loft([[hx+2,0,49,3,2.2],[hx+3,0,51,3.8,2.4],[hx+1,0,53.5,2.4,2]],skin,'chitin');
   for(const side of [-1,1])face([[hx-1,side*2.7,53],[hx-4,side*6,56],[hx-2,side*5,48]],tint(skin,-16),'chitin');
   const tail=[[ -3,0,23],[-10,0,15],[-16,2,8],[-23,4,4]];for(let j=0;j<3;j++)limb(tail[j],tail[j+1],5-j*1.5,skin,'chitin');
+  M.material('scales');M.pelt([[-3,0,23,2.8,2.8],[-10,0,15,2.2,2.2],[-16,2,8,1.5,1.5],[-23,4,4,.7,.7]],skin,{rows:12,cols:10,flow:1,lift:.26,grow:.06,shade:8,narrow:1.4,seed:13});
+  M.pelt([[hx+1.6,0,48.6,3.1,2.4],[hx+3,0,51,3.9,2.6],[hx+1,0,53.6,2.5,2.1]],skin,{axis:'z',rows:6,cols:10,flow:-1,lift:.2,grow:.05,shade:7,narrow:1.4,seed:23});
  }else{
   orb(hx+3,0,50.8,.9,.8,1.3,skin,'skin');
   for(const side of [-1,1]){orb(hx-.5,side*3,50.5,.65,.7,1.2,skin,'skin');if(['elf','goblin','orc'].includes(kind))face([[hx-1,side*3,52],[hx-3,side*6,54],[hx-.5,side*3,49]],skin,'skin');}
@@ -377,6 +413,11 @@ function figure(ctx,d,f,angle,action,frame){
   else if(d.heal){loft([[hx-.5,0,52.8,3.4,3.3],[hx-.5,0,55.8,3.2,3.1],[hx-.8,0,57,2,2]],'#dadbce','paint');tube([hx+2,-1.5,55],[hx+2,1.5,55],.8,'#397e85','paint');}
   else if(d.role==='stealth'){loft([[hx-.5,0,48,3.3,3.4],[hx-.5,0,54,3.5,3.5],[hx-1,0,57,2.3,2.3]],cloth,'cloth');face([[hx+3.5,-2.5,50],[hx+3.5,2.5,50],[hx+3.5,2.5,53],[hx+3.5,-2.5,53]],black,'cloth');for(const y of [-1.4,1.4])orb(hx+3.7,y,52,.4,.8,.6,'#a2c7a9','glass');}
   else{loft([[hx-.5,0,54,4,4],[hx-2,0,56.4,3.3,3.3],[hx-3,0,57,1.4,2]],cloth,'cloth');box(hx-1,-3.6,49,.8,.8,3,black);tube([hx-1,-4,51],[hx+1,-4,57],.5,black);}
+ }else if(modern&&armored){
+  // Ballistic shell, open face, padded ear cups and chin strap; not a medieval visor.
+  loft([[hx-.7,0,52.8,3.5,3.5],[hx-1,0,55.3,3.6,3.5],[hx-1.2,0,57.1,2.7,2.8],[hx-1.3,0,58,1.2,1.5]],tint(cloth,-12),'paint',20);
+  for(const side of [-1,1]){tube([hx+1,side*3,53],[hx+1.7,side*2.3,47.8],.55,leather,'leather');tube([hx+1.7,side*2.3,47.8],[hx+2.3,0,47.3],.55,leather,'leather');orb(hx-.6,side*3.1,51.5,.8,.65,1.4,black,'leather');}
+  tube([hx+2.7,-2.6,53.1],[hx+2.7,2.6,53.1],.65,tint(cloth,18),'paint');
  }else if(armored){
   loft([[hx-.5,0,52,3.5,3.4],[hx-.6,0,55,3.6,3.5],[hx-1,0,57,2.8,2.9],[hx-1,0,58,1.3,1.8]],modern?iron:steel,'metal');
   for(const side of [-1,1])face([[hx+1.5,side*3.1,53],[hx+3.3,side*2.5,51.5],[hx+2.7,side*2.7,48],[hx,side*3.3,48.5]],steel);
@@ -403,8 +444,33 @@ function figure(ctx,d,f,angle,action,frame){
    tube([-8.6-wave,y0,12],[-8.6-wave,y1,12],.5,gold);
   }
  }
- const hand=hands[1],tip=(p)=>{if(attack&&phase===2)ctx.canvas.weaponMuzzle={x:p[0]*scale,y:p[1]*scale,z:p[2]*scale};};
- if(d.worker){tube(hand,[hand[0]+2,hand[1],hand[2]+14],1.3,leather,'wood');tube([hand[0]-4,hand[1],hand[2]+14],[hand[0]+9,hand[1],hand[2]+14],2.1,steel);box(-5,0,29,2,4.7,9,leather,'leather');}
+ if(light&&!d.worker){
+  // Ranger kit: a slung satchel on the hip under a chest strap, and a rolled blanket lashed across the back.
+  box(-4.4,5.4,22,2.2,3.1,5.4,tint(leather,8),'leather');
+  box(-4.4,5.4,27.1,2.3,3.2,.9,tint(leather,-14),'leather');
+  line([-3.2,5.6,27.6],[2.6,-4.2,40.5],tint(leather,-18),1.2,'leather');
+  M.material('cloth');M.wedge([-5.9,-6.2,38.6],[-5.9,6.2,38.6],1.8,1.8,1.8,1.8,tint(cloth,-16));
+  for(const y of [-3.4,3.4])line([-7.7,y,38.6],[-4.1,y,38.6],tint(leather,-10),.55,'leather');
+ }
+ const hand=hands[1],tip=(p)=>{if(attack&&phase===2){ctx.canvas.weaponMuzzle={x:p[0]*scale,y:p[1]*scale,z:p[2]*scale};M.material('paint');M.orb(p[0]+1.5,p[1],p[2],3.5,2.5,2.5,'#edca79');M.orb(p[0]+3,p[1],p[2],2,2,1.5,'#f5e8b0');}};
+ if(d.worker){
+  // A forged pick: swelled haft with a bound grip, a wedged eye, a swept point and a hammer poll.
+  const hy=hand[1],headZ=hand[2]+14,hx=hand[0]+2;
+  M.material('wood');M.loft([[hand[0]-.8,hy,hand[2]-5,1.4,1.4],[hand[0]-.2,hy,hand[2]-.5,1.75,1.75],[hx-.8,hy,headZ-6,1.25,1.25],[hx,hy,headZ+1.6,1.05,1.05]],leather,10);
+  line([hand[0]-.6,hy,hand[2]-5.2],[hand[0]-.2,hy,hand[2]+2],'#3f2c1f',2.1,'leather');
+  box(hx,hy,headZ-2,1.95,1.95,3.7,iron);
+  line([hx-2.3,hy,headZ+1.5],[hx+2.3,hy,headZ+1.5],tint(steel,8),.45);
+  M.material('metal');
+  const forgedSteel=tint(steel,-34);
+  M.wedge([hx-1,hy,headZ],[hx-9.6,hy,headZ+2.3],1.7,1.9,.3,.35,forgedSteel);
+  M.wedge([hx+1,hy,headZ-.2],[hx+5.2,hy,headZ-.6],1.6,1.9,1.45,2.3,forgedSteel);
+  M.wedge([hx+5.2,hy,headZ-.6],[hx+6,hy,headZ-.6],1.45,2.3,1.3,2.1,tint(steel,-6));
+  // Frame pack: back board, shoulder straps over the chest and a visible load on top.
+  box(-5,0,29,2,4.7,9,leather,'leather');
+  box(-6.8,0,30,.9,4.4,7.4,'#4b3625','leather');
+  for(const y of [-3.4,3.4])line([-4.2,y,37.4],[2.8,y*.7,30.5],'#55402c',1.35,'leather');
+  for(let j=0;j<3;j++)orb(-5.5,-2.4+j*2.4,38.3+(j%2)*.7,1.5,1.4,1.25,j%2?'#8a7f66':'#6f6a58','rock');
+ }
  else if(d.heal&&modern){box(hand[0]+2,hand[1],hand[2]-3,3,2,5,'#e0ddc9','paint');tube([hand[0]+5.1,hand[1]-1,hand[2]],[hand[0]+5.1,hand[1]+1,hand[2]],.6,'#a83e38','paint');tube([hand[0]+5.1,hand[1],hand[2]-1],[hand[0]+5.1,hand[1],hand[2]+1],.6,'#a83e38','paint');}
  else if(caster){
   const staffTop=elite?61:d.heal?52:56,gem=d.heal?'#a6d0bd':d.name==='Transfigurer'?'#80c7bc':'#a5ace8';
@@ -425,14 +491,24 @@ function figure(ctx,d,f,angle,action,frame){
   if(shot==='javelin'||/Spearman/.test(d.name)){
    const end=attack?[hand[0]+28,hand[1],hand[2]+3]:[hand[0]+2,hand[1],hand[2]+25];tube([hand[0]-5,hand[1],hand[2]-4],end,1.1,leather,'wood');
    face([[end[0]-2,end[1],end[2]],[end[0]+4,end[1],end[2]+6],[end[0]+2,end[1],end[2]-1]],silver);tip(end);
+  }else if(shot==='rock'&&!/Thrower|Stone|Cyclops|Troll/.test(d.name)){
+   // A sling: paired cords from the fist down to a leather pouch, slack at rest and whirled through the throw.
+   const arc=attack?[-.55,.7,2.15,1.35][phase]:-1.2,reach=attack?13:9;
+   const px=hand[0]+Math.cos(arc)*reach,pz=hand[2]+Math.sin(arc)*reach,hy=hand[1];
+   for(const dy of [-1.15,1.15])tube([hand[0]+1,hy+dy*.45,hand[2]+1],[px,hy+dy,pz],.32,'#cbb98e','cloth');
+   face([[px-2,hy-1.6,pz+1.4],[px+2,hy-1.6,pz+1.1],[px+2,hy+1.6,pz+1.1],[px-2,hy+1.6,pz+1.4]],leather,'leather');
+   face([[px-2,hy-1.6,pz+1.4],[px+2,hy-1.6,pz+1.1],[px+1.4,hy,pz-1.6],[px-1.6,hy,pz-1.5]],tint(leather,-16),'leather');
+   face([[px-2,hy+1.6,pz+1.4],[px+1.4,hy,pz-1.6],[px+2,hy+1.6,pz+1.1]],tint(leather,12),'leather');
+   if(!attack||phase<2)orb(px,hy,pz,1.5,1.5,1.4,'#96938a','rock');
+   tip([px+2,hy,pz]);
   }else{if(!attack||phase<2)orb(hand[0]+1,hand[1],hand[2]+2,2.5,2.5,3,shot==='rock'?'#96938a':'#c49963','rock');tip([hand[0]+3,hand[1],hand[2]+3]);}
  }
  else if(!melee){
-  const x=hand[0],y=hand[1],z=hand[2],recoil=attack&&phase===2?-2:0,rocket=/Rocket/.test(d.name),heavy=/Heavy|Powder/.test(d.name);
+  const x=hand[0],y=hand[1],z=hand[2],recoil=attack&&phase===2?-3.5:attack&&phase===1?-1.5:0,rocket=/Rocket/.test(d.name),heavy=/Heavy|Powder/.test(d.name);
   box(x+2+recoil,y,z-1,5,1.4,3,iron);box(x-5+recoil,y,z-1,3,1.3,2.6,leather,'wood');tube([x+6+recoil,y,z],[x+22+recoil,y,z],rocket?4.6:heavy?2.2:1.3,black);tube([x+7+recoil,y,z],[x+15+recoil,y,z],rocket?5:heavy?3.2:2.3,steel);tube([x+4,y,z-1],[x+2,y,z-6],1.7,black);box(x+6,y,z-7,1.3,1,5,iron);tube([x-1,y,z+3],[x+6,y,z+3],1.2,black);orb(x+6,y,z+3,.3,.6,.6,'#96d1dd','glass');
   for(let j=0;j<4;j++)tube([x+8+j*1.3,y-1.3,z],[x+8+j*1.3,y+1.3,z],.35,silver);tip([x+22+recoil,y,z]);
  }else{
-  const spear=/Spear|Legionnaire|Guard/.test(d.name)&&!shielded,axe=/Dwarf|Orc/.test(d.name),v=attack?[[4,0,20],[-12,0,23],[23,2,-7],[13,0,13]][phase]:ready?[7,0,21]:[4,0,-17],end=hand.map((x,i)=>x+v[i]*(spear?1.4:1));
+  const spear=/Spear|Legionnaire|Guard/.test(d.name)&&!shielded,axe=/Dwarf|Orc/.test(d.name),v=attack?[[6,0,22],[-16,0,28],[28,3,-9],[13,0,13]][phase]:ready?[7,0,21]:[4,0,-17],end=hand.map((x,i)=>x+v[i]*(spear?1.4:1));
   tube(hand,end,spear?1.1:axe?1.4:1,axe||spear?leather:iron,axe||spear?'wood':'metal');
   const len=Math.hypot(v[0],v[2]),nx=-v[2]/len,nz=v[0]/len,a=hand.map((x,i)=>x+v[i]*.2),b=end,wide=spear?1.5:2.1;
   if(axe){face([[b[0]-5,b[1],b[2]+6],[b[0]+6,b[1],b[2]+4],[b[0]+7,b[1],b[2]-4],[b[0]-3,b[1],b[2]-2]],steel);tube([b[0]+6,b[1],b[2]+4],[b[0]+7,b[1],b[2]-4],.7,silver);}
@@ -454,16 +530,24 @@ function vehicle(ctx,d,f,angle,action,frame){
  const M=new root.FractureSpriteMesh(ctx,Math.round(angle/(Math.PI/4))*Math.PI/4,action==='dead').pose(d,action,frame);
  const {box,line,orb,face,tube,ring,tint}=kit(M),ifv=/Fighting Vehicle/.test(d.name),siege=d.role==='siege',reptile=f.id==='reptilians',night=f.id==='night',col=night?'#535065':reptile?'#74794a':'#657b74',trim='#c0c4b4',dark='#283333',steel='#9eada8',phase=frame%4,recoil=action==='attack'&&phase===2?-1.8:0;
  const plate=(x,y,z,w,l,h,c)=>{const r=(ww,ll,zz)=>[[-ww,-ll],[ww,-ll],[ww,ll],[-ww,ll]].map(q=>[x+q[0],y+q[1],zz]);M.material('metal');M.rings([r(w,l,z),r(w*.8,l*.77,z+h)],c);};
+ // Axial tire sections produce flat sidewalls and tread shoulders, not rubber spheres.
+ const wheel=(x,y,z,r,half,side)=>{
+  const rings=[[-half,.83],[-half*.78,.98],[half*.78,.98],[half,.83]].map(([yy,rr])=>Array.from({length:20},(_,i)=>{const a=i*Math.PI/10;return[x+Math.cos(a)*r*rr,y+yy,z+Math.sin(a)*r*rr];}));
+  M.material('leather');M.rings(rings,dark,true);
+  for(let j=0;j<20;j++){const a=j*Math.PI/10+(action==='walk'||action==='walkReady'?frame*.45:0);line([x+Math.cos(a)*r,y-half*.8,z+Math.sin(a)*r],[x+Math.cos(a+.06)*r,y+half*.8,z+Math.sin(a+.06)*r],tint(dark,15),.48,'leather');}
+  const yy=y+side*(half+.08);M.material('metal');M.rings([.0,.22].map(dy=>Array.from({length:16},(_,j)=>{const a=j*Math.PI/8;return[x+Math.cos(a)*r*.55,yy+side*dy,z+Math.sin(a)*r*.55];})),steel,true);
+  for(let j=0;j<6;j++){const a=j*Math.PI/3;orb(x+Math.cos(a)*r*.3,yy+side*.3,z+Math.sin(a)*r*.3,.23,.2,.23,trim);}
+ };
  const tread=(side)=>{
   const yy=side*13.6,L=siege?22:20;
-  box(0,yy,2,L,3.7,6,dark);for(let x=-L+4;x<L-2;x+=6){orb(x,side*17,5,2.8,.7,2.8,steel);orb(x,side*17.5,5,1,.3,1,dark);}
+  box(0,yy,2,L,3.7,6,dark);for(let x=-L+4;x<L-2;x+=6){wheel(x,side*16.6,5,2.8,.55,side);orb(x,side*17.5,5,1,.3,1,dark);}
   const outline=[[-L,3],[-L+3,1],[L-3,1],[L,3],[L,7],[L-3,9],[-L+3,9],[-L,7]];
   for(let j=0;j<outline.length;j++){const a=outline[j],b=outline[(j+1)%outline.length],n=Math.max(1,Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])/2.4));for(let k=0;k<n;k++){const t=(k+.25+(action==='walk'?(frame%3)*.18:0))/n,x=a[0]+(b[0]-a[0])*t,z=a[1]+(b[1]-a[1])*t;line([x,side*10,z],[x,side*17.8,z],steel,.9);}}
   box(-1,side*13.7,9,L-1,4,1.6,col);for(let j=0;j<5;j++)plate(-L+5+j*7,side*17,5,3,.8,4.4,tint(col,j%2?-12:8));
  };
  if(ifv){
   // Eight road wheels and a tall passenger compartment; never a smaller tank turret.
-  for(const side of [-1,1])for(const x of [-15,-5,5,15]){orb(x,side*12.5,5,4.1,2.3,4.3,dark,'leather');orb(x,side*14.7,5,2.5,.45,2.6,steel);orb(x,side*15.1,5,.9,.3,.9,dark);for(let j=0;j<6;j++){const a=j*Math.PI/3+(action==='walk'?frame*.45:0);line([x,side*15.2,5],[x+Math.cos(a)*2.1,side*15.2,5+Math.sin(a)*2.1],trim,.4);}}
+  for(const side of [-1,1])for(const x of [-15,-5,5,15]){wheel(x,side*12.5,5,4.3,2.3,side);orb(x,side*14.7,5,2.5,.45,2.6,steel);orb(x,side*15.1,5,.9,.3,.9,dark);for(let j=0;j<6;j++){const a=j*Math.PI/3+(action==='walk'?frame*.45:0);line([x,side*15.2,5],[x+Math.cos(a)*2.1,side*15.2,5+Math.sin(a)*2.1],trim,.4);}}
   plate(-1,0,6,21,11,11,col);plate(-8,0,17,13,9,6,col);box(-21,0,8,1,7,12,dark);for(const y of [-5,5])line([-22.1,y,9],[-22.1,y,18],trim,.7);
   for(const side of [-1,1]){for(const x of [-14,-6,2]){face([[x,side*10,15],[x+4,side*10,15],[x+4,side*8.9,20],[x,side*8.9,20]],'#294551','glass');box(x+2,side*10.1,12,1,.5,1,dark);}line([-16,side*9,24],[-2,side*9,24],steel,.8);}
   tube(4,0,17,4,4,col);box(5,0,20,4,3,3,col);line([7+recoil,0,18],[26+recoil,0,18],steel,1.9);orb(26+recoil,0,18,.3,1.1,1.1,dark);

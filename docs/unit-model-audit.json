@@ -1,89 +1,12 @@
 {
-  "generatedAt": "2026-11-22T16:46:00.752Z",
+  "generatedAt": "2026-11-23T09:19:13.226Z",
   "errors": [],
   "reports": [
-    {
-      "faction": "humans",
-      "units": 21,
-      "samples": 609,
-      "triangles": 3015518,
-      "bad": []
-    },
-    {
-      "faction": "reptilians",
-      "units": 22,
-      "samples": 638,
-      "triangles": 2864398,
-      "bad": []
-    },
     {
       "faction": "machines",
       "units": 21,
       "samples": 609,
-      "triangles": 3961802,
-      "bad": []
-    },
-    {
-      "faction": "insects",
-      "units": 21,
-      "samples": 609,
-      "triangles": 2774140,
-      "bad": []
-    },
-    {
-      "faction": "primates",
-      "units": 23,
-      "samples": 667,
-      "triangles": 2923824,
-      "bad": []
-    },
-    {
-      "faction": "wizards",
-      "units": 22,
-      "samples": 638,
-      "triangles": 2674320,
-      "bad": []
-    },
-    {
-      "faction": "elders",
-      "units": 22,
-      "samples": 638,
-      "triangles": 2464206,
-      "bad": []
-    },
-    {
-      "faction": "myth",
-      "units": 21,
-      "samples": 609,
-      "triangles": 3061652,
-      "bad": []
-    },
-    {
-      "faction": "dragons",
-      "units": 21,
-      "samples": 609,
-      "triangles": 2829201,
-      "bad": []
-    },
-    {
-      "faction": "night",
-      "units": 24,
-      "samples": 696,
-      "triangles": 3634545,
-      "bad": []
-    },
-    {
-      "faction": "infernal",
-      "units": 21,
-      "samples": 609,
-      "triangles": 2812012,
-      "bad": []
-    },
-    {
-      "faction": "symbiotes",
-      "units": 22,
-      "samples": 638,
-      "triangles": 8367440,
+      "triangles": 6254600,
       "bad": []
     }
   ]

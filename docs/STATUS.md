@@ -1,3 +1,19 @@
+# Frame hitch investigation round two - 23 November 2026
+
+Three measured causes fixed: sprite worker jobs were structured-cloning the whole faction object per job (postMessage now 0.04ms average), vision re-cloned every tree and building several times a second, and target search scanned every combat entity for every unit (now a spatial index). Frame p99 fell from 133ms to 84ms. The reported two-second beat was still NOT reproduced and remaining peaks are render-side. See [ART-REALISM-2026-11-22.md](ART-REALISM-2026-11-22.md).
+
+# Bird bombers, machine tentacles and tentacle-walking machines - 23 November 2026
+
+The bomber variants, which use a separate renderer, now share the feathered bird build. Machines gained radiating nests of segmented tentacles, their warships traded rounded stern pods for a faceted citadel, and Pulse Sentry, Siege Crawler and Command Relay walk on tentacle legs while the Juggernaut keeps its tracks. The art review page gained a Trees & scenery section.
+
+# Workers, flyers, feathers, scales, symbiote direction, queue and performance - 23 November 2026
+
+Workers carry forged picks, scouts carry ranger kits, the shared great-bird carrier and the four industrial aircraft were rebuilt as distinct machines, and birds, dragons and reptiles are now clad in individual feathers and scales. Symbiotes moved from wet vascular tissue to root bark, mycelium and mould. Production queues hold fifteen and shift-click queues or buys five. Two simulation hot spots were fixed, but the reported two-second freeze was NOT reproduced in the harness and remains unverified. See [ART-REALISM-2026-11-22.md](ART-REALISM-2026-11-22.md).
+
+# Unit, building and scenery realism pass - 22 November 2026
+
+Four-legged creatures, lycans, the gargoyle and harpies were rebuilt for connected anatomy and surface density; every civilization now has its own naval hull form and prow ornament. Buildings gained stepped footings, projecting eaves and wall courses through the shared helpers. Trees gained per-leaf lighting, graded canopies, drifted snow and denser conifers. Workers, scouts and most flyers were NOT revisited. See [ART-REALISM-2026-11-22.md](ART-REALISM-2026-11-22.md) for scope, limits and verification.
+
 # Bomber weapons and AI recovery repairs - 22 November 2026
 
 All twelve bomber equivalents now drop explosive bombs; the human unit is named Bomber. All 61 test files and both browser checks passed. AI counter selection, squad coordination, discovered chokepoints and reserve-spending deadlocks were repaired. The 5-10% adjacent difficulty win-rate target is still NOT achieved. See [AI-REPAIR-2026-11-22.md](AI-REPAIR-2026-11-22.md) for measured evidence and limits.
@@ -85,7 +101,7 @@ This release supersedes the older campaign/media work-in-progress notes below. T
 - All 25 Standard command-only playthroughs and route audits pass. These establish mechanical feasibility, not average-player balance certification. Campaign/browser, gameplay/offline, all 50 paintings/48 narration cues, 41 simulation and 11 legacy checks pass. Focused Emperor/save/harbor/media tests pass. Reports are in this directory.
 - Replay/restart a mission to use revised objectives. Existing checkpoints preserve their saved objective set. The children remain story-only; Thread's final fate remains uncertain.
 
-# Fair AI decisions and GitHub checkpoint — 10 November 2026
+# Fair AI decisions and GitHub checkpoint ï¿½ 10 November 2026
 
 This checkpoint supersedes earlier AI balance reports below. Campaign illustrations remain paused.
 
@@ -116,7 +132,7 @@ This checkpoint supersedes older counter, trade-renderer and AI-test summaries b
 - The final corrected-combat adjacent-level calibration completed 18 side-swapped Human games: 13 higher-level wins, 3 lower-level wins and 2 time limits. Apocalypse beat Nightmare twice in that seed; Expert and other inversions remain. The requested consistently ordered difficulty ladder and broad competitive maritime balance are still unfinished. Report: ai-counter-corrected-fair-ladder.json.
 - Verification: all 27 simulation regression files passed, with eight dedicated counter groups. Browser checks cover actual counter tooltips, the full art-review page, new trade models, background/offline parity, gathering/building/training, controls and save/load. No active user match was reset.
 
-# Current gameplay, audio, gates and ruins — 10 November 2026
+# Current gameplay, audio, gates and ruins ï¿½ 10 November 2026
 
 This section and GAMEPLAY-PROMPT-CHECKLIST.md supersede the older checkpoints below. Campaign illustrations are paused. No illustration was generated during this pass.
 

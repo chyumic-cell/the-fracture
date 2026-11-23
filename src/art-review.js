@@ -10,13 +10,17 @@ function card(host,title,detail,data,description=''){
  const entry={...data,c,article:a,host,visible:false,drawn:-1,search:(title+' '+detail+' '+description).toLowerCase()};a._card=entry;a.dataset.asset=data.d?.id||data.kind||title;cards.push(entry);$(host).append(a);observer.observe(a);
 }
 function load(){
- observer.disconnect();cards.length=0;for(const id of ['units','buildings','fortifications','extensions','projectiles'])$(id).replaceChildren();art.cache.clear();art.ruinCache?.clear();
+ observer.disconnect();cards.length=0;for(const id of ['units','buildings','fortifications','extensions','scenery','projectiles'])$(id).replaceChildren();art.cache.clear();art.ruinCache?.clear();
  const f=FD.factions[$('faction').value];$('name').textContent=f.name+' / Units';
  for(const d of f.units){const s=FractureProjectiles.profile(d,f),weapon=d.worker?'Worker':d.transport?'Transport':['merchant','navalMerchant'].includes(d.role)?'Trade':!d.damage?'Support':s.kind==='melee'?'Close combat':labels[s.kind]?.[0]||s.kind;card('units',d.name,(d.naval?'Naval / ':d.air?'Air / ':'Ground / ')+weapon,{d,f,kind:'unit'},FractureHelp.unit(d));}
  for(const d of f.buildings)card('buildings',d.name,({hq:'Headquarters',inf:'Infantry production',armor:'Heavy production',air:'Flight production',deepMine:'Deep extraction',dock:'Naval production',market:'Trade & merchant recruitment',lab:'Research'})[d.kind]||d.kind,{d,f,kind:'building'},FractureHelp.building(d,f));
  for(const d of f.extensions)card('extensions',d.name,'Attaches to '+FD.buildings[d.building].name,{d,f,kind:'extension'},'A physical extension of '+FD.buildings[d.building].name+'.');
  const wall=f.buildings.find(d=>d.kind==='wall');
  if(wall)for(const [name,mask,angle,gate]of [['Straight wall',17,0,false],['Diagonal wall',34,Math.PI/4,false],['Corner',5,0,false],['Crossroads',85,0,false],['Closed gate',17,0,'closed'],['Open gate',17,0,'open'],['Diagonal gate',34,Math.PI/4,'open']])card('fortifications',name,wall.name,{d:wall,f,kind:'wall',mask,angle,gate},gate?'Three connected sections. Opens for friendly units; enemies remain blocked.':'Connected sections use this civilization\'s wall materials.');
+ // Scenery is per world and climate rather than per civilization, so every environment is listed once.
+ for(const theme of ['Kareth','Elyndra','Morvane'])for(const choice of FractureEnvironments.choices(theme))for(let v=0;v<3;v++)
+  card('scenery',FractureEnvironments.name({theme,environment:choice.id},{x:0,y:0})+' '+(v+1),theme+' / '+choice.name,
+   {kind:'tree',theme,environment:choice.id,variant:v},'Scenery grown by the '+choice.name+' climate of '+theme+'. Trees are cleared for construction and gathered for timber like any other.');
  for(const [kind,[name,desc]]of Object.entries(labels))card('projectiles',name,desc,{kind:'projectile',projectile:kind});
  revision++;filter();
 }
@@ -37,11 +41,14 @@ function gateImage(card){const {d,f,mask,angle,gate}=card,c=document.createEleme
 function draw(card){const {c,d,f,kind}=card,x=c.getContext('2d'),detail=$('viewScale').value==='detail';x.clearRect(0,0,c.width,c.height);x.imageSmoothingEnabled=false;
  if(kind==='unit'){
   const dir=$('direction').value==='rotate'?Math.floor(time/2)%8:+$('direction').value;let action=$('action').value;
-  if(['gather','build'].includes(action)&&!d.worker||action==='heal'&&!d.heal)action='idle';
-  const frame=Math.floor(time*(action==='attack'?5:7))%(['attack','gather','build','heal','scratch','yawn'].includes(action)?4:6),im=paint(art.unit(d,f,dir*Math.PI/4,action,frame,d.transport?+$('occupancy').value:0));
+  if(['gather','gatherOil','build'].includes(action)&&!d.worker||action==='heal'&&!d.heal)action='idle';
+  const frame=Math.floor(time*(action==='attack'?5:7))%(['attack','gather','gatherOil','build','heal','scratch','yawn'].includes(action)?4:6),im=paint(art.unit(d,f,dir*Math.PI/4,action,frame,d.transport?+$('occupancy').value:0));
   if(detail)detailed(x,im);else{const vs=FractureArt.unitScale(d);x.drawImage(im,128-44.8*vs,142-69.6*vs,89.6*vs,89.6*vs);}
  }else if(kind==='projectile'){
   const name=card.projectile,s={...FractureProjectiles.categories[name],kind:name},t=time%1;x.save();x.translate(22+t*207,48-Math.sin(t*Math.PI)*s.arc);x.scale(2,2);x.rotate(Math.atan2(-Math.cos(t*Math.PI)*s.arc*Math.PI,207));FractureProjectiles.draw(x,s,t,time*7);x.restore();if(t>.8){x.save();x.translate(229,48);FractureProjectiles.impact(x,{projectileKind:name,color:s.color,time:(1-t)*2,max:.4});x.restore();}
+ }else if(kind==='tree'){
+  const im=art.tree({x:card.variant*7,y:card.variant*11,variant:card.variant,id:card.variant},{theme:card.theme,environment:card.environment});
+  if(detail)detailed(x,im);else x.drawImage(im,80,56,96,112);
  }else if(kind==='extension'){const im=paint(art.extension(d,f));if(detail)detailed(x,im);else x.drawImage(im,0,0,256,224);}
  else{
   const state=$('construction').value,scale=detail?1:Math.min(1,d.size*.53),w=240*scale,h=220*scale,left=128-w/2,top=196-h*.823;

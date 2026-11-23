@@ -1,80 +1,256 @@
 {
   "calls": {
-    "tickBuilding": {
-      "count": 5400,
-      "total": 556.2999999811873,
-      "max": 1.6000000005587935,
-      "slow": []
-    },
     "path": {
-      "count": 46,
-      "total": 15.700000002980232,
-      "max": 0.8999999994412065,
+      "count": 4108,
+      "total": 77.49999856948853,
+      "max": 0.5,
       "slow": []
     },
     "tickUnit": {
-      "count": 20144,
-      "total": 1478.5000000074506,
-      "max": 2.5,
+      "count": 16546,
+      "total": 249.9999966621399,
+      "max": 1.0999999046325684,
+      "slow": []
+    },
+    "tickBuilding": {
+      "count": 12064,
+      "total": 53.200003147125244,
+      "max": 2.4000000953674316,
       "slow": []
     },
     "tick": {
-      "count": 1800,
-      "total": 2737.599999967031,
-      "max": 20.399999999441206,
-      "slow": [
-        {
-          "ms": 20.399999999441206,
-          "time": 3.2997,
-          "args": null
-        }
-      ]
+      "count": 1508,
+      "total": 1110.000002861023,
+      "max": 8.399999856948853,
+      "slow": []
     },
     "tree": {
-      "count": 12257,
-      "total": 47.49999998789281,
-      "max": 0.20000000018626451,
+      "count": 7191,
+      "total": 71.09999489784241,
+      "max": 0.40000009536743164,
       "slow": []
     },
     "resource": {
-      "count": 9000,
-      "total": 25.4000000115484,
-      "max": 0.20000000018626451,
+      "count": 13572,
+      "total": 35.30000114440918,
+      "max": 0.20000004768371582,
       "slow": []
     },
     "building": {
-      "count": 1800,
-      "total": 12.799999991431832,
-      "max": 0.20000000018626451,
+      "count": 1508,
+      "total": 16.000000953674316,
+      "max": 0.6000001430511475,
       "slow": []
     },
     "unit": {
-      "count": 9082,
-      "total": 61.899999994784594,
-      "max": 0.2999999998137355,
+      "count": 7609,
+      "total": 84.99999713897705,
+      "max": 0.6000001430511475,
       "slow": []
     },
     "ai": {
-      "count": 141,
-      "total": 20.299999999813735,
-      "max": 2.2000000001862645,
+      "count": 118,
+      "total": 127.29999876022339,
+      "max": 5.200000047683716,
       "slow": []
     },
     "updateVision": {
-      "count": 72,
-      "total": 206.50000000093132,
-      "max": 19.09999999962747,
+      "count": 61,
+      "total": 181.49999952316284,
+      "max": 5.700000047683716,
       "slow": []
     }
   },
   "long": [],
   "frames": {
-    "count": 1800,
+    "count": 1508,
     "p50": 16.69999999999709,
-    "p95": 16.799999999999272,
+    "p95": 16.80000000000291,
     "p99": 16.80000000000291,
-    "max": 33.399999999999636
+    "max": 333.1999999999971
   },
-  "entities": 1210,
-  "time": 32.094999999999494
+  "entities": 2563,
+  "time": 27.329099999999713,
+  "hottest": [
+    {
+      "fn": "(idle)",
+      "file": "",
+      "line": 0,
+      "ms": 19426.305000000128
+    },
+    {
+      "fn": "(program)",
+      "file": "",
+      "line": 0,
+      "ms": 1990.638999999999
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 376.16
+    },
+    {
+      "fn": "render",
+      "file": "app.js",
+      "line": 105,
+      "ms": 236.96800000000002
+    },
+    {
+      "fn": "querySelector",
+      "file": "",
+      "line": 0,
+      "ms": 186.5000000000001
+    },
+    {
+      "fn": "tick",
+      "file": "simulation.js",
+      "line": 326,
+      "ms": 179.00000000000006
+    },
+    {
+      "fn": "obj.<computed>",
+      "file": "",
+      "line": 2,
+      "ms": 137.88
+    },
+    {
+      "fn": "clipForegroundTerrain",
+      "file": "app.js",
+      "line": 85,
+      "ms": 115.154
+    },
+    {
+      "fn": "save",
+      "file": "",
+      "line": 0,
+      "ms": 96.785
+    },
+    {
+      "fn": "updateVision",
+      "file": "simulation.js",
+      "line": 209,
+      "ms": 92.26199999999999
+    },
+    {
+      "fn": "",
+      "file": "app.js",
+      "line": 96,
+      "ms": 81.36099999999999
+    },
+    {
+      "fn": "(garbage collector)",
+      "file": "",
+      "line": 0,
+      "ms": 74.134
+    },
+    {
+      "fn": "frame",
+      "file": "app.js",
+      "line": 394,
+      "ms": 70.37699999999998
+    },
+    {
+      "fn": "drawMini",
+      "file": "app.js",
+      "line": 199,
+      "ms": 68.286
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 67.98300000000002
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 331,
+      "ms": 64.63100000000001
+    },
+    {
+      "fn": "visible",
+      "file": "simulation.js",
+      "line": 206,
+      "ms": 60.721000000000004
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 328,
+      "ms": 58.391
+    },
+    {
+      "fn": "",
+      "file": "terrain.js",
+      "line": 120,
+      "ms": 58.112000000000016
+    },
+    {
+      "fn": "cornerHeight",
+      "file": "simulation.js",
+      "line": 71,
+      "ms": 55.210999999999984
+    },
+    {
+      "fn": "updateUI",
+      "file": "app.js",
+      "line": 213,
+      "ms": 53.36300000000001
+    },
+    {
+      "fn": "",
+      "file": "simulation.js",
+      "line": 334,
+      "ms": 52.82500000000001
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 50.457
+    },
+    {
+      "fn": "drawImage",
+      "file": "",
+      "line": 0,
+      "ms": 44.187999999999995
+    },
+    {
+      "fn": "requestAnimationFrame",
+      "file": "",
+      "line": 0,
+      "ms": 44.062999999999995
+    },
+    {
+      "fn": "fill",
+      "file": "",
+      "line": 0,
+      "ms": 39.248000000000005
+    },
+    {
+      "fn": "closePath",
+      "file": "",
+      "line": 0,
+      "ms": 38.961
+    },
+    {
+      "fn": "fillRect",
+      "file": "",
+      "line": 0,
+      "ms": 38.611000000000004
+    },
+    {
+      "fn": "cornerHeight",
+      "file": "simulation.js",
+      "line": 71,
+      "ms": 38.269
+    },
+    {
+      "fn": "visibleDrawList",
+      "file": "app.js",
+      "line": 32,
+      "ms": 32.804
+    }
+  ]
 }

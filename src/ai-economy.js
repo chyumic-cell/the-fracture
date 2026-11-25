@@ -54,7 +54,7 @@ function segmentDistance(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.mi
 // The resource list is a view of private memory, refreshed only at visible locations.
 // In particular, a depleted deposit outside vision must not change AI decisions.
 function knownResources(g,p){
- const current=new Map();for(const e of g.entities||[])if(e.kind==='resource'&&g.visible(p.id,e)&&e.hp>0&&e.amount>0)current.set(e.id,e);
+ const current=new Map();for(const e of g.entitiesByKind?g.entitiesByKind('resource'):g.entities||[])if(e.kind==='resource'&&g.visible(p.id,e)&&e.hp>0&&e.amount>0)current.set(e.id,e);
  const result=new Map();for(const e of Object.values(p.knowledge||{}))if(e.kind==='resource'&&e.hp>0&&e.amount>0&&!g.visible(p.id,e))result.set(e.id,{...e,observed:false});
  for(const e of current.values())result.set(e.id,{...e,observed:true});return [...result.values()];
 }

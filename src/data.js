@@ -102,12 +102,7 @@ for(const [id,name,universe,color,style,description,bs,us,techText] of raw){
   night:['Night Doctrine','Heavy Foundry Program','Siege Program','Spectral Flight Program','Elder Court Commission','Eternal Night Decree'],
   demon:['Infernal Hierarchy','Hellbeast Binding','Siege Pacts','Gargoyle Pacts','Greater Bindings','Abyssal Covenant'],
   fungal:['Coordinated Growth','Heavy Grafting','Siege Spore Culture','Aerial Spore Culture','Neural Ascension','Prime Convergence']}[style];
- const hall=kind=>f.buildings.find(b=>b.kind===kind)?.id,D0=id+'_doctrine_';
- const doctrines=[['organization',hall('inf'),[160,30,0,0],35,[]],['heavy',armorHall,[240,80,30,0],50,[D0+'organization']],['siege',armorHall,[240,90,50,0],50,[D0+'organization']],
-  ['air',hall('air')||lab,[240,80,60,0],50,[D0+'organization']],['elite',hall('elite'),[300,80,110,25],65,[D0+'heavy']],['strategic',hall('elite'),[380,120,160,70],85,[D0+'elite',id+'_advanced']]];
- doctrines.forEach(([kind,building,cost,time,requires],i)=>f.research.push({id:D0+kind,name:doctrineNames[i],building,cost,time,kind:'doctrine',doctrine:kind,requires}));
- const gate={heavy:'organization',support:'organization',tank:'heavy',siege:'siege',fighter:'air',gunship:'air',stealth:'elite',elite:'elite',giant:'strategic'};
- for(const u of f.units)if(gate[u.role])u.requires=[...u.requires,D0+gate[u.role]];
+ Object.defineProperty(f,'doctrineNames',{value:doctrineNames,enumerable:false});
  for(const u of f.units){if(['Armored Drake','Dragon Whelp','Ancient Dragon','Spore Flyer','Root Colossus'].includes(u.name))u.bonus='building';if(u.name==='Infantry Fighting Vehicle'){u.hp=270;u.damage=23;u.range=4.8;u.speed=1.65;u.armor=3;u.pop=3;u.cost=[125,45,0,0];}if(id==='humans'&&['tank','siege','fighter','gunship'].includes(u.role)||/Imperial Tank|Siege Walker|Battering Ram|Heavy Catapult|Runic Siege Engine|Dwarven Artillery|Combat Vehicle|Enchanted Golem/.test(u.name))u.biological=false;if(['wizard','elder','myth','dragon','demon','fungal'].includes(style)&&u.cost[1]>0){const converted=Math.round(u.cost[1]*.45);u.cost[1]-=converted;u.cost[2]+=converted;}}
  factions[id]=f;
 }
@@ -120,9 +115,44 @@ const research=Object.fromEntries(Object.values(factions).flatMap(f=>f.research)
 const extensions=Object.fromEntries(Object.values(factions).flatMap(f=>f.extensions).map(e=>[e.id,e]));
 root.FD={resources,roles,factions,units,buildings,research,extensions,version:'0.1 — First Contact'};
 const expansion=root.FractureExpansionData||(typeof require!=='undefined'?require('./expansion-data.js'):null);if(expansion)expansion.apply(root.FD);
-// Aircraft added by the expansion (bombers, air transports) need the air doctrine like other aircraft.
-// Ships keep their dock and lab requirements; campaign fleets depend on fielding them early.
-for(const f of Object.values(root.FD.factions))for(const u of f.units){if(!u.air||u.naval||u.requires.some(r=>r.includes('_doctrine_')))continue;const g=u.role==='gunship'||u.transport?'air':null;if(g)u.requires=[...u.requires,f.id+'_doctrine_'+g];}
+// Technology tree, applied to every civilization after the expansion has added its units:
+// - research that unlocks units is done in the building that trains them: each production building has
+//   two doctrine tiers of its own, and tier 2 needs only tier 1;
+// - units no longer need research from another building (the building chain still sets the pace);
+// - every production building can train at least one unit straight away;
+// - every building with a technology panel has something to research.
+(()=>{const FD=root.FD,weight=c=>c[0]+c[1]*1.5+c[2]*1.5+c[3]*3;
+ const lookName={machines_b7:'Long-Range Telemetry',insects_b6:'Scent Mapping',myth_b8:'Far-Seeing Rites',dragons_b7:'Hoard Watch',night_b5:'Blood Scrying',infernal_b8:'Omens of Ash'};
+ for(const f of Object.values(FD.factions)){
+  const names=f.doctrineNames||[],kindIndex={inf:[0,null],armor:[1,2],air:[3,null],elite:[4,5]},usedKinds=new Set();
+  // Old doctrines out.
+  const oldDoctrines=new Set(f.research.filter(r=>r.kind==='doctrine').map(r=>r.id)),advancedRoles=new Set(['heavy','support','tank','siege','fighter','gunship','stealth','elite','giant']),gatedBefore=new Set(f.units.filter(u=>u.requires.some(r=>FD.research[r])||!u.naval&&advancedRoles.has(u.role)||u.air&&!u.naval&&u.transport).map(u=>u.id));
+  f.research=f.research.filter(r=>r.kind!=='doctrine');for(const id of oldDoctrines)delete FD.research[id];for(const u of f.units)u.requires=u.requires.filter(r=>!oldDoctrines.has(r));
+  const isResearch=id=>!!FD.research[id];
+  const depth=(b,seen=new Set())=>{if(!b||seen.has(b.id))return 0;seen.add(b.id);let d=0;for(const r of b.requires||[]){if(FD.buildings[r])d=Math.max(d,1+depth(FD.buildings[r],seen));else if(isResearch(r))d=Math.max(d,1+depth(FD.buildings[FD.research[r].building],seen));}return d;};
+  for(const b of f.buildings){
+   const units=f.units.filter(u=>u.building===b.id&&!u.worker);
+   if(!units.length||b.kind==='market'||b.kind==='hq')continue;
+   const freeBefore=new Set(units.filter(u=>!gatedBefore.has(u.id)).map(u=>u.id));
+   // Requirements from other buildings' research are dropped; the building chain remains.
+   for(const u of units)u.requires=u.requires.filter(r=>!isResearch(r)||FD.research[r].building===u.building);
+   const sorted=[...units].sort((a,c)=>(a.role==='giant')-(c.role==='giant')||weight(a.cost)-weight(c.cost));
+   if(!sorted.some(u=>freeBefore.has(u.id)))freeBefore.add(sorted[0].id);
+   const gated=sorted.filter(u=>!freeBefore.has(u.id));if(!gated.length)continue;
+   const giants=gated.filter(u=>u.role==='giant'),rest=gated.filter(u=>u.role!=='giant');
+   let tier1=rest,tier2=giants;if(rest.length>=2){const cut=Math.ceil(rest.length/2);tier1=rest.slice(0,cut);tier2=[...rest.slice(cut),...giants];}else if(!rest.length){tier1=giants;tier2=[];}
+   const d=depth(b),map=!usedKinds.has(b.kind)&&kindIndex[b.kind];usedKinds.add(b.kind);
+   const t1={id:b.id+'_doctrine_1',name:map&&names[map[0]]||b.name+' Doctrine',building:b.id,cost:[140+50*d,30+25*d,15*d,d>=3?10*(d-2):0],time:30+8*d,kind:'doctrine',doctrine:1,requires:[]};
+   f.research.push(t1);FD.research[t1.id]=t1;for(const u of tier1)u.requires=[...u.requires,t1.id];
+   if(tier2.length){const t2={id:b.id+'_doctrine_2',name:map&&map[1]!=null&&names[map[1]]||b.name+' Mastery',building:b.id,cost:[220+60*d,60+30*d,30+20*d,15+12*d],time:45+10*d,kind:'doctrine',doctrine:2,requires:[t1.id]};f.research.push(t2);FD.research[t2.id]=t2;for(const u of tier2)u.requires=[...u.requires,t2.id];}
+  }
+  // One name per technology within a civilization.
+  const seenNames=new Set();for(const r of f.research){if(seenNames.has(r.name))r.name=r.name+' ('+(FD.buildings[r.building]?.name||'')+')';seenNames.add(r.name);}
+  // Buildings that train nothing still get research of their own.
+  const extra={hq:['Field Logistics','logistics',[120,20,0,0],30],house:['Expanded Quarters','housing',[90,0,0,0],25],defense:['Reinforced Emplacements','fortify',[140,40,20,0],35],market:['Trade Contracts','trade',[100,0,30,0],30],dock:['Naval Gunnery','range',[140,50,20,0],35]};
+  for(const b of f.buildings){if(f.research.some(r=>r.building===b.id))continue;const trains=f.units.some(u=>u.building===b.id&&!u.worker),e=extra[b.kind]||(b.kind==='lab'&&!trains?[lookName[b.id]||b.name+' Survey','vision',[120,30,40,0],35]:trains?[b.name+' Drills','training',[100,35,40,0],32]:null);if(!e)continue;const r={id:b.id+'_specialization',name:e[0],building:b.id,cost:e[2],time:e[3],kind:e[1],requires:[]};f.research.push(r);FD.research[r.id]=r;}
+ }
+})();
 const combat=root.FractureCombat||(typeof require!=='undefined'?require('./combat.js'):null);if(combat)combat.apply(root.FD);
 if(typeof module!=='undefined')module.exports=root.FD;
 })(globalThis);

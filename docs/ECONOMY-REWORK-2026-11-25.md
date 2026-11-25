@@ -18,23 +18,8 @@ levels; that pass is pending in the AI difficulty session.
 
 ## Technology
 
-Every civilization gains six doctrines with its own names (for example Humans: Combined Arms Doctrine,
-Mechanized Warfare, Ordnance Engineering, Air Superiority Doctrine, Special Operations Program,
-Strategic Command). They are research, not Ages: each opens only its own unit family.
-
-| Doctrine | Researched at | Requires | Opens |
-|---|---|---|---|
-| Organization | infantry building | — | heavy and support units |
-| Heavy | vehicle/beast building | Organization | tanks |
-| Siege | vehicle/beast building | Organization | siege units |
-| Air | air building (lab if none) | Organization | fighters, gunships, bombers, air transports |
-| Elite | elite building | Heavy | stealth and elite units |
-| Strategic | elite building | Elite + Advanced | giants |
-
-Costs run from 160 Ore / 30 Oil (35 s) to 380 / 120 / 160 / 70 (85 s). The vehicle/beast building now
-also needs the lab, and the air building needs the vehicle/beast building. Basic infantry and anti-air
-troops stay ungated so early defence against aircraft remains possible. Ships keep their dock and lab
-requirements, because campaign fleet missions field warships from the start.
+Superseded the same day by a per-building tech tree: see `docs/TECH-TREE-2026-11-25.md`. The six
+civilization-wide doctrines described in the first version of this note no longer exist.
 
 ## Collectors, drop-off and deep mines
 

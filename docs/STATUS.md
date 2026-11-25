@@ -1,3 +1,20 @@
+# Per-building tech tree; Colossal performance after it - 25 November 2026
+
+Tech tree: research that unlocks units now happens in the building that trains them (up to two
+doctrines per production building, the second needing only the first); no unit needs another
+building's research; every production building trains something at once; every building with a
+technology panel has research (new: Field Logistics, Expanded Quarters, Reinforced Emplacements, Trade
+Contracts, sight surveys, training drills). tests/tech-tree.test.cjs enforces the rules for all twelve
+civilizations. Timing and balance were not measured. Details: docs/TECH-TREE-2026-11-25.md.
+
+With the tech tree, computer players field armies sooner. The same headless 4-AI Colossal run (with a
+further AI scan fix) measured mean step 13 ms, 99th percentile 112 ms, worst 428 ms; steps of 50-280 ms
+cluster in the first minute while four AIs explore at once. The browser figures in the entry below were
+measured before the tech tree. Details: docs/COLOSSAL-PERFORMANCE-2026-11-25.md.
+
+Tests: all Node tests pass except the long-standing gathering-distance and motion-detail failures;
+browser-gameplay, environments-browser and campaign-browser pass.
+
 # Colossal performance, group movement, collectors at cliffs, market board - 25 November 2026
 
 Four-player Colossal matches stuttered because several systems worked over the whole 700×700 map in single

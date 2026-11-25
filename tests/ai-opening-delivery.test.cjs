@@ -29,7 +29,7 @@ console.log('PASS seven stronger tiers purchase real combat escorts before expan
  const g=new Game({size:64,seed:17,factions:['reptilians','humans'],difficulty:'standard'});g.entities=[];g.map.forEach(t=>Object.assign(t,{water:false,height:0}));g.players.forEach(p=>{p.ai=false;p.knowledge={}});const p=g.players[0];p.home={x:12,y:12};p.stock=[800,300,250,34.57];p.tech=['reptilians_economy','reptilians_weapons1'];g.spawnBuilding('reptilians_b0',0,12,12,true);g.spawnBuilding('reptilians_b3',0,18,12,true);g.spawnBuilding('reptilians_b2',0,12,20,true);g.spawnBuilding('humans_b0',1,54,54,true);
  g.spawnBuilding('reptilians_b1',0,30,12,true);g.spawnBuilding('reptilians_b1',0,35,12,true);for(let i=0;i<10;i++)g.spawnUnit('reptilians_u0',0,14+i*.3,16);
  for(const [resource,x,y,amount]of [[0,22,18,900],[1,8,20,1000],[2,20,26,1000],[3,8,26,500]]){const n=g.add({kind:'resource',resource,x,y,hp:1,amount,size:.85});p.knowledge[n.id]={...n};}
- g.spawnBuilding('reptilians_oilwell',0,8,23,true);g.rebuildNav();g.updateVision();p.explored.fill(1);p.visible.fill(1);p.knownNav.set(g.nav);p.knownTiles.fill(0);g.time=240;
+ g.spawnBuilding('reptilians_oilwell',0,8,23,true);g.spawnBuilding('reptilians_riftwell',0,8,26,true);g.rebuildNav();g.updateVision();p.explored.fill(1);p.visible.fill(1);p.knownNav.set(g.nav);p.knownTiles.fill(0);g.time=240;
  E.step(g,p,A.context(g,p));assert.equal(p.aiState.economy.goal,'research:reptilians_advanced');assert(p.aiState.economy.desiredWorkers[3]>=1,'missing 0.43 Rift Crystals must receive a worker before aggregate Ore demand');assert(g.entities.some(u=>u.owner===0&&u.order?.kind==='gather'&&g.entity(u.order.target)?.resource===3));
  console.log('PASS stronger AI staffs the missing ingredient of funded drilling research');
 }

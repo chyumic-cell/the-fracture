@@ -22,6 +22,7 @@ proportional to the whole map in a single frame.
 | AI route checks rebuilt a whole-map "through unexplored ground" region map (~100 ms) and, in one case, ran a whole-map search. | That case answers yes directly: a cell next to the target is provably reachable on known ground, so a known route ends within two units, which is what the check asks. | Behaviour change: in 6 of 808 sampled checks the old search said no only because its shortest route cut through unexplored ground; the test verifies each yes with a real known-ground path. |
 | Vision pass re-checked every remembered object once per player (25 ms per pass, 2.5 passes a second). | Objects and their cells gathered once per pass; squared distances in the sight disc. | Same result. 25 ms → 8 ms. |
 | Every AI scout scored about 54,000 frontier candidates across the whole map per decision. | Candidates within 90 tiles first; whole map only if none qualifies. | Unchanged on maps up to 180 tiles; on larger maps a far target is chosen only when nothing nearby qualifies. |
+| AI turn setup filtered every map object (mostly trees) twice per AI per turn. | Per-step list of owned objects; deposits from the kind index. | Same lists, same order. |
 | All AIs thought in the same frame every 0.2 s. | Each AI still thinks every 0.2 s, spread across the interval. | Timing of AI decisions shifts by up to 0.15 s. |
 | Worker caps: every gatherer counted every unit each step. | Per-step index of gatherers per deposit. | Same counts (index refreshed when a worker is redirected). |
 | Unit spacing compared every pair of moving units. | Sweep in x order, comparing only units within 1.5 tiles in x. | Same pairs; processing order differs. |
@@ -36,6 +37,21 @@ proportional to the whole map in a single frame.
 | 95th percentile | 270 ms | 15 ms |
 | 99th percentile | 1,229 ms | 39 ms |
 | worst step after the opening | 4,306 ms | 655 ms (one long-route search in 4 minutes) |
+
+After the per-building tech tree landed the same day, computer players field units and buildings sooner,
+which adds real work. With the tech tree and the owned-objects AI scan (last row of the fixes table), the
+same 4-minute headless run measured:
+
+| | after tech tree and all fixes |
+|---|---|
+| mean step | 13 ms |
+| 95th percentile | 53 ms |
+| 99th percentile | 112 ms |
+| worst step | 428 ms |
+
+The remaining steps over 60 ms cluster in the first minute, while all four AIs explore and build at
+once: snapshotting newly seen trees into player memory, AI building placement on deposits near cliffs,
+and garbage collection.
 
 The "before" run carried heavier instrumentation, which inflates its mean; the percentiles and worst
 steps are the clearer comparison. The opening step (first-time caches) still takes about one second.

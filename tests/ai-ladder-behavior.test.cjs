@@ -114,7 +114,7 @@ console.log('PASS stronger Night AI answers an observed gunship with paid dedica
  const mine=g.spawnBuilding('humans_deep_ore',0,23,25,true);mine.lastExtraction=649;
  for(const [x,y]of [[23,25],[32,25]]){const n=g.add({kind:'resource',resource:0,x,y,hp:1,amount:0,size:.85});p.knowledge[n.id]={...n};}
  g.rebuildNav();g.updateVision();p.explored.fill(1);p.knownNav.set(g.nav);p.knownTiles.fill(0);const before=p.stock[0];E.step(g,p,A.context(g,p));
- assert(g.entities.some(b=>b.type==='humans_deep_ore'&&b.id!==mine.id&&b.progress<1),'A larger paid workforce needs a second renewable shaft');
+ assert(g.entities.some(b=>b.type==='humans_orewell'&&b.progress<1&&Math.hypot(b.x-32,b.y-25)<.1),'A larger paid workforce needs a second renewable shaft: claim the spent node with a collector to upgrade');
  assert(p.stock[0]<=before-D.buildings.humans_deep_ore.cost[0],'Pay the normal mine price');
 }
 console.log('PASS stronger economies invest in a second paid mine on a known exhausted deposit');

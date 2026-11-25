@@ -455,16 +455,30 @@ function figure(ctx,d,f,angle,action,frame){
  const hand=hands[1],tip=(p)=>{if(attack&&phase===2){ctx.canvas.weaponMuzzle={x:p[0]*scale,y:p[1]*scale,z:p[2]*scale};M.material('paint');M.orb(p[0]+1.5,p[1],p[2],3.5,2.5,2.5,'#edca79');M.orb(p[0]+3,p[1],p[2],2,2,1.5,'#f5e8b0');}};
  if(d.worker){
   // A forged pick: swelled haft with a bound grip, a wedged eye, a swept point and a hammer poll.
-  const hy=hand[1],headZ=hand[2]+14,hx=hand[0]+2;
-  M.material('wood');M.loft([[hand[0]-.8,hy,hand[2]-5,1.4,1.4],[hand[0]-.2,hy,hand[2]-.5,1.75,1.75],[hx-.8,hy,headZ-6,1.25,1.25],[hx,hy,headZ+1.6,1.05,1.05]],leather,10);
-  line([hand[0]-.6,hy,hand[2]-5.2],[hand[0]-.2,hy,hand[2]+2],'#3f2c1f',2.1,'leather');
-  box(hx,hy,headZ-2,1.95,1.95,3.7,iron);
-  line([hx-2.3,hy,headZ+1.5],[hx+2.3,hy,headZ+1.5],tint(steel,8),.45);
-  M.material('metal');
-  const forgedSteel=tint(steel,-34);
-  M.wedge([hx-1,hy,headZ],[hx-9.6,hy,headZ+2.3],1.7,1.9,.3,.35,forgedSteel);
-  M.wedge([hx+1,hy,headZ-.2],[hx+5.2,hy,headZ-.6],1.6,1.9,1.45,2.3,forgedSteel);
-  M.wedge([hx+5.2,hy,headZ-.6],[hx+6,hy,headZ-.6],1.45,2.3,1.3,2.1,tint(steel,-6));
+  // While working, the pick swings: raised over the shoulder, then brought down until the haft is
+  // horizontal and the point bites straight down into the deposit, then lifted to recover.
+  // The point faces the way the stroke travels: forward when raised, downward on impact.
+  if(work&&action!=='heal'){
+   const th=[62,112,0,38][phase]*Math.PI/180,dx=Math.cos(th),dz=Math.sin(th),px=Math.sin(th),pz=-Math.cos(th),H=hand;
+   const at=(t,o=0)=>[H[0]+dx*t+px*o,H[1],H[2]+dz*t+pz*o];
+   line(at(-5),at(15.4),leather,2.7,'wood');line(at(-5.2),at(2),'#3f2c1f',2.2,'leather');
+   line(at(13.9,-1.9),at(13.9,1.9),iron,2.4);line(at(12.4,0),at(15.6,0),tint(steel,8),.45);
+   M.material('metal');const forgedSteel=tint(steel,-34);
+   M.wedge(at(14,1),at(15.9,9.6),1.7,1.9,.3,.35,forgedSteel);
+   M.wedge(at(13.8,-1),at(13.4,-5.2),1.6,1.9,1.45,2.3,forgedSteel);M.wedge(at(13.4,-5.2),at(13.4,-6),1.45,2.3,1.3,2.1,tint(steel,-6));
+   if(phase===2&&action==='gather')for(let k=0;k<4;k++){const q=at(15.9+k*.6,10.2);M.material('rock');M.orb(q[0]+(k%2?1:-1)*1.2,q[1]+(k-1.5)*1.1,q[2]+1+k*.6,.5,.5,.5,'#a59a86');}
+  }else{
+   const hy=hand[1],headZ=hand[2]+14,hx=hand[0]+2; 
+   M.material('wood');M.loft([[hand[0]-.8,hy,hand[2]-5,1.4,1.4],[hand[0]-.2,hy,hand[2]-.5,1.75,1.75],[hx-.8,hy,headZ-6,1.25,1.25],[hx,hy,headZ+1.6,1.05,1.05]],leather,10); 
+   line([hand[0]-.6,hy,hand[2]-5.2],[hand[0]-.2,hy,hand[2]+2],'#3f2c1f',2.1,'leather'); 
+   box(hx,hy,headZ-2,1.95,1.95,3.7,iron); 
+   line([hx-2.3,hy,headZ+1.5],[hx+2.3,hy,headZ+1.5],tint(steel,8),.45); 
+   M.material('metal'); 
+   const forgedSteel=tint(steel,-34); 
+   M.wedge([hx-1,hy,headZ],[hx-9.6,hy,headZ+2.3],1.7,1.9,.3,.35,forgedSteel); 
+   M.wedge([hx+1,hy,headZ-.2],[hx+5.2,hy,headZ-.6],1.6,1.9,1.45,2.3,forgedSteel); 
+   M.wedge([hx+5.2,hy,headZ-.6],[hx+6,hy,headZ-.6],1.45,2.3,1.3,2.1,tint(steel,-6));
+  }
   // Frame pack: back board, shoulder straps over the chest and a visible load on top.
   box(-5,0,29,2,4.7,9,leather,'leather');
   box(-6.8,0,30,.9,4.4,7.4,'#4b3625','leather');

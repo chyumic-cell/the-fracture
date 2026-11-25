@@ -17,7 +17,7 @@ for(const f of Object.keys(D.factions)){
  assert.equal(m.order?.kind,'trade',f+' rally order must become trade even with no ore');assert.deepEqual(p.stock,before,'Routing gives no free resources');
  for(let i=0;i<1200;i++)g.tick(.1);
  assert(m.tradeEarned>0,f+' merchant must physically complete paid trips');assert(p.tradeCredits>0);
- const credits=p.tradeCredits,ore=p.stock[0];assert(g.exchange(0,0).ok);assert.equal(p.stock[0],ore+10);assert.equal(p.tradeCredits,credits-20);
+ const credits=p.tradeCredits,ore=p.stock[0];const bought=g.exchange(0,0);assert(bought.ok);assert.equal(p.stock[0],ore+10);assert.equal(p.tradeCredits,credits-bought.price);
 }
 console.log('PASS all twelve civilizations fund two markets, recover rally-blocked merchants and earn ordinary trade income');
 {

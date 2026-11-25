@@ -37,6 +37,8 @@ for(const f of Object.values(D.factions)){
  unit('merchant',n[7],market.id,{role:'merchant',hp:110,damage:0,armor:0,pop:1,speed:1.8,cost:[70,0,0,0],time:16,biological:f.id!=='machines'});
  const tech={id:f.id+'_deep_extraction',name:'Subsurface Extraction',kind:'deep',building:lab.id,cost:[280,100,80,30],time:75,requires:[f.id+'_economy',f.id+'_advanced']};f.research.push(tech);D.research[tech.id]=tech;
  for(const resource of D.resources)building('deep_'+resource,n[8]+' · '+({ore:'Ore',oil:'Lastrian Oil',aether:'Aetherite',rift:'Rift Crystal'})[resource],'deepMine',{resource,requires:[lab.id],research:tech.id,cost:[180,resource==='oil'?60:20,30,0],time:40,hp:650,size:1.2});
+ // Deep mines are no longer placed directly: a completed collector is upgraded in place, keeping its deposit.
+ for(const resource of D.resources){const collector=f.buildings.find(b=>b.kind==='extractor'&&b.resource===resource),deep=D.buildings[f.id+'_deep_'+resource];if(!collector||!deep)continue;const up={id:f.id+'_deepen_'+resource,name:'Upgrade to '+n[8],building:collector.id,cost:[...deep.cost],time:deep.time,research:tech.id,upgradeTo:deep.id};f.extensions.push(up);D.extensions[up.id]=up;}
 }
 }
 root.FractureExpansionData={apply};if(typeof module!=='undefined')module.exports=root.FractureExpansionData;

@@ -1,12 +1,558 @@
 {
-  "generatedAt": "2026-11-23T09:19:13.226Z",
+  "generatedAt": "2026-11-25T12:54:32.788Z",
   "errors": [],
   "reports": [
+    {
+      "faction": "humans",
+      "units": 21,
+      "samples": 609,
+      "triangles": 4514176,
+      "bad": []
+    },
+    {
+      "faction": "reptilians",
+      "units": 22,
+      "samples": 638,
+      "triangles": 4591584,
+      "bad": []
+    },
     {
       "faction": "machines",
       "units": 21,
       "samples": 609,
       "triangles": 6254600,
+      "bad": []
+    },
+    {
+      "faction": "insects",
+      "units": 21,
+      "samples": 609,
+      "triangles": 2792004,
+      "bad": []
+    },
+    {
+      "faction": "primates",
+      "units": 23,
+      "samples": 667,
+      "triangles": 3910590,
+      "bad": [
+        {
+          "name": "Club Warrior",
+          "dir": 0,
+          "action": "attack",
+          "frame": 1,
+          "filled": 9826,
+          "edge": 12
+        },
+        {
+          "name": "Club Warrior",
+          "dir": 1,
+          "action": "attack",
+          "frame": 1,
+          "filled": 10184,
+          "edge": 23
+        },
+        {
+          "name": "Club Warrior",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 9433,
+          "edge": 27
+        },
+        {
+          "name": "Club Warrior",
+          "dir": 2,
+          "action": "attack",
+          "frame": 2,
+          "filled": 8687,
+          "edge": 12
+        },
+        {
+          "name": "Club Warrior",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 8239,
+          "edge": 24
+        },
+        {
+          "name": "Club Warrior",
+          "dir": 6,
+          "action": "attack",
+          "frame": 2,
+          "filled": 8596,
+          "edge": 17
+        },
+        {
+          "name": "Club Warrior",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 8322,
+          "edge": 27
+        },
+        {
+          "name": "Shieldback",
+          "dir": 0,
+          "action": "attack",
+          "frame": 1,
+          "filled": 11717,
+          "edge": 25
+        },
+        {
+          "name": "Shieldback",
+          "dir": 1,
+          "action": "attack",
+          "frame": 1,
+          "filled": 12315,
+          "edge": 21
+        },
+        {
+          "name": "Shieldback",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 10793,
+          "edge": 29
+        },
+        {
+          "name": "Shieldback",
+          "dir": 2,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10461,
+          "edge": 18
+        },
+        {
+          "name": "Shieldback",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 8620,
+          "edge": 23
+        },
+        {
+          "name": "Shieldback",
+          "dir": 6,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10341,
+          "edge": 25
+        },
+        {
+          "name": "Shieldback",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 8546,
+          "edge": 28
+        },
+        {
+          "name": "Silverback Champion",
+          "dir": 0,
+          "action": "attack",
+          "frame": 1,
+          "filled": 11642,
+          "edge": 32
+        },
+        {
+          "name": "Silverback Champion",
+          "dir": 1,
+          "action": "attack",
+          "frame": 1,
+          "filled": 12382,
+          "edge": 20
+        },
+        {
+          "name": "Silverback Champion",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 11099,
+          "edge": 28
+        },
+        {
+          "name": "Silverback Champion",
+          "dir": 2,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10771,
+          "edge": 22
+        },
+        {
+          "name": "Silverback Champion",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10013,
+          "edge": 23
+        },
+        {
+          "name": "Silverback Champion",
+          "dir": 6,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10595,
+          "edge": 26
+        },
+        {
+          "name": "Silverback Champion",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10090,
+          "edge": 27
+        }
+      ]
+    },
+    {
+      "faction": "wizards",
+      "units": 22,
+      "samples": 638,
+      "triangles": 3110162,
+      "bad": []
+    },
+    {
+      "faction": "elders",
+      "units": 22,
+      "samples": 638,
+      "triangles": 3400815,
+      "bad": [
+        {
+          "name": "Orc Warrior",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 5942,
+          "edge": 12
+        },
+        {
+          "name": "Orc Warrior",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 4774,
+          "edge": 20
+        },
+        {
+          "name": "Orc Warrior",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 4835,
+          "edge": 19
+        },
+        {
+          "name": "Orc Berserker",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 6665,
+          "edge": 12
+        },
+        {
+          "name": "Orc Berserker",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 5384,
+          "edge": 20
+        },
+        {
+          "name": "Orc Berserker",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 5516,
+          "edge": 19
+        },
+        {
+          "name": "Troll Brute",
+          "dir": 0,
+          "action": "attack",
+          "frame": 1,
+          "filled": 11784,
+          "edge": 31
+        },
+        {
+          "name": "Troll Brute",
+          "dir": 1,
+          "action": "attack",
+          "frame": 1,
+          "filled": 12566,
+          "edge": 21
+        },
+        {
+          "name": "Troll Brute",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 11303,
+          "edge": 25
+        },
+        {
+          "name": "Troll Brute",
+          "dir": 2,
+          "action": "attack",
+          "frame": 2,
+          "filled": 11113,
+          "edge": 21
+        },
+        {
+          "name": "Troll Brute",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10360,
+          "edge": 23
+        },
+        {
+          "name": "Troll Brute",
+          "dir": 6,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10761,
+          "edge": 25
+        },
+        {
+          "name": "Troll Brute",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 10433,
+          "edge": 27
+        }
+      ]
+    },
+    {
+      "faction": "myth",
+      "units": 21,
+      "samples": 609,
+      "triangles": 4669354,
+      "bad": [
+        {
+          "name": "Satyr Javelin Thrower",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 5595,
+          "edge": 6
+        },
+        {
+          "name": "Satyr Javelin Thrower",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 5571,
+          "edge": 7
+        },
+        {
+          "name": "Minotaur Guardian",
+          "dir": 0,
+          "action": "attack",
+          "frame": 1,
+          "filled": 10571,
+          "edge": 23
+        },
+        {
+          "name": "Minotaur Guardian",
+          "dir": 1,
+          "action": "attack",
+          "frame": 1,
+          "filled": 10835,
+          "edge": 6
+        },
+        {
+          "name": "Minotaur Guardian",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 8911,
+          "edge": 27
+        },
+        {
+          "name": "Minotaur Guardian",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 6770,
+          "edge": 28
+        },
+        {
+          "name": "Minotaur Guardian",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 6778,
+          "edge": 28
+        },
+        {
+          "name": "Minotaur Champion",
+          "dir": 0,
+          "action": "attack",
+          "frame": 1,
+          "filled": 9268,
+          "edge": 23
+        },
+        {
+          "name": "Minotaur Champion",
+          "dir": 1,
+          "action": "attack",
+          "frame": 1,
+          "filled": 9541,
+          "edge": 6
+        },
+        {
+          "name": "Minotaur Champion",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 8803,
+          "edge": 27
+        },
+        {
+          "name": "Minotaur Champion",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 7756,
+          "edge": 28
+        },
+        {
+          "name": "Minotaur Champion",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 7763,
+          "edge": 28
+        }
+      ]
+    },
+    {
+      "faction": "dragons",
+      "units": 21,
+      "samples": 609,
+      "triangles": 5130985,
+      "bad": []
+    },
+    {
+      "faction": "night",
+      "units": 24,
+      "samples": 696,
+      "triangles": 4187968,
+      "bad": [
+        {
+          "name": "Undead Knight",
+          "dir": 0,
+          "action": "attack",
+          "frame": 1,
+          "filled": 9288,
+          "edge": 5
+        },
+        {
+          "name": "Undead Knight",
+          "dir": 1,
+          "action": "attack",
+          "frame": 1,
+          "filled": 9962,
+          "edge": 6
+        },
+        {
+          "name": "Undead Knight",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 8174,
+          "edge": 8
+        },
+        {
+          "name": "Undead Knight",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 6025,
+          "edge": 9
+        },
+        {
+          "name": "Undead Knight",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 5860,
+          "edge": 7
+        }
+      ]
+    },
+    {
+      "faction": "infernal",
+      "units": 21,
+      "samples": 609,
+      "triangles": 3629592,
+      "bad": [
+        {
+          "name": "Demon Footsoldier",
+          "dir": 0,
+          "action": "attack",
+          "frame": 1,
+          "filled": 7585,
+          "edge": 6
+        },
+        {
+          "name": "Demon Footsoldier",
+          "dir": 1,
+          "action": "attack",
+          "frame": 1,
+          "filled": 8018,
+          "edge": 8
+        },
+        {
+          "name": "Demon Footsoldier",
+          "dir": 2,
+          "action": "attack",
+          "frame": 1,
+          "filled": 7253,
+          "edge": 8
+        },
+        {
+          "name": "Demon Footsoldier",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 6783,
+          "edge": 7
+        },
+        {
+          "name": "Demon Footsoldier",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 6807,
+          "edge": 7
+        },
+        {
+          "name": "Infernal Guard",
+          "dir": 3,
+          "action": "attack",
+          "frame": 2,
+          "filled": 5784,
+          "edge": 6
+        },
+        {
+          "name": "Infernal Guard",
+          "dir": 7,
+          "action": "attack",
+          "frame": 2,
+          "filled": 5778,
+          "edge": 7
+        }
+      ]
+    },
+    {
+      "faction": "symbiotes",
+      "units": 22,
+      "samples": 638,
+      "triangles": 15821472,
       "bad": []
     }
   ]

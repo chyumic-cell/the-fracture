@@ -26,7 +26,7 @@ console.log('PASS depleted-island workers prioritize urgent renewable Ore over s
  for(const b of mines){const n=g.add({kind:'resource',resource:0,x:b.x,y:b.y,hp:1,amount:0,size:.85});p.knowledge[n.id]={...n};}
  g.rebuildNav();g.updateVision();p.explored.fill(1);p.visible.fill(1);p.knownNav.set(g.nav);L.step(g,p,A.context(g,p));
  const counts=mines.map(b=>g.entities.filter(u=>u.owner===0&&u.order?.kind==='extract'&&u.order.target===b.id).length);
- assert.deepEqual(counts,[11,11],'Spread twenty-two paid workers across both shafts, preserving two general workers');
+ assert.deepEqual(counts,[6,6],'Fill both shafts to their six-miner limit, keeping the remaining workers on the surface');
  const before=p.gathered[0];for(let i=0;i<800;i++)g.tick(.1);
  assert(p.gathered[0]>before,'The assigned workforce must physically deliver mined Ore');
  assert(mines.every(b=>b.lastExtraction>700),'Both shafts must produce through ordinary extraction');

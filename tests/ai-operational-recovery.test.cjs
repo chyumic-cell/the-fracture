@@ -81,7 +81,7 @@ console.log('PASS poor openings finance a complete trading fallback before consu
 console.log('PASS renewable investments are sequenced around Ore without forgetting secondary resources');
 for(const faction of Object.keys(D.factions)){
  const g=arena('expert'),p=g.players[0];p.faction=faction;p.stock=[1000,500,500,32];p.tech=[faction+'_economy'];g.time=200;g.spawnUnit(faction+'_u0',0,18,14);const advanced=D.research[faction+'_advanced'];p.tech=[...advanced.requires];g.spawnBuilding(advanced.building,0,24,24,true);g.spawnBuilding(faction+'_market',0,36,24,true);chart(g);
- p.aiSustainability={cost:[1800,500,500,65],ids:[advanced.id],resourceWise:true};p.aiState={economy:{goal:'research:'+advanced.id}};p.tradeCredits=20;
+ p.aiSustainability={cost:[1800,500,500,65],ids:[advanced.id],resourceWise:true};p.aiState={economy:{goal:'research:'+advanced.id}};p.tradeCredits=g.buyPrice(3);
  require('../src/ai-logistics').step(g,p,A.context(g,p));assert.equal(p.stock[3],42,faction+' must buy the missing research ingredient before unnecessary Ore');assert.equal(p.tradeCredits,0,'the ordinary exchange price is paid');assert.equal(p.stock[0],1000);
 }
 console.log('PASS all twelve civilizations purchase actionable research ingredients at normal trade prices');

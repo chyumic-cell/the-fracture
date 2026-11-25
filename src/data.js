@@ -73,7 +73,7 @@ for(const [id,name,universe,color,style,description,bs,us,techText] of raw){
  const f={id,name,universe,color,style,description,buildings:[],units:[],research:[],extensions:[],counter:id==='reptilians'?'Captives':id==='symbiotes'?'Biomass':null};
  f.buildings=bs.split('|').map((s,i)=>{const[n,kind]=s.split(':'),[hp,size,ore,time]=bstats[kind];return{id:id+'_b'+i,name:n,kind,hp,size,time,cost:[ore,['armor','air','elite'].includes(kind)?45:0,kind==='elite'?60:0,0],requires:[]};});
  const inf=f.buildings.find(b=>b.kind==='inf').id, lab=f.buildings.find(b=>b.kind==='lab').id;
- for(const b of f.buildings){if(['armor','air','support','lab','counter'].includes(b.kind))b.requires=[inf];if(b.kind==='elite')b.requires=[lab,f.buildings.find(x=>x.kind==='armor').id];}
+ const armorHall=f.buildings.find(x=>x.kind==='armor').id;for(const b of f.buildings){if(['air','support','lab','counter'].includes(b.kind))b.requires=[inf];if(b.kind==='armor')b.requires=[inf,lab];if(b.kind==='air')b.requires=[armorHall];if(b.kind==='elite')b.requires=[lab,armorHall];}
  f.units=us.split('|').map((s,i)=>{const[n,role,bi,extension]=s.split(':'),r=roles[role];const u={...r,cost:[...r.cost],id:id+'_u'+i,name:n,role,building:f.buildings[+bi].id,faction:id,variant:i,armor:r.armor||0,vision:r.vision||8,cooldown:r.cooldown||1.25,requires:[],research:null,extension:extension||null,biological:id!=='machines',special:0};if(['tank','siege','fighter','gunship','elite','giant'].includes(role))u.requires=[lab];if(['elite','giant'].includes(role)||n==='Main Battle Tank')u.research=id+'_advanced';if(['Mind-Jacked Thrall','Thrall Enforcer','Husk','Stalker','Spitter','Brute'].includes(n)){u.special=role==='tank'?4:role==='heavy'?2:1;u.cost=[25,0,0,0];u.reconstructed=true;} if(id==='dragons'&&['Mature Dragon','Ancient Dragon'].includes(n)){u.air=true;u.aa=true;}if(/War-Beast|Drake|Hydra|Chimera|Brute|Golem|Horror|Dragon|Fiend|Colossus/.test(n))u.armored=role==='tank'||role==='giant';return u;});
  for(const u of f.units.filter(u=>u.extension)){if(!f.extensions.find(e=>e.name===u.extension&&e.building===u.building))f.extensions.push({id:id+'_x'+f.extensions.length,name:u.extension,building:u.building,cost:[90,35,0,0],time:22});}
  const tn=techText.split('|');
@@ -87,6 +87,27 @@ for(const [id,name,universe,color,style,description,bs,us,techText] of raw){
  const branchNames={industrial:['Combined-Arms Drill','Stabilized Turrets','External Fuel Tanks'],reptile:['Legion Discipline','Predator Targeting','Thermal Soaring'],machine:['Parallel Fabrication','Predictive Fire Control','High-Density Capacitors'],insect:['Caste Cohesion','Bombardier Optics','Wing Musculature'],ape:['War-Circle Training','Counterweight Engineering','Cliff Reconnaissance'],wizard:['Practical Dueling','Long-Form Invocation','Broom Endurance Charms'],elder:['Council Drills','Rune-Sighted Weapons','Transit Attunement'],myth:['Courtyard Discipline','Far-Sight Oracles','Aerial Endurance Rites'],dragon:['Clutch Training','Focused Flame Glands','High-Altitude Lungs'],night:['Night Operations','Spectral Targeting','Ectoplasmic Stability'],demon:['Legion Mustering','Hellfire Focus','Gargoyle Endurance'],fungal:['Synchronous Growth','Neural Trajectory Mapping','Spore Membrane Efficiency']};
  const bn=branchNames[style];
  for(const b of f.buildings){const index=b.kind==='inf'?0:b.kind==='armor'?1:b.kind==='air'?2:-1;if(index<0)continue;f.research.push({id:b.id+'_specialization',name:bn[index],building:b.id,cost:[100,35,index===0?15:40,0],time:32,kind:['training','range','endurance'][index],requires:[]});}
+ // Doctrines: a longer road to the strongest units. Each civilization names its own six steps; they
+ // gate unit families by role and are researched in the building that fields them. Not "Ages":
+ // nothing changes globally, each doctrine only opens its own branch.
+ const doctrineNames={industrial:['Combined Arms Doctrine','Mechanized Warfare','Ordnance Engineering','Air Superiority Doctrine','Special Operations Program','Strategic Command'],
+  reptile:['Legion Doctrine','Beast Mastery','Imperial Siegecraft','Aerie Doctrine','Imperial Guard Rites','Imperial Decree'],
+  machine:['Combat Subroutines','Heavy Chassis Protocol','Siege Protocol','Flight Protocol','Elite Kernel','Override Authority'],
+  insect:['Soldier Caste Doctrine','Heavy Caste Breeding','Siege Caste Breeding','Flight Caste Breeding','Royal Caste Breeding','Hive Ascendance'],
+  ape:['War Circle Doctrine','Heavy Workshops','Siege Craft','Sky Watch','Champion Trials','Great Council Mandate'],
+  wizard:['Battle Magic Curriculum','Golem Craft','Siege Invocation','Flight Charter','Grand Mastery','Archmagister\'s Seal'],
+  elder:['Alliance Drill','Forge and Troll Pact','Runic Siegecraft','Transit Charter','Council Champions','Pact of the Five'],
+  myth:['Hoplite Doctrine','Beast Taming','Cyclopean Siegecraft','Aerie Rites','Heroic Trials','Blessing of the Pantheon'],
+  dragon:['Kobold Muster','Drake Rearing','Siege Breath','Sky Roost Charter','Wyrm Ascension','Ancient Pact'],
+  night:['Night Doctrine','Heavy Foundry Program','Siege Program','Spectral Flight Program','Elder Court Commission','Eternal Night Decree'],
+  demon:['Infernal Hierarchy','Hellbeast Binding','Siege Pacts','Gargoyle Pacts','Greater Bindings','Abyssal Covenant'],
+  fungal:['Coordinated Growth','Heavy Grafting','Siege Spore Culture','Aerial Spore Culture','Neural Ascension','Prime Convergence']}[style];
+ const hall=kind=>f.buildings.find(b=>b.kind===kind)?.id,D0=id+'_doctrine_';
+ const doctrines=[['organization',hall('inf'),[160,30,0,0],35,[]],['heavy',armorHall,[240,80,30,0],50,[D0+'organization']],['siege',armorHall,[240,90,50,0],50,[D0+'organization']],
+  ['air',hall('air')||lab,[240,80,60,0],50,[D0+'organization']],['elite',hall('elite'),[300,80,110,25],65,[D0+'heavy']],['strategic',hall('elite'),[380,120,160,70],85,[D0+'elite',id+'_advanced']]];
+ doctrines.forEach(([kind,building,cost,time,requires],i)=>f.research.push({id:D0+kind,name:doctrineNames[i],building,cost,time,kind:'doctrine',doctrine:kind,requires}));
+ const gate={heavy:'organization',support:'organization',tank:'heavy',siege:'siege',fighter:'air',gunship:'air',stealth:'elite',elite:'elite',giant:'strategic'};
+ for(const u of f.units)if(gate[u.role])u.requires=[...u.requires,D0+gate[u.role]];
  for(const u of f.units){if(['Armored Drake','Dragon Whelp','Ancient Dragon','Spore Flyer','Root Colossus'].includes(u.name))u.bonus='building';if(u.name==='Infantry Fighting Vehicle'){u.hp=270;u.damage=23;u.range=4.8;u.speed=1.65;u.armor=3;u.pop=3;u.cost=[125,45,0,0];}if(id==='humans'&&['tank','siege','fighter','gunship'].includes(u.role)||/Imperial Tank|Siege Walker|Battering Ram|Heavy Catapult|Runic Siege Engine|Dwarven Artillery|Combat Vehicle|Enchanted Golem/.test(u.name))u.biological=false;if(['wizard','elder','myth','dragon','demon','fungal'].includes(style)&&u.cost[1]>0){const converted=Math.round(u.cost[1]*.45);u.cost[1]-=converted;u.cost[2]+=converted;}}
  factions[id]=f;
 }
@@ -99,6 +120,9 @@ const research=Object.fromEntries(Object.values(factions).flatMap(f=>f.research)
 const extensions=Object.fromEntries(Object.values(factions).flatMap(f=>f.extensions).map(e=>[e.id,e]));
 root.FD={resources,roles,factions,units,buildings,research,extensions,version:'0.1 — First Contact'};
 const expansion=root.FractureExpansionData||(typeof require!=='undefined'?require('./expansion-data.js'):null);if(expansion)expansion.apply(root.FD);
+// Aircraft added by the expansion (bombers, air transports) need the air doctrine like other aircraft.
+// Ships keep their dock and lab requirements; campaign fleets depend on fielding them early.
+for(const f of Object.values(root.FD.factions))for(const u of f.units){if(!u.air||u.naval||u.requires.some(r=>r.includes('_doctrine_')))continue;const g=u.role==='gunship'||u.transport?'air':null;if(g)u.requires=[...u.requires,f.id+'_doctrine_'+g];}
 const combat=root.FractureCombat||(typeof require!=='undefined'?require('./combat.js'):null);if(combat)combat.apply(root.FD);
 if(typeof module!=='undefined')module.exports=root.FD;
 })(globalThis);

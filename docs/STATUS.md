@@ -1,3 +1,16 @@
+# Colossal performance, group movement, collectors at cliffs, market board - 25 November 2026
+
+Four-player Colossal matches stuttered because several systems worked over the whole 700×700 map in single
+frames: unreachable-goal path searches, region-map rebuilds on every newly explored cell, whole-map AI
+scouting scans, vision bookkeeping, all AIs thinking in the same frame. Headless simulation, 4 AIs: mean step
+78 → 7 ms, 99th percentile 1.2 s → 39 ms. Browser after 4 game minutes: 95th percentile frame 16.8 ms, worst
+167 ms. Details and remaining limits: docs/COLOSSAL-PERFORMANCE-2026-11-25.md. Group movement: units no
+longer walk back to a column place behind them and take the nearest final place on arrival (U-turns on a
+detour 27 → 10; head-on crossing no longer strands units): docs/GROUP-MOVEMENT-2026-11-25.md. Collectors may
+shift up to one tile off a deposit at a cliff or edge; the deep-mine upgrade no longer asks for an extension
+bay; deposits are hidden under their collector; markets show one row per resource; AIs also sell surpluses
+on the shared market: docs/ECONOMY-REWORK-2026-11-25.md.
+
 # Gathering rules, idle workers, build clicks and pick swing - 25 November 2026
 
 Only Ore can be gathered without its own collector; other deposits wait for theirs. Collectors over a deposit are worked from their edge, which fixes small deposits (Rift Crystals) that could not be mined at all once covered. An idle-worker button (and the . hotkey) selects idle workers. Build-menu buttons no longer jump in the page between refreshes, which could swallow a click. Worker picks now swing down until the haft is horizontal on impact. See [ECONOMY-REWORK-2026-11-25.md](ECONOMY-REWORK-2026-11-25.md).

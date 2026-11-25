@@ -19,6 +19,10 @@ function install(Game,D){
   for(const u of units){group.initial[u.id]={x:u.x-start.x,y:u.y-start.y};u.march={id:group.id,final:{...u.order}};u.order={...u.order,x:u.x,y:u.y};}
   (this.marches||(this.marches=[])).push(group);return result;
  };
+ // On arrival the final formation places go to the nearest unit of the same type, so units do not cross
+ // the whole group to reach the place they were given when the order was issued.
+ function settle(us){const types=new Map();for(const u of us){const f=u.march?.final;if(!f||!Number.isFinite(f.x))continue;if(!types.has(u.type))types.set(u.type,[]);types.get(u.type).push(u);}
+  for(const group of types.values()){if(group.length<2)continue;const spots=group.map(u=>({x:u.march.final.x,y:u.march.final.y})),pairs=[];for(const u of group)for(const q of spots)pairs.push({u,q,d:Math.hypot(u.x-q.x,u.y-q.y)});pairs.sort((a,b)=>a.d-b.d||a.u.id-b.u.id);const du=new Set(),dq=new Set();for(const p of pairs){if(du.has(p.u)||dq.has(p.q))continue;du.add(p.u);dq.add(p.q);p.u.march.final={...p.u.march.final,x:p.q.x,y:p.q.y};}}}
  function trail(g,back){let left=back,b=g.anchor;for(let i=g.history.length-1;i>=0;i--){const a=g.history[i],len=distance(a,b);if(len>=left&&len>0)return{x:b.x+(a.x-b.x)*left/len,y:b.y+(a.y-b.y)*left/len};left-=len;b=a;}return {...b};}
  P.updateMarches=function(dt){if(!this.marches?.length)return;const keep=[];
   for(const g of this.marches){const us=g.ids.map(id=>this.entity(id)).filter(u=>u?.march?.id===g.id&&!u.embarkedBy&&['move','attackMove'].includes(u.order?.kind));if(us.length<2){for(const u of us){u.order=u.march.final;delete u.march;}continue;}
@@ -27,14 +31,17 @@ function install(Game,D){
    const previousAnchor={...g.anchor};if(!contact&&lag<6){let travel=g.speed*dt*.9;while(travel>0&&g.cursor<g.route.length-1){const q=g.route[g.cursor+1],len=distance(g.anchor,q);if(len<=travel){g.anchor={...q};travel-=len;g.cursor++;}else{g.anchor.x+=(q.x-g.anchor.x)*travel/len;g.anchor.y+=(q.y-g.anchor.y)*travel/len;travel=0;}}}
    g.travelled=(g.travelled||0)+distance(previousAnchor,g.anchor);
    if(distance(g.history.at(-1),g.anchor)>.35){g.history.push({...g.anchor});if(g.history.length>us.length*6+40)g.history.shift();}
-   if(g.cursor>=g.route.length-1){for(const u of us){u.order=u.march.final;delete u.march;u.destination=null;u.path=[];}continue;}
+   if(g.cursor>=g.route.length-1){settle(us);for(const u of us){u.order=u.march.final;delete u.march;u.destination=null;u.path=[];}continue;}
    const next=g.route[Math.min(g.cursor+3,g.route.length-1)],face=Math.atan2(next.y-g.anchor.y,next.x-g.anchor.x),slots=g.offsets?us.map(u=>{const o=g.offsets[u.id];return {unit:u,x:g.anchor.x+o.x*Math.cos(face)-o.y*Math.sin(face),y:g.anchor.y+o.x*Math.sin(face)+o.y*Math.cos(face)};}):this.formationLayout(us,g.kind,g.anchor,face),owner=us[0].owner;
    const clear=(a,b)=>{const n=Math.max(1,Math.ceil(distance(a,b)*3));for(let j=1;j<=n;j++){const q={x:a.x+(b.x-a.x)*j/n,y:a.y+(b.y-a.y)*j/n},prev={x:a.x+(b.x-a.x)*(j-1)/n,y:a.y+(b.y-a.y)*(j-1)/n};if(!this.canTraverse(prev.x,prev.y,q.x,q.y,false,owner))return false;}return true;};
    const blocked=slots.some(s=>!clear(g.anchor,s)||!clear(s,{x:s.x+Math.cos(face)*2,y:s.y+Math.sin(face)*2}));
    if(blocked)g.clearSince=null;else g.clearSince??=this.time;
    g.narrow=blocked||g.narrow&&this.time-g.clearSince<1.8;
    const sorted=[...us].sort((a,b)=>g.trailOrder?g.trailOrder.indexOf(a.id)-g.trailOrder.indexOf(b.id):this.formationRank(a)-this.formationRank(b)||a.id-b.id);
-   for(const [i,u]of sorted.entries()){const slot=g.narrow?trail(g,i*.78):slots.find(s=>s.unit.id===u.id);const blend=Math.min(1,(g.travelled||0)/(g.blendDistance||1)),initial=g.initial?.[u.id],x=initial?g.anchor.x+initial.x+(slot.x-g.anchor.x-initial.x)*blend:slot.x,y=initial?g.anchor.y+initial.y+(slot.y-g.anchor.y-initial.y)*blend:slot.y;u.order={...u.march.final,x:Math.max(.5,Math.min(this.n-.5,x)),y:Math.max(.5,Math.min(this.n-.5,y)),face};u.march.speed=g.speed;u.march.narrow=g.narrow;}
+   for(const [i,u]of sorted.entries()){const slot=g.narrow?trail(g,i*.78):slots.find(s=>s.unit.id===u.id);const blend=Math.min(1,(g.travelled||0)/(g.blendDistance||1)),initial=g.initial?.[u.id],x=initial?g.anchor.x+initial.x+(slot.x-g.anchor.x-initial.x)*blend:slot.x,y=initial?g.anchor.y+initial.y+(slot.y-g.anchor.y-initial.y)*blend:slot.y;// A column place behind the unit (early in a march the walked trail is still short, so it reaches
+    // back to the start) means waiting for the column, not turning around to walk back to it.
+    let tx=x,ty=y;if(g.narrow&&((x-u.x)*Math.cos(face)+(y-u.y)*Math.sin(face))<-.3&&Math.abs(-(x-u.x)*Math.sin(face)+(y-u.y)*Math.cos(face))<1.2){tx=u.x;ty=u.y;}
+    u.order={...u.march.final,x:Math.max(.5,Math.min(this.n-.5,tx)),y:Math.max(.5,Math.min(this.n-.5,ty)),face};u.march.speed=g.speed;u.march.narrow=g.narrow;}
    keep.push(g);
   }this.marches=keep;
  };

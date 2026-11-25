@@ -50,4 +50,16 @@ test('Only Ore can be gathered before its collector stands',()=>{
  assert.equal(w.carry,0);assert.equal(rift.amount,220,'No Rift Crystals dug without an observatory');assert.match(w.blockReason,/Rift observatory first/);assert(g.players[0].gathered[0]>0||v.carry>0,'Ore needs no collector');
  g.spawnBuilding('humans_riftwell',0,rift.x,rift.y,true);g.rebuildNav();g.updateVision();run(g,10);assert(rift.amount<220,'Mining starts once the collector stands');
 });
+test('A deposit at a cliff edge still takes its collector, shifted off the edge, and stays mineable',()=>{
+ const g=flat(),n=node(g,3,20.5,20.5);for(let y=0;y<48;y++)for(let x=21;x<48;x++)g.map[y*48+x].height=4;g.players.forEach(p=>g.map.forEach((t,i)=>{p.knownTiles[i]=t.height;}));g.rebuildNav();g.updateVision();
+ const site=g.collectorSite('humans_riftwell',0,20.5,20.5);assert(site.x<20.5,'the footprint moves away from the cliff');assert(Math.abs(site.x-20.5)<=1&&Math.abs(site.y-20.5)<=1,'the deposit stays under the building');
+ assert.equal(g.placement('humans_riftwell',0,20.5,20.5),null);
+ const b=g.spawnBuilding('humans_riftwell',0,site.x,site.y,true),w=g.spawnUnit('humans_u0',0,16,16);g.rebuildNav();g.updateVision();g.order([w.id],{kind:'gather',target:n.id});run(g,25);
+ assert(g.players[0].gathered[3]>0||w.carry>0,'a worker mines the deposit beside the shifted collector: '+(w.blockReason||w.action));
+});
+test('A collector upgrade needs no extension bay or land beside it',()=>{
+ const g=flat(),n=node(g,0,20.5,20.5,0),c=g.spawnBuilding('humans_orewell',0,n.x,n.y,true);g.players[0].tech.push(...Object.keys(D.research).filter(id=>id.startsWith('humans_')));
+ for(let x=21;x<26;x++)g.spawnBuilding('humans_b1',0,x+1.5,20.5,true);g.rebuildNav();
+ const up=D.extensions.humans_deepen_ore;assert(up&&up.upgradeTo);const r=g.queue(c.id,up.id,'extension');assert(r.ok,r.reason);
+});
 console.log('TOTAL '+count+' collector checks passed');

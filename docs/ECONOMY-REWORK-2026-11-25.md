@@ -69,6 +69,23 @@ requirements, because campaign fleet missions field warships from the start.
   the point driven into the deposit, then recovered (human-style rigs; Night Kingdom and Primate rigs reach
   a slightly steeper strike).
 
+## Second round of fixes (after a 4-player Colossal play-test)
+
+- Collectors beside a cliff, wall or unexplored edge: the footprint may now shift up to one tile off the
+  deposit to find level, explored, unobstructed ground, as long as the deposit stays under the building.
+  The placement preview shows the shifted spot. Workers mine from the building's edge as before (reach
+  grows with the shift). Before, a deposit within a tile of a ledge could not take its collector at all.
+- The deep-mine upgrade is no longer treated as a physical extension in the Tech tab, so it no longer
+  asks for an extension bay or clear land to the east. Its tooltip says what it does. (The simulation
+  already allowed it; only the button was wrongly disabled.)
+- A deposit under its own collector or deep mine is no longer drawn on top of the building.
+- Market and dock panels show a board with one row per resource: its name, how far the price sits
+  above or below base, and Buy and Sell buttons side by side. Shift-click still trades five lots.
+- The market was already one market for everyone; computer players now also sell. An AI with a large
+  surplus of one resource (more than its plans need plus 900 Ore or 600 of another) sells a lot when it
+  is short of something else and cannot afford to buy it, but only while that price is at least 80% of
+  base. Every player's purchases and sales move the same prices.
+
 ## Build menu
 
 The worker build menu is grouped under Economy (headquarters, housing, the four collectors, market,

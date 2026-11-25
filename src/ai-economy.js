@@ -342,7 +342,7 @@ function step(g,p,ctx={}){
  if(config.adaptiveEconomy&&!threatened&&armySize>=8&&tech.includes(f.id+'_deep_extraction')&&sustainable.remaining[0]<600&&oreMines.length>0&&oreMines.length<mineGoal&&!buildings.some(b=>b.type===f.id+'_deep_ore'&&b.progress<1||queueOf(b).some(q=>q.type===f.id+'_deepen_ore'))){
   // A further shaft is an upgraded Ore collector on a spent deposit: upgrade one that stands there,
   // or claim a spent node with a collector first.
-  const up=D.extensions[f.id+'_deepen_ore'],collector=f.buildings.find(b=>b.kind==='extractor'&&b.resource==='ore'),spent=b=>!g.entities.some(e=>e.kind==='resource'&&e.resource===0&&e.amount>0&&distance(e,b)<1.2);
+  const up=D.extensions[f.id+'_deepen_ore'],collector=f.buildings.find(b=>b.kind==='extractor'&&b.resource==='ore'),spent=b=>!g.entities.some(e=>e.kind==='resource'&&e.resource===0&&e.amount>0&&distance(e,b)<1.6);
   const site=up&&ready.find(b=>b.type===collector?.id&&queueOf(b).length===0&&!dangerous(b,5)&&spent(b));
   if(site)plan({kind:'extension',def:up,building:site,priority:103,key:'deep-capacity:'+site.id});
   else if(collector&&!buildings.some(b=>b.type===collector.id&&b.progress<1&&spent(b))){const n=Object.values(p.knowledge||{}).filter(n=>n.kind==='resource'&&n.resource===0&&n.amount<=0&&!dangerous(n,5)&&reachable(n)&&!g.placement(collector.id,p.id,n.x,n.y,false,null,true)).sort((a,b)=>distance(a,home)-distance(b,home))[0];if(n)plan({kind:'build',def:collector,near:n,exact:true,priority:103,key:'deep-capacity:'+n.id});}
@@ -360,7 +360,7 @@ function step(g,p,ctx={}){
   else{
    // Deep mines come from upgrading a collector that stands on a spent deposit; with none in place,
    // first claim a spent node with a collector, then upgrade it.
-   const up=Object.values(D.extensions).find(x=>x.upgradeTo===id),collector=f.buildings.find(b=>b.kind==='extractor'&&b.resource===D.resources[r]),spent=b=>!g.entities.some(e=>e.kind==='resource'&&e.resource===r&&e.amount>0&&distance(e,b)<1.2);
+   const up=Object.values(D.extensions).find(x=>x.upgradeTo===id),collector=f.buildings.find(b=>b.kind==='extractor'&&b.resource===D.resources[r]),spent=b=>!g.entities.some(e=>e.kind==='resource'&&e.resource===r&&e.amount>0&&distance(e,b)<1.6);
    const site=up&&ready.find(b=>b.type===collector?.id&&queueOf(b).length===0&&!dangerous(b,5)&&spent(b));
    if(site)plan({kind:'extension',def:up,building:site,priority:priority+1,key:'deep:'+site.id});
    else{const n=collector&&Object.values(p.knowledge||{}).find(n=>n.kind==='resource'&&n.resource===r&&n.amount<=0&&!dangerous(n,5)&&reachable(n)&&!g.placement(collector.id,p.id,n.x,n.y,false,null,true));if(n)plan({kind:'build',def:collector,near:n,exact:true,priority:priority+1,key:'deep:'+n.id});}

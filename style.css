@@ -254,3 +254,15 @@ button.primary:hover,#start:hover{background:linear-gradient(#3a321e,#221e14);co
 #idleWorkers b{font:500 14px var(--display);min-width:12px}
 #idleWorkers.alert{border-color:var(--gold);color:var(--gold2);box-shadow:0 0 8px #c8a95f40}
 .build-heading{grid-column:1/-1;padding:8px 2px 2px;color:var(--gold);font:400 10px var(--display);letter-spacing:2.5px;text-transform:uppercase;border-bottom:1px solid #2f2b23;line-height:1.2}
+/* Market board: one row per resource, buy and sell side by side. */
+.market-board{grid-column:1/-1;display:grid;gap:4px;margin-top:6px}
+.market-board .mk-head,.market-board .mk-row{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:5px;align-items:stretch}
+.market-board .mk-head span{font:400 9px var(--display);letter-spacing:2px;text-transform:uppercase;color:var(--gold);padding:2px 4px;border-bottom:1px solid #2f2b23}
+.market-board .mk-name{display:flex;flex-direction:column;justify-content:center;padding:4px 6px;background:#15161a;border:1px solid #2a2824;min-width:0}
+.market-board .mk-name i{display:inline-block;width:16px;height:16px;vertical-align:middle}.market-board .mk-name i svg{width:16px;height:16px}
+.market-board .mk-name b{font:600 10.5px var(--ui,inherit);text-transform:uppercase;letter-spacing:.6px;color:#e6dfcd;line-height:1.15;overflow-wrap:anywhere}
+.market-board .mk-name em{font-style:normal;font-size:10px;color:#8f8a7c}.market-board .mk-name em.up{color:#d98a6a}.market-board .mk-name em.down{color:#8fc48a}
+.market-board button{min-height:44px;font:600 12px var(--ui,inherit);color:#efe6cf;background:#1b1c20;border:1px solid #3a352a;cursor:pointer}
+.market-board button:hover:not(:disabled){border-color:var(--gold);background:#24231f}.market-board button:disabled{opacity:.42;cursor:default}
+.market-board .mk-buy::before{content:'Buy ';color:#9b937f;font-weight:400}.market-board .mk-sell::before{content:'Sell ';color:#9b937f;font-weight:400}
+.market-board .mk-note{font-size:10px;line-height:1.35;color:#8f8a7c;padding:4px 2px}

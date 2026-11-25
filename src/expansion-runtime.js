@@ -60,6 +60,7 @@ P.order=function(ids,order){if(['clearMines','unload','extract','trade'].include
 // buying costs, so the market cannot be cycled for profit.
 const MARKET_BASE=[20,30,30,60],MARKET_STEP=.07,MARKET_SETTLE=240,MARKET_SPREAD=.6;
 P.marketPrices=function(){if(!this.market)this.market={price:[...MARKET_BASE],time:this.time};const m=this.market,dt=this.time-m.time;if(dt>0){const k=Math.exp(-dt/MARKET_SETTLE);m.price=m.price.map((v,i)=>MARKET_BASE[i]+(v-MARKET_BASE[i])*k);m.time=this.time;}return m.price;};
+P.basePrice=function(resource){return MARKET_BASE[resource];};
 P.buyPrice=function(resource){return Math.round(this.marketPrices()[resource]);};
 P.sellPrice=function(resource){return Math.max(1,Math.floor(this.marketPrices()[resource]*MARKET_SPREAD));};
 P.hasMarket=function(owner){return this.entities.some(e=>e.owner===owner&&e.kind==='building'&&e.hp>0&&e.progress>=1&&['market','dock'].includes(this.def(e).kind));};

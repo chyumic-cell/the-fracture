@@ -14,7 +14,7 @@ for(const f of Object.keys(D.factions)){
  D.buildings[f+'_market'].cost.forEach((v,i)=>cost[i]+=v);assert.deepEqual(plan.cost,cost,'Two markets must both be reserved');
  g.spawnBuilding(f+'_market',0,20,24,true);g.spawnBuilding(f+'_market',0,36,24,true);const m=g.spawnUnit(f+'_merchant',0,23,24);chart(g);
  p.stock=[0,1000,1000,0];p.tradeCredits=0;m.order={kind:'move',x:63,y:63};const before=[...p.stock];L.step(g,p,A.context(g,p));
- assert.equal(m.order?.kind,'trade',f+' rally order must become trade even with no ore');assert.deepEqual(p.stock,before,'Routing gives no free resources');
+ assert.equal(m.order?.kind,'trade',f+' rally order must become trade even with no ore');assert(p.stock.every((v,i)=>v<=before[i]),'Routing gives no free resources (the AI may sell a surplus on the shared market)');
  for(let i=0;i<1200;i++)g.tick(.1);
  assert(m.tradeEarned>0,f+' merchant must physically complete paid trips');assert(p.tradeCredits>0);
  const credits=p.tradeCredits,ore=p.stock[0];const bought=g.exchange(0,0);assert(bought.ok);assert.equal(p.stock[0],ore+10);assert.equal(p.tradeCredits,credits-bought.price);

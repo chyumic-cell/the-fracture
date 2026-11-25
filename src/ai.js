@@ -172,9 +172,14 @@ function explorationGoal(g,p,u,ctx){const s=state(p),n=g.n,radius=Math.min(10,D.
  // hidden state, and normal route/fog checks still apply.
  if(recon&&recon.x!==undefined&&recon.y!==undefined){const a=Math.atan2(u.y-recon.y,u.x-recon.x),q={x:recon.x+Math.cos(a)*Math.max(5,radius-1),y:recon.y+Math.sin(a)*Math.max(5,radius-1)},key='recon:'+recon.id;
   if(q.x>1&&q.y>1&&q.x<n-1&&q.y<n-1&&g.known(p.id,q)&&!g.blocked(q.x,q.y,!!D.units[u.type].air,p.id)){const path=g.path(u,q);if(dist(path.at(-1)||u,q)<2.5)return{...q,key,recon:true};}}
- for(let y=2;y<n-2;y+=3)for(let x=2;x<n-2;x+=3){const q={x:x+.5,y:y+.5},i=y*n+x;if(g.blocked(q.x,q.y,!!D.units[u.type].air,p.id))continue;const key=x+':'+y;if((s.scoutVisited[key]||0)>g.time)continue;let gain=0,edge=false;for(let dy=-6;dy<=6;dy+=3)for(let dx=-6;dx<=6;dx+=3){const xx=x+dx,yy=y+dy;if(xx<0||yy<0||xx>=n||yy>=n||Math.hypot(dx,dy)>radius)continue;if(!p.explored[yy*n+xx])gain++;else edge=true;}if(!gain||!edge)continue;
+ // Frontier candidates on a 3-tile grid, scored within 90 tiles of the scout first: a whole-map pass is
+ // about 54,000 candidates on Colossal for every scouting decision, and distant ones score far lower
+ // anyway (travel costs .65 a tile). The whole map is scanned only when nothing nearby qualifies.
+ const scan=(x0,x1,y0,y1)=>{for(let y=y0;y<y1;y+=3)for(let x=x0;x<x1;x+=3){const q={x:x+.5,y:y+.5},i=y*n+x;if(g.blocked(q.x,q.y,!!D.units[u.type].air,p.id))continue;const key=x+':'+y;if((s.scoutVisited[key]||0)>g.time)continue;let gain=0,edge=false;for(let dy=-6;dy<=6;dy+=3)for(let dx=-6;dx<=6;dx+=3){const xx=x+dx,yy=y+dy;if(xx<0||yy<0||xx>=n||yy>=n||Math.hypot(dx,dy)>radius)continue;if(!p.explored[yy*n+xx])gain++;else edge=true;}if(!gain||!edge)continue;
  const danger=ctx.enemy.reduce((a,e)=>{const d=g.def(e);return a+(d.damage>0||d.kind==='defense'?Math.max(0,12-dist(q,e))*5:0);},0),separation=(ctx.config.recoveryCoordination?[...ctx.military,...ctx.workers]:ctx.military).some(v=>v.id!==u.id&&v.aiScoutUntil>g.time&&v.aiScoutGoal&&dist(v.aiScoutGoal,q)<9)?25:0,travel=dist(u,q),value=gain*2.5-travel*.65-danger-separation+(p.explored[i]?0:2);
- if(ctx.config.recoveryCoordination)routes.push({...q,key,score:value});if(value>score){score=value;best={...q,key};}}
+ if(ctx.config.recoveryCoordination)routes.push({...q,key,score:value});if(value>score){score=value;best={...q,key};}}};
+ const grid=v=>2+3*Math.max(0,Math.ceil((v-2)/3)),W=90;scan(grid(Math.floor(u.x)-W),Math.min(n-2,Math.floor(u.x)+W),grid(Math.floor(u.y)-W),Math.min(n-2,Math.floor(u.y)+W));
+ if(!best&&!routes.length&&(u.x-W>2||u.y-W>2||u.x+W<n-2||u.y+W<n-2))scan(2,n-2,2,n-2);
  if(ctx.config.recoveryCoordination){best=null;for(const q of routes.sort((a,b)=>b.score-a.score).slice(0,12)){const path=g.path(u,q);if(dist(path.at(-1)||u,q)<2.5){best=q;break;}s.scoutVisited[q.key]=g.time+60;}}
  if(!best){for(const t of ctx.targets){const angle=Math.atan2(u.y-t.y,u.x-t.x),q={x:t.x+Math.cos(angle)*9,y:t.y+Math.sin(angle)*9},key='watch:'+t.id;if((s.scoutVisited[key]||0)>g.time||g.blocked(q.x,q.y,!!D.units[u.type].air,p.id))continue;best={...q,key};break;}}return best;
 }

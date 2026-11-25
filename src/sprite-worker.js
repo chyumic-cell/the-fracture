@@ -1,7 +1,7 @@
 'use strict';
 // Reuse the exact authored meshes in a worker; only the rasterization moves off-thread.
 globalThis.document={createElement:()=>new OffscreenCanvas(1,1)};
-importScripts('combat.js','expansion-data.js','data.js','tactics.js','projectiles.js','map-layouts.js','save-codec.js','simulation.js','environments.js','art.js','sprite-mesh.js','environment-art.js','detail-art.js','specialist-art.js','machine-art.js','symbiote-art.js','primate-art.js','identity-art.js','trade-art.js','expansion-art.js','ruins-art.js');
+importScripts('combat.js','expansion-data.js','data.js','tactics.js','projectiles.js','map-layouts.js','save-codec.js','simulation.js','environments.js','art.js','sprite-mesh.js','environment-art.js','detail-art.js','specialist-art.js','machine-art.js','symbiote-art.js','symbiote-host-art.js','primate-art.js','reptilian-art.js','identity-art.js','trade-art.js','expansion-art.js','ruins-art.js');
 const art=new FractureArt.Art();
 // Jobs arrive as ids, not whole definitions: this worker already imports data.js, so cloning the
 // faction and unit objects across postMessage was pure main-thread cost.

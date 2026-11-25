@@ -2,7 +2,8 @@
 // Symbiotes are a distributed weave of vascular strands inhabiting fused bodies.
 (function(root){
 // Between plant and fungus: root-bark bodies, pale mycelial threads and dry mould blooms.
-const BASE={body:'#5a5f4e',deep:'#373b31',shadow:'#464b3e',tissue:'#777e63',strand:'#cfc9aa',thread:'#a8a584',violet:'#d2c7a6',core:'#e9e3c7',plate:'#51584b'};
+// Converted-host palette (November 2026): maroon flesh, amber porous lattice, olive spore sacs.
+const BASE={body:'#4a2318',deep:'#2a120c',shadow:'#3a1a12',tissue:'#6b3428',strand:'#c99a3a',thread:'#9a6a24',violet:'#e2c45e',core:'#f0d27a',plate:'#5a3022',sac:'#8c8838',sacL:'#c2b95a'};
 // Shared vascular anatomy, distinct host tissue and signaling colors by battlefield role.
 const hostPalettes={
  Harvester:['#6e7156','#8a8c62','#d6cfae','#b6ad84'],Prowler:['#55665c','#6f8470','#c7d2b4','#9aad92'],
@@ -13,7 +14,7 @@ const hostPalettes={
  'Spore Flyer':['#616b5f','#808d72','#cdd4b6','#a2ae92'],'Neural Binder':['#5f6260','#7d8178','#d0cfc2','#a9a2b0'],
  'Root Colossus':['#5d6648','#7d8a5a','#c9cfa4','#9aa578']
 };
-function unitPalette(d){const p=hostPalettes[d.name];if(!p)return BASE;const tint=root.FractureArt.tint;return {...BASE,body:p[0],deep:tint(p[0],-22),shadow:tint(p[0],-10),tissue:p[1],strand:p[2],thread:p[3],plate:tint(p[0],10),violet:tint(p[3],35),core:tint(p[2],25)};}
+function unitPalette(d){return BASE;const p=hostPalettes[d.name];if(!p)return BASE;const tint=root.FractureArt.tint;return {...BASE,body:p[0],deep:tint(p[0],-22),shadow:tint(p[0],-10),tissue:p[1],strand:p[2],thread:p[3],plate:tint(p[0],10),violet:tint(p[3],35),core:tint(p[2],25)};}
 const norm=v=>{const n=Math.hypot(...v)||1;return v.map(x=>x/n);};
 function kit(M,time=0,C=BASE){
  const orb=(x,y,z,rx,ry,rz,c=C.body,m='skin')=>{M.material(m==='skin'?'mold':m);M.orb(x,y,z,rx,ry,rz,c);};
@@ -51,7 +52,7 @@ function kit(M,time=0,C=BASE){
    if(large&&j%2===0){const q=trunk[4],aa=seed+j*2.399;cord([q,[q[0]+Math.cos(aa)*2.1,q[1]+Math.sin(aa)*2.1,q[2]+1.1],[q[0]+Math.cos(aa+.55)*3.3,q[1]+Math.sin(aa+.55)*3.3,q[2]+2.9]],[.6,.34,.035],C.strand);}
   }
   // Uneven powdery colonies and torn films cling to folds, leaving dark exposed tissue.
-  const pale=root.FractureArt.mixColor(C.tissue,'#a5ad88',.28),count=large?n*(M.unit?1:3):M.unit?2:7;
+  const pale=root.FractureArt.mixColor(C.tissue,'#d8a640',.55),count=large?n*(M.unit?1:3):M.unit?2:7;
   for(let j=0;j<count;j++){
    const a=j*2.399+seed,t=-.75+((j*.371+seed*.017)%1+1)%1*1.45;
    const path=[];for(let k=0;k<5;k++){const tt=Math.max(-.96,Math.min(.96,t+(k-2)*.105)),aa=a+Math.sin(k*1.7+j)*.13+k*.12;path.push(surface(tt,aa,.22));}
@@ -71,7 +72,9 @@ function kit(M,time=0,C=BASE){
     for(let k=0;k<3;k++){const tip=[end[0]+Math.cos(a+k)*2.1,end[1]+Math.sin(a-k)*1.9,end[2]-1-k*.6];line([mid,[end[0]+k*.5,end[1]-k*.4,end[2]+1],tip],.3,k%2?C.thread:pale,'mold');}
     const patch=surface(t,a+.16,.35);orb(...patch,.65,.5,1.5,pale,'mold');
    }
-   const q=surface(.14,seed,.2);node(...q,Math.min(1.6,rx*.13));}
+   const q=surface(.14,seed,.2);node(...q,Math.min(1.6,rx*.13));
+   // Olive spore sacs in an amber net cluster on the upper flanks.
+   for(let j=0;j<(M.unit?2:4);j++){const a=seed+j*1.9+.6,p=surface(.35+j*.12,a,.4),r=Math.min(4.5,Math.max(1.6,rx*.18));orb(p[0],p[1],p[2]+r*.3,r,r,r*.95,C.sac||'#8c8838','chitin');orb(p[0]+r*.3,p[1]-r*.25,p[2]+r*.8,r*.35,r*.3,r*.25,C.sacL||'#c2b95a','chitin');for(let k=0;k<4;k++){const b=k*Math.PI/2+a;seg([p[0]+Math.cos(b)*r,p[1]+Math.sin(b)*r,p[2]+r*.3],[p[0]+Math.cos(b+.9)*r*.6,p[1]+Math.sin(b+.9)*r*.6,p[2]+r*1.15],.35,C.thread,'mold');}}}
  };
  const limb=(a,b,w,c=C.tissue)=>{
   const delta=b.map((q,k)=>q-a[k]),axis=norm(delta),u=norm(Math.abs(axis[2])>.9?[1,0,0]:[-axis[1],axis[0],0]);
@@ -125,6 +128,8 @@ function kit(M,time=0,C=BASE){
 }
 function renderUnit(ctx,d,f,angle,action,frame){if(action==='walkReady')action='walk';if(action==='ready'){action='attack';frame=0;}
  if(f.id!=='symbiotes')return false;
+ // Converted-host bodies (concept sheets of November 2026) replace the older root-and-mould forms.
+ if(root.FractureSymbioteHostArt?.render(ctx,d,f,angle,action,frame))return true;
  const C=unitPalette(d);
  const M=new root.FractureSpriteMesh(ctx,angle,action==='dead').pose(d,action,frame),K=kit(M,action==='dead'?0:frame*Math.PI/3,C),{orb,line,cord,node,weave,limb,hand,head,ribs,port,roots,halo,graft}=K;
  // Narrow ownership markings on host tissue preserve readable player color without neon body bands.

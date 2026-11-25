@@ -239,7 +239,7 @@ function unit(M,d){
    face([[x-2,y,z+2],[x+1,y+side*1.6,z+1],[x+2,y+side*.5,z-1],[x,y,z-2]],tint(col,j%2?-18:4),'chitin');
   }
  }
- if(d.faction==='symbiotes'&&!d.naval){
+ if(d.faction==='symbiotes'&&!d.naval&&!root.FractureSymbioteHostArt?.roster[d.name]){
   // Membranous plates and anchor nodes, distinct from mechanical rivets.
   const giant=role==='giant',z=giant?29:19;
   for(const side of [-1,1])for(let j=0;j<3;j++){

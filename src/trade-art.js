@@ -179,9 +179,9 @@ function unit(ctx,d,f,angle,action,frame){
  }
  case 'symbiotes':{
   const colony=root.FractureSymbioteArt.colonyKit(M,action==='dead'?0:frame*Math.PI/3);
-  colony.weave(-7,0,13,14,8,10,'#686c60',7);colony.graft([-3,0,15],[9,0,17],5);M.material('mold');M.loft([[7,0,5,7,7],[8,0,17,5,5],[12,0,28,4,4],[17,0,31,6,4]],'#8d8492',14);colony.weave(18,0,31,5,4,4,'#919481',4);for(const s of [-1,1]){orb(21,s*3,32,.9,.6,1,'#bbbed7','glow');curve([[11,s*4,23],[18,s*9,19],[24,s*9,21],[27,s*6,25]],trim,1.4,'fur');for(let j=0;j<4;j++)curve([[24,s*8,22],[27+j*.7,s*(7+j*.7),25],[29+j*.5,s*(5+j),24]],'#b9afb9',.5,'fur');}
+  colony.weave(-7,0,13,14,8,10,'#4a2318',7);colony.graft([-3,0,15],[9,0,17],5);M.material('mold');M.loft([[7,0,5,7,7],[8,0,17,5,5],[12,0,28,4,4],[17,0,31,6,4]],'#6b3428',14);colony.weave(18,0,31,5,4,4,'#5a2c20',4);for(const s of [-1,1]){orb(21,s*3,32,.9,.6,1,'#c2b95a','glow');curve([[11,s*4,23],[18,s*9,19],[24,s*9,21],[27,s*6,25]],trim,1.4,'fur');for(let j=0;j<4;j++)curve([[24,s*8,22],[27+j*.7,s*(7+j*.7),25],[29+j*.5,s*(5+j),24]],'#c99a3a',.5,'fur');}
   for(let j=0;j<14;j++){const a=j*Math.PI/7,x=-7+Math.cos(a)*12,y=Math.sin(a)*7,off=walk?Math.sin(phase+j)*2:0;curve([[x,y,16],[-12+Math.cos(a)*18,y*1.5,5],[-15+Math.cos(a)*17+off,y*2,1],[-20+Math.cos(a)*15+off,y*2.1,3]],j%3?'#b0a5b0':'#867c96',.85,'fur');}
-  for(const [x,y,z,r]of [[-14,-5,23,5],[-10,4,26,5],[-1,0,26,4]]){colony.graft([x*.8,y*.6,17],[x,y,z],2.7);colony.weave(x,y,z,r,r*.8,r*1.25,'#8b947b',4);for(const s of [-1,1])curve([[x+s*r,y,z-4],[x+s*r,y,z+3],[x,y,z+r*1.3]],trim,.6,'fur');}for(let j=0;j<9;j++)curve([[-15+j*2,-6,13],[-13+j*2,-7,24],[1+j*1.4,-4,28],[14,-2,33]],'#9b8da7',.55,'fur');orb(1,-7,17,4,1.6,3,f.color,'skin');zones=[{x:[-3,5],y:[-9,9],z:[14,20]},{x:[5,11],y:[-6,6],z:[17,19]}];break;
+  for(const [x,y,z,r]of [[-14,-5,23,5],[-10,4,26,5],[-1,0,26,4]]){colony.graft([x*.8,y*.6,17],[x,y,z],2.7);colony.weave(x,y,z,r,r*.8,r*1.25,'#8c8838',4);for(const s of [-1,1])curve([[x+s*r,y,z-4],[x+s*r,y,z+3],[x,y,z+r*1.3]],trim,.6,'fur');}for(let j=0;j<9;j++)curve([[-15+j*2,-6,13],[-13+j*2,-7,24],[1+j*1.4,-4,28],[14,-2,33]],'#c99a3a',.55,'fur');orb(1,-7,17,4,1.6,3,f.color,'skin');zones=[{x:[-3,5],y:[-9,9],z:[14,20]},{x:[5,11],y:[-6,6],z:[17,19]}];break;
  }
  }
  M.ownership(zones);M.finish();return true;
